@@ -1,0 +1,2876 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ricardo Accioly">
+<meta name="dcterms.date" content="2022-08-12">
+
+<title>IME05-12547 - Regressão Linear</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../semanas/Aula07.2.html" rel="next">
+<link href="../semanas/Aula06.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<meta name="twitter:title" content="IME05-12547 - Regressão Linear">
+<meta name="twitter:description" content="O conjunto de dados contém estatísticas sobre as vendas de um produto em 200 diferentes mercados, juntamente com orçamentos publicitários em cada um desses mercados, para diferentes canais de mídia…">
+<meta name="twitter:image" content="../images/md.png">
+<meta name="twitter:creator" content="@r_accioly">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Regressão Linear</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../" class="sidebar-logo-link">
+      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/raccioly20" title="GitHub" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/r_accioly" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">Informação da disciplina</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">Visão Geral</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Cronograma</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">RStudio Cloud</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">Acesso</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Conteúdo Semanal</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link">1ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula02.html" class="sidebar-item-text sidebar-link">2ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula03.html" class="sidebar-item-text sidebar-link">3ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula04.html" class="sidebar-item-text sidebar-link">4ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula05.html" class="sidebar-item-text sidebar-link">5ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula06.html" class="sidebar-item-text sidebar-link">6ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.1.html" class="sidebar-item-text sidebar-link active">7ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.2.html" class="sidebar-item-text sidebar-link">8ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.3.html" class="sidebar-item-text sidebar-link">9ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.3A.html" class="sidebar-item-text sidebar-link">10ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.4.html" class="sidebar-item-text sidebar-link">11ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula08.html" class="sidebar-item-text sidebar-link">12ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula09.html" class="sidebar-item-text sidebar-link">13ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula09A.html" class="sidebar-item-text sidebar-link">14ª Semana</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula10.html" class="sidebar-item-text sidebar-link">15ª Semana</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#carregando-bibliotecas" id="toc-carregando-bibliotecas" class="nav-link active" data-scroll-target="#carregando-bibliotecas">Carregando bibliotecas</a></li>
+  <li><a href="#dados-de-propaganda" id="toc-dados-de-propaganda" class="nav-link" data-scroll-target="#dados-de-propaganda">Dados de propaganda</a></li>
+  <li><a href="#renomeando" id="toc-renomeando" class="nav-link" data-scroll-target="#renomeando">Renomeando</a></li>
+  <li><a href="#sumario" id="toc-sumario" class="nav-link" data-scroll-target="#sumario">Sumario</a></li>
+  <li><a href="#linhas-inicias" id="toc-linhas-inicias" class="nav-link" data-scroll-target="#linhas-inicias">Linhas inicias</a></li>
+  <li><a href="#criando-amostra-de-treino-e-teste" id="toc-criando-amostra-de-treino-e-teste" class="nav-link" data-scroll-target="#criando-amostra-de-treino-e-teste">Criando amostra de treino e teste</a></li>
+  <li><a href="#primeira-visualização-dos-dados" id="toc-primeira-visualização-dos-dados" class="nav-link" data-scroll-target="#primeira-visualização-dos-dados">Primeira visualização dos dados</a></li>
+  <li><a href="#usando-o-ggplot" id="toc-usando-o-ggplot" class="nav-link" data-scroll-target="#usando-o-ggplot">Usando o ggplot</a></li>
+  <li><a href="#matriz-de-dispersão" id="toc-matriz-de-dispersão" class="nav-link" data-scroll-target="#matriz-de-dispersão">Matriz de dispersão</a></li>
+  <li><a href="#o-mod-regressão" id="toc-o-mod-regressão" class="nav-link" data-scroll-target="#o-mod-regressão">1o Mod Regressão</a></li>
+  <li><a href="#outra-forma-de-representação-do-1o-modelo" id="toc-outra-forma-de-representação-do-1o-modelo" class="nav-link" data-scroll-target="#outra-forma-de-representação-do-1o-modelo">Outra forma de representação do 1o Modelo</a></li>
+  <li><a href="#extraindo-informações-do-1o-ajuste" id="toc-extraindo-informações-do-1o-ajuste" class="nav-link" data-scroll-target="#extraindo-informações-do-1o-ajuste">Extraindo informações do 1o ajuste</a></li>
+  <li><a href="#intervalo-de-confiança" id="toc-intervalo-de-confiança" class="nav-link" data-scroll-target="#intervalo-de-confiança">Intervalo de Confiança</a></li>
+  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">Anova</a></li>
+  <li><a href="#previsões" id="toc-previsões" class="nav-link" data-scroll-target="#previsões">Previsões</a></li>
+  <li><a href="#calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste" id="toc-calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste" class="nav-link" data-scroll-target="#calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste">Calculando o erro padrão do resíduo com amostra de teste</a></li>
+  <li><a href="#análise-do-modelo" id="toc-análise-do-modelo" class="nav-link" data-scroll-target="#análise-do-modelo">Análise do modelo</a></li>
+  <li><a href="#análise-do-modelo-2" id="toc-análise-do-modelo-2" class="nav-link" data-scroll-target="#análise-do-modelo-2">Análise do modelo 2</a></li>
+  <li><a href="#o-modelo-de-regressão" id="toc-o-modelo-de-regressão" class="nav-link" data-scroll-target="#o-modelo-de-regressão">2o Modelo de Regressão</a></li>
+  <li><a href="#outra-forma-de-representação-do-2o-modelo" id="toc-outra-forma-de-representação-do-2o-modelo" class="nav-link" data-scroll-target="#outra-forma-de-representação-do-2o-modelo">Outra forma de representação do 2o Modelo</a></li>
+  <li><a href="#calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1" id="toc-calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1" class="nav-link" data-scroll-target="#calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1">Calculando o erro padrão do resíduo com amostra de teste</a></li>
+  <li><a href="#análise-de-resíduos" id="toc-análise-de-resíduos" class="nav-link" data-scroll-target="#análise-de-resíduos">Análise de Resíduos</a></li>
+  <li><a href="#o-modelo-de-regressão-1" id="toc-o-modelo-de-regressão-1" class="nav-link" data-scroll-target="#o-modelo-de-regressão-1">3o Modelo de Regressão</a></li>
+  <li><a href="#outra-forma-de-representação-do-3o-modelo" id="toc-outra-forma-de-representação-do-3o-modelo" class="nav-link" data-scroll-target="#outra-forma-de-representação-do-3o-modelo">Outra forma de representação do 3o Modelo</a></li>
+  <li><a href="#calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2" id="toc-calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2" class="nav-link" data-scroll-target="#calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2">Calculando o erro padrão do resíduo com amostra de teste</a></li>
+  <li><a href="#análise-de-resíduos-1" id="toc-análise-de-resíduos-1" class="nav-link" data-scroll-target="#análise-de-resíduos-1">Análise de Resíduos</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Regressão Linear</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ricardo Accioly </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 12, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="carregando-bibliotecas" class="level2">
+<h2 class="anchored" data-anchor-id="carregando-bibliotecas">Carregando bibliotecas</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dados-de-propaganda" class="level2">
+<h2 class="anchored" data-anchor-id="dados-de-propaganda">Dados de propaganda</h2>
+<p>O conjunto de dados contém estatísticas sobre as vendas de um produto em 200 diferentes mercados, juntamente com orçamentos publicitários em cada um desses mercados, para diferentes canais de mídia: TV, rádio e jornal. As vendas estão em milhares de unidades e o orçamento está em milhares de dólares.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>propaganda <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Propaganda.xlsx"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(propaganda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       TV             Radio          Newspaper          Sales      
+ Min.   :  0.70   Min.   : 0.000   Min.   :  0.30   Min.   : 1.60  
+ 1st Qu.: 74.38   1st Qu.: 9.975   1st Qu.: 12.75   1st Qu.:10.38  
+ Median :149.75   Median :22.900   Median : 25.75   Median :12.90  
+ Mean   :147.04   Mean   :23.264   Mean   : 30.55   Mean   :14.02  
+ 3rd Qu.:218.82   3rd Qu.:36.525   3rd Qu.: 45.10   3rd Qu.:17.40  
+ Max.   :296.40   Max.   :49.600   Max.   :114.00   Max.   :27.00  </code></pre>
+</div>
+</div>
+</section>
+<section id="renomeando" class="level2">
+<h2 class="anchored" data-anchor-id="renomeando">Renomeando</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>propaganda <span class="ot">&lt;-</span> propaganda <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Jornal =</span> Newspaper, <span class="at">Vendas =</span> Sales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sumario" class="level2">
+<h2 class="anchored" data-anchor-id="sumario">Sumario</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(propaganda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       TV             Radio            Jornal           Vendas     
+ Min.   :  0.70   Min.   : 0.000   Min.   :  0.30   Min.   : 1.60  
+ 1st Qu.: 74.38   1st Qu.: 9.975   1st Qu.: 12.75   1st Qu.:10.38  
+ Median :149.75   Median :22.900   Median : 25.75   Median :12.90  
+ Mean   :147.04   Mean   :23.264   Mean   : 30.55   Mean   :14.02  
+ 3rd Qu.:218.82   3rd Qu.:36.525   3rd Qu.: 45.10   3rd Qu.:17.40  
+ Max.   :296.40   Max.   :49.600   Max.   :114.00   Max.   :27.00  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(propaganda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 200</code></pre>
+</div>
+</div>
+</section>
+<section id="linhas-inicias" class="level2">
+<h2 class="anchored" data-anchor-id="linhas-inicias">Linhas inicias</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(propaganda, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div id="poxcrhjauy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#poxcrhjauy .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#poxcrhjauy .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#poxcrhjauy .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#poxcrhjauy .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#poxcrhjauy .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#poxcrhjauy .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#poxcrhjauy .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#poxcrhjauy .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#poxcrhjauy .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#poxcrhjauy .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#poxcrhjauy .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#poxcrhjauy .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#poxcrhjauy .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#poxcrhjauy .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#poxcrhjauy .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#poxcrhjauy .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#poxcrhjauy .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#poxcrhjauy .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#poxcrhjauy .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#poxcrhjauy .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#poxcrhjauy .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#poxcrhjauy .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#poxcrhjauy .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#poxcrhjauy .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#poxcrhjauy .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#poxcrhjauy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#poxcrhjauy .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#poxcrhjauy .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#poxcrhjauy .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#poxcrhjauy .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#poxcrhjauy .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#poxcrhjauy .gt_left {
+  text-align: left;
+}
+
+#poxcrhjauy .gt_center {
+  text-align: center;
+}
+
+#poxcrhjauy .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#poxcrhjauy .gt_font_normal {
+  font-weight: normal;
+}
+
+#poxcrhjauy .gt_font_bold {
+  font-weight: bold;
+}
+
+#poxcrhjauy .gt_font_italic {
+  font-style: italic;
+}
+
+#poxcrhjauy .gt_super {
+  font-size: 65%;
+}
+
+#poxcrhjauy .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#poxcrhjauy .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#poxcrhjauy .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#poxcrhjauy .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#poxcrhjauy .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#poxcrhjauy .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">TV</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Radio</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Jornal</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Vendas</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">230.1</td>
+<td class="gt_row gt_right">37.8</td>
+<td class="gt_row gt_right">69.2</td>
+<td class="gt_row gt_right">22.1</td></tr>
+    <tr><td class="gt_row gt_right">44.5</td>
+<td class="gt_row gt_right">39.3</td>
+<td class="gt_row gt_right">45.1</td>
+<td class="gt_row gt_right">10.4</td></tr>
+    <tr><td class="gt_row gt_right">17.2</td>
+<td class="gt_row gt_right">45.9</td>
+<td class="gt_row gt_right">69.3</td>
+<td class="gt_row gt_right">9.3</td></tr>
+    <tr><td class="gt_row gt_right">151.5</td>
+<td class="gt_row gt_right">41.3</td>
+<td class="gt_row gt_right">58.5</td>
+<td class="gt_row gt_right">18.5</td></tr>
+    <tr><td class="gt_row gt_right">180.8</td>
+<td class="gt_row gt_right">10.8</td>
+<td class="gt_row gt_right">58.4</td>
+<td class="gt_row gt_right">12.9</td></tr>
+    <tr><td class="gt_row gt_right">8.7</td>
+<td class="gt_row gt_right">48.9</td>
+<td class="gt_row gt_right">75.0</td>
+<td class="gt_row gt_right">7.2</td></tr>
+    <tr><td class="gt_row gt_right">57.5</td>
+<td class="gt_row gt_right">32.8</td>
+<td class="gt_row gt_right">23.5</td>
+<td class="gt_row gt_right">11.8</td></tr>
+    <tr><td class="gt_row gt_right">120.2</td>
+<td class="gt_row gt_right">19.6</td>
+<td class="gt_row gt_right">11.6</td>
+<td class="gt_row gt_right">13.2</td></tr>
+    <tr><td class="gt_row gt_right">8.6</td>
+<td class="gt_row gt_right">2.1</td>
+<td class="gt_row gt_right">1.0</td>
+<td class="gt_row gt_right">4.8</td></tr>
+    <tr><td class="gt_row gt_right">199.8</td>
+<td class="gt_row gt_right">2.6</td>
+<td class="gt_row gt_right">21.2</td>
+<td class="gt_row gt_right">10.6</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="criando-amostra-de-treino-e-teste" class="level2">
+<h2 class="anchored" data-anchor-id="criando-amostra-de-treino-e-teste">Criando amostra de treino e teste</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> propaganda<span class="sc">$</span>Vendas</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>indice_teste <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(y, <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> <span class="fl">0.40</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> propaganda <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>indice_teste)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> propaganda <span class="sc">%&gt;%</span> <span class="fu">slice</span>(indice_teste)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_treino)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [119 × 4] (S3: tbl_df/tbl/data.frame)
+ $ TV    : num [1:119] 230.1 151.5 180.8 199.8 66.1 ...
+ $ Radio : num [1:119] 37.8 41.3 10.8 2.6 5.8 35.1 7.6 47.7 20.5 23.9 ...
+ $ Jornal: num [1:119] 69.2 58.5 58.4 21.2 24.2 65.9 7.2 52.9 18.3 19.1 ...
+ $ Vendas: num [1:119] 22.1 18.5 12.9 10.6 8.6 9.2 9.7 22.4 11.3 14.6 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_teste)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [81 × 4] (S3: tbl_df/tbl/data.frame)
+ $ TV    : num [1:81] 44.5 17.2 8.7 57.5 120.2 ...
+ $ Radio : num [1:81] 39.3 45.9 48.9 32.8 19.6 2.1 24 32.9 36.6 39.6 ...
+ $ Jornal: num [1:81] 45.1 69.3 75 23.5 11.6 1 4 46 114 55.8 ...
+ $ Vendas: num [1:81] 10.4 9.3 7.2 11.8 13.2 4.8 17.4 19 12.5 24.4 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div id="ikcyvpxrcq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ikcyvpxrcq .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ikcyvpxrcq .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ikcyvpxrcq .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ikcyvpxrcq .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ikcyvpxrcq .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ikcyvpxrcq .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ikcyvpxrcq .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ikcyvpxrcq .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ikcyvpxrcq .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ikcyvpxrcq .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ikcyvpxrcq .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ikcyvpxrcq .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ikcyvpxrcq .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ikcyvpxrcq .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ikcyvpxrcq .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ikcyvpxrcq .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ikcyvpxrcq .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ikcyvpxrcq .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ikcyvpxrcq .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ikcyvpxrcq .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ikcyvpxrcq .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ikcyvpxrcq .gt_left {
+  text-align: left;
+}
+
+#ikcyvpxrcq .gt_center {
+  text-align: center;
+}
+
+#ikcyvpxrcq .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ikcyvpxrcq .gt_font_normal {
+  font-weight: normal;
+}
+
+#ikcyvpxrcq .gt_font_bold {
+  font-weight: bold;
+}
+
+#ikcyvpxrcq .gt_font_italic {
+  font-style: italic;
+}
+
+#ikcyvpxrcq .gt_super {
+  font-size: 65%;
+}
+
+#ikcyvpxrcq .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#ikcyvpxrcq .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#ikcyvpxrcq .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ikcyvpxrcq .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#ikcyvpxrcq .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#ikcyvpxrcq .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">TV</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Radio</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Jornal</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Vendas</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">230.1</td>
+<td class="gt_row gt_right">37.8</td>
+<td class="gt_row gt_right">69.2</td>
+<td class="gt_row gt_right">22.1</td></tr>
+    <tr><td class="gt_row gt_right">151.5</td>
+<td class="gt_row gt_right">41.3</td>
+<td class="gt_row gt_right">58.5</td>
+<td class="gt_row gt_right">18.5</td></tr>
+    <tr><td class="gt_row gt_right">180.8</td>
+<td class="gt_row gt_right">10.8</td>
+<td class="gt_row gt_right">58.4</td>
+<td class="gt_row gt_right">12.9</td></tr>
+    <tr><td class="gt_row gt_right">199.8</td>
+<td class="gt_row gt_right">2.6</td>
+<td class="gt_row gt_right">21.2</td>
+<td class="gt_row gt_right">10.6</td></tr>
+    <tr><td class="gt_row gt_right">66.1</td>
+<td class="gt_row gt_right">5.8</td>
+<td class="gt_row gt_right">24.2</td>
+<td class="gt_row gt_right">8.6</td></tr>
+    <tr><td class="gt_row gt_right">23.8</td>
+<td class="gt_row gt_right">35.1</td>
+<td class="gt_row gt_right">65.9</td>
+<td class="gt_row gt_right">9.2</td></tr>
+    <tr><td class="gt_row gt_right">97.5</td>
+<td class="gt_row gt_right">7.6</td>
+<td class="gt_row gt_right">7.2</td>
+<td class="gt_row gt_right">9.7</td></tr>
+    <tr><td class="gt_row gt_right">195.4</td>
+<td class="gt_row gt_right">47.7</td>
+<td class="gt_row gt_right">52.9</td>
+<td class="gt_row gt_right">22.4</td></tr>
+    <tr><td class="gt_row gt_right">69.2</td>
+<td class="gt_row gt_right">20.5</td>
+<td class="gt_row gt_right">18.3</td>
+<td class="gt_row gt_right">11.3</td></tr>
+    <tr><td class="gt_row gt_right">147.3</td>
+<td class="gt_row gt_right">23.9</td>
+<td class="gt_row gt_right">19.1</td>
+<td class="gt_row gt_right">14.6</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="primeira-visualização-dos-dados" class="level2">
+<h2 class="anchored" data-anchor-id="primeira-visualização-dos-dados">Primeira visualização dos dados</h2>
+<p>Aqui estou usando uma função do pacote caret que de uma maneira simples apresenta a relação entre a variável resposta e suas possíveis variáveis explicativas</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">featurePlot</span>(<span class="at">x =</span> conj_treino[ , <span class="fu">c</span>(<span class="st">"TV"</span>, <span class="st">"Radio"</span>, <span class="st">"Jornal"</span>)], <span class="at">y =</span> conj_treino<span class="sc">$</span>Vendas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/caret-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="usando-o-ggplot" class="level2">
+<h2 class="anchored" data-anchor-id="usando-o-ggplot">Usando o ggplot</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div id="wcjxydfocs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#wcjxydfocs .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wcjxydfocs .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wcjxydfocs .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wcjxydfocs .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wcjxydfocs .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wcjxydfocs .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wcjxydfocs .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wcjxydfocs .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wcjxydfocs .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wcjxydfocs .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wcjxydfocs .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wcjxydfocs .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wcjxydfocs .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wcjxydfocs .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wcjxydfocs .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wcjxydfocs .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wcjxydfocs .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wcjxydfocs .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wcjxydfocs .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wcjxydfocs .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wcjxydfocs .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wcjxydfocs .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wcjxydfocs .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wcjxydfocs .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wcjxydfocs .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wcjxydfocs .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wcjxydfocs .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wcjxydfocs .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wcjxydfocs .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wcjxydfocs .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wcjxydfocs .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wcjxydfocs .gt_left {
+  text-align: left;
+}
+
+#wcjxydfocs .gt_center {
+  text-align: center;
+}
+
+#wcjxydfocs .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wcjxydfocs .gt_font_normal {
+  font-weight: normal;
+}
+
+#wcjxydfocs .gt_font_bold {
+  font-weight: bold;
+}
+
+#wcjxydfocs .gt_font_italic {
+  font-style: italic;
+}
+
+#wcjxydfocs .gt_super {
+  font-size: 65%;
+}
+
+#wcjxydfocs .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#wcjxydfocs .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#wcjxydfocs .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wcjxydfocs .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#wcjxydfocs .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#wcjxydfocs .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">TV</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Radio</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Jornal</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Vendas</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">230.1</td>
+<td class="gt_row gt_right">37.8</td>
+<td class="gt_row gt_right">69.2</td>
+<td class="gt_row gt_right">22.1</td></tr>
+    <tr><td class="gt_row gt_right">151.5</td>
+<td class="gt_row gt_right">41.3</td>
+<td class="gt_row gt_right">58.5</td>
+<td class="gt_row gt_right">18.5</td></tr>
+    <tr><td class="gt_row gt_right">180.8</td>
+<td class="gt_row gt_right">10.8</td>
+<td class="gt_row gt_right">58.4</td>
+<td class="gt_row gt_right">12.9</td></tr>
+    <tr><td class="gt_row gt_right">199.8</td>
+<td class="gt_row gt_right">2.6</td>
+<td class="gt_row gt_right">21.2</td>
+<td class="gt_row gt_right">10.6</td></tr>
+    <tr><td class="gt_row gt_right">66.1</td>
+<td class="gt_row gt_right">5.8</td>
+<td class="gt_row gt_right">24.2</td>
+<td class="gt_row gt_right">8.6</td></tr>
+    <tr><td class="gt_row gt_right">23.8</td>
+<td class="gt_row gt_right">35.1</td>
+<td class="gt_row gt_right">65.9</td>
+<td class="gt_row gt_right">9.2</td></tr>
+    <tr><td class="gt_row gt_right">97.5</td>
+<td class="gt_row gt_right">7.6</td>
+<td class="gt_row gt_right">7.2</td>
+<td class="gt_row gt_right">9.7</td></tr>
+    <tr><td class="gt_row gt_right">195.4</td>
+<td class="gt_row gt_right">47.7</td>
+<td class="gt_row gt_right">52.9</td>
+<td class="gt_row gt_right">22.4</td></tr>
+    <tr><td class="gt_row gt_right">69.2</td>
+<td class="gt_row gt_right">20.5</td>
+<td class="gt_row gt_right">18.3</td>
+<td class="gt_row gt_right">11.3</td></tr>
+    <tr><td class="gt_row gt_right">147.3</td>
+<td class="gt_row gt_right">23.9</td>
+<td class="gt_row gt_right">19.1</td>
+<td class="gt_row gt_right">14.6</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>c_treino_pivot <span class="ot">&lt;-</span> conj_treino <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">!</span>Vendas, <span class="at">names_to=</span><span class="st">"Tipo"</span>, <span class="at">values_to=</span><span class="st">"Orçamento"</span> ) </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(c_treino_pivot, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div id="eqztfiyvbl" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#eqztfiyvbl .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#eqztfiyvbl .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eqztfiyvbl .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#eqztfiyvbl .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#eqztfiyvbl .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eqztfiyvbl .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eqztfiyvbl .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#eqztfiyvbl .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#eqztfiyvbl .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#eqztfiyvbl .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#eqztfiyvbl .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#eqztfiyvbl .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#eqztfiyvbl .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#eqztfiyvbl .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#eqztfiyvbl .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#eqztfiyvbl .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#eqztfiyvbl .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eqztfiyvbl .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#eqztfiyvbl .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#eqztfiyvbl .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eqztfiyvbl .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#eqztfiyvbl .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#eqztfiyvbl .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eqztfiyvbl .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eqztfiyvbl .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#eqztfiyvbl .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#eqztfiyvbl .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eqztfiyvbl .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#eqztfiyvbl .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eqztfiyvbl .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#eqztfiyvbl .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eqztfiyvbl .gt_left {
+  text-align: left;
+}
+
+#eqztfiyvbl .gt_center {
+  text-align: center;
+}
+
+#eqztfiyvbl .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#eqztfiyvbl .gt_font_normal {
+  font-weight: normal;
+}
+
+#eqztfiyvbl .gt_font_bold {
+  font-weight: bold;
+}
+
+#eqztfiyvbl .gt_font_italic {
+  font-style: italic;
+}
+
+#eqztfiyvbl .gt_super {
+  font-size: 65%;
+}
+
+#eqztfiyvbl .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#eqztfiyvbl .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#eqztfiyvbl .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#eqztfiyvbl .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#eqztfiyvbl .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#eqztfiyvbl .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Vendas</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Tipo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Orçamento</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">22.1</td>
+<td class="gt_row gt_left">TV</td>
+<td class="gt_row gt_right">230.1</td></tr>
+    <tr><td class="gt_row gt_right">22.1</td>
+<td class="gt_row gt_left">Radio</td>
+<td class="gt_row gt_right">37.8</td></tr>
+    <tr><td class="gt_row gt_right">22.1</td>
+<td class="gt_row gt_left">Jornal</td>
+<td class="gt_row gt_right">69.2</td></tr>
+    <tr><td class="gt_row gt_right">18.5</td>
+<td class="gt_row gt_left">TV</td>
+<td class="gt_row gt_right">151.5</td></tr>
+    <tr><td class="gt_row gt_right">18.5</td>
+<td class="gt_row gt_left">Radio</td>
+<td class="gt_row gt_right">41.3</td></tr>
+    <tr><td class="gt_row gt_right">18.5</td>
+<td class="gt_row gt_left">Jornal</td>
+<td class="gt_row gt_right">58.5</td></tr>
+    <tr><td class="gt_row gt_right">12.9</td>
+<td class="gt_row gt_left">TV</td>
+<td class="gt_row gt_right">180.8</td></tr>
+    <tr><td class="gt_row gt_right">12.9</td>
+<td class="gt_row gt_left">Radio</td>
+<td class="gt_row gt_right">10.8</td></tr>
+    <tr><td class="gt_row gt_right">12.9</td>
+<td class="gt_row gt_left">Jornal</td>
+<td class="gt_row gt_right">58.4</td></tr>
+    <tr><td class="gt_row gt_right">10.6</td>
+<td class="gt_row gt_left">TV</td>
+<td class="gt_row gt_right">199.8</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">!</span>Vendas, <span class="at">names_to=</span><span class="st">"Tipo"</span>, <span class="at">values_to=</span><span class="st">"Orçamento"</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Orçamento, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">facet_wrap</span>( <span class="sc">~</span> Tipo, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Orçamento (1000 US$)"</span>, </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> <span class="st">"Vendas (em 1000 unidades vendidas)"</span>, </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Vendas vs Propaganda"</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                 ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/ggplot-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="matriz-de-dispersão" class="level2">
+<h2 class="anchored" data-anchor-id="matriz-de-dispersão">Matriz de dispersão</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs.panels</span>(conj_treino, </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">"pearson"</span>, <span class="co"># metodo de correlação</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">hist.col =</span> <span class="st">"#00AFBB"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">density =</span> <span class="cn">TRUE</span>,  <span class="co"># mostra graficos de densidade</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">ellipses =</span> <span class="cn">FALSE</span> <span class="co"># mostra elipses de correlação</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/splom-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="o-mod-regressão" class="level2">
+<h2 class="anchored" data-anchor-id="o-mod-regressão">1o Mod Regressão</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> TV, <span class="at">data =</span> conj_treino)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "coefficients"  "residuals"     "effects"       "rank"         
+ [5] "fitted.values" "assign"        "qr"            "df.residual"  
+ [9] "xlevels"       "call"          "terms"         "model"        </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod1<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod1<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Vendas ~ TV, data = conj_treino)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.6383 -1.9426 -0.0565  1.7033  7.5277 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 6.929269   0.598642   11.57   &lt;2e-16 ***
+TV          0.046471   0.003471   13.39   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.167 on 117 degrees of freedom
+Multiple R-squared:  0.605, Adjusted R-squared:  0.6017 
+F-statistic: 179.2 on 1 and 117 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(conj_treino, <span class="fu">aes</span>(<span class="at">x=</span>TV, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">"blue"</span> ) <span class="sc">+</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/1a_regressão-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="outra-forma-de-representação-do-1o-modelo" class="level2">
+<h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-1o-modelo">Outra forma de representação do 1o Modelo</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> TV, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F, <span class="at">id.n=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/1areg-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="extraindo-informações-do-1o-ajuste" class="level2">
+<h2 class="anchored" data-anchor-id="extraindo-informações-do-1o-ajuste">Extraindo informações do 1o ajuste</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.167319</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.605027</code></pre>
+</div>
+</div>
+</section>
+<section id="intervalo-de-confiança" class="level2">
+<h2 class="anchored" data-anchor-id="intervalo-de-confiança">Intervalo de Confiança</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Vendas ~ TV, data = conj_treino)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.6383 -1.9426 -0.0565  1.7033  7.5277 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 6.929269   0.598642   11.57   &lt;2e-16 ***
+TV          0.046471   0.003471   13.39   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.167 on 117 degrees of freedom
+Multiple R-squared:  0.605, Adjusted R-squared:  0.6017 
+F-statistic: 179.2 on 1 and 117 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %     97.5 %
+(Intercept) 5.74368904 8.11484821
+TV          0.03959625 0.05334545</code></pre>
+</div>
+</div>
+</section>
+<section id="anova" class="level2">
+<h2 class="anchored" data-anchor-id="anova">Anova</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: Vendas
+           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+TV          1 1798.0 1797.95  179.22 &lt; 2.2e-16 ***
+Residuals 117 1173.7   10.03                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section id="previsões" class="level2">
+<h2 class="anchored" data-anchor-id="previsões">Previsões</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#?predict</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod1, <span class="fu">data.frame</span>(<span class="at">TV=</span><span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">150</span>, <span class="dv">250</span>)), <span class="at">interval =</span> <span class="st">"prediction"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        fit       lwr      upr
+1  9.252811  2.915787 15.58983
+2 13.899896  7.600884 20.19891
+3 18.546982 12.211175 24.88279</code></pre>
+</div>
+</div>
+</section>
+<section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste" class="level2">
+<h2 class="anchored" data-anchor-id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste">Calculando o erro padrão do resíduo com amostra de teste</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod1, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.41382</code></pre>
+</div>
+</div>
+</section>
+<section id="análise-do-modelo" class="level2">
+<h2 class="anchored" data-anchor-id="análise-do-modelo">Análise do modelo</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/residuos1a-1.png" class="img-fluid" width="768"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/residuos1a-2.png" class="img-fluid" width="768"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/residuos1a-3.png" class="img-fluid" width="768"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/residuos1a-4.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="análise-do-modelo-2" class="level2">
+<h2 class="anchored" data-anchor-id="análise-do-modelo-2">Análise do modelo 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/residuos1b-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="o-modelo-de-regressão" class="level2">
+<h2 class="anchored" data-anchor-id="o-modelo-de-regressão">2o Modelo de Regressão</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Vendas ~ Radio, data = conj_treino)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-16.396  -1.851   0.675   2.522   7.451 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  9.22746    0.64377  14.333  &lt; 2e-16 ***
+Radio        0.22144    0.02515   8.806 1.38e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.908 on 117 degrees of freedom
+Multiple R-squared:  0.3986,    Adjusted R-squared:  0.3935 
+F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Radio, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">"blue"</span> ) <span class="sc">+</span> </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/2modelo-regressão-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="outra-forma-de-representação-do-2o-modelo" class="level2">
+<h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-2o-modelo">Outra forma de representação do 2o Modelo</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F, <span class="at">id.n=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/2areg-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1" class="level2">
+<h2 class="anchored" data-anchor-id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1">Calculando o erro padrão do resíduo com amostra de teste</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod2, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.808117</code></pre>
+</div>
+</div>
+</section>
+<section id="análise-de-resíduos" class="level2">
+<h2 class="anchored" data-anchor-id="análise-de-resíduos">Análise de Resíduos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/residuos2-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="o-modelo-de-regressão-1" class="level2">
+<h2 class="anchored" data-anchor-id="o-modelo-de-regressão-1">3o Modelo de Regressão</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Vendas ~ Jornal, data = conj_treino)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11.0331  -3.2104  -0.8491   3.0389  13.0002 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 12.08457    0.80845  14.948  &lt; 2e-16 ***
+Jornal       0.06305    0.02290   2.753  0.00685 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.884 on 117 degrees of freedom
+Multiple R-squared:  0.06084,   Adjusted R-squared:  0.05281 
+F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Jornal, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">"blue"</span> ) <span class="sc">+</span> </span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/3omodelo-regressao-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="outra-forma-de-representação-do-3o-modelo" class="level2">
+<h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-3o-modelo">Outra forma de representação do 3o Modelo</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F, <span class="at">id.n=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/3areg-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2" class="level2">
+<h2 class="anchored" data-anchor-id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2">Calculando o erro padrão do resíduo com amostra de teste</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod3, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.38693</code></pre>
+</div>
+</div>
+</section>
+<section id="análise-de-resíduos-1" class="level2">
+<h2 class="anchored" data-anchor-id="análise-de-resíduos-1">Análise de Resíduos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/residuos3-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../semanas/Aula06.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">6ª Semana</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../semanas/Aula07.2.html" class="pagination-link">
+        <span class="nav-page-text">8ª Semana</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Baseado em https://sta210-s22.github.io/website/</div>   
+  </div>
+</footer>
+
+
+
+</body></html>
