@@ -22,7 +22,6 @@ knitr::opts_chunk$set(fig.width = 9,
 
 ## Carregando Bibliotecas
 
-
 ```{r bibliotecas, message=FALSE}
 library(tidyverse)
 library(ISLR)
@@ -33,7 +32,6 @@ head(Default)
 ```
 
 ## Manipulando os dados
-
 
 ```{r inadimplente}
 credito <- tibble(Default)
@@ -56,7 +54,6 @@ summary(credito)
 
 ```
 
-
 ## Treino e Teste
 
 ```{r conjuntos-treino-teste, message=FALSE}
@@ -72,7 +69,6 @@ summary(conj_treino)
 summary(conj_teste)
 
 ```
-
 
 ## Balanço e receita
 
@@ -90,11 +86,7 @@ featurePlot(x = conj_treino[, c("balanco", "receita")],
 
 ```
 
-
-
-
 ## Bayes Ingênuo (Naive Bayes)
-
 
 ```{r Bayes}
 params <- conj_treino %>% 
@@ -117,7 +109,6 @@ confusionMatrix(factor(y_chapeu_bayes), conj_teste$inadimplente,  positive="Sim"
 
 ```
 
-
 ## Calcula Erro
 
 ```{r erro_class}
@@ -128,9 +119,7 @@ calc_erro_class <- function(real, previsto) {
 calc_erro_class(conj_teste$inadimplente, y_chapeu_bayes)
 ```
 
-
-## Alterando o valor da priori
-
+## Alterando o valor da probabilidade priori
 
 ```{r ajustando}
 
@@ -143,7 +132,6 @@ confusionMatrix(factor(y_chapeu_bayes), conj_teste$inadimplente,  positive="Sim"
 # Este valor é igual a 1 - Accuracy da matriz de confusão
 calc_erro_class(conj_teste$inadimplente, y_chapeu_bayes)
 ```
-
 
 ## LDA
 
@@ -163,8 +151,7 @@ confusionMatrix(data = y_chapeu, reference = conj_teste$inadimplente,  positive=
 calc_erro_class(conj_teste$inadimplente, y_chapeu)
 ```
 
-## LDA - ajustes
-
+## LDA - Ajustando probabilidade limite
 
 ```{r LDA2}
 p_chapeu <- predict(treina_lda, conj_teste)$posterior
@@ -178,8 +165,6 @@ confusionMatrix(data = y_chapeu, reference = conj_teste$inadimplente,  positive=
 calc_erro_class(conj_teste$inadimplente, y_chapeu)
 ```
 
-
-
 ## QDA
 
 ```{r QDA}
@@ -190,7 +175,7 @@ y_chapeu <- predict(treina_qda, conj_teste)$class %>%
 confusionMatrix(data = y_chapeu, reference = conj_teste$inadimplente,  positive="Sim") 
 ```
 
-## QDA ajustes
+## QDA - Ajustando probabilidade limite
 
 ```{r QDA2}
 p_chapeu <- predict(treina_qda, conj_teste)$posterior
@@ -199,7 +184,6 @@ y_chapeu <- ifelse(p_chapeu[, 2] > 0.11, "Sim", "Nao") %>%
              factor(levels = levels(conj_teste$inadimplente))
 confusionMatrix(data = y_chapeu, reference = conj_teste$inadimplente,  positive="Sim") 
 ```
-
 
 ## Curva ROC
 
@@ -233,5 +217,3 @@ as.numeric(roc_lda$auc)
 as.numeric(roc_qda$auc)
 as.numeric(roc_knn1$auc)
 ```
-
-

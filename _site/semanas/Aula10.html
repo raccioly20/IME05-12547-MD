@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.37">
+<meta name="generator" content="quarto-1.0.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2022-08-12">
+<meta name="dcterms.date" content="2022-08-19">
 
 <title>IME05-12547 - LDA e QDA</title>
 <style>
@@ -298,11 +298,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#balanço-e-receita" id="toc-balanço-e-receita" class="nav-link" data-scroll-target="#balanço-e-receita">Balanço e receita</a></li>
   <li><a href="#bayes-ingênuo-naive-bayes" id="toc-bayes-ingênuo-naive-bayes" class="nav-link" data-scroll-target="#bayes-ingênuo-naive-bayes">Bayes Ingênuo (Naive Bayes)</a></li>
   <li><a href="#calcula-erro" id="toc-calcula-erro" class="nav-link" data-scroll-target="#calcula-erro">Calcula Erro</a></li>
-  <li><a href="#alterando-o-valor-da-priori" id="toc-alterando-o-valor-da-priori" class="nav-link" data-scroll-target="#alterando-o-valor-da-priori">Alterando o valor da priori</a></li>
+  <li><a href="#alterando-o-valor-da-probabilidade-priori" id="toc-alterando-o-valor-da-probabilidade-priori" class="nav-link" data-scroll-target="#alterando-o-valor-da-probabilidade-priori">Alterando o valor da probabilidade priori</a></li>
   <li><a href="#lda" id="toc-lda" class="nav-link" data-scroll-target="#lda">LDA</a></li>
-  <li><a href="#lda---ajustes" id="toc-lda---ajustes" class="nav-link" data-scroll-target="#lda---ajustes">LDA - ajustes</a></li>
+  <li><a href="#lda---ajustando-probabilidade-limite" id="toc-lda---ajustando-probabilidade-limite" class="nav-link" data-scroll-target="#lda---ajustando-probabilidade-limite">LDA - Ajustando probabilidade limite</a></li>
   <li><a href="#qda" id="toc-qda" class="nav-link" data-scroll-target="#qda">QDA</a></li>
-  <li><a href="#qda-ajustes" id="toc-qda-ajustes" class="nav-link" data-scroll-target="#qda-ajustes">QDA ajustes</a></li>
+  <li><a href="#qda---ajustando-probabilidade-limite" id="toc-qda---ajustando-probabilidade-limite" class="nav-link" data-scroll-target="#qda---ajustando-probabilidade-limite">QDA - Ajustando probabilidade limite</a></li>
   <li><a href="#curva-roc" id="toc-curva-roc" class="nav-link" data-scroll-target="#curva-roc">Curva ROC</a></li>
   </ul>
 </nav>
@@ -329,7 +329,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 12, 2022</p>
+      <p class="date">August 19, 2022</p>
     </div>
   </div>
     
@@ -546,8 +546,8 @@ Prediction  Nao  Sim
 </div>
 </div>
 </section>
-<section id="alterando-o-valor-da-priori" class="level2">
-<h2 class="anchored" data-anchor-id="alterando-o-valor-da-priori">Alterando o valor da priori</h2>
+<section id="alterando-o-valor-da-probabilidade-priori" class="level2">
+<h2 class="anchored" data-anchor-id="alterando-o-valor-da-probabilidade-priori">Alterando o valor da probabilidade priori</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>p_chapeu_bayes <span class="ot">&lt;-</span> f1<span class="sc">*</span><span class="fl">0.15</span> <span class="sc">/</span> (f1<span class="sc">*</span><span class="fl">0.15</span> <span class="sc">+</span> f0<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.15</span>))</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>y_chapeu_bayes <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(p_chapeu_bayes <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="st">"Sim"</span>, <span class="st">"Nao"</span>)</span>
@@ -662,8 +662,8 @@ Prediction  Nao  Sim
 </div>
 </div>
 </section>
-<section id="lda---ajustes" class="level2">
-<h2 class="anchored" data-anchor-id="lda---ajustes">LDA - ajustes</h2>
+<section id="lda---ajustando-probabilidade-limite" class="level2">
+<h2 class="anchored" data-anchor-id="lda---ajustando-probabilidade-limite">LDA - Ajustando probabilidade limite</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>p_chapeu <span class="ot">&lt;-</span> <span class="fu">predict</span>(treina_lda, conj_teste)<span class="sc">$</span>posterior</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(p_chapeu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -767,8 +767,8 @@ Prediction  Nao  Sim
 </div>
 </div>
 </section>
-<section id="qda-ajustes" class="level2">
-<h2 class="anchored" data-anchor-id="qda-ajustes">QDA ajustes</h2>
+<section id="qda---ajustando-probabilidade-limite" class="level2">
+<h2 class="anchored" data-anchor-id="qda---ajustando-probabilidade-limite">QDA - Ajustando probabilidade limite</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>p_chapeu <span class="ot">&lt;-</span> <span class="fu">predict</span>(treina_qda, conj_teste)<span class="sc">$</span>posterior</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(p_chapeu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
