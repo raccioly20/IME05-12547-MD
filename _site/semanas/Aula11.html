@@ -457,7 +457,7 @@ medv        1.45 0.41</code></pre>
 <section id="arvore-de-regressão" class="level2">
 <h2 class="anchored" data-anchor-id="arvore-de-regressão">Arvore de Regressão</h2>
 <p>Na biblioteca rpart as arvores de regressão são obtidas usando o método anova. Existem alguns controles que podem ser feitos nos parametros da arvore.</p>
-<p>Neste exemplo só definimos o menor conjunto de dados numa partição (minsplit) e o parametro de complexidade cp.&nbsp;Posteriormente vamos ampliar este controle.</p>
+<p>Neste exemplo só definimos o menor conjunto de dados numa partição (minsplit) e o parametro de complexidade cp.&nbsp;Qualquer partição/divisão que não melhore o ajuste por um fator de cp não é tentada. Por exemplo, com a partição pela anova, isso significa que o R-quadrado geral deve aumentar pelo valor de cp a cada etapa. O principal papel deste parâmetro é economizar tempo de computação podando divisões que obviamente não valem a pena. Essencialmente, o usuário informa ao programa que qualquer divisão que não melhore o ajuste pelo cp, provavelmente será podada por validação cruzada, e que, portanto, não é necessário persegui-lo.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Usando rpart para desenvolver a arvore  </span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>

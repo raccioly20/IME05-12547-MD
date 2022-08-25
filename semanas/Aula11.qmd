@@ -47,7 +47,13 @@ ggplot(extrato, aes(x=rm, y=nox)) +
 
 Na biblioteca rpart as arvores de regressão são obtidas usando o método anova. Existem alguns controles que podem ser feitos nos parametros da arvore.
 
-Neste exemplo só definimos o menor conjunto de dados numa partição (minsplit) e o parametro de complexidade cp. Posteriormente vamos ampliar este controle.
+Neste exemplo só definimos o menor conjunto de dados numa partição (minsplit) e o parametro de complexidade cp. Qualquer partição/divisão que não melhore o
+ajuste por um fator de cp não é tentada. Por exemplo, com a partição pela anova,
+isso significa que o R-quadrado geral deve aumentar pelo valor de cp a cada
+etapa. O principal papel deste parâmetro é economizar tempo de computação
+podando divisões que obviamente não valem a pena. Essencialmente, o usuário
+informa ao programa que qualquer divisão que não melhore o ajuste pelo cp,
+provavelmente será podada por validação cruzada, e que, portanto, não é necessário persegui-lo.
 
 ```{r arvore}
 ##Usando rpart para desenvolver a arvore  
