@@ -13,7 +13,6 @@ output:
 knitr::opts_chunk$set(echo = TRUE, fig.height=6.5, fig.width=7.)
 ```
 
-
 ## Bibliotecas
 
 ```{r bibliotecas , message=FALSE}
@@ -21,16 +20,13 @@ library(MASS)
 library(tidyverse)
 ```
 
-
 ## Avaliando, selecionando dados
-
 
 ```{r dados}
 data("Boston")
 names(Boston)
 dados <- Boston 
 ```
-
 
 ## Treino e Teste com todas as variáveis
 
@@ -47,7 +43,6 @@ head(conj_teste)
 ```
 
 ## 1a tentativa GBM
-
 
 ```{r gbm1}
 library(gbm)
@@ -123,7 +118,6 @@ for(i in 1:nrow(hiper_grid)) {
 hiper_grid %>% dplyr::arrange(min_RMSE) %>% head(10)
 ```
 
-
 ## Modelo final
 
 ```{r gbmfinal}
@@ -146,7 +140,6 @@ gbm.fit.final <- gbm(
   )  
 
 ```
-
 
 ## Variable importance
 
@@ -203,4 +196,3 @@ graf_rm <- plot(gbm.fit.final, i = "rm")
 graf_lstat <- plot(gbm.fit.final, i = "lstat")
 gridExtra::grid.arrange(graf_lstat, graf_rm, ncol = 2)
 ```
-

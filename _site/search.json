@@ -718,7 +718,7 @@
     "href": "semanas/Aula07.1.html#criando-amostra-de-treino-e-teste",
     "title": "Regressão Linear",
     "section": "Criando amostra de treino e teste",
-    "text": "Criando amostra de treino e teste\n\nlibrary(caret)\nset.seed(21)\ny <- propaganda$Vendas\nindice_teste <- createDataPartition(y, times = 1, p = 0.40, list = FALSE)\n\nconj_treino <- propaganda %>% slice(-indice_teste)\nconj_teste <- propaganda %>% slice(indice_teste)\n\nstr(conj_treino)\n\ntibble [119 × 4] (S3: tbl_df/tbl/data.frame)\n $ TV    : num [1:119] 230.1 151.5 180.8 199.8 66.1 ...\n $ Radio : num [1:119] 37.8 41.3 10.8 2.6 5.8 35.1 7.6 47.7 20.5 23.9 ...\n $ Jornal: num [1:119] 69.2 58.5 58.4 21.2 24.2 65.9 7.2 52.9 18.3 19.1 ...\n $ Vendas: num [1:119] 22.1 18.5 12.9 10.6 8.6 9.2 9.7 22.4 11.3 14.6 ...\n\nstr(conj_teste)\n\ntibble [81 × 4] (S3: tbl_df/tbl/data.frame)\n $ TV    : num [1:81] 44.5 17.2 8.7 57.5 120.2 ...\n $ Radio : num [1:81] 39.3 45.9 48.9 32.8 19.6 2.1 24 32.9 36.6 39.6 ...\n $ Jornal: num [1:81] 45.1 69.3 75 23.5 11.6 1 4 46 114 55.8 ...\n $ Vendas: num [1:81] 10.4 9.3 7.2 11.8 13.2 4.8 17.4 19 12.5 24.4 ...\n\ngt(head(conj_treino, 10))\n\n\n\n\n\n  \n  \n    \n      TV\n      Radio\n      Jornal\n      Vendas\n    \n  \n  \n    230.1\n37.8\n69.2\n22.1\n    151.5\n41.3\n58.5\n18.5\n    180.8\n10.8\n58.4\n12.9\n    199.8\n2.6\n21.2\n10.6\n    66.1\n5.8\n24.2\n8.6\n    23.8\n35.1\n65.9\n9.2\n    97.5\n7.6\n7.2\n9.7\n    195.4\n47.7\n52.9\n22.4\n    69.2\n20.5\n18.3\n11.3\n    147.3\n23.9\n19.1\n14.6"
+    "text": "Criando amostra de treino e teste\n\nlibrary(caret)\nset.seed(21)\ny <- propaganda$Vendas\nindice_teste <- createDataPartition(y, times = 1, p = 0.40, list = FALSE)\n\nconj_treino <- propaganda %>% slice(-indice_teste)\nconj_teste <- propaganda %>% slice(indice_teste)\n\nstr(conj_treino)\n\ntibble [119 × 4] (S3: tbl_df/tbl/data.frame)\n $ TV    : num [1:119] 230.1 151.5 180.8 199.8 66.1 ...\n $ Radio : num [1:119] 37.8 41.3 10.8 2.6 5.8 35.1 7.6 47.7 20.5 23.9 ...\n $ Jornal: num [1:119] 69.2 58.5 58.4 21.2 24.2 65.9 7.2 52.9 18.3 19.1 ...\n $ Vendas: num [1:119] 22.1 18.5 12.9 10.6 8.6 9.2 9.7 22.4 11.3 14.6 ...\n\nstr(conj_teste)\n\ntibble [81 × 4] (S3: tbl_df/tbl/data.frame)\n $ TV    : num [1:81] 44.5 17.2 8.7 57.5 120.2 ...\n $ Radio : num [1:81] 39.3 45.9 48.9 32.8 19.6 2.1 24 32.9 36.6 39.6 ...\n $ Jornal: num [1:81] 45.1 69.3 75 23.5 11.6 1 4 46 114 55.8 ...\n $ Vendas: num [1:81] 10.4 9.3 7.2 11.8 13.2 4.8 17.4 19 12.5 24.4 ...\n\ngt::gt(head(conj_treino, 10))\n\n\n\n\n\n  \n  \n    \n      TV\n      Radio\n      Jornal\n      Vendas\n    \n  \n  \n    230.1\n37.8\n69.2\n22.1\n    151.5\n41.3\n58.5\n18.5\n    180.8\n10.8\n58.4\n12.9\n    199.8\n2.6\n21.2\n10.6\n    66.1\n5.8\n24.2\n8.6\n    23.8\n35.1\n65.9\n9.2\n    97.5\n7.6\n7.2\n9.7\n    195.4\n47.7\n52.9\n22.4\n    69.2\n20.5\n18.3\n11.3\n    147.3\n23.9\n19.1\n14.6"
   },
   {
     "objectID": "semanas/Aula07.1.html#primeira-visualização-dos-dados",
@@ -2252,5 +2252,12 @@
     "title": "Mineração de Dados",
     "section": "",
     "text": "Introdução a mineração de dados\nVisualização e preparação de Dados\nRegressão linear e seleção de modelos\nMétodos de Reamostragem\nMétodos de encolhimento (Ridge e Lasso)\nClassificação (KNN, Regressão Logística, LDA e QDA)\nMétodos baseados em árvores"
+  },
+  {
+    "objectID": "semanas/Aula07.1.html#verificando-normalidade-dos-resíduos",
+    "href": "semanas/Aula07.1.html#verificando-normalidade-dos-resíduos",
+    "title": "Regressão Linear",
+    "section": "Verificando normalidade dos resíduos",
+    "text": "Verificando normalidade dos resíduos\n\nshapiro.test(summary(mod1)$residuals)\n\n\n    Shapiro-Wilk normality test\n\ndata:  summary(mod1)$residuals\nW = 0.98867, p-value = 0.4293"
   }
 ]

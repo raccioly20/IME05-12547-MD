@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2022-08-12">
+<meta name="dcterms.date" content="2022-11-04">
 
 <title>IME05-12547 - Regressão Linear</title>
 <style>
@@ -335,6 +335,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#previsões" id="toc-previsões" class="nav-link" data-scroll-target="#previsões">Previsões</a></li>
   <li><a href="#calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste" id="toc-calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste" class="nav-link" data-scroll-target="#calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste">Calculando o erro padrão do resíduo com amostra de teste</a></li>
   <li><a href="#análise-do-modelo" id="toc-análise-do-modelo" class="nav-link" data-scroll-target="#análise-do-modelo">Análise do modelo</a></li>
+  <li><a href="#verificando-normalidade-dos-resíduos" id="toc-verificando-normalidade-dos-resíduos" class="nav-link" data-scroll-target="#verificando-normalidade-dos-resíduos">Verificando normalidade dos resíduos</a></li>
   <li><a href="#análise-do-modelo-2" id="toc-análise-do-modelo-2" class="nav-link" data-scroll-target="#análise-do-modelo-2">Análise do modelo 2</a></li>
   <li><a href="#o-modelo-de-regressão" id="toc-o-modelo-de-regressão" class="nav-link" data-scroll-target="#o-modelo-de-regressão">2o Modelo de Regressão</a></li>
   <li><a href="#outra-forma-de-representação-do-2o-modelo" id="toc-outra-forma-de-representação-do-2o-modelo" class="nav-link" data-scroll-target="#outra-forma-de-representação-do-2o-modelo">Outra forma de representação do 2o Modelo</a></li>
@@ -369,7 +370,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 12, 2022</p>
+      <p class="date">November 4, 2022</p>
     </div>
   </div>
     
@@ -434,12 +435,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(propaganda, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="poxcrhjauy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="zaakklbese" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#poxcrhjauy .gt_table {
+#zaakklbese .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -464,7 +465,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#poxcrhjauy .gt_heading {
+#zaakklbese .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -476,7 +477,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#poxcrhjauy .gt_title {
+#zaakklbese .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -488,7 +489,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#poxcrhjauy .gt_subtitle {
+#zaakklbese .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -500,13 +501,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#poxcrhjauy .gt_bottom_border {
+#zaakklbese .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#poxcrhjauy .gt_col_headings {
+#zaakklbese .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -521,7 +522,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#poxcrhjauy .gt_col_heading {
+#zaakklbese .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -541,7 +542,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#poxcrhjauy .gt_column_spanner_outer {
+#zaakklbese .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -553,15 +554,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#poxcrhjauy .gt_column_spanner_outer:first-child {
+#zaakklbese .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#poxcrhjauy .gt_column_spanner_outer:last-child {
+#zaakklbese .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#poxcrhjauy .gt_column_spanner {
+#zaakklbese .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -573,7 +574,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#poxcrhjauy .gt_group_heading {
+#zaakklbese .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -598,7 +599,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#poxcrhjauy .gt_empty_group_heading {
+#zaakklbese .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -613,15 +614,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#poxcrhjauy .gt_from_md > :first-child {
+#zaakklbese .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#poxcrhjauy .gt_from_md > :last-child {
+#zaakklbese .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#poxcrhjauy .gt_row {
+#zaakklbese .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -640,7 +641,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#poxcrhjauy .gt_stub {
+#zaakklbese .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -653,7 +654,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#poxcrhjauy .gt_stub_row_group {
+#zaakklbese .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -667,11 +668,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#poxcrhjauy .gt_row_group_first td {
+#zaakklbese .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#poxcrhjauy .gt_summary_row {
+#zaakklbese .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -681,16 +682,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#poxcrhjauy .gt_first_summary_row {
+#zaakklbese .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#poxcrhjauy .gt_first_summary_row.thick {
+#zaakklbese .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#poxcrhjauy .gt_last_summary_row {
+#zaakklbese .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -700,7 +701,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#poxcrhjauy .gt_grand_summary_row {
+#zaakklbese .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -710,7 +711,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#poxcrhjauy .gt_first_grand_summary_row {
+#zaakklbese .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -720,11 +721,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#poxcrhjauy .gt_striped {
+#zaakklbese .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#poxcrhjauy .gt_table_body {
+#zaakklbese .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -733,7 +734,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#poxcrhjauy .gt_footnotes {
+#zaakklbese .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -747,7 +748,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#poxcrhjauy .gt_footnote {
+#zaakklbese .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -756,7 +757,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#poxcrhjauy .gt_sourcenotes {
+#zaakklbese .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -770,7 +771,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#poxcrhjauy .gt_sourcenote {
+#zaakklbese .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -778,36 +779,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#poxcrhjauy .gt_left {
+#zaakklbese .gt_left {
   text-align: left;
 }
 
-#poxcrhjauy .gt_center {
+#zaakklbese .gt_center {
   text-align: center;
 }
 
-#poxcrhjauy .gt_right {
+#zaakklbese .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#poxcrhjauy .gt_font_normal {
+#zaakklbese .gt_font_normal {
   font-weight: normal;
 }
 
-#poxcrhjauy .gt_font_bold {
+#zaakklbese .gt_font_bold {
   font-weight: bold;
 }
 
-#poxcrhjauy .gt_font_italic {
+#zaakklbese .gt_font_italic {
   font-style: italic;
 }
 
-#poxcrhjauy .gt_super {
+#zaakklbese .gt_super {
   font-size: 65%;
 }
 
-#poxcrhjauy .gt_two_val_uncert {
+#zaakklbese .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -816,31 +817,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   margin-left: 0.1em;
 }
 
-#poxcrhjauy .gt_footnote_marks {
+#zaakklbese .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#poxcrhjauy .gt_asterisk {
+#zaakklbese .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#poxcrhjauy .gt_slash_mark {
+#zaakklbese .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#poxcrhjauy .gt_fraction_numerator {
+#zaakklbese .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#poxcrhjauy .gt_fraction_denominator {
+#zaakklbese .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -932,7 +933,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  $ Jornal: num [1:81] 45.1 69.3 75 23.5 11.6 1 4 46 114 55.8 ...
  $ Vendas: num [1:81] 10.4 9.3 7.2 11.8 13.2 4.8 17.4 19 12.5 24.4 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gt<span class="sc">::</span><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div id="ikcyvpxrcq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -2536,11 +2537,24 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </section>
+<section id="verificando-normalidade-dos-resíduos" class="level2">
+<h2 class="anchored" data-anchor-id="verificando-normalidade-dos-resíduos">Verificando normalidade dos resíduos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">summary</span>(mod1)<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  summary(mod1)$residuals
+W = 0.98867, p-value = 0.4293</code></pre>
+</div>
+</div>
+</section>
 <section id="análise-do-modelo-2" class="level2">
 <h2 class="anchored" data-anchor-id="análise-do-modelo-2">Análise do modelo 2</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/residuos1b-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2549,10 +2563,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="o-modelo-de-regressão" class="level2">
 <h2 class="anchored" data-anchor-id="o-modelo-de-regressão">2o Modelo de Regressão</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2573,10 +2587,10 @@ Residual standard error: 3.908 on 117 degrees of freedom
 Multiple R-squared:  0.3986,    Adjusted R-squared:  0.3935 
 F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Radio, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">"blue"</span> ) <span class="sc">+</span> </span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Radio, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">"blue"</span> ) <span class="sc">+</span> </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/2modelo-regressão-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2585,7 +2599,7 @@ F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 <section id="outra-forma-de-representação-do-2o-modelo" class="level2">
 <h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-2o-modelo">Outra forma de representação do 2o Modelo</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F, <span class="at">id.n=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F, <span class="at">id.n=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/2areg-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2594,7 +2608,7 @@ F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 <section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1" class="level2">
 <h2 class="anchored" data-anchor-id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1">Calculando o erro padrão do resíduo com amostra de teste</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod2, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod2, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.808117</code></pre>
 </div>
@@ -2603,7 +2617,7 @@ F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 <section id="análise-de-resíduos" class="level2">
 <h2 class="anchored" data-anchor-id="análise-de-resíduos">Análise de Resíduos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/residuos2-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2613,10 +2627,10 @@ F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 <section id="o-modelo-de-regressão-1" class="level2">
 <h2 class="anchored" data-anchor-id="o-modelo-de-regressão-1">3o Modelo de Regressão</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2637,10 +2651,10 @@ Residual standard error: 4.884 on 117 degrees of freedom
 Multiple R-squared:  0.06084,   Adjusted R-squared:  0.05281 
 F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Jornal, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">"blue"</span> ) <span class="sc">+</span> </span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Jornal, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">"blue"</span> ) <span class="sc">+</span> </span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/3omodelo-regressao-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2649,7 +2663,7 @@ F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
 <section id="outra-forma-de-representação-do-3o-modelo" class="level2">
 <h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-3o-modelo">Outra forma de representação do 3o Modelo</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F, <span class="at">id.n=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F, <span class="at">id.n=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/3areg-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2658,7 +2672,7 @@ F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
 <section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2" class="level2">
 <h2 class="anchored" data-anchor-id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2">Calculando o erro padrão do resíduo com amostra de teste</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod3, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod3, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.38693</code></pre>
 </div>
@@ -2667,7 +2681,7 @@ F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
 <section id="análise-de-resíduos-1" class="level2">
 <h2 class="anchored" data-anchor-id="análise-de-resíduos-1">Análise de Resíduos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/residuos3-1.png" class="img-fluid" width="768"></p>
 </div>

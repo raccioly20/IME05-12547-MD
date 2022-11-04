@@ -68,7 +68,7 @@ conj_teste <- propaganda %>% slice(indice_teste)
 
 str(conj_treino)
 str(conj_teste)
-gt(head(conj_treino, 10))
+gt::gt(head(conj_treino, 10))
 ```
 
 ## Primeira visualização dos dados
@@ -172,6 +172,13 @@ sqrt(mean((conj_teste$Vendas - predict(mod1, conj_teste)) ^ 2))
 ```{r residuos1a, message=FALSE}
 plot(mod1)
 ```
+
+## Verificando normalidade dos resíduos
+
+```{r}
+shapiro.test(summary(mod1)$residuals)
+```
+
 
 ## Análise do modelo 2
 
