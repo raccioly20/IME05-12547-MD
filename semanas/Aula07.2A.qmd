@@ -1,0 +1,102 @@
+---
+title: "Problemas na Regressão Multipla"
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+output:
+ html_document:
+    toc: yes
+    code_download: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width = 7, 
+                      fig.height= 5,  
+                      fig.retina = 3,
+                      message = FALSE, 
+                      warning = FALSE)
+```
+
+## Carregando bibliotecas
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(caret)
+```
+
+## Dados de pressão sanguinea
+
+-   BP = blood pressure (in mm Hg)
+
+-   Age = age (in years)
+
+-   Weight = weight (in kg)
+
+-   BSA = body surface area (in sq m)
+
+-   Dur = duration of hypertension (in years)
+
+-   Pulse = basal pulse (in beats per minute)
+
+-   Stress = stress index
+
+```{r carrega-dados}
+pressao_sangue <- read_delim("bloodpress.txt", col_names = TRUE)
+```
+
+## Renomeando
+
+```{r renomeando}
+pressao_sangue <- pressao_sangue %>% rename(PS = BP, Idade = Age,
+                                            Peso = Weight, Acorp = BSA,
+                                            Pulso = Pulse)
+```
+
+## Sumario
+
+```{r sumario}
+summary(pressao_sangue)
+```
+
+```{r}
+cor(pressao_sangue[,-1])
+```
+
+Aqui vemos que a presssão sanguinea tem uma correlação forte com o peso e também com a área corporal. O peso e a area corporal tem uma correlação forte. Esta correlação alta pode indicar a existencia de multicolinearidade.
+
+```{r}
+library(psych)
+pairs.panels(pressao_sangue[,-1])
+```
+
+```{r}
+dados <- pressao_sangue[,-1]
+mod1 <- lm(PS ~ ., data=dados)
+summary(mod1)
+library(car)
+vif(mod1)
+```
+
+```{r}
+mod2 <- update(mod1,. ~ . -Acorp) 
+summary(mod2)
+vif(mod2)
+```
+
+```{r}
+mod3 <- lm(PS ~ Idade + Peso + Pulso + Stress, data = dados)
+summary(mod3)
+residualPlots(mod3)
+```
+
+## Teste dos resíduos
+
+Teste de normalidade Teste de heterocedasticidade (Bresch-Pagan) Teste de autocorrelação (Durbin-Watson)
+
+```{r}
+library(lmtest)
+mod3_sum <- summary(mod3)
+shapiro.test(mod3_sum$residuals)
+bptest(mod3)
+dwtest(mod3)
+```

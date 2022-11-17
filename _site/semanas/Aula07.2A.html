@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2022-08-12">
+<meta name="dcterms.date" content="2022-11-17">
 
-<title>IME05-12547 - Suavização</title>
+<title>IME05-12547 - Problemas na Regressão Multipla</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,8 +89,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../semanas/Aula06.html" rel="next">
-<link href="../semanas/Aula04.html" rel="prev">
+<link href="../semanas/Aula07.3.html" rel="next">
+<link href="../semanas/Aula07.2.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -123,8 +123,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 }</script>
 
 
-<meta name="twitter:title" content="IME05-12547 - Suavização">
-<meta name="twitter:description" content="(locally estimated scatterplot smoothing/Local Polynomial Regression Fitting)">
+<meta name="twitter:title" content="IME05-12547 - Problemas na Regressão Multipla">
+<meta name="twitter:description" content="Aqui vemos que a presssão sanguinea tem uma correlação forte com o peso e também com a área corporal. O peso e a area corporal tem uma correlação forte.">
 <meta name="twitter:image" content="../images/md.png">
 <meta name="twitter:creator" content="@r_accioly">
 <meta name="twitter:card" content="summary_large_image">
@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Suavização</h1>
+      <h1 class="quarto-secondary-nav-title">Problemas na Regressão Multipla</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -249,7 +249,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula05.html" class="sidebar-item-text sidebar-link active">Aula 05</a>
+  <a href="../semanas/Aula05.html" class="sidebar-item-text sidebar-link">Aula 05</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -269,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.2A.html" class="sidebar-item-text sidebar-link">Aula 07.2A</a>
+  <a href="../semanas/Aula07.2A.html" class="sidebar-item-text sidebar-link active">Aula 07.2A</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -323,20 +323,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link active" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
-  <li><a href="#suavização" id="toc-suavização" class="nav-link" data-scroll-target="#suavização">Suavização</a></li>
-  <li><a href="#fazendo-o-suavizador-mais-nervoso" id="toc-fazendo-o-suavizador-mais-nervoso" class="nav-link" data-scroll-target="#fazendo-o-suavizador-mais-nervoso">Fazendo o suavizador mais nervoso</a></li>
-  <li><a href="#fazendo-o-suavizador-menos-nervoso" id="toc-fazendo-o-suavizador-menos-nervoso" class="nav-link" data-scroll-target="#fazendo-o-suavizador-menos-nervoso">Fazendo o suavizador menos nervoso</a></li>
-  <li><a href="#removendo-intervalos-de-confiança" id="toc-removendo-intervalos-de-confiança" class="nav-link" data-scroll-target="#removendo-intervalos-de-confiança">Removendo intervalos de confiança</a></li>
-  <li><a href="#usando-ic-de-90" id="toc-usando-ic-de-90" class="nav-link" data-scroll-target="#usando-ic-de-90">Usando IC de 90%</a></li>
-  <li><a href="#usando-um-modelo-linear-ao-invés-do-loess" id="toc-usando-um-modelo-linear-ao-invés-do-loess" class="nav-link" data-scroll-target="#usando-um-modelo-linear-ao-invés-do-loess">Usando um modelo linear ao invés do loess</a></li>
-  <li><a href="#usando-basic-splines-para-melhorar-o-ajuste" id="toc-usando-basic-splines-para-melhorar-o-ajuste" class="nav-link" data-scroll-target="#usando-basic-splines-para-melhorar-o-ajuste">Usando basic splines para melhorar o ajuste</a></li>
-  <li><a href="#usando-o-gam-general-addtive-models-com-regressão-spline" id="toc-usando-o-gam-general-addtive-models-com-regressão-spline" class="nav-link" data-scroll-target="#usando-o-gam-general-addtive-models-com-regressão-spline">Usando o gam (general addtive models) com regressão spline</a></li>
-  <li><a href="#começando-a-construir-um-gráfico-do-tipo-facet-com-suavizações" id="toc-começando-a-construir-um-gráfico-do-tipo-facet-com-suavizações" class="nav-link" data-scroll-target="#começando-a-construir-um-gráfico-do-tipo-facet-com-suavizações">Começando a construir um gráfico do tipo facet com suavizações</a></li>
-  <li><a href="#dividindo-por-continente" id="toc-dividindo-por-continente" class="nav-link" data-scroll-target="#dividindo-por-continente">Dividindo por continente</a></li>
-  <li><a href="#adicionando-suavizadores" id="toc-adicionando-suavizadores" class="nav-link" data-scroll-target="#adicionando-suavizadores">Adicionando suavizadores</a></li>
-  <li><a href="#colorindo-por-continente" id="toc-colorindo-por-continente" class="nav-link" data-scroll-target="#colorindo-por-continente">Colorindo por continente</a></li>
-  <li><a href="#colorindo-somente-a-curva" id="toc-colorindo-somente-a-curva" class="nav-link" data-scroll-target="#colorindo-somente-a-curva">Colorindo somente a curva</a></li>
+  <li><a href="#carregando-bibliotecas" id="toc-carregando-bibliotecas" class="nav-link active" data-scroll-target="#carregando-bibliotecas">Carregando bibliotecas</a></li>
+  <li><a href="#dados-de-pressão-sanguinea" id="toc-dados-de-pressão-sanguinea" class="nav-link" data-scroll-target="#dados-de-pressão-sanguinea">Dados de pressão sanguinea</a></li>
+  <li><a href="#renomeando" id="toc-renomeando" class="nav-link" data-scroll-target="#renomeando">Renomeando</a></li>
+  <li><a href="#sumario" id="toc-sumario" class="nav-link" data-scroll-target="#sumario">Sumario</a></li>
+  <li><a href="#teste-dos-resíduos" id="toc-teste-dos-resíduos" class="nav-link" data-scroll-target="#teste-dos-resíduos">Teste dos resíduos</a></li>
   </ul>
 </nav>
     </div>
@@ -345,7 +336,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Suavização</h1>
+<h1 class="title d-none d-lg-block">Problemas na Regressão Multipla</h1>
 </div>
 
 
@@ -362,7 +353,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 12, 2022</p>
+      <p class="date">November 17, 2022</p>
     </div>
   </div>
     
@@ -371,171 +362,218 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="bibliotecas" class="level2">
-<h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
+<section id="carregando-bibliotecas" class="level2">
+<h2 class="anchored" data-anchor-id="carregando-bibliotecas">Carregando bibliotecas</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"gapminder"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div style="page-break-after: always;"></div>
 </section>
-<section id="suavização" class="level2">
-<h2 class="anchored" data-anchor-id="suavização">Suavização</h2>
-<p>(locally estimated scatterplot smoothing/Local Polynomial Regression Fitting)</p>
+<section id="dados-de-pressão-sanguinea" class="level2">
+<h2 class="anchored" data-anchor-id="dados-de-pressão-sanguinea">Dados de pressão sanguinea</h2>
+<ul>
+<li><p>BP = blood pressure (in mm Hg)</p></li>
+<li><p>Age = age (in years)</p></li>
+<li><p>Weight = weight (in kg)</p></li>
+<li><p>BSA = body surface area (in sq m)</p></li>
+<li><p>Dur = duration of hypertension (in years)</p></li>
+<li><p>Pulse = basal pulse (in beats per minute)</p></li>
+<li><p>Stress = stress index</p></li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gap_07 <span class="ot">&lt;-</span> <span class="fu">filter</span>(gapminder, year <span class="sc">==</span> <span class="dv">2007</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/suavização-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pressao_sangue <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"bloodpress.txt"</span>, <span class="at">col_names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div style="page-break-after: always;"></div>
 </section>
-<section id="fazendo-o-suavizador-mais-nervoso" class="level2">
-<h2 class="anchored" data-anchor-id="fazendo-o-suavizador-mais-nervoso">Fazendo o suavizador mais nervoso</h2>
+<section id="renomeando" class="level2">
+<h2 class="anchored" data-anchor-id="renomeando">Renomeando</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">span =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/nervoso-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pressao_sangue <span class="ot">&lt;-</span> pressao_sangue <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">PS =</span> BP, <span class="at">Idade =</span> Age,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">Peso =</span> Weight, <span class="at">Acorp =</span> BSA,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">Pulso =</span> Pulse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div style="page-break-after: always;"></div>
 </section>
-<section id="fazendo-o-suavizador-menos-nervoso" class="level2">
-<h2 class="anchored" data-anchor-id="fazendo-o-suavizador-menos-nervoso">Fazendo o suavizador menos nervoso</h2>
+<section id="sumario" class="level2">
+<h2 class="anchored" data-anchor-id="sumario">Sumario</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">span =</span> <span class="fl">0.9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pressao_sangue)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Pt              PS            Idade            Peso       
+ Min.   : 1.00   Min.   :105.0   Min.   :45.00   Min.   : 85.40  
+ 1st Qu.: 5.75   1st Qu.:110.0   1st Qu.:47.00   1st Qu.: 90.22  
+ Median :10.50   Median :114.0   Median :48.50   Median : 94.15  
+ Mean   :10.50   Mean   :114.0   Mean   :48.60   Mean   : 93.09  
+ 3rd Qu.:15.25   3rd Qu.:116.2   3rd Qu.:49.25   3rd Qu.: 94.85  
+ Max.   :20.00   Max.   :125.0   Max.   :56.00   Max.   :101.30  
+     Acorp            Dur            Pulso           Stress     
+ Min.   :1.750   Min.   : 2.50   Min.   :62.00   Min.   : 8.00  
+ 1st Qu.:1.897   1st Qu.: 5.25   1st Qu.:67.75   1st Qu.:17.00  
+ Median :1.980   Median : 6.00   Median :70.00   Median :44.50  
+ Mean   :1.998   Mean   : 6.43   Mean   :69.60   Mean   :53.35  
+ 3rd Qu.:2.075   3rd Qu.: 7.60   3rd Qu.:72.00   3rd Qu.:95.00  
+ Max.   :2.250   Max.   :10.20   Max.   :76.00   Max.   :99.00  </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(pressao_sangue[,<span class="sc">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              PS     Idade       Peso      Acorp       Dur     Pulso     Stress
+PS     1.0000000 0.6590930 0.95006765 0.86587887 0.2928336 0.7214132 0.16390139
+Idade  0.6590930 1.0000000 0.40734926 0.37845460 0.3437921 0.6187643 0.36822369
+Peso   0.9500677 0.4073493 1.00000000 0.87530481 0.2006496 0.6593399 0.03435475
+Acorp  0.8658789 0.3784546 0.87530481 1.00000000 0.1305400 0.4648188 0.01844634
+Dur    0.2928336 0.3437921 0.20064959 0.13054001 1.0000000 0.4015144 0.31163982
+Pulso  0.7214132 0.6187643 0.65933987 0.46481881 0.4015144 1.0000000 0.50631008
+Stress 0.1639014 0.3682237 0.03435475 0.01844634 0.3116398 0.5063101 1.00000000</code></pre>
+</div>
+</div>
+<p>Aqui vemos que a presssão sanguinea tem uma correlação forte com o peso e também com a área corporal. O peso e a area corporal tem uma correlação forte. Esta correlação alta pode indicar a existencia de multicolinearidade.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs.panels</span>(pressao_sangue[,<span class="sc">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula05/mais-suave-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aula07.2A_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> pressao_sangue[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(PS <span class="sc">~</span> ., <span class="at">data=</span>dados)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = PS ~ ., data = dados)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.93213 -0.11314  0.03064  0.21834  0.48454 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -12.870476   2.556650  -5.034 0.000229 ***
+Idade         0.703259   0.049606  14.177 2.76e-09 ***
+Peso          0.969920   0.063108  15.369 1.02e-09 ***
+Acorp         3.776491   1.580151   2.390 0.032694 *  
+Dur           0.068383   0.048441   1.412 0.181534    
+Pulso        -0.084485   0.051609  -1.637 0.125594    
+Stress        0.005572   0.003412   1.633 0.126491    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4072 on 13 degrees of freedom
+Multiple R-squared:  0.9962,    Adjusted R-squared:  0.9944 
+F-statistic: 560.6 on 6 and 13 DF,  p-value: 6.395e-15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Idade     Peso    Acorp      Dur    Pulso   Stress 
+1.762807 8.417035 5.328751 1.237309 4.413575 1.834845 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">update</span>(mod1,. <span class="sc">~</span> . <span class="sc">-</span>Acorp) </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = PS ~ Idade + Peso + Dur + Pulso + Stress, data = dados)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.02600 -0.18526 -0.00077  0.21934  0.72533 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -15.116781   2.748758  -5.499 7.83e-05 ***
+Idade         0.731940   0.055646  13.154 2.85e-09 ***
+Peso          1.098958   0.037773  29.093 6.37e-14 ***
+Dur           0.064105   0.055965   1.145   0.2712    
+Pulso        -0.137444   0.053885  -2.551   0.0231 *  
+Stress        0.007429   0.003841   1.934   0.0736 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4708 on 14 degrees of freedom
+Multiple R-squared:  0.9945,    Adjusted R-squared:  0.9925 
+F-statistic: 502.5 on 5 and 14 DF,  p-value: 2.835e-15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Idade     Peso      Dur    Pulso   Stress 
+1.659637 2.256150 1.235620 3.599913 1.739641 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(PS <span class="sc">~</span> Idade <span class="sc">+</span> Peso <span class="sc">+</span> Pulso <span class="sc">+</span> Stress, <span class="at">data =</span> dados)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = PS ~ Idade + Peso + Pulso + Stress, data = dados)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.89479 -0.15857 -0.04157  0.25593  0.92857 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -15.683749   2.731808  -5.741 3.90e-05 ***
+Idade         0.739878   0.055784  13.263 1.09e-09 ***
+Peso          1.097262   0.038135  28.773 1.54e-14 ***
+Pulso        -0.126973   0.053654  -2.367   0.0318 *  
+Stress        0.007851   0.003863   2.032   0.0602 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4757 on 15 degrees of freedom
+Multiple R-squared:  0.9939,    Adjusted R-squared:  0.9923 
+F-statistic:   615 on 4 and 15 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Aula07.2A_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Test stat Pr(&gt;|Test stat|)
+Idade         0.3403           0.7387
+Peso          0.3825           0.7078
+Pulso         0.0914           0.9285
+Stress       -0.5581           0.5856
+Tukey test    0.2340           0.8150</code></pre>
+</div>
+</div>
 </section>
-<section id="removendo-intervalos-de-confiança" class="level2">
-<h2 class="anchored" data-anchor-id="removendo-intervalos-de-confiança">Removendo intervalos de confiança</h2>
+<section id="teste-dos-resíduos" class="level2">
+<h2 class="anchored" data-anchor-id="teste-dos-resíduos">Teste dos resíduos</h2>
+<p>Teste de normalidade Teste de heterocedasticidade (Bresch-Pagan) Teste de autocorrelação (Durbin-Watson)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/sem-IC-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>mod3_sum <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod3)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(mod3_sum<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  mod3_sum$residuals
+W = 0.95962, p-value = 0.5364</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  mod3
+BP = 1.9471, df = 4, p-value = 0.7455</code></pre>
 </div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="usando-ic-de-90" class="level2">
-<h2 class="anchored" data-anchor-id="usando-ic-de-90">Usando IC de 90%</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">level =</span> <span class="fl">0.90</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/IC90-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="usando-um-modelo-linear-ao-invés-do-loess" class="level2">
-<h2 class="anchored" data-anchor-id="usando-um-modelo-linear-ao-invés-do-loess">Usando um modelo linear ao invés do loess</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/linear-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="usando-basic-splines-para-melhorar-o-ajuste" class="level2">
-<h2 class="anchored" data-anchor-id="usando-basic-splines-para-melhorar-o-ajuste">Usando basic splines para melhorar o ajuste</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(x, <span class="at">df =</span> <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/splines-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="usando-o-gam-general-addtive-models-com-regressão-spline" class="level2">
-<h2 class="anchored" data-anchor-id="usando-o-gam-general-addtive-models-com-regressão-spline">Usando o gam (general addtive models) com regressão spline</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"gam"</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">s</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/gam-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="começando-a-construir-um-gráfico-do-tipo-facet-com-suavizações" class="level2">
-<h2 class="anchored" data-anchor-id="começando-a-construir-um-gráfico-do-tipo-facet-com-suavizações">Começando a construir um gráfico do tipo facet com suavizações</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/primeiro-graf-dispersão-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="dividindo-por-continente" class="level2">
-<h2 class="anchored" data-anchor-id="dividindo-por-continente">Dividindo por continente</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> continent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/facet-continente-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="adicionando-suavizadores" class="level2">
-<h2 class="anchored" data-anchor-id="adicionando-suavizadores">Adicionando suavizadores</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> continent) <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/facet-suavizadores-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="colorindo-por-continente" class="level2">
-<h2 class="anchored" data-anchor-id="colorindo-por-continente">Colorindo por continente</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> continent) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/facet-suav-cores-1.png" class="img-fluid" width="864"></p>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
-</section>
-<section id="colorindo-somente-a-curva" class="level2">
-<h2 class="anchored" data-anchor-id="colorindo-somente-a-curva">Colorindo somente a curva</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gap_07, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> continent) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> continent))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula05/facet-suav-cores2-1.png" class="img-fluid" width="864"></p>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Durbin-Watson test
+
+data:  mod3
+DW = 1.6389, p-value = 0.2115
+alternative hypothesis: true autocorrelation is greater than 0</code></pre>
 </div>
 </div>
 
@@ -745,13 +783,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../semanas/Aula04.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Aula 04</span>
+      <a href="../semanas/Aula07.2.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Aula 07.2</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../semanas/Aula06.html" class="pagination-link">
-        <span class="nav-page-text">Aula 06</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../semanas/Aula07.3.html" class="pagination-link">
+        <span class="nav-page-text">Aula 7.3</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

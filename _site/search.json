@@ -18,7 +18,7 @@
     "href": "index.html",
     "title": "IME05-12547 Mineração de Dados",
     "section": "",
-    "text": "Aqui vocês vão encontrar alguns dos exemplos apresentados em aula, com uso do R. O objetivo é mostrar as possibilidades de aplicação do R nesta disciplina.\nOs códigos apresentados em aula serão colocado por aqui também.\n[📖] Aula 01\n[📖] Aula01A\n[📖] Aula02\n[📖] Aula03\n[📖] Aula04\n[📖] Aula05\n[📖] Aula06\n[📖] Aula7.1\n[📖] Aula7.2\n[📖] Aula7.3\n[📖] Aula7.4\n[📖] Aula08\n[📖] Aula09\n[📖] Aula09A\n[📖] Aula10\n[📖] Aula11\n[📖] Aula12"
+    "text": "Aqui vocês vão encontrar alguns dos exemplos apresentados em aula, com uso do R. O objetivo é mostrar as possibilidades de aplicação do R nesta disciplina.\nOs códigos apresentados em aula serão colocado por aqui também.\n[📖] Aula 01\n[📖] Aula01A\n[📖] Aula02\n[📖] Aula03\n[📖] Aula04\n[📖] Aula05\n[📖] Aula06\n[📖] Aula7.1\n[📖] Aula7.2\n[📖] Aula7.2A\n[📖] Aula7.3\n[📖] Aula7.4\n[📖] Aula08\n[📖] Aula09\n[📖] Aula09A\n[📖] Aula10\n[📖] Aula11\n[📖] Aula12"
   },
   {
     "objectID": "semanas/Aula01.html#lendo-dados-de-arquivos-csv",
@@ -798,6 +798,13 @@
     "text": "Análise do modelo\n\nplot(mod1)"
   },
   {
+    "objectID": "semanas/Aula07.1.html#verificando-normalidade-dos-resíduos",
+    "href": "semanas/Aula07.1.html#verificando-normalidade-dos-resíduos",
+    "title": "Regressão Linear",
+    "section": "Verificando normalidade dos resíduos",
+    "text": "Verificando normalidade dos resíduos\n\nshapiro.test(summary(mod1)$residuals)\n\n\n    Shapiro-Wilk normality test\n\ndata:  summary(mod1)$residuals\nW = 0.98867, p-value = 0.4293"
+  },
+  {
     "objectID": "semanas/Aula07.1.html#análise-do-modelo-2",
     "href": "semanas/Aula07.1.html#análise-do-modelo-2",
     "title": "Regressão Linear",
@@ -985,6 +992,41 @@
     "title": "Regressão Linear Múltipla",
     "section": "Dado que parece outlier e é um valor influente",
     "text": "Dado que parece outlier e é um valor influente\nA função OutlierTest () no pacote do car localiza o maior resíduo studentizado em valor absoluto e calcula o teste t com correção de Bonferroni. O testes de Outlier utiliza uma distribuição t para testar se o maior valor do residuo studentizado do modelo é estatisticamente diferente das outras observações. Um valor p significativo indica um outlier extremo que merece um exame mais aprofundado.\n\noutlierTest(mod6)\n\n    rstudent unadjusted p-value Bonferroni p\n83 -18.13798         1.5879e-35   1.8896e-33\n\nconj_treino[83,]\n\n# A tibble: 1 × 4\n     TV Radio Jornal Vendas\n  <dbl> <dbl>  <dbl>  <dbl>\n1   0.7  39.6    8.7    1.6"
+  },
+  {
+    "objectID": "semanas/Aula07.2A.html",
+    "href": "semanas/Aula07.2A.html",
+    "title": "Problemas na Regressão Multipla",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(readxl)\nlibrary(caret)"
+  },
+  {
+    "objectID": "semanas/Aula07.2A.html#dados-de-pressão-sanguinea",
+    "href": "semanas/Aula07.2A.html#dados-de-pressão-sanguinea",
+    "title": "Problemas na Regressão Multipla",
+    "section": "Dados de pressão sanguinea",
+    "text": "Dados de pressão sanguinea\n\nBP = blood pressure (in mm Hg)\nAge = age (in years)\nWeight = weight (in kg)\nBSA = body surface area (in sq m)\nDur = duration of hypertension (in years)\nPulse = basal pulse (in beats per minute)\nStress = stress index\n\n\npressao_sangue <- read_delim(\"bloodpress.txt\", col_names = TRUE)"
+  },
+  {
+    "objectID": "semanas/Aula07.2A.html#renomeando",
+    "href": "semanas/Aula07.2A.html#renomeando",
+    "title": "Problemas na Regressão Multipla",
+    "section": "Renomeando",
+    "text": "Renomeando\n\npressao_sangue <- pressao_sangue %>% rename(PS = BP, Idade = Age,\n                                            Peso = Weight, Acorp = BSA,\n                                            Pulso = Pulse)"
+  },
+  {
+    "objectID": "semanas/Aula07.2A.html#sumario",
+    "href": "semanas/Aula07.2A.html#sumario",
+    "title": "Problemas na Regressão Multipla",
+    "section": "Sumario",
+    "text": "Sumario\n\nsummary(pressao_sangue)\n\n       Pt              PS            Idade            Peso       \n Min.   : 1.00   Min.   :105.0   Min.   :45.00   Min.   : 85.40  \n 1st Qu.: 5.75   1st Qu.:110.0   1st Qu.:47.00   1st Qu.: 90.22  \n Median :10.50   Median :114.0   Median :48.50   Median : 94.15  \n Mean   :10.50   Mean   :114.0   Mean   :48.60   Mean   : 93.09  \n 3rd Qu.:15.25   3rd Qu.:116.2   3rd Qu.:49.25   3rd Qu.: 94.85  \n Max.   :20.00   Max.   :125.0   Max.   :56.00   Max.   :101.30  \n     Acorp            Dur            Pulso           Stress     \n Min.   :1.750   Min.   : 2.50   Min.   :62.00   Min.   : 8.00  \n 1st Qu.:1.897   1st Qu.: 5.25   1st Qu.:67.75   1st Qu.:17.00  \n Median :1.980   Median : 6.00   Median :70.00   Median :44.50  \n Mean   :1.998   Mean   : 6.43   Mean   :69.60   Mean   :53.35  \n 3rd Qu.:2.075   3rd Qu.: 7.60   3rd Qu.:72.00   3rd Qu.:95.00  \n Max.   :2.250   Max.   :10.20   Max.   :76.00   Max.   :99.00  \n\n\n\ncor(pressao_sangue[,-1])\n\n              PS     Idade       Peso      Acorp       Dur     Pulso     Stress\nPS     1.0000000 0.6590930 0.95006765 0.86587887 0.2928336 0.7214132 0.16390139\nIdade  0.6590930 1.0000000 0.40734926 0.37845460 0.3437921 0.6187643 0.36822369\nPeso   0.9500677 0.4073493 1.00000000 0.87530481 0.2006496 0.6593399 0.03435475\nAcorp  0.8658789 0.3784546 0.87530481 1.00000000 0.1305400 0.4648188 0.01844634\nDur    0.2928336 0.3437921 0.20064959 0.13054001 1.0000000 0.4015144 0.31163982\nPulso  0.7214132 0.6187643 0.65933987 0.46481881 0.4015144 1.0000000 0.50631008\nStress 0.1639014 0.3682237 0.03435475 0.01844634 0.3116398 0.5063101 1.00000000\n\n\nAqui vemos que a presssão sanguinea tem uma correlação forte com o peso e também com a área corporal. O peso e a area corporal tem uma correlação forte. Esta correlação alta pode indicar a existencia de multicolinearidade.\n\nlibrary(psych)\npairs.panels(pressao_sangue[,-1])\n\n\n\n\n\ndados <- pressao_sangue[,-1]\nmod1 <- lm(PS ~ ., data=dados)\nsummary(mod1)\n\n\nCall:\nlm(formula = PS ~ ., data = dados)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-0.93213 -0.11314  0.03064  0.21834  0.48454 \n\nCoefficients:\n              Estimate Std. Error t value Pr(>|t|)    \n(Intercept) -12.870476   2.556650  -5.034 0.000229 ***\nIdade         0.703259   0.049606  14.177 2.76e-09 ***\nPeso          0.969920   0.063108  15.369 1.02e-09 ***\nAcorp         3.776491   1.580151   2.390 0.032694 *  \nDur           0.068383   0.048441   1.412 0.181534    \nPulso        -0.084485   0.051609  -1.637 0.125594    \nStress        0.005572   0.003412   1.633 0.126491    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.4072 on 13 degrees of freedom\nMultiple R-squared:  0.9962,    Adjusted R-squared:  0.9944 \nF-statistic: 560.6 on 6 and 13 DF,  p-value: 6.395e-15\n\nlibrary(car)\nvif(mod1)\n\n   Idade     Peso    Acorp      Dur    Pulso   Stress \n1.762807 8.417035 5.328751 1.237309 4.413575 1.834845 \n\n\n\nmod2 <- update(mod1,. ~ . -Acorp) \nsummary(mod2)\n\n\nCall:\nlm(formula = PS ~ Idade + Peso + Dur + Pulso + Stress, data = dados)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-1.02600 -0.18526 -0.00077  0.21934  0.72533 \n\nCoefficients:\n              Estimate Std. Error t value Pr(>|t|)    \n(Intercept) -15.116781   2.748758  -5.499 7.83e-05 ***\nIdade         0.731940   0.055646  13.154 2.85e-09 ***\nPeso          1.098958   0.037773  29.093 6.37e-14 ***\nDur           0.064105   0.055965   1.145   0.2712    \nPulso        -0.137444   0.053885  -2.551   0.0231 *  \nStress        0.007429   0.003841   1.934   0.0736 .  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.4708 on 14 degrees of freedom\nMultiple R-squared:  0.9945,    Adjusted R-squared:  0.9925 \nF-statistic: 502.5 on 5 and 14 DF,  p-value: 2.835e-15\n\nvif(mod2)\n\n   Idade     Peso      Dur    Pulso   Stress \n1.659637 2.256150 1.235620 3.599913 1.739641 \n\n\n\nmod3 <- lm(PS ~ Idade + Peso + Pulso + Stress, data = dados)\nsummary(mod3)\n\n\nCall:\nlm(formula = PS ~ Idade + Peso + Pulso + Stress, data = dados)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-0.89479 -0.15857 -0.04157  0.25593  0.92857 \n\nCoefficients:\n              Estimate Std. Error t value Pr(>|t|)    \n(Intercept) -15.683749   2.731808  -5.741 3.90e-05 ***\nIdade         0.739878   0.055784  13.263 1.09e-09 ***\nPeso          1.097262   0.038135  28.773 1.54e-14 ***\nPulso        -0.126973   0.053654  -2.367   0.0318 *  \nStress        0.007851   0.003863   2.032   0.0602 .  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.4757 on 15 degrees of freedom\nMultiple R-squared:  0.9939,    Adjusted R-squared:  0.9923 \nF-statistic:   615 on 4 and 15 DF,  p-value: < 2.2e-16\n\nresidualPlots(mod3)\n\n\n\n\n           Test stat Pr(>|Test stat|)\nIdade         0.3403           0.7387\nPeso          0.3825           0.7078\nPulso         0.0914           0.9285\nStress       -0.5581           0.5856\nTukey test    0.2340           0.8150"
+  },
+  {
+    "objectID": "semanas/Aula07.2A.html#teste-dos-resíduos",
+    "href": "semanas/Aula07.2A.html#teste-dos-resíduos",
+    "title": "Problemas na Regressão Multipla",
+    "section": "Teste dos resíduos",
+    "text": "Teste dos resíduos\nTeste de normalidade Teste de heterocedasticidade (Bresch-Pagan) Teste de autocorrelação (Durbin-Watson)\n\nlibrary(lmtest)\nmod3_sum <- summary(mod3)\nshapiro.test(mod3_sum$residuals)\n\n\n    Shapiro-Wilk normality test\n\ndata:  mod3_sum$residuals\nW = 0.95962, p-value = 0.5364\n\nbptest(mod3)\n\n\n    studentized Breusch-Pagan test\n\ndata:  mod3\nBP = 1.9471, df = 4, p-value = 0.7455\n\ndwtest(mod3)\n\n\n    Durbin-Watson test\n\ndata:  mod3\nDW = 1.6389, p-value = 0.2115\nalternative hypothesis: true autocorrelation is greater than 0"
   },
   {
     "objectID": "semanas/Aula07.3.html",
@@ -2252,12 +2294,5 @@
     "title": "Mineração de Dados",
     "section": "",
     "text": "Introdução a mineração de dados\nVisualização e preparação de Dados\nRegressão linear e seleção de modelos\nMétodos de Reamostragem\nMétodos de encolhimento (Ridge e Lasso)\nClassificação (KNN, Regressão Logística, LDA e QDA)\nMétodos baseados em árvores"
-  },
-  {
-    "objectID": "semanas/Aula07.1.html#verificando-normalidade-dos-resíduos",
-    "href": "semanas/Aula07.1.html#verificando-normalidade-dos-resíduos",
-    "title": "Regressão Linear",
-    "section": "Verificando normalidade dos resíduos",
-    "text": "Verificando normalidade dos resíduos\n\nshapiro.test(summary(mod1)$residuals)\n\n\n    Shapiro-Wilk normality test\n\ndata:  summary(mod1)$residuals\nW = 0.98867, p-value = 0.4293"
   }
 ]
