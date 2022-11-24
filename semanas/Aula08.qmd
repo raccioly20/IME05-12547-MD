@@ -24,7 +24,6 @@ knitr::opts_chunk$set(fig.width = 9,
 
 ## Carregando Bibliotecas
 
-
 ```{r bibliotecas, message=FALSE}
 library(tidyverse)
 library(caret)
@@ -36,8 +35,6 @@ head(Default)
 ```
 
 ## Manipulando os dados
-
-
 
 ```{r inadimplente}
 credito <- tibble(Default)
@@ -60,7 +57,6 @@ summary(credito)
 
 ```
 
-
 ## Normalização
 
 Antes de iniciarmos é fundamental fazermos a normalização (padronização) dos dados para que o KNN tenha um melhor desempenho.
@@ -70,9 +66,7 @@ credito_n <- credito
 credito_n[,3:4] <- scale(credito_n[,3:4])
 ```
 
-
 ## Treino e Teste
-
 
 ```{r conjuntos-treino-teste, message=FALSE}
 set.seed(21)
@@ -86,10 +80,9 @@ summary(conj_treino)
 summary(conj_teste)
 ```
 
-
 ## Matriz de dispersão
 
-Vamos agora explorar os dados originais para termos algum visão do comportamento das variáveis explicativas e a variável dependente. 
+Vamos agora explorar os dados originais para termos algum visão do comportamento das variáveis explicativas e a variável dependente.
 
 ```{r splom, message=FALSE}
 library(psych)
@@ -102,9 +95,7 @@ pairs.panels(credito,
 
 ```
 
-
 ## Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)
-
 
 ```{r box-plot}
 ggplot(credito, aes(x=inadimplente, y=balanco)) +
@@ -119,7 +110,6 @@ ggplot(credito, aes(x=as.factor(estudante), y=receita)) +
 
 ```
 
-
 ## Explorando um pouco mais Balanço e Receita
 
 ```{r histogramas}
@@ -129,15 +119,11 @@ ggplot(credito, aes(x=receita)) +
     geom_histogram(bins = round(1+3.322*log10(nrow(conj_treino)),0))
 ```
 
-
 ## Balanço vs Receita
-
 
 ```{r dispersao}
 ggplot(data = credito, aes(x=balanco,  y = receita, col = inadimplente)) + geom_point() 
 ```
-
-
 
 ## KNN
 
@@ -146,7 +132,6 @@ ggplot(data = credito, aes(x=balanco,  y = receita, col = inadimplente)) + geom_
 **Como o KNN usa as distancias entre os pontos ele é afetado pela escala dos dados, portanto, é necessário que os dados sejam normalizados (padronizados) para eliminar este efeito.**
 
 **Quando temos diversas variáveis explicativas em diferentes escalas, em geral, elas devem ser transformadas para ter media zero e desvio padrão 1**
-
 
 ## 1a Modelo
 
@@ -158,13 +143,11 @@ t_knn1 <- knn3(inadimplente ~ balanco + receita + estudante, data = conj_treino,
 t_knn1
 ```
 
-
-## Avaliando o modelo 
+## Avaliando o modelo
 
 **A acurácia deu um valor alto, mas isto não é suficiente para considerarmo que temos um bom modelo. Veja que a sensibilidade está muito baixa e que o ideal é que tenhamos valores altos de sensibilidade e especificidade.**
 
 **Observar que a prevalência é muito baixa o que está afetando os resultados do modelo**
-
 
 ```{r aval}
 ## 
@@ -173,7 +156,6 @@ y_chapeu_knn1 <- predict(t_knn1, conj_teste, type = "class")
 # Matriz de confusão para valiar os resultados
 confusionMatrix(y_chapeu_knn1, conj_teste$inadimplente, positive="Sim") 
 ```
-
 
 ## Curva ROC
 
@@ -194,10 +176,9 @@ legend("bottomright",legend=c("KNN1"),
 as.numeric(roc_knn1$auc)
 ```
 
+## Variando K
 
-## Variando K 
-
-**Anteriormente usamos k=90. Este parametro deve ser ajustado para melhoramos os modelo KNN. Para isto vamos usar a função train da biblioteca caret **
+**Anteriormente usamos k=90. Este parametro deve ser ajustado para melhoramos os modelo KNN. Para isto vamos usar a função train da biblioteca caret**
 
 **Observe que a otimização de k é feita através de acurácia**
 
@@ -225,7 +206,6 @@ confusionMatrix(prev_knn2, conj_teste$inadimplente,  positive="Sim")
 
 **Ao colocar classProb = TRUE e summaryFunction ao invés da acurácia a otimização passa a ser através o ROC**
 
-
 ```{r K2}
 set.seed(21)
 # ctrl <- trainControl(method = "cv", classProbs=TRUE, summaryFunction = twoClassSummary)
@@ -247,10 +227,9 @@ prev_knn3 <- predict(t_knn3, conj_teste)
 confusionMatrix(prev_knn3, conj_teste$inadimplente,  positive="Sim")
 ```
 
-
 **Veja que ao otimizar pela ROC o modelo escolhido tem sensibilidade zero! Isto obviamente não é um bom modelo! Neste caso a opção de otimização do parametro pela acurácia dá melhores resultados.**
 
-## Curva ROC dos 2 melhores modelos k=90 e k=20 
+## Curva ROC dos 2 melhores modelos k=90 e k=20
 
 ```{r ROC2, fig.width=9}
 prev_knn1 <- predict(t_knn1, conj_teste, type = "prob")
@@ -268,5 +247,3 @@ as.numeric(roc_knn2$auc)
 **Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos a sensibilidade e especificidade!**
 
 **Os resultados encontrados apontam k=20 como a melhor opção**
-
-
