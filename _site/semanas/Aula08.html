@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2022-11-24">
+<meta name="dcterms.date" content="2022-12-09">
 
 <title>IME05-12547 - KNN</title>
 <style>
@@ -344,6 +344,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#variando-k" id="toc-variando-k" class="nav-link" data-scroll-target="#variando-k">Variando K</a></li>
   <li><a href="#variando-k-de-outra-forma" id="toc-variando-k-de-outra-forma" class="nav-link" data-scroll-target="#variando-k-de-outra-forma">Variando K de outra forma</a></li>
   <li><a href="#curva-roc-dos-2-melhores-modelos-k90-e-k20" id="toc-curva-roc-dos-2-melhores-modelos-k90-e-k20" class="nav-link" data-scroll-target="#curva-roc-dos-2-melhores-modelos-k90-e-k20">Curva ROC dos 2 melhores modelos k=90 e k=20</a></li>
+  <li><a href="#outro-biblioteca" id="toc-outro-biblioteca" class="nav-link" data-scroll-target="#outro-biblioteca">Outro biblioteca</a></li>
   </ul>
 </nav>
     </div>
@@ -369,7 +370,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 24, 2022</p>
+      <p class="date">December 9, 2022</p>
     </div>
   </div>
     
@@ -879,6 +880,150 @@ Prediction  Nao  Sim
 </div>
 <p><strong>Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos a sensibilidade e especificidade!</strong></p>
 <p><strong>Os resultados encontrados apontam k=20 como a melhor opção</strong></p>
+</section>
+<section id="outro-biblioteca" class="level2">
+<h2 class="anchored" data-anchor-id="outro-biblioteca">Outro biblioteca</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>y_rotulos <span class="ot">&lt;-</span> conj_treino<span class="sc">$</span>inadimplente</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>knn_outra <span class="ot">&lt;-</span> <span class="fu">tune.knn</span>(conj_treino[,<span class="sc">-</span><span class="dv">1</span>], y_rotulos, <span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>knn_outra</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Parameter tuning of 'knn.wrapper':
+
+- sampling method: 10-fold cross validation 
+
+- best parameters:
+  k
+ 35
+
+- best performance: 0.0280036 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(knn_outra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Parameter tuning of 'knn.wrapper':
+
+- sampling method: 10-fold cross validation 
+
+- best parameters:
+  k
+ 35
+
+- best performance: 0.0280036 
+
+- Detailed performance results:
+    k      error  dispersion
+1   1 0.04412907 0.007965809
+2   2 0.04425438 0.007613521
+3   3 0.03637907 0.007128523
+4   4 0.03600391 0.008221786
+5   5 0.03250344 0.007520578
+6   6 0.03187844 0.006976000
+7   7 0.03087829 0.006586841
+8   8 0.03112829 0.006675718
+9   9 0.03075329 0.006349368
+10 10 0.03050360 0.005687464
+11 11 0.02912813 0.006065833
+12 12 0.02825329 0.005955805
+13 13 0.02862813 0.006329431
+14 14 0.02875313 0.006371736
+15 15 0.02887829 0.006163150
+16 16 0.02912860 0.006067953
+17 17 0.02837829 0.006401107
+18 18 0.02875344 0.005712219
+19 19 0.02862829 0.006545789
+20 20 0.02862813 0.006411191
+21 21 0.02837813 0.006037576
+22 22 0.02862813 0.006356801
+23 23 0.02875360 0.005833344
+24 24 0.02825329 0.006512761
+25 25 0.02875360 0.005951201
+26 26 0.02875344 0.005891755
+27 27 0.02825344 0.005956550
+28 28 0.02875344 0.006996348
+29 29 0.02862829 0.006411805
+30 30 0.02925344 0.006565953
+31 31 0.02900344 0.006475576
+32 32 0.02887844 0.006493053
+33 33 0.02862860 0.006933545
+34 34 0.02850360 0.006449756
+35 35 0.02800360 0.006775611
+36 36 0.02800360 0.006698301
+37 37 0.02837860 0.006998487
+38 38 0.02837860 0.006589633
+39 39 0.02825344 0.006901686
+40 40 0.02850344 0.006660891
+41 41 0.02837860 0.006822629
+42 42 0.02850360 0.006635503
+43 43 0.02862860 0.006704405
+44 44 0.02862875 0.006833421
+45 45 0.02875360 0.006666676
+46 46 0.02837860 0.006668203
+47 47 0.02875360 0.006666676
+48 48 0.02850360 0.006661616
+49 49 0.02875375 0.006535970
+50 50 0.02887875 0.006521264</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>knn1_t <span class="ot">&lt;-</span> <span class="fu">knn3</span>(inadimplente <span class="sc">~</span> balanco <span class="sc">+</span> receita <span class="sc">+</span> estudante, <span class="at">data =</span> conj_treino, <span class="at">k =</span> <span class="dv">35</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>knn1_t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>35-nearest neighbor model
+Training set outcome distribution:
+
+ Nao  Sim 
+7733  266 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>y_chapeu_knn1_t <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn1_t, conj_teste, <span class="at">type =</span> <span class="st">"class"</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Matriz de confusão para valiar os resultados</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(y_chapeu_knn1_t, conj_teste<span class="sc">$</span>inadimplente, <span class="at">positive=</span><span class="st">"Sim"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix and Statistics
+
+          Reference
+Prediction  Nao  Sim
+       Nao 1925   43
+       Sim    9   24
+                                          
+               Accuracy : 0.974           
+                 95% CI : (0.9661, 0.9805)
+    No Information Rate : 0.9665          
+    P-Value [Acc &gt; NIR] : 0.03209         
+                                          
+                  Kappa : 0.4682          
+                                          
+ Mcnemar's Test P-Value : 4.733e-06       
+                                          
+            Sensitivity : 0.35821         
+            Specificity : 0.99535         
+         Pos Pred Value : 0.72727         
+         Neg Pred Value : 0.97815         
+             Prevalence : 0.03348         
+         Detection Rate : 0.01199         
+   Detection Prevalence : 0.01649         
+      Balanced Accuracy : 0.67678         
+                                          
+       'Positive' Class : Sim             
+                                          </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ROC</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>prev_knn1_t <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn1_t, conj_teste, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>roc_knn1_t <span class="ot">&lt;-</span> <span class="fu">roc</span>(conj_teste<span class="sc">$</span>inadimplente <span class="sc">~</span> prev_knn1_t[,<span class="dv">2</span>], <span class="at">plot =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">print.auc=</span><span class="cn">FALSE</span>, <span class="at">col=</span><span class="st">"black"</span>, <span class="at">legacy.axes=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula08A/unnamed-chunk-2-1.png" class="img-fluid" width="864"></p>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(roc_knn1_t<span class="sc">$</span>auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9219659</code></pre>
+</div>
+</div>
 
 
 </section>
