@@ -259,7 +259,6 @@ knn_outra
 summary(knn_outra)
 ```
 
-
 ```{r}
 set.seed(1234)
 knn1_t <- knn3(inadimplente ~ balanco + receita + estudante, data = conj_treino, k = 35)
@@ -274,4 +273,3 @@ roc_knn1_t <- roc(conj_teste$inadimplente ~ prev_knn1_t[,2], plot = TRUE,
                   print.auc=FALSE, col="black", legacy.axes=TRUE)
 as.numeric(roc_knn1_t$auc)
 ```
-

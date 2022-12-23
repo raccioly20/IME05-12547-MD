@@ -1,0 +1,202 @@
+---
+title: "Análise de Clusters"
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.height=6.5, fig.width=7.)
+```
+
+## Bibliotecas
+
+Este conteúdo foi adaptado de: https://mhahsler.github.io/Introduction_to_Data_Mining_R\_Examples/book/clustering-analysis.html
+
+```{r}
+library(tidyverse)
+library(cluster)
+```
+
+## Dados
+
+O conjunto de dados Ruspini, que consiste em 75 pontos dividido em quatro grupos, ele é popular para ilustrar técnicas de agrupamento. É um conjunto de dados muito simples com clusters bem separados. O conjunto de dados original tem os pontos ordenados por grupo. Podemos embaralhar os dados (linhas) usando sample_frac.
+
+```{r}
+data(ruspini, package="cluster")
+```
+
+## Manipulando os dados
+
+```{r}
+ruspini <- as_tibble(ruspini) %>% sample_frac()
+ruspini
+
+```
+
+## Explorando os dados
+
+Nesta etapa os dados são avaliados, pois eventualmente temos situações de dados ausentes, pontos afastados.
+
+```{r}
+ggplot(ruspini, aes(x = x, y = y)) + geom_point()
+summary(ruspini)
+```
+
+## Normalização
+
+Como os algoritmos usam medidas de distância é necessário usarmos a normalização para que os resultados naõ sejam afetados pela escala dos dados.
+
+```{r}
+## Aqui vamos essa função para fazer a normalização
+escala_numerica <- function(x) x %>% mutate_if(is.numeric, function(y) as.vector(scale(y)))
+
+ruspini_norm <- ruspini %>% escala_numerica()
+summary(ruspini_norm)
+```
+
+## Métodos para obtenção de Clusters
+
+### K-médias
+
+O algoritmo do k-médias usa a distância Eucliadiana quadrática. Aqui vamos usar k=4 e vamos rodar o algoritmo 10 vezes
+
+```{r}
+km <- kmeans(ruspini_norm, centers = 4, nstart = 10)
+km
+```
+
+```{r}
+ruspini_clusters <- ruspini_norm %>% add_column(cluster = factor(km$cluster))
+ruspini_clusters
+```
+
+```{r}
+ggplot(ruspini_clusters, aes(x = x, y = y, color = cluster)) + geom_point()
+```
+
+Adicionando os centroides aos gráficos
+
+```{r}
+centroids <- as_tibble(km$centers, rownames = "cluster")
+centroids
+ggplot(ruspini_clusters, aes(x = x, y = y, color = cluster)) + geom_point() + geom_point(data = centroids, aes(x = x, y = y, color = cluster), shape = 3, size = 10)
+```
+
+Vamos usar a biblioteca factoextra para visualizarmos os clusters
+
+```{r}
+library(factoextra)
+fviz_cluster(km, data = ruspini_norm, centroids = TRUE, repel = TRUE, ellipse.type = "norm")
+```
+
+### k-medoides
+
+Os medoides pertencem ao proprio conjunto de dados. Podemos observar que o resultado é semelhante ao obtido no k-médias, mas o algoritmo é mais lento.
+
+```{r}
+#library(cluster)
+kmed <- pam(ruspini_norm, k = 4)
+summary(kmed)
+plot(kmed)
+```
+
+Outra forma de visualização
+
+```{r}
+fviz_cluster(kmed, ruspini_norm,
+             ellipse.type = "convex",
+             repel =TRUE,
+             ggtheme =theme_minimal())
+knitr::kable(kmed$medoids)
+library(janitor)
+tabyl(kmed$clustering)
+```
+
+### Clusters Hierarquicos
+
+O agrupamento hierárquico começa com uma matriz de distância ´dist()´ e tem como padrão method="Euclidiano". As matrizes de distância tornam-se muito grandes rapidamente (tamanho e complexidade de tempo é O(n2) onde n é o número se pontos de dados. Só é
+possível calcular e armazenar a matriz para pequenos conjuntos de dados.
+
+```{r}
+d <- dist(ruspini_norm)
+```
+
+A função hclust() implementa o HCA, ou seja, o cluster hierarquico aglomerativo. Vamos começar usando o método completo.
+
+```{r}
+hc <- hclust(d, method = "complete")
+```
+
+O HCA retorna um dendrograma e não uma definiçaõ de clusters.
+
+```{r}
+plot(hc)
+```
+
+Se usarmos a biblioteca factoextra podemos definir o número de clusters que queremos visualizar.
+
+```{r}
+fviz_dend(hc, k=4)
+```
+
+Podemos extrair as atraibuições de cluster cortando o dendrograma em 4 partes e adicionando a identidade aos dados.
+
+```{r}
+clusters <- cutree(hc, k = 4)
+cluster_completo <- ruspini_norm %>%
+  add_column(cluster = factor(clusters))
+cluster_completo
+```
+
+Podemos usar o método de Ward para obter o cluster.
+
+```{r}
+hc_w <- hclust(d, method = "ward.D")
+```
+
+O HCA retorna um dendrograma e não uma definiçaõ de clusters.
+
+```{r}
+plot(hc_w)
+```
+
+Se usarmos a biblioteca factoextra podemos definir o número de clusters que queremos visualizar.
+
+```{r}
+fviz_dend(hc_w, k=4)
+```
+
+```{r}
+fviz_cluster(list(data = ruspini_norm, cluster = cutree(hc_w, k = 4)), geom = "point")
+```
+
+## Validação dos Clusters
+
+### Silhouette
+
+```{r}
+#library(cluster)
+plot(silhouette(kmed$clustering,d))
+```
+
+```{r}
+fviz_silhouette(silhouette(kmed$clustering, d))
+```
+
+## Numero ótimo de clusters
+
+```{r}
+## Usando o silhouette
+fviz_nbclust(ruspini_norm, pam, method ="silhouette", k.max = 8)
+
+## Metodo do cotovelo
+fviz_nbclust(ruspini_norm, kmeans, method ="wss", k.max = 8)
+```
+
+## 
+
+
+
