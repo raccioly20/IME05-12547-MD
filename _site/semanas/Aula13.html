@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2022-12-23">
+<meta name="dcterms.date" content="2022-12-30">
 
 <title>IME05-12547 - Análise de Clusters</title>
 <style>
@@ -94,6 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../semanas/Aula14.html" rel="next">
 <link href="../semanas/Aula12.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -326,6 +327,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../semanas/Aula13.html" class="sidebar-item-text sidebar-link active">Aula 13</a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula14.html" class="sidebar-item-text sidebar-link">Aula 14</a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -379,7 +385,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 23, 2022</p>
+      <p class="date">December 30, 2022</p>
     </div>
   </div>
   
@@ -423,16 +429,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code># A tibble: 75 × 2
        x     y
    &lt;int&gt; &lt;int&gt;
- 1    69    21
- 2    28    60
- 3    58    13
- 4    85    96
- 5    28   147
- 6    30    52
- 7    99   119
- 8   117   115
- 9    18    61
-10    64    30
+ 1    44   156
+ 2    54   124
+ 3    47   149
+ 4    99   119
+ 5    28    76
+ 6     4    53
+ 7   101   115
+ 8    32   143
+ 9   108   111
+10    33   154
 # … with 65 more rows</code></pre>
 </div>
 </div>
@@ -486,21 +492,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(ruspini_norm, <span class="at">centers =</span> <span class="dv">4</span>, <span class="at">nstart =</span> <span class="dv">10</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>km</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>K-means clustering with 4 clusters of sizes 17, 20, 15, 23
+<pre><code>K-means clustering with 4 clusters of sizes 15, 20, 23, 17
 
 Cluster means:
            x          y
-1  1.4194387  0.4692907
+1  0.4607268 -1.4912271
 2 -1.1385941 -0.5559591
-3  0.4607268 -1.4912271
-4 -0.3595425  1.1091151
+3 -0.3595425  1.1091151
+4  1.4194387  0.4692907
 
 Clustering vector:
- [1] 3 2 3 1 4 2 1 1 2 3 3 3 4 3 2 1 2 1 4 4 4 1 1 3 2 1 2 2 3 2 4 1 1 1 4 3 1 2
-[39] 4 4 2 4 2 4 1 3 3 2 4 2 2 4 4 4 3 3 2 1 4 4 2 4 4 2 1 2 4 1 4 3 4 2 1 3 4
+ [1] 3 3 3 4 2 2 4 3 4 3 3 4 1 2 1 1 2 3 3 4 2 2 4 1 3 2 2 2 2 1 4 4 3 2 2 3 4 1
+[39] 3 1 4 1 2 2 4 3 1 3 3 2 2 1 3 1 4 2 4 1 3 2 3 4 1 3 1 3 2 2 4 3 3 4 3 1 4
 
 Within cluster sum of squares by cluster:
-[1] 3.641276 2.705477 1.082373 2.658679
+[1] 1.082373 2.705477 2.658679 3.641276
  (between_SS / total_SS =  93.2 %)
 
 Available components:
@@ -514,18 +520,18 @@ Available components:
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ruspini_clusters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 75 × 3
-        x       y cluster
-    &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;  
- 1  0.463 -1.46   3      
- 2 -0.881 -0.658  2      
- 3  0.102 -1.62   3      
- 4  0.987  0.0816 1      
- 5 -0.881  1.13   4      
- 6 -0.816 -0.822  2      
- 7  1.45   0.554  1      
- 8  2.04   0.472  1      
- 9 -1.21  -0.637  2      
-10  0.299 -1.27   3      
+         x      y cluster
+     &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  
+ 1 -0.357   1.31  3      
+ 2 -0.0289  0.657 3      
+ 3 -0.258   1.17  3      
+ 4  1.45    0.554 4      
+ 5 -0.881  -0.329 2      
+ 6 -1.67   -0.801 2      
+ 7  1.51    0.472 4      
+ 8 -0.750   1.05  3      
+ 9  1.74    0.390 4      
+10 -0.717   1.27  3      
 # … with 65 more rows</code></pre>
 </div>
 </div>
@@ -543,10 +549,10 @@ Available components:
 <pre><code># A tibble: 4 × 3
   cluster      x      y
   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-1 1        1.42   0.469
+1 1        0.461 -1.49 
 2 2       -1.14  -0.556
-3 3        0.461 -1.49 
-4 4       -0.360  1.11 </code></pre>
+3 3       -0.360  1.11 
+4 4        1.42   0.469</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ruspini_clusters, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> cluster)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">data =</span> centroids, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> cluster), <span class="at">shape =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -575,107 +581,107 @@ Available components:
 <div class="cell-output cell-output-stdout">
 <pre><code>Medoids:
      ID          x          y
-[1,]  1  0.4629124 -1.4583746
-[2,] 30 -1.1762959 -0.5549325
-[3,]  7  1.4464374  0.5538374
-[4,] 71 -0.3566917  1.1698207
+[1,] 49 -0.3566917  1.1698207
+[2,]  4  1.4464374  0.5538374
+[3,] 26 -1.1762959 -0.5549325
+[4,] 54  0.4629124 -1.4583746
 Clustering vector:
- [1] 1 2 1 3 4 2 3 3 2 1 1 1 4 1 2 3 2 3 4 4 4 3 3 1 2 3 2 2 1 2 4 3 3 3 4 1 3 2
-[39] 4 4 2 4 2 4 3 1 1 2 4 2 2 4 4 4 1 1 2 3 4 4 2 4 4 2 3 2 4 3 4 1 4 2 3 1 4
+ [1] 1 1 1 2 3 3 2 1 2 1 1 2 4 3 4 4 3 1 1 2 3 3 2 4 1 3 3 3 3 4 2 2 1 3 3 1 2 4
+[39] 1 4 2 4 3 3 2 1 4 1 1 3 3 4 1 4 2 3 2 4 1 3 1 2 4 1 4 1 3 3 2 1 1 2 1 4 2
 Objective function:
     build      swap 
 0.4422977 0.3187056 
 
 Numerical information per cluster:
      size  max_diss   av_diss  diameter separation
-[1,]   15 0.4589783 0.2433250 0.8359025   1.157682
-[2,]   20 0.5755656 0.3401125 1.1192822   1.157682
-[3,]   17 0.9459253 0.3862345 1.4627043   0.767612
-[4,]   23 0.6558680 0.2993397 1.1591436   0.767612
+[1,]   23 0.6558680 0.2993397 1.1591436   0.767612
+[2,]   17 0.9459253 0.3862345 1.4627043   0.767612
+[3,]   20 0.5755656 0.3401125 1.1192822   1.157682
+[4,]   15 0.4589783 0.2433250 0.8359025   1.157682
 
 Isolated clusters:
  L-clusters: character(0)
- L*-clusters: [1] 1 2
+ L*-clusters: [1] 3 4
 
 Silhouette plot information:
    cluster neighbor sil_width
-1        1        2 0.8592059
-46       1        2 0.8553255
-12       1        2 0.8530741
-29       1        2 0.8449473
-55       1        2 0.8361633
-24       1        2 0.8187150
-56       1        2 0.8178795
-36       1        3 0.8087015
-74       1        2 0.8013799
-11       1        2 0.7983516
-70       1        2 0.7918724
-10       1        2 0.7768261
-47       1        2 0.7727269
-14       1        3 0.7425993
-3        1        2 0.7328306
-30       2        4 0.8094377
-9        2        1 0.8027447
-41       2        4 0.7782513
-72       2        1 0.7704646
-66       2        1 0.7700388
-48       2        4 0.7597906
-17       2        4 0.7530091
-50       2        4 0.7436695
-2        2        1 0.7412965
-43       2        4 0.7270442
-15       2        1 0.7255183
-38       2        1 0.7226938
-57       2        1 0.7042349
-25       2        4 0.7026960
-61       2        4 0.6966533
-64       2        1 0.6921822
-28       2        1 0.6756339
-6        2        1 0.6463656
-51       2        4 0.6005277
-27       2        1 0.6004543
-73       3        4 0.7898609
-7        3        4 0.7834341
-65       3        4 0.7822308
-16       3        4 0.7790446
-68       3        4 0.7780891
-33       3        4 0.7694930
-58       3        4 0.7624335
-37       3        4 0.7609359
-26       3        4 0.7400337
-32       3        4 0.7392052
-18       3        4 0.7390493
-8        3        4 0.7234199
-34       3        4 0.5894345
-4        3        1 0.5666610
-45       3        4 0.5114355
-23       3        4 0.4358476
-22       3        4 0.3312348
-71       4        2 0.8368407
-69       4        2 0.8305019
-49       4        3 0.8222142
-13       4        2 0.8220686
-19       4        2 0.8158429
-75       4        3 0.8150398
-31       4        2 0.8134280
-21       4        2 0.8064757
-40       4        3 0.7984225
-60       4        2 0.7969057
-52       4        2 0.7841631
-39       4        3 0.7794889
-35       4        3 0.7605512
-42       4        2 0.7591035
-44       4        2 0.7473901
-67       4        3 0.7423529
-20       4        2 0.7402623
-54       4        2 0.7249133
-63       4        3 0.7007372
-5        4        2 0.6739284
-59       4        3 0.5661372
-53       4        3 0.5413082
-62       4        3 0.4673917
+49       1        3 0.8368407
+48       1        3 0.8305019
+3        1        2 0.8222142
+64       1        3 0.8220686
+11       1        3 0.8158429
+1        1        2 0.8150398
+61       1        3 0.8134280
+59       1        3 0.8064757
+53       1        2 0.7984225
+70       1        3 0.7969057
+71       1        3 0.7841631
+25       1        2 0.7794889
+39       1        2 0.7605512
+10       1        3 0.7591035
+19       1        3 0.7473901
+18       1        2 0.7423529
+36       1        3 0.7402623
+8        1        3 0.7249133
+46       1        2 0.7007372
+66       1        3 0.6739284
+2        1        2 0.5661372
+73       1        2 0.5413082
+33       1        2 0.4673917
+7        2        1 0.7898609
+4        2        1 0.7834341
+45       2        1 0.7822308
+55       2        1 0.7790446
+9        2        1 0.7780891
+57       2        1 0.7694930
+37       2        1 0.7624335
+32       2        1 0.7609359
+72       2        1 0.7400337
+31       2        1 0.7392052
+23       2        1 0.7390493
+12       2        1 0.7234199
+62       2        1 0.5894345
+75       2        4 0.5666610
+69       2        1 0.5114355
+41       2        1 0.4358476
+20       2        1 0.3312348
+26       3        1 0.8094377
+34       3        4 0.8027447
+50       3        1 0.7782513
+60       3        4 0.7704646
+29       3        4 0.7700388
+56       3        1 0.7597906
+21       3        1 0.7530091
+67       3        1 0.7436695
+14       3        4 0.7412965
+51       3        1 0.7270442
+27       3        4 0.7255183
+22       3        4 0.7226938
+6        3        4 0.7042349
+35       3        1 0.7026960
+5        3        1 0.6966533
+43       3        4 0.6921822
+44       3        4 0.6756339
+28       3        4 0.6463656
+17       3        1 0.6005277
+68       3        4 0.6004543
+54       4        3 0.8592059
+24       4        3 0.8553255
+47       4        3 0.8530741
+40       4        3 0.8449473
+42       4        3 0.8361633
+63       4        3 0.8187150
+65       4        3 0.8178795
+58       4        2 0.8087015
+13       4        3 0.8013799
+74       4        3 0.7983516
+16       4        3 0.7918724
+30       4        3 0.7768261
+15       4        3 0.7727269
+52       4        2 0.7425993
+38       4        3 0.7328306
 Average silhouette width per cluster:
-[1] 0.8073733 0.7211353 0.6812849 0.7454551
+[1] 0.7454551 0.6812849 0.7211353 0.8073733
 Average silhouette width of total data set:
 [1] 0.7368082
 
@@ -717,20 +723,20 @@ Available components:
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.4629124</td>
-<td style="text-align: right;">-1.4583746</td>
+<td style="text-align: right;">-0.3566917</td>
+<td style="text-align: right;">1.1698207</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">-1.1762959</td>
-<td style="text-align: right;">-0.5549325</td>
-</tr>
-<tr class="odd">
 <td style="text-align: right;">1.4464374</td>
 <td style="text-align: right;">0.5538374</td>
 </tr>
+<tr class="odd">
+<td style="text-align: right;">-1.1762959</td>
+<td style="text-align: right;">-0.5549325</td>
+</tr>
 <tr class="even">
-<td style="text-align: right;">-0.3566917</td>
-<td style="text-align: right;">1.1698207</td>
+<td style="text-align: right;">0.4629124</td>
+<td style="text-align: right;">-1.4583746</td>
 </tr>
 </tbody>
 </table>
@@ -748,10 +754,10 @@ Attaching package: 'janitor'</code></pre>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(kmed<span class="sc">$</span>clustering)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> kmed$clustering  n   percent
-               1 15 0.2000000
-               2 20 0.2666667
-               3 17 0.2266667
-               4 23 0.3066667</code></pre>
+               1 23 0.3066667
+               2 17 0.2266667
+               3 20 0.2666667
+               4 15 0.2000000</code></pre>
 </div>
 </div>
 </section>
@@ -793,18 +799,18 @@ of ggplot2 3.3.4.
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>cluster_completo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 75 × 3
-        x       y cluster
-    &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;  
- 1  0.463 -1.46   1      
- 2 -0.881 -0.658  2      
- 3  0.102 -1.62   1      
- 4  0.987  0.0816 3      
- 5 -0.881  1.13   4      
- 6 -0.816 -0.822  2      
- 7  1.45   0.554  3      
- 8  2.04   0.472  3      
- 9 -1.21  -0.637  2      
-10  0.299 -1.27   1      
+         x      y cluster
+     &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  
+ 1 -0.357   1.31  1      
+ 2 -0.0289  0.657 1      
+ 3 -0.258   1.17  1      
+ 4  1.45    0.554 2      
+ 5 -0.881  -0.329 3      
+ 6 -1.67   -0.801 3      
+ 7  1.51    0.472 2      
+ 8 -0.750   1.05  1      
+ 9  1.74    0.390 2      
+10 -0.717   1.27  1      
 # … with 65 more rows</code></pre>
 </div>
 </div>
@@ -849,10 +855,10 @@ of ggplot2 3.3.4.
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_silhouette</span>(<span class="fu">silhouette</span>(kmed<span class="sc">$</span>clustering, d))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cluster size ave.sil.width
-1       1   15          0.81
-2       2   20          0.72
-3       3   17          0.68
-4       4   23          0.75</code></pre>
+1       1   23          0.75
+2       2   17          0.68
+3       3   20          0.72
+4       4   15          0.81</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
@@ -1137,6 +1143,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../semanas/Aula14.html" class="pagination-link">
+        <span class="nav-page-text">Aula 14</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

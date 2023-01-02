@@ -1,0 +1,306 @@
+---
+title: "Análise de Associação"
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+format:
+  html:
+    toc: true
+    code_download: yes
+---
+
+Este exemplo de Análise de Associação foi baseado no curso do DataCamp "Market Basket Analysis"
+
+As bibilotecas usadas são as arules e arulesViz.
+
+```{r}
+# parametros para imagens
+knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.asp = 0.73,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "90%"
+)
+```
+
+## Bibliotecas
+
+```{r}
+library(tidyverse)
+library(arules)
+library(arulesViz)
+```
+
+## Dados
+
+O conjunto de dados Movies consiste de
+
+```{r}
+library(readxl)
+filmes <- read_excel("Movie_subset.xlsx")
+str(filmes)
+head(filmes)
+```
+
+## Explorando os dados
+
+```{r}
+n_distinct(filmes$title)
+n_distinct(filmes$userId)
+filmes %>%
+  group_by(userId) %>% 
+  summarise(n_filmes = n_distinct(movieId)) %>%
+  ggplot(aes(x = n_filmes)) +
+  geom_bar() + 
+  ggtitle("Distribuição do número de filmes vistos")
+
+```
+
+## Tranformando em Transações
+
+```{r}
+lista_de_filmes <- split(filmes$title, filmes$userId)
+filmes_trx = as(lista_de_filmes, "transactions")
+#Imagem de parte das transações
+image(filmes_trx[1:100,1:100])
+```
+
+## Visualizando as transações
+
+A biblioteca arules tem funções para visualização das transações masi frequentes.
+
+Elas podem ser vistas na forma de frequencias absolutas ou relativas.
+
+### Frequencia Relativa e Absoluta
+
+```{r}
+par(mfrow=c(2,1))
+itemFrequencyPlot(filmes_trx,
+                  type = "relative",
+                  topN = 10,
+                  horiz = TRUE,
+                  main = 'Frequencia Relativa')
+
+itemFrequencyPlot(filmes_trx,
+                  type = "absolute",
+                  topN = 10,
+                  horiz = TRUE,
+                  main = 'Frequencia Absoluta')
+```
+
+### Mostrando os filmes menos populares
+
+Para mostrar o final da lista de prefrência é necessário utilizarmos funções adicionais.
+
+```{r}
+par(mar=c(2,30,2,2), mfrow=c(1,1))
+barplot(sort(table(unlist(LIST(filmes_trx))))[1:10],
+        horiz = TRUE,
+        las = 1,
+        main = 'Menos populares')
+```
+
+### Extraindo os filmes mais frequentes
+
+A função apriori que aplica o algoritmo de mesmo nome permite que obtenhamos a lista de filmes mais frequentes e também as regras criadas a partir da utilização do algoritmo.
+
+Neste exemplo somente o suporte teve um limite mínimo defindo
+
+```{r}
+conj_filmes <- apriori(filmes_trx,
+                    parameter = list(support = 0.4,
+                               target = 'frequent'
+                    ))
+
+inspect(sort(conj_filmes, by='support', decreasing = T)[1:5])
+```
+
+Neste exemplo eliminamos os conjuntos com um só elemento e reduzimos o suporte para 30%
+
+```{r}
+itemset2 = apriori(filmes_trx, parameter = 
+                           list(support = 0.3,
+                                minlen = 2,
+                                target = 'frequent'
+                            ))
+
+inspect(sort(itemset2, 
+             by='support', decreasing = T)[1:5])
+```
+
+Aqui invertemos a ordem apresentando os 5 menos populares
+
+```{r}
+itemset2 = apriori(filmes_trx, parameter = 
+                           list(support = 0.3,
+                                minlen = 2,
+                                target = 'frequent'
+                            ))
+
+inspect(sort(itemset2, 
+             by='support', decreasing = F)[1:5])
+```
+
+### Avaliando diferentes níveis de confiança
+
+Usando o suporte de 40% e 30% vamos ver as diferenças nos números de regras, variando o nível de confiança.
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+confidenceLevels = seq(from=0.95, to=0.5, by=-0.05)
+
+regras_sup04 <- NULL
+
+
+for (i in 1:length(confidenceLevels)) 
+  {
+  regras_sup04[i] = 
+  length(apriori(filmes_trx,
+                 parameter=list(sup=0.40, 
+                                conf=confidenceLevels[i],
+                                target="rules")))
+}
+
+
+regras_sup03 <- NULL
+
+
+for (i in 1:length(confidenceLevels)) 
+  {
+  regras_sup03[i] = 
+  length(apriori(filmes_trx,
+                 parameter=list(sup=0.30, 
+                                conf=confidenceLevels[i],
+                                target="rules")))
+}
+```
+
+### Número de regras com suporte de 40%
+
+```{r}
+qplot(confidenceLevels, regras_sup04, 
+      geom=c("point", "line"),xlab="Nível de Confiança",
+      ylab="Numero de regras achadas", 
+      main="Apriori com nível de suporte de 40%") +
+  theme_bw()
+```
+
+### Visualizando os resultados
+
+```{r}
+n_regras <- data.frame(regras_sup04, regras_sup03,
+                      confidenceLevels)
+
+# 40% e 30%
+ggplot(data=n_regras, aes(x=confidenceLevels)) +
+  # regras_sup04
+  geom_line(aes(y= regras_sup04, colour="Nível de Suporte de 40%")) + 
+  geom_point(aes(y=regras_sup04,colour="Nível de Suporte de 40%")) +
+  # regras_sup03
+  geom_line(aes(y=regras_sup03, colour="Nível de Suporte de 30%")) +
+  geom_point(aes(y=regras_sup03,colour="Nível de Suporte de 30%")) + 
+  # 
+  theme_bw() + ylab("Numero de regras") +
+  ggtitle("Numero de regras extraídas com o apriori")
+```
+
+### Extraindo as regras
+
+```{r}
+regras_filmes = apriori(filmes_trx,
+                          parameter = list(supp = 0.3,
+                                           conf = 0.9,
+                                           minlen = 2, 
+                                           target = "rules"))
+
+summary(regras_filmes)
+```
+
+### Visualizado como um gráfico de dispersão
+
+As medidas selecionadas são confiança e interesse (lift)
+
+```{r}
+# Plot rules as scatterplot
+plot(regras_filmes,
+     measure = c("confidence", "lift"),
+     shading = "support",
+     jitter = 1,
+     engine ="html")
+```
+
+```{r}
+# Interactive matrix-based plot
+plot(regras_filmes, method = "matrix",
+     shading ="confidence",
+     engine = "html"
+     )
+```
+
+```{r}
+# Grouped matrix plot of rules
+plot(regras_filmes, 
+     method = "grouped",
+     measure = "lift",
+     shading = "confidence")
+```
+
+```{r}
+# Parallel coordinate plots with confidence as color coding
+plot(regras_filmes, 
+     method = "paracoord", 
+     shading = "confidence")
+```
+
+```{r}
+# Plot movie rules as a graph
+plot(regras_filmes,
+     method = "graph",
+     engine = "htmlwidget")
+```
+
+```{r}
+# Retrieve the top 10 rules with highest confidence
+top10_rules_movies = head(sort(regras_filmes,by="confidence"),10)
+# Plot as an interactive graph the top 10 rules
+plot(top10_rules_movies,
+     method = "graph",engine = "htmlwidget")
+
+```
+
+### Extraindo regras com um determinando filme
+
+```{r}
+# Extract rules with Pulp Fiction on the right side
+pulpfiction_rules_rhs = apriori(filmes_trx, 
+                           parameter = list(supp = 0.3,
+                                            conf = 0.5), 
+                       appearance = list(default = "lhs",
+                                         rhs = "Pulp Fiction")) 
+
+# Inspect the first rules
+inspect(head(pulpfiction_rules_rhs,5))
+```
+
+```{r}
+# Find rules with highest lift
+inspect(head(sort(pulpfiction_rules_rhs, by="lift"), 10))
+```
+
+## Extraindo regras com um filme na esquerda
+
+```{r}
+# Extract rules with Pulp Fiction on the left side
+pulpfiction_rules_lhs = apriori(filmes_trx, 
+                           parameter = list(supp = 0.3,
+                                            conf = 0.5, 
+                                            minlen = 2), 
+                           appearance = list(
+                             default = "rhs",
+                             lhs = "Pulp Fiction")) 
+
+# Inspect the first rules
+inspect(head(pulpfiction_rules_lhs))
+```

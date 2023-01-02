@@ -117,8 +117,7 @@ tabyl(kmed$clustering)
 
 ### Clusters Hierarquicos
 
-O agrupamento hierárquico começa com uma matriz de distância ´dist()´ e tem como padrão method="Euclidiano". As matrizes de distância tornam-se muito grandes rapidamente (tamanho e complexidade de tempo é O(n2) onde n é o número se pontos de dados. Só é
-possível calcular e armazenar a matriz para pequenos conjuntos de dados.
+O agrupamento hierárquico começa com uma matriz de distância ´dist()´ e tem como padrão method="Euclidiano". As matrizes de distância tornam-se muito grandes rapidamente (tamanho e complexidade de tempo é O(n2) onde n é o número se pontos de dados. Só é possível calcular e armazenar a matriz para pequenos conjuntos de dados.
 
 ```{r}
 d <- dist(ruspini_norm)
@@ -197,6 +196,3 @@ fviz_nbclust(ruspini_norm, kmeans, method ="wss", k.max = 8)
 ```
 
 ## 
-
-
-
