@@ -148,7 +148,8 @@ Usando o suporte de 40% e 30% vamos ver as diferenças nos números de regras, v
 ```{r}
 #| warning: false
 #| message: false
-#| echo: false
+#| echo: true
+#| output: false
 confidenceLevels = seq(from=0.95, to=0.5, by=-0.05)
 
 regras_sup04 <- NULL
@@ -239,13 +240,6 @@ plot(regras_filmes, method = "matrix",
      )
 ```
 
-```{r}
-# Grouped matrix plot of rules
-plot(regras_filmes, 
-     method = "grouped",
-     measure = "lift",
-     shading = "confidence")
-```
 
 ```{r}
 # Parallel coordinate plots with confidence as color coding
