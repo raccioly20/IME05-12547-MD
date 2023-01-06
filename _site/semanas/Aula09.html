@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2022-08-12">
+<meta name="dcterms.date" content="2023-01-06">
 
 <title>IME05-12547 - Regressão Logística</title>
 <style>
@@ -391,7 +391,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 12, 2022</p>
+      <p class="date">January 6, 2023</p>
     </div>
   </div>
   
@@ -977,7 +977,7 @@ Prediction  Nao  Sim
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustando KNN </span></span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>ctrl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>)</span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>treina_knn <span class="ot">&lt;-</span> <span class="fu">train</span>(inadimplente <span class="sc">~</span> <span class="fu">scale</span>(balanco) <span class="sc">+</span> <span class="fu">scale</span>(estudante), <span class="at">method =</span> <span class="st">"knn"</span>, <span class="at">trControl=</span> ctrl, <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">140</span>, <span class="at">by=</span><span class="dv">4</span>)), <span class="at">data =</span> conj_treino)</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>treina_knn <span class="ot">&lt;-</span> <span class="fu">train</span>(inadimplente <span class="sc">~</span> <span class="fu">scale</span>(balanco) <span class="sc">+</span> estudante, <span class="at">method =</span> <span class="st">"knn"</span>, <span class="at">trControl=</span> ctrl, <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">140</span>, <span class="at">by=</span><span class="dv">4</span>)), <span class="at">data =</span> conj_treino)</span>
 <span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="co"># treina_knn</span></span>
 <span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(treina_knn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">

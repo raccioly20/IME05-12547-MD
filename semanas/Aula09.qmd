@@ -20,7 +20,6 @@ knitr::opts_chunk$set(fig.width = 9,
 
 ## Carregando Bibliotecas
 
-
 ```{r bibliotecas}
 library(tidyverse)
 library(ISLR)
@@ -31,7 +30,6 @@ head(Default)
 ```
 
 ## Manipulando os dados
-
 
 ```{r inadimplente}
 credito <- tibble(Default)
@@ -54,7 +52,6 @@ summary(credito)
 
 ```
 
-
 ## Treino e Teste
 
 ```{r conjuntos-treino-teste}
@@ -71,7 +68,6 @@ summary(conj_teste)
 
 ```
 
-
 ## Matriz de dispersão
 
 ```{r splom}
@@ -85,9 +81,7 @@ pairs.panels(conj_treino,
 
 ```
 
-
 ## Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)
-
 
 ```{r box-plot}
 ggplot(conj_treino, aes(x=inadimplente, y=balanco)) +
@@ -102,15 +96,12 @@ ggplot(conj_treino, aes(x=as.factor(estudante), y=receita)) +
 
 ```
 
-
 ## Balanço vs Receita
-
 
 ```{r dispersao}
 ggplot(data = conj_treino, aes(x=balanco,  y = receita, col = inadimplente)) +
   geom_point() 
 ```
-
 
 ## Regressão Linear?
 
@@ -153,7 +144,6 @@ conj_treino %>%
            geom_line()
 ```
 
-
 ## 1a Regressão logística: só balanço
 
 ```{r mod1}
@@ -177,8 +167,6 @@ confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim")
 predict(mod1, newdata = data.frame(balanco = c(1000,2000,3000)), type="response")
 ```
 
-
-
 ## Curva S
 
 ```{r Curva_S}
@@ -196,14 +184,14 @@ abline(v = -coef(mod1)[1] / coef(mod1)[2], lwd = 2)
 ```
 
 ## Valor de balanço com probabilidade de 50%
--$\beta_0$/$\beta_1$
+
+\-$\beta_0$/$\beta_1$
+
 ```{r}
 -coef(mod1)[1] / coef(mod1)[2]
 ```
 
-
-
-## 2a Regressão logística: todas as variáveis 
+## 2a Regressão logística: todas as variáveis
 
 ```{r mod2}
 mod2 <- glm(inadimplente ~ balanco + receita + estudante,data=conj_treino,family=binomial)
@@ -231,7 +219,6 @@ y_chapeu <- ifelse(p_chapeu > 0.5, "Sim", "Nao") %>% factor(levels = levels(conj
 confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim") 
 ```
 
-
 ## Mudando a probabilidade (limite) para aumentar a sensibilidade
 
 ```{r novo_limite}
@@ -240,9 +227,6 @@ y_chapeu <- ifelse(p_chapeu > 0.1, "Sim", "Nao") %>%
              factor(levels = levels(conj_teste$inadimplente))
 confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim")
 ```
-
-
-
 
 ## Curva ROC modelo só com balanço
 
@@ -255,7 +239,6 @@ roc_log <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=FA
 # Area debaixo da curva
 as.numeric(roc_log$auc)
 ```
-
 
 ## Curva ROC 2: Modelo com balanço + estudante
 
@@ -277,14 +260,13 @@ legend("bottomright", legend=c("Mod 1", "Mod2"),
        col=c(par("fg"), "blue"), lwd=2)
 ```
 
-
 ## Curva ROC 3 com o KNN
 
 ```{r ROC3}
 # Ajustando KNN 
 set.seed(21)
 ctrl <- trainControl(method = "cv")
-treina_knn <- train(inadimplente ~ scale(balanco) + scale(estudante), method = "knn", trControl= ctrl, tuneGrid = data.frame(k = seq(5,140, by=4)), data = conj_treino)
+treina_knn <- train(inadimplente ~ scale(balanco) + estudante, method = "knn", trControl= ctrl, tuneGrid = data.frame(k = seq(5,140, by=4)), data = conj_treino)
 # treina_knn
 plot(treina_knn)
 prev_knn <- predict(treina_knn, conj_teste,type = "prob")
@@ -303,5 +285,3 @@ as.numeric(roc_log2$auc)
 as.numeric(roc_knn1$auc)
 
 ```
-
-
