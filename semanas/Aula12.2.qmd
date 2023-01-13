@@ -13,7 +13,6 @@ output:
 knitr::opts_chunk$set(echo = TRUE, fig.height=6.5, fig.width=7.)
 ```
 
-
 ## Bibliotecas
 
 ```{r bibliotecas , message=FALSE}
@@ -21,18 +20,17 @@ library(tidyverse)
 library(ISLR)
 ```
 
-
 ## Dados
 
-Vamos começar a aplicar a metodologia de árvores usando **árvores de classificação** para analisar os dados existentes em `Carseats`. Este conjunto de dados (simulado) é sobre venda de assentos de criança para carros. Ele tem 400 observações das seguintes variáveis (11), cujos nomes  serão convertidos para o português:
+Vamos começar a aplicar a metodologia de árvores usando **árvores de classificação** para analisar os dados existentes em `Carseats`. Este conjunto de dados (simulado) é sobre venda de assentos de criança para carros. Ele tem 400 observações das seguintes variáveis (11), cujos nomes serão convertidos para o português:
 
 Sales: vendas em unidades (em mil) em cada local
 
 CompPrice: preço cobrado pelo competidor em cada local
 
-Income: nível de renda da comunidade local (em mil US$)
+Income: nível de renda da comunidade local (em mil US\$)
 
-Advertising: orçamento local de propaganda (em mil US$)
+Advertising: orçamento local de propaganda (em mil US\$)
 
 Population: população na região (em mil)
 
@@ -44,25 +42,21 @@ Age: idade media da população local
 
 Education: nível de educação em cada local
 
-Urban: um fator Sim e Não indicando se a loja esta em uma área urbana ou rural 
+Urban: um fator Sim e Não indicando se a loja esta em uma área urbana ou rural
 
 US: um fator indicando se a loja é nos EUA ou não
 
+Neste dados, `Sales` é a variável resposta, só que ela é uma variável contínua, por este motivo vamos usá-la para criar uma variável binária. Vamos usar a função `ifelse()` para criar a variável binária, que chamaremos de **alta**, ela assume os valores `Sim` se `Sales` for maior que 8 e assume o valor `Não` caso contrário:
 
-Neste dados, `Sales` é a variável resposta, só que ela é uma variável contínua, por este motivo vamos usá-la para criar uma variável binária. 
-Vamos usar a função `ifelse()` para criar a variável binária, que chamaremos de **alta**, ela assume os valores `Sim` se `Sales` for maior que 8 e assume o valor `Não` caso contrário:
-
-
-```{r dados}
+```{r}
 data(Carseats)
 summary(Carseats)
 str(Carseats)
 ```
 
-
 ## Manipulando os dados
 
-```{r inadimplente}
+```{r}
 cad_crianca <- Carseats %>% rename(vendas = Sales, 
                                    preco_comp = CompPrice,
                                    renda = Income,
@@ -99,10 +93,9 @@ summary(cad_crianca)
 
 ```
 
-
 ## Treino e Teste
 
-```{r conjuntos-treino-teste}
+```{r}
 library(caret)
 set.seed(21)
 y <- cad_crianca$alta
@@ -117,14 +110,13 @@ str(conj_teste)
 prop.table(table(conj_teste$alta))
 ```
 
-
 ## Arvore de Classificação
 
-Na biblioteca rpart as arvores de classificação são obtidas usando o método class. Existem alguns controles que podem ser feitos nos parametros da arvore. 
+Na biblioteca rpart as arvores de classificação são obtidas usando o método class. Existem alguns controles que podem ser feitos nos parametros da arvore.
 
 Neste exemplo só definimos o menor conjunto de dados numa partição (minsplit) e o parametro de complexidade cp. Posteriormente vamos ampliar este controle. Um valor de cp muito pequeno ocasiona overfitting e um valor muito grande resulta numa arvore muito pequena (underfitting). Nos dois casos se diminui o desempenho do modelo.
 
-```{r arvore}
+```{r}
 ##Usando rpart para desenvolver a arvore  
 library(rpart)
 arvcl <- rpart(alta ~ ., 
@@ -135,19 +127,16 @@ plot(arvcl)
 text(arvcl,pretty=0)
 ```
 
+## Regras
 
-\newpage
-
-```{r regras}
+```{r}
 # Regras de Decisão
 arvcl
 ```
 
-\newpage
-
 ## Desenhando a Árvore de uma forma mais clara
 
-```{r arvore1}
+```{r}
 library(rattle)
 library(rpart.plot)
 library(RColorBrewer)
@@ -155,11 +144,9 @@ fancyRpartPlot(arvcl, caption = NULL)
 
 ```
 
-\newpage
-
 ## Previsões
 
-```{r previsoes}
+```{r}
 
 # Fazendo Previsões
 y_chapeu <- predict(arvcl, newdata = conj_teste, type="class")
@@ -167,12 +154,9 @@ y_chapeu <- predict(arvcl, newdata = conj_teste, type="class")
 confusionMatrix(y_chapeu, conj_teste$alta, positive="Sim") 
 ```
 
-
-\newpage
-
 ## Arvore de Classificação no caret
 
-```{r arvore2}
+```{r}
 ##Usando rpart para desenvolver a arvore  
 library(rpart)
 set.seed(21)
@@ -192,12 +176,9 @@ plot(arvclass)
 arvclass$bestTune
 ```
 
-
-\newpage
-
 ## Uma forma melhor de ver a Árvore
 
-```{r arvore3}
+```{r}
 ## melhorando apresentação da árvore
 library(rattle)
 library(rpart.plot)
@@ -205,12 +186,9 @@ library(RColorBrewer)
 fancyRpartPlot(arvclass$finalModel, caption = NULL)
 ```
 
-
-\newpage
-
 ## Previsões
 
-```{r previsoes1}
+```{r}
 
 # Fazendo Previsões
 y_chapeu <- arvclass %>% predict(conj_teste) %>% 
@@ -219,13 +197,49 @@ head(y_chapeu)
 confusionMatrix(y_chapeu, conj_teste$alta, positive="Sim") 
 ```
 
-\newpage
+## Verificando a consistencia dos resultados
+
+```{r}
+set.seed(121)
+y <- cad_crianca$alta
+indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
+
+conj_treino <- cad_crianca %>% slice(-indice_teste)
+conj_teste <- cad_crianca %>% slice(indice_teste)
+
+str(conj_treino)
+prop.table(table(conj_treino$alta))
+str(conj_teste)
+prop.table(table(conj_teste$alta))
+```
+
+## Obtendo a arvore
+
+```{r}
+##Usando rpart para desenvolver a arvore  
+library(rpart)
+arvcl <- rpart(alta ~ ., 
+                data=conj_treino,
+                method="class", #para arvore de classificação
+                control=rpart.control(minsplit=30,cp=0.02))
+
+```
+
+## Desenhando a Árvore de uma forma mais clara
+
+```{r}
+library(rattle)
+library(rpart.plot)
+library(RColorBrewer)
+fancyRpartPlot(arvcl, caption = NULL)
+
+```
 
 ## GBM
 
-## Criando um grid para avaliar os parametros
+### Criando um grid para avaliar os parametros
 
-```{r criando_grid}
+```{r}
 hiper_grid <- expand.grid(
   shrinkage = c(.001, .01, .1),
   interaction.depth = c(1, 3, 5),
@@ -241,7 +255,7 @@ nrow(hiper_grid)
 
 ## Avaliando o grid de parametros
 
-```{r teste_grid1}
+```{r}
 library(gbm)
 conj_treino$alta <- as.numeric(conj_treino$alta)
 conj_treino <- transform(conj_treino, alta=alta - 1)
@@ -280,10 +294,9 @@ for(i in 1:nrow(hiper_grid)) {
 hiper_grid %>% dplyr::arrange(min_erro) %>% head(10)
 ```
 
-
 ## Modelo final
 
-```{r gbmfinal}
+```{r}
 # 
 set.seed(21)
 
@@ -304,11 +317,9 @@ gbm.fit.final <- gbm(
 
 ```
 
-\newpage
-
 ## Importância das Variáveis
 
-```{r vi}
+```{r}
 par(mai = c(1, 2, 1, 2))
 summary(
   gbm.fit.final, 
@@ -319,12 +330,9 @@ summary(
 
 ```
 
-
-\newpage
-
 ## Previsão
 
-```{r previsão}
+```{r}
 conj_teste$alta <- as.numeric(conj_teste$alta)
 conj_teste <- transform(conj_teste, alta=alta - 1)
 conj_teste$eua <- as.numeric(conj_teste$eua)
@@ -345,11 +353,7 @@ confusionMatrix(gbm.ychapeu,as.factor(conj_teste$alta), positive="1")
 
 ```
 
-
-\newpage
-
 ## Curva ROC
-
 
 ```{r}
 library(pROC)
@@ -357,4 +361,3 @@ p_chapeu_gbm <- previsao1
 roc_gbm <- roc(conj_teste$alta ~ p_chapeu_gbm, plot = TRUE, print.auc=FALSE, col="black", legacy.axes=TRUE)
 as.numeric(roc_gbm$auc)
 ```
-
