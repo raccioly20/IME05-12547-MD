@@ -984,10 +984,10 @@ Prediction Não Sim
 <span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> alta <span class="sc">~</span> .,</span>
 <span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">distribution =</span> <span class="st">"bernoulli"</span>,</span>
 <span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> conj_treino,</span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.trees =</span> <span class="dv">372</span>,</span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">interaction.depth =</span> <span class="dv">1</span>,</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.trees =</span> <span class="dv">165</span>,</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">interaction.depth =</span> <span class="dv">3</span>,</span>
 <span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">shrinkage =</span> <span class="fl">0.10</span>,</span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.minobsinnode =</span> <span class="dv">15</span>,</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.minobsinnode =</span> <span class="dv">5</span>,</span>
 <span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">bag.fraction =</span> <span class="fl">0.65</span>, </span>
 <span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">train.fraction =</span> <span class="dv">1</span>,</span>
 <span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.cores =</span> <span class="cn">NULL</span>, </span>
@@ -1009,17 +1009,17 @@ Prediction Não Sim
 <p><img src="Aula12.2_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                  var     rel.inf
-preco           preco 28.78275767
-local_prat local_prat 23.73520919
-propaganda propaganda 13.63865967
-renda           renda 10.96228637
-preco_comp preco_comp 10.42800230
-idade           idade 10.33890453
-populacao   populacao  1.28452744
-educacao     educacao  0.74961146
-urbano         urbano  0.08004137
-eua               eua  0.00000000</code></pre>
+<pre><code>                  var    rel.inf
+preco           preco 29.5468476
+local_prat local_prat 21.5292204
+propaganda propaganda 12.2498142
+renda           renda 11.4616394
+idade           idade 10.3960594
+preco_comp preco_comp 10.1224807
+populacao   populacao  2.0513691
+eua               eua  1.2347441
+educacao     educacao  1.1121800
+urbano         urbano  0.2956451</code></pre>
 </div>
 </div>
 </section>
@@ -1040,7 +1040,7 @@ eua               eua  0.00000000</code></pre>
 <span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type =</span> <span class="st">"response"</span>)</span>
 <span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(previsao1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.995598320 0.770191480 0.205535894 0.002544471 0.109224340 0.998993995</code></pre>
+<pre><code>[1] 0.965002359 0.784188568 0.176077409 0.003460984 0.027812237 0.995643378</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>gbm.ychapeu <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(previsao1 <span class="sc">&lt;</span> <span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a> </span>
@@ -1050,26 +1050,26 @@ eua               eua  0.00000000</code></pre>
 
           Reference
 Prediction  0  1
-         0 38  6
-         1 10 27
+         0 37  6
+         1 11 27
                                           
-               Accuracy : 0.8025          
-                 95% CI : (0.6991, 0.8827)
+               Accuracy : 0.7901          
+                 95% CI : (0.6854, 0.8727)
     No Information Rate : 0.5926          
-    P-Value [Acc &gt; NIR] : 4.967e-05       
+    P-Value [Acc &gt; NIR] : 0.0001359       
                                           
-                  Kappa : 0.5985          
+                  Kappa : 0.5754          
                                           
- Mcnemar's Test P-Value : 0.4533          
+ Mcnemar's Test P-Value : 0.3319755       
                                           
             Sensitivity : 0.8182          
-            Specificity : 0.7917          
-         Pos Pred Value : 0.7297          
-         Neg Pred Value : 0.8636          
+            Specificity : 0.7708          
+         Pos Pred Value : 0.7105          
+         Neg Pred Value : 0.8605          
              Prevalence : 0.4074          
          Detection Rate : 0.3333          
-   Detection Prevalence : 0.4568          
-      Balanced Accuracy : 0.8049          
+   Detection Prevalence : 0.4691          
+      Balanced Accuracy : 0.7945          
                                           
        'Positive' Class : 1               
                                           </code></pre>
@@ -1105,7 +1105,7 @@ Attaching package: 'pROC'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(roc_gbm<span class="sc">$</span>auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9078283</code></pre>
+<pre><code>[1] 0.9034091</code></pre>
 </div>
 </div>
 
