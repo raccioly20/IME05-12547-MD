@@ -153,6 +153,7 @@ confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim")
 ## Verificando a consistencia dos resultados
 
 ```{r}
+set.seed(121)
 y <- credito$inadimplente
 indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
 

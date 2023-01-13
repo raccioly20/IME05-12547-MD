@@ -711,19 +711,20 @@ Prediction  Nao  Sim
 <section id="verificando-a-consistencia-dos-resultados" class="level2">
 <h2 class="anchored" data-anchor-id="verificando-a-consistencia-dos-resultados">Verificando a consistencia dos resultados</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> credito<span class="sc">$</span>inadimplente</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>indice_teste <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(y, <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> credito <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>indice_teste)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> credito <span class="sc">%&gt;%</span> <span class="fu">slice</span>(indice_teste)</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_treino)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">121</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> credito<span class="sc">$</span>inadimplente</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>indice_teste <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(y, <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> credito <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>indice_teste)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> credito <span class="sc">%&gt;%</span> <span class="fu">slice</span>(indice_teste)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_treino)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [7,999 × 4] (S3: tbl_df/tbl/data.frame)
  $ inadimplente: Factor w/ 2 levels "Nao","Sim": 1 1 1 1 1 1 1 1 1 1 ...
- $ estudante   : num [1:7999] 0 1 0 0 0 1 0 0 0 1 ...
- $ balanco     : num [1:7999] 730 817 1074 529 786 ...
- $ receita     : num [1:7999] 44362 12106 31767 35704 38463 ...</code></pre>
+ $ estudante   : num [1:7999] 0 1 0 0 1 0 1 0 1 1 ...
+ $ balanco     : num [1:7999] 730 817 1074 786 920 ...
+ $ receita     : num [1:7999] 44362 12106 31767 38463 7492 ...</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(conj_treino<span class="sc">$</span>inadimplente))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -735,9 +736,9 @@ Prediction  Nao  Sim
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [2,001 × 4] (S3: tbl_df/tbl/data.frame)
  $ inadimplente: Factor w/ 2 levels "Nao","Sim": 1 1 1 1 1 1 1 1 1 1 ...
- $ estudante   : num [1:2001] 1 1 0 0 0 0 0 1 1 1 ...
- $ balanco     : num [1:2001] 809 1221 237 229 855 ...
- $ receita     : num [1:2001] 17600 13269 28252 50500 25211 ...</code></pre>
+ $ estudante   : num [1:2001] 0 0 0 1 0 0 1 1 0 0 ...
+ $ balanco     : num [1:2001] 529 1161 1113 1500 1152 ...
+ $ receita     : num [1:2001] 35704 37469 23810 13191 42917 ...</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(conj_teste<span class="sc">$</span>inadimplente))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -831,27 +832,27 @@ Prediction  Nao  Sim
 <span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a>hiper_grid <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(min_erro) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   shrinkage interaction.depth n.minobsinnode bag.fraction optimal_trees
-1       0.10                 1              5         1.00           193
-2       0.01                 1              5         1.00          1857
-3       0.10                 1             10         1.00           175
-4       0.10                 1              5         0.65           132
-5       0.10                 1             15         1.00           154
-6       0.01                 1             10         1.00          1696
-7       0.10                 1             10         0.65           179
-8       0.10                 1             15         0.65           179
-9       0.01                 1             15         1.00          1556
-10      0.01                 1              5         0.65          1208
+1       0.10                 1             15         0.65           142
+2       0.10                 1             10         0.65           142
+3       0.10                 1              5         0.65            84
+4       0.10                 1              5         1.00           155
+5       0.01                 1              5         1.00          1592
+6       0.10                 1             10         1.00           136
+7       0.10                 1             15         1.00           136
+8       0.01                 1              5         0.65          1002
+9       0.01                 1             10         1.00           940
+10      0.01                 1             15         1.00           940
     min_erro
-1  0.1502556
-2  0.1506188
-3  0.1506563
-4  0.1507657
-5  0.1507786
-6  0.1510440
-7  0.1510978
-8  0.1511139
-9  0.1511334
-10 0.1512083</code></pre>
+1  0.1602066
+2  0.1602292
+3  0.1604008
+4  0.1607106
+5  0.1608038
+6  0.1611587
+7  0.1611587
+8  0.1611858
+9  0.1612577
+10 0.1612577</code></pre>
 </div>
 </div>
 </section>
@@ -892,9 +893,9 @@ Prediction  Nao  Sim
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                var    rel.inf
-balanco     balanco 99.3049753
-estudante estudante  0.3541423
-receita     receita  0.3408824</code></pre>
+balanco     balanco 99.2361652
+estudante estudante  0.4480848
+receita     receita  0.3157499</code></pre>
 </div>
 </div>
 </section>
@@ -911,7 +912,7 @@ receita     receita  0.3408824</code></pre>
 <span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type =</span> <span class="st">"response"</span>)</span>
 <span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(previsao1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.001899747 0.009876236 0.002502048 0.003059500 0.002502048 0.002502048</code></pre>
+<pre><code>[1] 0.002456101 0.015887955 0.013762373 0.099006852 0.015887955 0.002456101</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>gbm.ychapeu <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(previsao1 <span class="sc">&lt;</span> <span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a> </span>
@@ -921,29 +922,29 @@ receita     receita  0.3408824</code></pre>
 
           Reference
 Prediction    0    1
-         0 1926   45
-         1    8   22
-                                          
-               Accuracy : 0.9735          
-                 95% CI : (0.9655, 0.9801)
-    No Information Rate : 0.9665          
-    P-Value [Acc &gt; NIR] : 0.04298         
-                                          
-                  Kappa : 0.4421          
-                                          
- Mcnemar's Test P-Value : 7.615e-07       
-                                          
-            Sensitivity : 0.32836         
-            Specificity : 0.99586         
-         Pos Pred Value : 0.73333         
-         Neg Pred Value : 0.97717         
-             Prevalence : 0.03348         
-         Detection Rate : 0.01099         
-   Detection Prevalence : 0.01499         
-      Balanced Accuracy : 0.66211         
-                                          
-       'Positive' Class : 1               
-                                          </code></pre>
+         0 1933   50
+         1    1   17
+                                         
+               Accuracy : 0.9745         
+                 95% CI : (0.9666, 0.981)
+    No Information Rate : 0.9665         
+    P-Value [Acc &gt; NIR] : 0.02354        
+                                         
+                  Kappa : 0.3914         
+                                         
+ Mcnemar's Test P-Value : 1.801e-11      
+                                         
+            Sensitivity : 0.253731       
+            Specificity : 0.999483       
+         Pos Pred Value : 0.944444       
+         Neg Pred Value : 0.974786       
+             Prevalence : 0.033483       
+         Detection Rate : 0.008496       
+   Detection Prevalence : 0.008996       
+      Balanced Accuracy : 0.626607       
+                                         
+       'Positive' Class : 1              
+                                         </code></pre>
 </div>
 </div>
 </section>
@@ -976,7 +977,7 @@ Attaching package: 'pROC'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(roc_gbm<span class="sc">$</span>auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.945172</code></pre>
+<pre><code>[1] 0.9536804</code></pre>
 </div>
 </div>
 
