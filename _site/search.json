@@ -1684,7 +1684,21 @@
     "href": "semanas/Aula09.html#curva-roc-2-modelo-com-balanço-estudante",
     "title": "Regressão Logística",
     "section": "Curva ROC 2: Modelo com balanço + estudante",
-    "text": "Curva ROC 2: Modelo com balanço + estudante\n\np_chapeu_log <- predict(mod3, newdata = conj_teste, type = \"response\")\nhead(p_chapeu_log)\n\n           1            2            3            4            5            6 \n1.140962e-02 7.436487e-05 1.861803e-05 6.355948e-03 3.351978e-04 1.271000e-04 \n\nroc_log2 <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=FALSE, legacy.axes=TRUE)\n\n\n\n# Area debaixo da curva\nas.numeric(roc_log2$auc)\n\n[1] 0.9415487"
+    "text": "Curva ROC 2: Modelo com balanço + estudante\n\np_chapeu_log <- predict(mod3, newdata = conj_teste, type = \"response\")\nhead(p_chapeu_log)\n\n           1            2            3            4            5            6 \n1.140962e-02 7.436487e-05 1.861803e-05 6.355948e-03 3.351978e-04 1.271000e-04 \n\nroc_log2 <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=FALSE, legacy.axes=TRUE)"
+  },
+  {
+    "objectID": "semanas/Aula09.html#auc",
+    "href": "semanas/Aula09.html#auc",
+    "title": "Regressão Logística",
+    "section": "AUC",
+    "text": "AUC\n\n# Area debaixo da curva\nas.numeric(roc_log2$auc)\n\n[1] 0.9415487"
+  },
+  {
+    "objectID": "semanas/Aula09.html#melhor-limite",
+    "href": "semanas/Aula09.html#melhor-limite",
+    "title": "Regressão Logística",
+    "section": "Melhor limite",
+    "text": "Melhor limite\n\nm_limite <- coords(roc_log2, \"best\", ret = \"threshold\")$threshold\np_chapeu <- predict(mod3, newdata = conj_teste, type = \"response\")\ny_chapeu <- ifelse(p_chapeu > m_limite, \"Sim\", \"Nao\") %>% \n             factor(levels = levels(conj_teste$inadimplente))\nconfusionMatrix(y_chapeu, conj_teste$inadimplente, positive=\"Sim\")\n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction  Nao  Sim\n       Nao 1695    9\n       Sim  239   58\n                                          \n               Accuracy : 0.8761          \n                 95% CI : (0.8608, 0.8902)\n    No Information Rate : 0.9665          \n    P-Value [Acc > NIR] : 1               \n                                          \n                  Kappa : 0.2793          \n                                          \n Mcnemar's Test P-Value : <2e-16          \n                                          \n            Sensitivity : 0.86567         \n            Specificity : 0.87642         \n         Pos Pred Value : 0.19529         \n         Neg Pred Value : 0.99472         \n             Prevalence : 0.03348         \n         Detection Rate : 0.02899         \n   Detection Prevalence : 0.14843         \n      Balanced Accuracy : 0.87105         \n                                          \n       'Positive' Class : Sim"
   },
   {
     "objectID": "semanas/Aula09.html#duas-rocs-juntas",

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-01-06">
+<meta name="dcterms.date" content="2023-01-14">
 
 <title>IME05-12547 - Regressão Logística</title>
 <style>
@@ -374,6 +374,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#mudando-a-probabilidade-limite-para-aumentar-a-sensibilidade" id="toc-mudando-a-probabilidade-limite-para-aumentar-a-sensibilidade" class="nav-link" data-scroll-target="#mudando-a-probabilidade-limite-para-aumentar-a-sensibilidade">Mudando a probabilidade (limite) para aumentar a sensibilidade</a></li>
   <li><a href="#curva-roc-modelo-só-com-balanço" id="toc-curva-roc-modelo-só-com-balanço" class="nav-link" data-scroll-target="#curva-roc-modelo-só-com-balanço">Curva ROC modelo só com balanço</a></li>
   <li><a href="#curva-roc-2-modelo-com-balanço-estudante" id="toc-curva-roc-2-modelo-com-balanço-estudante" class="nav-link" data-scroll-target="#curva-roc-2-modelo-com-balanço-estudante">Curva ROC 2: Modelo com balanço + estudante</a></li>
+  <li><a href="#auc" id="toc-auc" class="nav-link" data-scroll-target="#auc">AUC</a></li>
+  <li><a href="#melhor-limite" id="toc-melhor-limite" class="nav-link" data-scroll-target="#melhor-limite">Melhor limite</a></li>
   <li><a href="#duas-rocs-juntas" id="toc-duas-rocs-juntas" class="nav-link" data-scroll-target="#duas-rocs-juntas">Duas ROCs juntas</a></li>
   <li><a href="#curva-roc-3-com-o-knn" id="toc-curva-roc-3-com-o-knn" class="nav-link" data-scroll-target="#curva-roc-3-com-o-knn">Curva ROC 3 com o KNN</a></li>
   </ul>
@@ -401,7 +403,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 6, 2023</p>
+      <p class="date">January 14, 2023</p>
     </div>
   </div>
   
@@ -962,6 +964,11 @@ Prediction  Nao  Sim
 <div class="cell-output-display">
 <p><img src="imagens/Aula09/ROC2-1.png" class="img-fluid" width="864"></p>
 </div>
+</div>
+</section>
+<section id="auc" class="level2">
+<h2 class="anchored" data-anchor-id="auc">AUC</h2>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Area debaixo da curva</span></span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(roc_log2<span class="sc">$</span>auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -969,13 +976,52 @@ Prediction  Nao  Sim
 </div>
 </div>
 </section>
+<section id="melhor-limite" class="level2">
+<h2 class="anchored" data-anchor-id="melhor-limite">Melhor limite</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>m_limite <span class="ot">&lt;-</span> <span class="fu">coords</span>(roc_log2, <span class="st">"best"</span>, <span class="at">ret =</span> <span class="st">"threshold"</span>)<span class="sc">$</span>threshold</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>p_chapeu <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod3, <span class="at">newdata =</span> conj_teste, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>y_chapeu <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(p_chapeu <span class="sc">&gt;</span> m_limite, <span class="st">"Sim"</span>, <span class="st">"Nao"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>             <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">levels</span>(conj_teste<span class="sc">$</span>inadimplente))</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(y_chapeu, conj_teste<span class="sc">$</span>inadimplente, <span class="at">positive=</span><span class="st">"Sim"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix and Statistics
+
+          Reference
+Prediction  Nao  Sim
+       Nao 1695    9
+       Sim  239   58
+                                          
+               Accuracy : 0.8761          
+                 95% CI : (0.8608, 0.8902)
+    No Information Rate : 0.9665          
+    P-Value [Acc &gt; NIR] : 1               
+                                          
+                  Kappa : 0.2793          
+                                          
+ Mcnemar's Test P-Value : &lt;2e-16          
+                                          
+            Sensitivity : 0.86567         
+            Specificity : 0.87642         
+         Pos Pred Value : 0.19529         
+         Neg Pred Value : 0.99472         
+             Prevalence : 0.03348         
+         Detection Rate : 0.02899         
+   Detection Prevalence : 0.14843         
+      Balanced Accuracy : 0.87105         
+                                          
+       'Positive' Class : Sim             
+                                          </code></pre>
+</div>
+</div>
+</section>
 <section id="duas-rocs-juntas" class="level2">
 <h2 class="anchored" data-anchor-id="duas-rocs-juntas">Duas ROCs juntas</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_log)</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_log2, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="st">"blue"</span>)</span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"Mod 1"</span>, <span class="st">"Mod2"</span>),</span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="fu">par</span>(<span class="st">"fg"</span>), <span class="st">"blue"</span>), <span class="at">lwd=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_log)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_log2, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="st">"blue"</span>)</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"Mod 1"</span>, <span class="st">"Mod2"</span>),</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="fu">par</span>(<span class="st">"fg"</span>), <span class="st">"blue"</span>), <span class="at">lwd=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula09/ROCs-1.png" class="img-fluid" width="864"></p>
 </div>
@@ -984,34 +1030,34 @@ Prediction  Nao  Sim
 <section id="curva-roc-3-com-o-knn" class="level2">
 <h2 class="anchored" data-anchor-id="curva-roc-3-com-o-knn">Curva ROC 3 com o KNN</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustando KNN </span></span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>ctrl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>)</span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>treina_knn <span class="ot">&lt;-</span> <span class="fu">train</span>(inadimplente <span class="sc">~</span> <span class="fu">scale</span>(balanco) <span class="sc">+</span> estudante, <span class="at">method =</span> <span class="st">"knn"</span>, <span class="at">trControl=</span> ctrl, <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">140</span>, <span class="at">by=</span><span class="dv">4</span>)), <span class="at">data =</span> conj_treino)</span>
-<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="co"># treina_knn</span></span>
-<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(treina_knn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustando KNN </span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>ctrl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>)</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>treina_knn <span class="ot">&lt;-</span> <span class="fu">train</span>(inadimplente <span class="sc">~</span> <span class="fu">scale</span>(balanco) <span class="sc">+</span> estudante, <span class="at">method =</span> <span class="st">"knn"</span>, <span class="at">trControl=</span> ctrl, <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">140</span>, <span class="at">by=</span><span class="dv">4</span>)), <span class="at">data =</span> conj_treino)</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="co"># treina_knn</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(treina_knn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula09/ROC3-1.png" class="img-fluid" width="864"></p>
 </div>
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>prev_knn <span class="ot">&lt;-</span> <span class="fu">predict</span>(treina_knn, conj_teste,<span class="at">type =</span> <span class="st">"prob"</span>)</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ROC</span></span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>roc_log2 <span class="ot">&lt;-</span> <span class="fu">roc</span>(conj_teste<span class="sc">$</span>inadimplente <span class="sc">~</span> p_chapeu_log, <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">print.auc=</span><span class="cn">FALSE</span>, <span class="at">col=</span> <span class="st">"black"</span>, <span class="at">legacy.axes=</span><span class="cn">TRUE</span>) </span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>roc_knn1 <span class="ot">&lt;-</span> <span class="fu">roc</span>(conj_teste<span class="sc">$</span>inadimplente <span class="sc">~</span> prev_knn[,<span class="dv">2</span>], <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">print.auc=</span><span class="cn">FALSE</span>, <span class="at">col=</span><span class="st">"green"</span>, <span class="at">legacy.axes=</span><span class="cn">TRUE</span>, <span class="at">add=</span><span class="cn">TRUE</span>)</span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">"Reg. Log"</span>, <span class="st">"KNN"</span>), </span>
-<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"green"</span>),<span class="at">lwd=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>prev_knn <span class="ot">&lt;-</span> <span class="fu">predict</span>(treina_knn, conj_teste,<span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ROC</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>roc_log2 <span class="ot">&lt;-</span> <span class="fu">roc</span>(conj_teste<span class="sc">$</span>inadimplente <span class="sc">~</span> p_chapeu_log, <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">print.auc=</span><span class="cn">FALSE</span>, <span class="at">col=</span> <span class="st">"black"</span>, <span class="at">legacy.axes=</span><span class="cn">TRUE</span>) </span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>roc_knn1 <span class="ot">&lt;-</span> <span class="fu">roc</span>(conj_teste<span class="sc">$</span>inadimplente <span class="sc">~</span> prev_knn[,<span class="dv">2</span>], <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">print.auc=</span><span class="cn">FALSE</span>, <span class="at">col=</span><span class="st">"green"</span>, <span class="at">legacy.axes=</span><span class="cn">TRUE</span>, <span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">"Reg. Log"</span>, <span class="st">"KNN"</span>), </span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"green"</span>),<span class="at">lwd=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula09/ROC3-2.png" class="img-fluid" width="864"></p>
 </div>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Area abaixo da curva</span></span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Regressão Logística</span></span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(roc_log2<span class="sc">$</span>auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Area abaixo da curva</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Regressão Logística</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(roc_log2<span class="sc">$</span>auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9415487</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="do">## KNN</span></span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(roc_knn1<span class="sc">$</span>auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="do">## KNN</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(roc_knn1<span class="sc">$</span>auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9388361</code></pre>
 </div>

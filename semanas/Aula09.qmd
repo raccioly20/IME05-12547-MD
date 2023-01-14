@@ -235,7 +235,6 @@ library(pROC)
 p_chapeu_log <- predict(mod1, newdata = conj_teste, type = "response")
 head(p_chapeu_log)
 roc_log <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=FALSE, legacy.axes=TRUE)
-
 # Area debaixo da curva
 as.numeric(roc_log$auc)
 ```
@@ -247,9 +246,25 @@ p_chapeu_log <- predict(mod3, newdata = conj_teste, type = "response")
 head(p_chapeu_log)
 roc_log2 <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=FALSE, legacy.axes=TRUE)
 
+```
+
+## AUC
+
+```{r}
 # Area debaixo da curva
 as.numeric(roc_log2$auc)
 ```
+
+## Melhor limite 
+
+```{r}
+m_limite <- coords(roc_log2, "best", ret = "threshold")$threshold
+p_chapeu <- predict(mod3, newdata = conj_teste, type = "response")
+y_chapeu <- ifelse(p_chapeu > m_limite, "Sim", "Nao") %>% 
+             factor(levels = levels(conj_teste$inadimplente))
+confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim")
+```
+
 
 ## Duas ROCs juntas
 
