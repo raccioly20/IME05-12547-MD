@@ -131,12 +131,6 @@ inspect(sort(itemset2,
 Aqui invertemos a ordem apresentando os 5 menos populares
 
 ```{r}
-itemset2 = apriori(filmes_trx, parameter = 
-                           list(support = 0.3,
-                                minlen = 2,
-                                target = 'frequent'
-                            ))
-
 inspect(sort(itemset2, 
              by='support', decreasing = F)[1:5])
 ```
@@ -219,6 +213,18 @@ regras_filmes = apriori(filmes_trx,
 summary(regras_filmes)
 ```
 
+## Extraindo regras
+
+```{r}
+regras_filmes2 = apriori(filmes_trx,
+                          parameter = list(supp = 0.3,
+                                           conf = 0.9,
+                                           minlen = 2),
+                         appearance = list(rhs="Matrix, The"),
+                         control = list(verbose=F))
+inspect(regras_filmes2)
+```
+
 ### Visualizado como um gráfico de dispersão
 
 As medidas selecionadas são confiança e interesse (lift)
@@ -239,7 +245,6 @@ plot(regras_filmes, method = "matrix",
      engine = "html"
      )
 ```
-
 
 ```{r}
 # Parallel coordinate plots with confidence as color coding
