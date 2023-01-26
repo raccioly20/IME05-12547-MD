@@ -201,18 +201,6 @@ ggplot(data=n_regras, aes(x=confidenceLevels)) +
   ggtitle("Numero de regras extraídas com o apriori")
 ```
 
-### Extraindo as regras
-
-```{r}
-regras_filmes = apriori(filmes_trx,
-                          parameter = list(supp = 0.3,
-                                           conf = 0.9,
-                                           minlen = 2, 
-                                           target = "rules"))
-
-summary(regras_filmes)
-```
-
 ## Extraindo regras
 
 ```{r}
@@ -230,7 +218,12 @@ inspect(regras_filmes2)
 As medidas selecionadas são confiança e interesse (lift)
 
 ```{r}
-# Plot rules as scatterplot
+regras_filmes = apriori(filmes_trx,
+                          parameter = list(supp = 0.3,
+                                           conf = 0.9,
+                                           minlen = 2, 
+                                           target = "rules"))
+
 plot(regras_filmes,
      measure = c("confidence", "lift"),
      shading = "support",
