@@ -13,19 +13,18 @@ knitr::opts_chunk$set(echo = TRUE, fig.retina = 3, fig.height=8, fig.width=10, d
 
 ```
 
-
 ## Entrada de dados no R
 
 ## Lendo dados de arquivos xlsx
 
 ```{r csv}
 library(readxl)
-dados_seg <- read_xlsx("C:/Users/ricar/OneDrive/Documents/GitHub/IME05-12547/indicadoressegurancapublicauf.xlsx", col_names = TRUE, sheet = "Ocorrências")
+dados_seg <- read_xlsx("E:/OneDrive/Documents/GitHub/IME05-12547/indicadoressegurancapublicauf.xlsx", col_names = TRUE, sheet = "Ocorrências")
 head(dados_seg)
 str(dados_seg)
 ```
 
-## Lendo dados de através de uma url 
+## Lendo dados de através de uma url
 
 ```{r}
 library(readxl)
@@ -37,14 +36,11 @@ str(segur)
 head(segur)
 ```
 
-
-
 ## Bibliotecas
 
-Vamos carregar as bibliotecas que serão usadas na manipulação e visualização de dados. 
+Vamos carregar as bibliotecas que serão usadas na manipulação e visualização de dados.
 
-O pacote tidyverse carrega diversos pacotes muito uteis na manipulação e visualização de dados 
-
+O pacote tidyverse carrega diversos pacotes muito uteis na manipulação e visualização de dados
 
 ```{r carregando_bibliotecas, echo=TRUE, message=TRUE}
 library("tidyverse")
@@ -57,7 +53,6 @@ dados_segRJ <- dados_seg %>% filter(UF=="Rio de Janeiro")
 summary(dados_segRJ)
 ```
 
-
 ```{r manipulando2}
 unique(dados_segRJ$`Tipo Crime`)
 dados_segRJ$`Tipo Crime` <- as.factor(dados_segRJ$`Tipo Crime`)
@@ -65,9 +60,7 @@ dados_segRJ %>% filter(`Tipo Crime`=="Homicídio doloso" ) %>% ggplot(aes(x=as.f
 dados_segRJ %>% filter(`Tipo Crime`=="Roubo de veículo" ) %>% ggplot(aes(x=as.factor(Ano), y=Ocorrências)) + geom_boxplot()
 ```
 
-
 ```{r manipulando3}
 sintese_RJ <- dados_segRJ %>% group_by(Ano,`Tipo Crime`) %>% summarise(total = sum(Ocorrências))
 sintese_RJ %>% ggplot(aes(x=Ano, y=total, color=`Tipo Crime`)) + geom_point() + geom_line()
 ```
-

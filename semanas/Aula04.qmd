@@ -20,13 +20,11 @@ knitr::opts_chunk$set(fig.width = 7,
 
 ## Carregando as bibliotecas
 
-
 ```{r bibliotecas, message=FALSE}
 library("ggplot2")
 library("dplyr")
 library("gapminder")
 ```
-
 
 \newpage
 
@@ -39,9 +37,9 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp,
   geom_point()
 ```
 
-
 \newpage
-## Usando formas e cores diferentes 
+
+## Usando formas e cores diferentes
 
 ```{r forma-cores}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp,
@@ -49,8 +47,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp,
   geom_point()
 ```
 
-
 \newpage
+
 ## Cores e tamanho
 
 ```{r cores-tamanho}
@@ -59,7 +57,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp,
   geom_point()
 
 ```
-
 
 \newpage
 
@@ -72,11 +69,9 @@ gap_pop <- gapminder %>%
 head(gap_pop)
 ```
 
-
 \newpage
 
 ## Grafico de linha com cores
-
 
 ```{r cores-linhas}
 ggplot(gap_pop, aes(x = year, y = pop, color = continent)) +
@@ -86,7 +81,7 @@ ggplot(gap_pop, aes(x = year, y = pop, color = continent)) +
 
 \newpage
 
-##  Criando grids entre os anos de 2002 e 2007
+## Criando grids entre os anos de 2002 e 2007
 
 ```{r grids}
 gap_0207 <- gapminder %>% filter(between(year, 2002, 2007))
@@ -109,7 +104,6 @@ ggplot(gap_life, aes(x = year, y = lifeExp)) +
   facet_grid(continent ~ .)
 ```
 
-
 \newpage
 
 ## Grid em outra direção
@@ -120,7 +114,6 @@ ggplot(gap_life, aes(x = year, y = lifeExp)) +
   facet_grid(. ~ continent)
 
 ```
-
 
 \newpage
 
@@ -137,13 +130,11 @@ ggplot(gap_life, aes(x = year, y = lifeExp)) +
 
 ## Filtrando dados e fazendo grafico de dispersão padrão
 
-
 ```{r graf-dispersao-pad}
 gap_07 <- filter(gapminder, year == 2007)
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ```
-
 
 \newpage
 
@@ -155,7 +146,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   scale_x_continuous(trans = "log10")
 ```
 
-
 \newpage
 
 ## Outra forma de transformação do eixo x
@@ -165,7 +155,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
   scale_x_log10()
 ```
-
 
 \newpage
 
@@ -178,17 +167,15 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   scale_y_continuous(limits = c(0, 95))
 ```
 
-
 \newpage
 
-
 ## Grafico com cores normais
+
 ```{r cores-normais}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point() +
   scale_x_log10()
 ```
-
 
 \newpage
 
@@ -200,7 +187,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   scale_x_log10() +
   scale_color_brewer(palette = "Dark2")
 ```
-
 
 \newpage
 
@@ -215,7 +201,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 
 ```
 
-
 \newpage
 
 ## Definindo as cores e tamanho dos pontos
@@ -225,7 +210,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point(color = "darkblue", size = 3) +
   scale_x_log10()
 ```
-
 
 \newpage
 
@@ -239,7 +223,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   theme(legend.position = "bottom")
 ```
 
-
 \newpage
 
 ## Sem legenda
@@ -252,7 +235,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   theme(legend.position = "none")
 ```
 
-
 \newpage
 
 ## Legenda dentro do gráfico
@@ -264,7 +246,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   theme_light() +
   theme(legend.position = c(0.1, 0.85))
 ```
-
 
 \newpage
 
@@ -279,7 +260,6 @@ graf1 <- ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 
 graf1
 ```
-
 
 \newpage
 
@@ -301,4 +281,3 @@ graf2 <- ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 
 graf2
 ```
-

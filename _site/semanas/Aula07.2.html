@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.3.290">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,9 +19,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -48,43 +49,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -129,8 +100,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <meta name="twitter:title" content="IME05-12547 - Regressão Linear Múltipla">
-<meta name="twitter:description" content="O conjunto de dados contém estatísticas sobre as vendas de um produto em 200 diferentes mercados, juntamente com orçamentos publicitários em cada um desses mercados, para diferentes canais de mídia…">
-<meta name="twitter:image" content="../images/md.png">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="images/md.png">
 <meta name="twitter:creator" content="@r_accioly">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -139,11 +110,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Regressão Linear Múltipla</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula07.2.html">Regressão Múltipla</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -151,195 +127,232 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/raccioly20" title="GitHub" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/r_accioly" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
-  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/r_accioly" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">Informação da disciplina</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text">Informação da disciplina</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">Visão Geral</a>
+  <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visão Geral</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">Cronograma</a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cronograma</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">Sobre</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Sobre</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../about.html" class="sidebar-item-text sidebar-link">Sobre</a>
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">RStudio Cloud</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">RStudio Cloud</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">Acesso</a>
+  <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acesso</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Conteúdo Semanal</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Conteúdo Semanal</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link">Explorando 01</a>
+  <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 01</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula01A.html" class="sidebar-item-text sidebar-link">Explorando 01A</a>
+  <a href="../semanas/Aula01A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 01A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula02.html" class="sidebar-item-text sidebar-link">Explorando 02</a>
+  <a href="../semanas/Aula02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 02</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula03.html" class="sidebar-item-text sidebar-link">Explorando 03</a>
+  <a href="../semanas/Aula03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 03</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula04.html" class="sidebar-item-text sidebar-link">Explorando 04</a>
+  <a href="../semanas/Aula04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 04</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula05.html" class="sidebar-item-text sidebar-link">Explorando 05</a>
+  <a href="../semanas/Aula05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 05</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula06.html" class="sidebar-item-text sidebar-link">Explorando 06</a>
+  <a href="../semanas/Aula06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 06</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.1.html" class="sidebar-item-text sidebar-link">Regressão Simples</a>
+  <a href="../semanas/Aula06A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 06A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.2.html" class="sidebar-item-text sidebar-link active">Regressão Múltipla</a>
+  <a href="../semanas/Aula07.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regressão Simples</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.2A.html" class="sidebar-item-text sidebar-link">Problemas em Regressão</a>
+  <a href="../semanas/Aula07.2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Regressão Múltipla</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.3.html" class="sidebar-item-text sidebar-link">Seleção de Modelos</a>
+  <a href="../semanas/Aula07.2A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problemas em Regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.4.html" class="sidebar-item-text sidebar-link">Métodos de Encolhimento</a>
+  <a href="../semanas/Aula07.3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seleção de Modelos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula08.0.html" class="sidebar-item-text sidebar-link">Classificação 1os passos</a>
+  <a href="../semanas/Aula07.4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Métodos de Encolhimento</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula08.html" class="sidebar-item-text sidebar-link">KNN</a>
+  <a href="../semanas/Aula08.0.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Classificação 1os passos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula09.html" class="sidebar-item-text sidebar-link">Regressão Logística</a>
+  <a href="../semanas/Aula08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KNN</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula09A.html" class="sidebar-item-text sidebar-link">SMOTE</a>
+  <a href="../semanas/Aula09.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regressão Logística</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula10.html" class="sidebar-item-text sidebar-link">LDA-QDA</a>
+  <a href="../semanas/Aula09A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SMOTE</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">Arvore de Classificação</a>
+  <a href="../semanas/Aula10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LDA-QDA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">Arvore de Classificação</a>
+  <a href="../semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Classificação</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula11.1.html" class="sidebar-item-text sidebar-link">Arvore de Regressão</a>
+  <a href="../semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Classificação</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula11.2.html" class="sidebar-item-text sidebar-link">Arvore de Regressão</a>
+  <a href="../semanas/Aula11.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula13.html" class="sidebar-item-text sidebar-link">Análise de Clusters</a>
+  <a href="../semanas/Aula11.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula14.html" class="sidebar-item-text sidebar-link">Análise de Associação</a>
+  <a href="../semanas/Aula13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Análise de Clusters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Análise de Associação</span></a>
   </div>
 </li>
       </ul>
@@ -347,6 +360,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -379,7 +393,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Regressão Linear Múltipla</h1>
+<h1 class="title">Regressão Linear Múltipla</h1>
 </div>
 
 
@@ -467,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-:where(#ioeolezizx) .gt_table {
+#ioeolezizx .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -492,7 +506,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-:where(#ioeolezizx) .gt_heading {
+#ioeolezizx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -504,7 +518,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#ioeolezizx) .gt_title {
+#ioeolezizx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -516,7 +530,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-:where(#ioeolezizx) .gt_subtitle {
+#ioeolezizx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -528,13 +542,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-:where(#ioeolezizx) .gt_bottom_border {
+#ioeolezizx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-:where(#ioeolezizx) .gt_col_headings {
+#ioeolezizx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -549,7 +563,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#ioeolezizx) .gt_col_heading {
+#ioeolezizx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -569,7 +583,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-:where(#ioeolezizx) .gt_column_spanner_outer {
+#ioeolezizx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -581,15 +595,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-:where(#ioeolezizx) .gt_column_spanner_outer:first-child {
+#ioeolezizx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-:where(#ioeolezizx) .gt_column_spanner_outer:last-child {
+#ioeolezizx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-:where(#ioeolezizx) .gt_column_spanner {
+#ioeolezizx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -601,7 +615,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-:where(#ioeolezizx) .gt_group_heading {
+#ioeolezizx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -626,7 +640,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-:where(#ioeolezizx) .gt_empty_group_heading {
+#ioeolezizx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -641,15 +655,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-:where(#ioeolezizx) .gt_from_md > :first-child {
+#ioeolezizx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-:where(#ioeolezizx) .gt_from_md > :last-child {
+#ioeolezizx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-:where(#ioeolezizx) .gt_row {
+#ioeolezizx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -668,7 +682,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-:where(#ioeolezizx) .gt_stub {
+#ioeolezizx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -681,7 +695,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#ioeolezizx) .gt_stub_row_group {
+#ioeolezizx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -695,11 +709,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-:where(#ioeolezizx) .gt_row_group_first td {
+#ioeolezizx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-:where(#ioeolezizx) .gt_summary_row {
+#ioeolezizx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -709,16 +723,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#ioeolezizx) .gt_first_summary_row {
+#ioeolezizx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-:where(#ioeolezizx) .gt_first_summary_row.thick {
+#ioeolezizx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-:where(#ioeolezizx) .gt_last_summary_row {
+#ioeolezizx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -728,7 +742,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-:where(#ioeolezizx) .gt_grand_summary_row {
+#ioeolezizx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -738,7 +752,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#ioeolezizx) .gt_first_grand_summary_row {
+#ioeolezizx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -748,11 +762,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-:where(#ioeolezizx) .gt_striped {
+#ioeolezizx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-:where(#ioeolezizx) .gt_table_body {
+#ioeolezizx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -761,7 +775,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-:where(#ioeolezizx) .gt_footnotes {
+#ioeolezizx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -775,7 +789,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#ioeolezizx) .gt_footnote {
+#ioeolezizx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -784,7 +798,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#ioeolezizx) .gt_sourcenotes {
+#ioeolezizx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -798,7 +812,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#ioeolezizx) .gt_sourcenote {
+#ioeolezizx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -806,36 +820,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#ioeolezizx) .gt_left {
+#ioeolezizx .gt_left {
   text-align: left;
 }
 
-:where(#ioeolezizx) .gt_center {
+#ioeolezizx .gt_center {
   text-align: center;
 }
 
-:where(#ioeolezizx) .gt_right {
+#ioeolezizx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-:where(#ioeolezizx) .gt_font_normal {
+#ioeolezizx .gt_font_normal {
   font-weight: normal;
 }
 
-:where(#ioeolezizx) .gt_font_bold {
+#ioeolezizx .gt_font_bold {
   font-weight: bold;
 }
 
-:where(#ioeolezizx) .gt_font_italic {
+#ioeolezizx .gt_font_italic {
   font-style: italic;
 }
 
-:where(#ioeolezizx) .gt_super {
+#ioeolezizx .gt_super {
   font-size: 65%;
 }
 
-:where(#ioeolezizx) .gt_two_val_uncert {
+#ioeolezizx .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -844,91 +858,110 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   margin-left: 0.1em;
 }
 
-:where(#ioeolezizx) .gt_footnote_marks {
+#ioeolezizx .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-:where(#ioeolezizx) .gt_asterisk {
+#ioeolezizx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-:where(#ioeolezizx) .gt_slash_mark {
+#ioeolezizx .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-:where(#ioeolezizx) .gt_fraction_numerator {
+#ioeolezizx .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-:where(#ioeolezizx) .gt_fraction_denominator {
+#ioeolezizx .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">TV</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Radio</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Jornal</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Vendas</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">230.1</td>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true">
+<thead class="gt_col_headings">
+<tr class="header">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">TV</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Radio</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Jornal</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Vendas</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right">230.1</td>
 <td class="gt_row gt_right">37.8</td>
 <td class="gt_row gt_right">69.2</td>
-<td class="gt_row gt_right">22.1</td></tr>
-    <tr><td class="gt_row gt_right">44.5</td>
+<td class="gt_row gt_right">22.1</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right">44.5</td>
 <td class="gt_row gt_right">39.3</td>
 <td class="gt_row gt_right">45.1</td>
-<td class="gt_row gt_right">10.4</td></tr>
-    <tr><td class="gt_row gt_right">17.2</td>
+<td class="gt_row gt_right">10.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right">17.2</td>
 <td class="gt_row gt_right">45.9</td>
 <td class="gt_row gt_right">69.3</td>
-<td class="gt_row gt_right">9.3</td></tr>
-    <tr><td class="gt_row gt_right">151.5</td>
+<td class="gt_row gt_right">9.3</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right">151.5</td>
 <td class="gt_row gt_right">41.3</td>
 <td class="gt_row gt_right">58.5</td>
-<td class="gt_row gt_right">18.5</td></tr>
-    <tr><td class="gt_row gt_right">180.8</td>
+<td class="gt_row gt_right">18.5</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right">180.8</td>
 <td class="gt_row gt_right">10.8</td>
 <td class="gt_row gt_right">58.4</td>
-<td class="gt_row gt_right">12.9</td></tr>
-    <tr><td class="gt_row gt_right">8.7</td>
+<td class="gt_row gt_right">12.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right">8.7</td>
 <td class="gt_row gt_right">48.9</td>
 <td class="gt_row gt_right">75.0</td>
-<td class="gt_row gt_right">7.2</td></tr>
-    <tr><td class="gt_row gt_right">57.5</td>
+<td class="gt_row gt_right">7.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right">57.5</td>
 <td class="gt_row gt_right">32.8</td>
 <td class="gt_row gt_right">23.5</td>
-<td class="gt_row gt_right">11.8</td></tr>
-    <tr><td class="gt_row gt_right">120.2</td>
+<td class="gt_row gt_right">11.8</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right">120.2</td>
 <td class="gt_row gt_right">19.6</td>
 <td class="gt_row gt_right">11.6</td>
-<td class="gt_row gt_right">13.2</td></tr>
-    <tr><td class="gt_row gt_right">8.6</td>
+<td class="gt_row gt_right">13.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right">8.6</td>
 <td class="gt_row gt_right">2.1</td>
 <td class="gt_row gt_right">1.0</td>
-<td class="gt_row gt_right">4.8</td></tr>
-    <tr><td class="gt_row gt_right">199.8</td>
+<td class="gt_row gt_right">4.8</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right">199.8</td>
 <td class="gt_row gt_right">2.6</td>
 <td class="gt_row gt_right">21.2</td>
-<td class="gt_row gt_right">10.6</td></tr>
-  </tbody>
-  
-  
+<td class="gt_row gt_right">10.6</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -968,7 +1001,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-:where(#ikcyvpxrcq) .gt_table {
+#ikcyvpxrcq .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -993,7 +1026,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-:where(#ikcyvpxrcq) .gt_heading {
+#ikcyvpxrcq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1005,7 +1038,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#ikcyvpxrcq) .gt_title {
+#ikcyvpxrcq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1017,7 +1050,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-:where(#ikcyvpxrcq) .gt_subtitle {
+#ikcyvpxrcq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1029,13 +1062,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-:where(#ikcyvpxrcq) .gt_bottom_border {
+#ikcyvpxrcq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-:where(#ikcyvpxrcq) .gt_col_headings {
+#ikcyvpxrcq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1050,7 +1083,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#ikcyvpxrcq) .gt_col_heading {
+#ikcyvpxrcq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1070,7 +1103,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-:where(#ikcyvpxrcq) .gt_column_spanner_outer {
+#ikcyvpxrcq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1082,15 +1115,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-:where(#ikcyvpxrcq) .gt_column_spanner_outer:first-child {
+#ikcyvpxrcq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-:where(#ikcyvpxrcq) .gt_column_spanner_outer:last-child {
+#ikcyvpxrcq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-:where(#ikcyvpxrcq) .gt_column_spanner {
+#ikcyvpxrcq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1102,7 +1135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-:where(#ikcyvpxrcq) .gt_group_heading {
+#ikcyvpxrcq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1127,7 +1160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-:where(#ikcyvpxrcq) .gt_empty_group_heading {
+#ikcyvpxrcq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1142,15 +1175,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-:where(#ikcyvpxrcq) .gt_from_md > :first-child {
+#ikcyvpxrcq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-:where(#ikcyvpxrcq) .gt_from_md > :last-child {
+#ikcyvpxrcq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-:where(#ikcyvpxrcq) .gt_row {
+#ikcyvpxrcq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1169,7 +1202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-:where(#ikcyvpxrcq) .gt_stub {
+#ikcyvpxrcq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1182,7 +1215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#ikcyvpxrcq) .gt_stub_row_group {
+#ikcyvpxrcq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1196,11 +1229,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-:where(#ikcyvpxrcq) .gt_row_group_first td {
+#ikcyvpxrcq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-:where(#ikcyvpxrcq) .gt_summary_row {
+#ikcyvpxrcq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1210,16 +1243,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#ikcyvpxrcq) .gt_first_summary_row {
+#ikcyvpxrcq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-:where(#ikcyvpxrcq) .gt_first_summary_row.thick {
+#ikcyvpxrcq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-:where(#ikcyvpxrcq) .gt_last_summary_row {
+#ikcyvpxrcq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1229,7 +1262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-:where(#ikcyvpxrcq) .gt_grand_summary_row {
+#ikcyvpxrcq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1239,7 +1272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#ikcyvpxrcq) .gt_first_grand_summary_row {
+#ikcyvpxrcq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1249,11 +1282,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-:where(#ikcyvpxrcq) .gt_striped {
+#ikcyvpxrcq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-:where(#ikcyvpxrcq) .gt_table_body {
+#ikcyvpxrcq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1262,7 +1295,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-:where(#ikcyvpxrcq) .gt_footnotes {
+#ikcyvpxrcq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1276,7 +1309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#ikcyvpxrcq) .gt_footnote {
+#ikcyvpxrcq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1285,7 +1318,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#ikcyvpxrcq) .gt_sourcenotes {
+#ikcyvpxrcq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1299,7 +1332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-:where(#ikcyvpxrcq) .gt_sourcenote {
+#ikcyvpxrcq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1307,36 +1340,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-:where(#ikcyvpxrcq) .gt_left {
+#ikcyvpxrcq .gt_left {
   text-align: left;
 }
 
-:where(#ikcyvpxrcq) .gt_center {
+#ikcyvpxrcq .gt_center {
   text-align: center;
 }
 
-:where(#ikcyvpxrcq) .gt_right {
+#ikcyvpxrcq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-:where(#ikcyvpxrcq) .gt_font_normal {
+#ikcyvpxrcq .gt_font_normal {
   font-weight: normal;
 }
 
-:where(#ikcyvpxrcq) .gt_font_bold {
+#ikcyvpxrcq .gt_font_bold {
   font-weight: bold;
 }
 
-:where(#ikcyvpxrcq) .gt_font_italic {
+#ikcyvpxrcq .gt_font_italic {
   font-style: italic;
 }
 
-:where(#ikcyvpxrcq) .gt_super {
+#ikcyvpxrcq .gt_super {
   font-size: 65%;
 }
 
-:where(#ikcyvpxrcq) .gt_two_val_uncert {
+#ikcyvpxrcq .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -1345,91 +1378,110 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   margin-left: 0.1em;
 }
 
-:where(#ikcyvpxrcq) .gt_footnote_marks {
+#ikcyvpxrcq .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-:where(#ikcyvpxrcq) .gt_asterisk {
+#ikcyvpxrcq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-:where(#ikcyvpxrcq) .gt_slash_mark {
+#ikcyvpxrcq .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-:where(#ikcyvpxrcq) .gt_fraction_numerator {
+#ikcyvpxrcq .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-:where(#ikcyvpxrcq) .gt_fraction_denominator {
+#ikcyvpxrcq .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">TV</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Radio</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Jornal</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Vendas</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">230.1</td>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true">
+<thead class="gt_col_headings">
+<tr class="header">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">TV</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Radio</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Jornal</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Vendas</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right">230.1</td>
 <td class="gt_row gt_right">37.8</td>
 <td class="gt_row gt_right">69.2</td>
-<td class="gt_row gt_right">22.1</td></tr>
-    <tr><td class="gt_row gt_right">151.5</td>
+<td class="gt_row gt_right">22.1</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right">151.5</td>
 <td class="gt_row gt_right">41.3</td>
 <td class="gt_row gt_right">58.5</td>
-<td class="gt_row gt_right">18.5</td></tr>
-    <tr><td class="gt_row gt_right">180.8</td>
+<td class="gt_row gt_right">18.5</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right">180.8</td>
 <td class="gt_row gt_right">10.8</td>
 <td class="gt_row gt_right">58.4</td>
-<td class="gt_row gt_right">12.9</td></tr>
-    <tr><td class="gt_row gt_right">199.8</td>
+<td class="gt_row gt_right">12.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right">199.8</td>
 <td class="gt_row gt_right">2.6</td>
 <td class="gt_row gt_right">21.2</td>
-<td class="gt_row gt_right">10.6</td></tr>
-    <tr><td class="gt_row gt_right">66.1</td>
+<td class="gt_row gt_right">10.6</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right">66.1</td>
 <td class="gt_row gt_right">5.8</td>
 <td class="gt_row gt_right">24.2</td>
-<td class="gt_row gt_right">8.6</td></tr>
-    <tr><td class="gt_row gt_right">23.8</td>
+<td class="gt_row gt_right">8.6</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right">23.8</td>
 <td class="gt_row gt_right">35.1</td>
 <td class="gt_row gt_right">65.9</td>
-<td class="gt_row gt_right">9.2</td></tr>
-    <tr><td class="gt_row gt_right">97.5</td>
+<td class="gt_row gt_right">9.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right">97.5</td>
 <td class="gt_row gt_right">7.6</td>
 <td class="gt_row gt_right">7.2</td>
-<td class="gt_row gt_right">9.7</td></tr>
-    <tr><td class="gt_row gt_right">195.4</td>
+<td class="gt_row gt_right">9.7</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right">195.4</td>
 <td class="gt_row gt_right">47.7</td>
 <td class="gt_row gt_right">52.9</td>
-<td class="gt_row gt_right">22.4</td></tr>
-    <tr><td class="gt_row gt_right">69.2</td>
+<td class="gt_row gt_right">22.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right">69.2</td>
 <td class="gt_row gt_right">20.5</td>
 <td class="gt_row gt_right">18.3</td>
-<td class="gt_row gt_right">11.3</td></tr>
-    <tr><td class="gt_row gt_right">147.3</td>
+<td class="gt_row gt_right">11.3</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right">147.3</td>
 <td class="gt_row gt_right">23.9</td>
 <td class="gt_row gt_right">19.1</td>
-<td class="gt_row gt_right">14.6</td></tr>
-  </tbody>
-  
-  
+<td class="gt_row gt_right">14.6</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -1450,7 +1502,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplotMatrix</span>(conj_treino)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula07_2/regressao-multipla-1.png" class="img-fluid" width="960"></p>
+<p><img src="imagens/Aula07_2/regressao-multipla-1.png" class="quarto-discovered-preview-image img-fluid" width="960"></p>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> TV <span class="sc">+</span> Radio <span class="sc">+</span> Jornal, <span class="at">data =</span> conj_treino)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1854,9 +1906,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1921,6 +1987,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1976,6 +2128,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">Baseado em https://sta210-s22.github.io/website/</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
   </div>
 </footer>
 

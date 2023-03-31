@@ -20,17 +20,16 @@ knitr::opts_chunk$set(fig.width = 7,
 
 ## Bibliotecas
 
-
 ```{r bibliotecas, message=FALSE}
 library("ggplot2")
 library("gapminder")
 library("dplyr")
 ```
 
-
 \newpage
 
 ## Suavização
+
 (locally estimated scatterplot smoothing/Local Polynomial Regression Fitting)
 
 ```{r suavização}
@@ -39,7 +38,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
   geom_smooth()
 ```
-
 
 \newpage
 
@@ -51,7 +49,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_smooth(span = 0.2)
 ```
 
-
 \newpage
 
 ## Fazendo o suavizador menos nervoso
@@ -61,7 +58,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
   geom_smooth(span = 0.9)
 ```
-
 
 \newpage
 
@@ -73,7 +69,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_smooth(se = FALSE)
 ```
 
-
 \newpage
 
 ## Usando IC de 90%
@@ -84,18 +79,15 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_smooth(level = 0.90)
 ```
 
-
 \newpage
 
-## Usando um modelo linear ao invés do loess 
-
+## Usando um modelo linear ao invés do loess
 
 ```{r linear, message=FALSE}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
-
 
 \newpage
 
@@ -107,7 +99,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_smooth(method = "lm", formula = y ~ splines::bs(x, df = 3))
 ```
 
-
 \newpage
 
 ## Usando o gam (general addtive models) com regressão spline
@@ -118,17 +109,15 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_smooth(method = "gam", formula = y ~ s(x))
 ```
 
-
 \newpage
 
-## Começando a construir um gráfico do tipo facet com suavizações 
+## Começando a construir um gráfico do tipo facet com suavizações
 
 ```{r primeiro-graf-dispersão}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 
 ```
-
 
 \newpage
 
@@ -139,7 +128,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
   facet_wrap(~ continent)
 ```
-
 
 \newpage
 
@@ -152,7 +140,6 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_smooth()
 ```
 
-
 \newpage
 
 ## Colorindo por continente
@@ -164,10 +151,9 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_smooth()
 ```
 
-
 \newpage
 
-## Colorindo somente a curva 
+## Colorindo somente a curva
 
 ```{r facet-suav-cores2, message=FALSE, warning=FALSE, fig.width=9}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
@@ -175,4 +161,3 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   facet_wrap(~ continent) +
   geom_smooth(aes(color = continent))
 ```
-

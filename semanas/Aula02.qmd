@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.retina = 3, fig.height = 6,
 
 ## Carregando bibliotescas
 
-Vamos trabalhar de novo com os dados do gapminder para fazer algumas manipulações de dados que são muito úteis no dia a dia. 
+Vamos trabalhar de novo com os dados do gapminder para fazer algumas manipulações de dados que são muito úteis no dia a dia.
 
 Este material foi em parte adaptado do curso Data Visualization in R with ggplot2 de Kara Woo
 
@@ -25,7 +25,6 @@ library("dplyr")
 library("ggplot2")
 library("patchwork")
 ```
-
 
 ## Filtrando 2007
 
@@ -43,10 +42,9 @@ head(gap_07, n=10) %>% knitr::kable(booktabs = TRUE) # primeiros dez paises da b
 tail(gap_07, n=10) %>% knitr::kable(booktabs = TRUE) # últimos 10 países 
 ```
 
-
 \newpage
 
-## Manipulando 1 
+## Manipulando 1
 
 Selecionando dados por país
 
@@ -54,7 +52,7 @@ Selecionando dados por país
 filter(gap_07, country %in% c("Brazil", "Chile"))
 ```
 
-## Manipulando 2 
+## Manipulando 2
 
 Selecionando dados para 2007 excluindo a Oceania
 
@@ -64,12 +62,11 @@ filter(gapminder, year == 2007 & continent != "Oceania")
 
 ```
 
-
 \newpage
 
 ## Manipulando 3
 
-Selecionando dados de  2007, agrupando por continente e sumarizando para achar a média da população por continente
+Selecionando dados de 2007, agrupando por continente e sumarizando para achar a média da população por continente
 
 ```{r agrupando_media, message=FALSE}
 gapminder %>%
@@ -77,8 +74,6 @@ gapminder %>%
   group_by(continent) %>% 
   summarize(mediapop = mean(pop))
 ```
-
-
 
 ## Visualizando 1
 
@@ -91,16 +86,14 @@ p1 <- p + geom_point()
 p1
 ```
 
-
 \newpage
 
-##  Visualizando 2
+## Visualizando 2
 
 ```{r graf2}
 p2 <- p + geom_line()
 p2
 ```
-
 
 ## Visualizando 3
 
@@ -118,8 +111,7 @@ p3
   p3
 ```
 
-
-## Manipulando 4 
+## Manipulando 4
 
 Contando número de países e continentes com distinct
 
@@ -131,7 +123,6 @@ nrow(distinct(gapminder, continent))
 
 ```
 
-
 ## Fazendo contagens de dados
 
 ```{r contagem, message=FALSE}
@@ -139,7 +130,6 @@ gapminder %>% filter(year == 2007) %>%
   group_by(continent) %>% summarise(n = n())
 
 ```
-
 
 \newpage
 
@@ -155,7 +145,6 @@ propaganda %>% tidyr::pivot_longer(!Vendas, names_to="Midia", values_to="Orcamen
 
 \newpage
 
-
 ```{r pivot2}
 library(readr)
 pesquisa <- read.csv("data_joined.csv", header = T)
@@ -166,7 +155,3 @@ pesquisa_gw <- pesquisa %>% filter(!is.na(weight)) %>%
 head(pesquisa_gw)
 pesquisa_gw %>% tidyr::pivot_wider(names_from="genus", values_from="peso_medio")
 ```
-
-
-
-

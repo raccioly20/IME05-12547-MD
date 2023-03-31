@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.3.290">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2022-08-12">
+<meta name="dcterms.date" content="2023-03-31">
 
 <title>IME05-12547 - Carregando dados, Manipulando e Visualizando</title>
 <style>
@@ -19,9 +19,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -48,43 +49,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -129,8 +100,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <meta name="twitter:title" content="IME05-12547 - Carregando dados, Manipulando e Visualizando">
-<meta name="twitter:description" content="Vamos carregar as bibliotecas que serão usadas na manipulação e visualização de dados.">
-<meta name="twitter:image" content="../images/md.png">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="images/md.png">
 <meta name="twitter:creator" content="@r_accioly">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -139,11 +110,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Carregando dados, Manipulando e Visualizando</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Explorando 01</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -151,195 +127,232 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/raccioly20" title="GitHub" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/r_accioly" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
-  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/r_accioly" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">Informação da disciplina</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text">Informação da disciplina</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">Visão Geral</a>
+  <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visão Geral</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">Cronograma</a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cronograma</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">Sobre</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Sobre</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../about.html" class="sidebar-item-text sidebar-link">Sobre</a>
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">RStudio Cloud</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">RStudio Cloud</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">Acesso</a>
+  <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acesso</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Conteúdo Semanal</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Conteúdo Semanal</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link active">Explorando 01</a>
+  <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Explorando 01</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula01A.html" class="sidebar-item-text sidebar-link">Explorando 01A</a>
+  <a href="../semanas/Aula01A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 01A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula02.html" class="sidebar-item-text sidebar-link">Explorando 02</a>
+  <a href="../semanas/Aula02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 02</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula03.html" class="sidebar-item-text sidebar-link">Explorando 03</a>
+  <a href="../semanas/Aula03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 03</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula04.html" class="sidebar-item-text sidebar-link">Explorando 04</a>
+  <a href="../semanas/Aula04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 04</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula05.html" class="sidebar-item-text sidebar-link">Explorando 05</a>
+  <a href="../semanas/Aula05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 05</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula06.html" class="sidebar-item-text sidebar-link">Explorando 06</a>
+  <a href="../semanas/Aula06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 06</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.1.html" class="sidebar-item-text sidebar-link">Regressão Simples</a>
+  <a href="../semanas/Aula06A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 06A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.2.html" class="sidebar-item-text sidebar-link">Regressão Múltipla</a>
+  <a href="../semanas/Aula07.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regressão Simples</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.2A.html" class="sidebar-item-text sidebar-link">Problemas em Regressão</a>
+  <a href="../semanas/Aula07.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regressão Múltipla</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.3.html" class="sidebar-item-text sidebar-link">Seleção de Modelos</a>
+  <a href="../semanas/Aula07.2A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problemas em Regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.4.html" class="sidebar-item-text sidebar-link">Métodos de Encolhimento</a>
+  <a href="../semanas/Aula07.3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seleção de Modelos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula08.0.html" class="sidebar-item-text sidebar-link">Classificação 1os passos</a>
+  <a href="../semanas/Aula07.4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Métodos de Encolhimento</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula08.html" class="sidebar-item-text sidebar-link">KNN</a>
+  <a href="../semanas/Aula08.0.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Classificação 1os passos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula09.html" class="sidebar-item-text sidebar-link">Regressão Logística</a>
+  <a href="../semanas/Aula08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KNN</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula09A.html" class="sidebar-item-text sidebar-link">SMOTE</a>
+  <a href="../semanas/Aula09.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regressão Logística</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula10.html" class="sidebar-item-text sidebar-link">LDA-QDA</a>
+  <a href="../semanas/Aula09A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SMOTE</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">Arvore de Classificação</a>
+  <a href="../semanas/Aula10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LDA-QDA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">Arvore de Classificação</a>
+  <a href="../semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Classificação</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula11.1.html" class="sidebar-item-text sidebar-link">Arvore de Regressão</a>
+  <a href="../semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Classificação</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula11.2.html" class="sidebar-item-text sidebar-link">Arvore de Regressão</a>
+  <a href="../semanas/Aula11.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula13.html" class="sidebar-item-text sidebar-link">Análise de Clusters</a>
+  <a href="../semanas/Aula11.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula14.html" class="sidebar-item-text sidebar-link">Análise de Associação</a>
+  <a href="../semanas/Aula13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Análise de Clusters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Análise de Associação</span></a>
   </div>
 </li>
       </ul>
@@ -347,6 +360,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -384,7 +398,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Carregando dados, Manipulando e Visualizando</h1>
+<h1 class="title">Carregando dados, Manipulando e Visualizando</h1>
 </div>
 
 
@@ -401,7 +415,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 12, 2022</p>
+      <p class="date">March 31, 2023</p>
     </div>
   </div>
   
@@ -422,7 +436,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## O read_delim permite que seja definido o tipo de delimitador dos dados</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pocos <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(url, <span class="at">delim =</span> <span class="st">";"</span>, <span class="at">locale=</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">","</span>), <span class="at">col_names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 30255 Columns: 60
+<pre><code>Rows: 30410 Columns: 60
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ";"
 chr (51): POCO, CADASTRO, OPERADOR, POCO_OPERADOR, ESTADO, BACIA, BLOCO, SIG...
@@ -435,22 +449,21 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pocos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 60
-  POCO  CADAS…¹ OPERA…² POCO_…³ ESTADO BACIA BLOCO SIG_C…⁴ CAMPO TERRA…⁵ POCO_…⁶
-  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  
-1 7-PC… 721000… 3R Mac… 7PC  0… RN     Poti… PC    "PC   " PORT… T       N      
-2 7-CO… 742810… Petrob… 7CO  0… RJ     Camp… CO    "CO   " CORV… M       N      
-3 7-BA… 202400… Petrob… 7BA  0… BA     Recô… BA    "BA   " BURA… T       N      
-4 7-ET… 721000… Petrob… 7ET  0… RN     Poti… ET    "ET   " ESTR… T       N      
-5 4-FS… 342700… Petrob… 4FSL 0… ES     Espí… FSL   "FSL  " FAZE… T       N      
-6 7-CA… 721000… Petrob… 7CAM 0… RN     Poti… CAM   "CAM  " CANT… T       N      
-# … with 49 more variables: TIPO &lt;chr&gt;, CATEGORIA &lt;chr&gt;, RECLASSIFICACAO &lt;chr&gt;,
-#   SITUACAO &lt;chr&gt;, INICIO &lt;chr&gt;, TERMINO &lt;chr&gt;, CONCLUSAO &lt;chr&gt;,
-#   TITULARIDADE &lt;chr&gt;, LATITUDE_BASE_4C &lt;chr&gt;, LONGITUDE_BASE_4C &lt;chr&gt;,
-#   LATITUDE_BASE_DD &lt;dbl&gt;, LONGITUDE_BASE_DD &lt;dbl&gt;, DATUM_HORIZONTAL &lt;chr&gt;,
-#   TIPO_DE_COORDENADA_DE_BASE &lt;chr&gt;, DIRECAO &lt;chr&gt;,
+  POCO        CADASTRO OPERADOR POCO_OPERADOR ESTADO BACIA BLOCO SIG_CAMPO CAMPO
+  &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;
+1 7-GC-12-RN  7210002… Níon En… GALO DE CAMP… RN     Poti… &lt;NA&gt;  "GC   "   GALO…
+2 7-GC-13-RN  7210002… Níon En… GALO DE CAMP… RN     Poti… &lt;NA&gt;  "GC   "   GALO…
+3 7-GC-8-RN   7210002… Níon En… GALO DE CAMP… RN     Poti… BTP1… "GC   "   GALO…
+4 7-ROL-1-RN  7210002… Níon En… ROLINHA 01    RN     Poti… &lt;NA&gt;  "ROL  "   ROLI…
+5 3-BRSA-123… 7210002… Petrobr… 3ARG805RN     RN     Poti… &lt;NA&gt;  "ARG  "   ALTO…
+6 7-ET-1523D… 7210002… Petrobr… 7ET1523DRN    RN     Poti… &lt;NA&gt;  "ET   "   ESTR…
+# ℹ 51 more variables: TERRA_MAR &lt;chr&gt;, POCO_POS_ANP &lt;chr&gt;, TIPO &lt;chr&gt;,
+#   CATEGORIA &lt;chr&gt;, RECLASSIFICACAO &lt;chr&gt;, SITUACAO &lt;chr&gt;, INICIO &lt;chr&gt;,
+#   TERMINO &lt;chr&gt;, CONCLUSAO &lt;chr&gt;, TITULARIDADE &lt;chr&gt;, LATITUDE_BASE_4C &lt;chr&gt;,
+#   LONGITUDE_BASE_4C &lt;chr&gt;, LATITUDE_BASE_DD &lt;dbl&gt;, LONGITUDE_BASE_DD &lt;dbl&gt;,
+#   DATUM_HORIZONTAL &lt;chr&gt;, TIPO_DE_COORDENADA_DE_BASE &lt;chr&gt;, DIRECAO &lt;chr&gt;,
 #   PROFUNDIDADE_VERTICAL_M &lt;dbl&gt;, PROFUNDIDADE_SONDADOR_M &lt;dbl&gt;,
-#   PROFUNDIDADE_MEDIDA_M &lt;dbl&gt;, REFERENCIA_DE_PROFUNDIDADE &lt;chr&gt;, …
-# ℹ Use `colnames()` to see all variable names</code></pre>
+#   PROFUNDIDADE_MEDIDA_M &lt;dbl&gt;, REFERENCIA_DE_PROFUNDIDADE &lt;chr&gt;, …</code></pre>
 </div>
 </div>
 </section>
@@ -461,17 +474,18 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-✔ ggplot2 3.3.6     ✔ dplyr   1.0.9
-✔ tibble  3.1.8     ✔ stringr 1.4.0
-✔ tidyr   1.2.0     ✔ forcats 0.5.1
-✔ purrr   0.3.4     
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.1     ✔ purrr     1.0.1
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 </div>
-<p>Vamos primeiro conhecer o que tem na base de dados pocos. A base de dados possui 30255 linhas</p>
+<p>Vamos primeiro conhecer o que tem na base de dados pocos. A base de dados possui 30410 linhas</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(pocos)  <span class="co"># Tipo de base de dados</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -480,7 +494,7 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pocos) <span class="co"># Sumario da base de dados</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     POCO             CADASTRO           OPERADOR         POCO_OPERADOR     
- Length:30255       Length:30255       Length:30255       Length:30255      
+ Length:30410       Length:30410       Length:30410       Length:30410      
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
@@ -488,7 +502,7 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                             
                                                                             
     ESTADO             BACIA              BLOCO            SIG_CAMPO        
- Length:30255       Length:30255       Length:30255       Length:30255      
+ Length:30410       Length:30410       Length:30410       Length:30410      
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
@@ -496,7 +510,7 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                             
                                                                             
     CAMPO            TERRA_MAR         POCO_POS_ANP           TIPO          
- Length:30255       Length:30255       Length:30255       Length:30255      
+ Length:30410       Length:30410       Length:30410       Length:30410      
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
@@ -504,7 +518,7 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                             
                                                                             
   CATEGORIA         RECLASSIFICACAO      SITUACAO            INICIO         
- Length:30255       Length:30255       Length:30255       Length:30255      
+ Length:30410       Length:30410       Length:30410       Length:30410      
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
@@ -512,7 +526,7 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                             
                                                                             
    TERMINO           CONCLUSAO         TITULARIDADE       LATITUDE_BASE_4C  
- Length:30255       Length:30255       Length:30255       Length:30255      
+ Length:30410       Length:30410       Length:30410       Length:30410      
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
@@ -520,47 +534,47 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                             
                                                                             
  LONGITUDE_BASE_4C  LATITUDE_BASE_DD  LONGITUDE_BASE_DD DATUM_HORIZONTAL  
- Length:30255       Min.   :-32.927   Min.   :-73.38    Length:30255      
- Class :character   1st Qu.:-12.691   1st Qu.:-39.61    Class :character  
+ Length:30410       Min.   :-32.927   Min.   :-73.38    Length:30410      
+ Class :character   1st Qu.:-12.694   1st Qu.:-39.65    Class :character  
  Mode  :character   Median :-10.710   Median :-37.83    Mode  :character  
-                    Mean   :-11.480   Mean   :-38.83                      
-                    3rd Qu.: -5.327   3rd Qu.:-36.98                      
+                    Mean   :-11.490   Mean   :-38.84                      
+                    3rd Qu.: -5.328   3rd Qu.:-36.98                      
                     Max.   :  4.528   Max.   :-34.83                      
                                                                           
  TIPO_DE_COORDENADA_DE_BASE   DIRECAO          PROFUNDIDADE_VERTICAL_M
- Length:30255               Length:30255       Min.   :-62550.0       
- Class :character           Class :character   1st Qu.:  -772.4       
+ Length:30410               Length:30410       Min.   :-59053.0       
+ Class :character           Class :character   1st Qu.:  -712.6       
  Mode  :character           Mode  :character   Median :     0.0       
-                                               Mean   :  -254.4       
-                                               3rd Qu.:   138.0       
+                                               Mean   :  -240.9       
+                                               3rd Qu.:     0.0       
                                                Max.   :528084.0       
-                                               NA's   :19336          
+                                               NA's   :18906          
  PROFUNDIDADE_SONDADOR_M PROFUNDIDADE_MEDIDA_M REFERENCIA_DE_PROFUNDIDADE
- Min.   :    0           Min.   :    0.0       Length:30255              
- 1st Qu.:  485           1st Qu.:  347.5       Class :character          
- Median :  999           Median :  870.2       Mode  :character          
- Mean   : 1507           Mean   : 1583.9                                 
- 3rd Qu.: 2230           3rd Qu.: 2644.0                                 
- Max.   :62750           Max.   :62800.0                                 
- NA's   :1043            NA's   :17787                                   
- MESA_ROTATIVA     COTA_ALTIMETRICA_M LAMINA_D_AGUA_M   DATUM_VERTICAL    
- Min.   :   0.00   Min.   :    0.00   Min.   :    0.0   Length:30255      
- 1st Qu.:  19.00   1st Qu.:    0.00   1st Qu.:    0.0   Class :character  
- Median :  32.40   Median :   12.30   Median :    0.0   Mode  :character  
- Mean   :  57.34   Mean   :   41.00   Mean   :  284.2                     
- 3rd Qu.:  75.68   3rd Qu.:   56.99   3rd Qu.:  116.0                     
- Max.   :2220.00   Max.   :30940.00   Max.   :30940.0                     
-                   NA's   :17225      NA's   :14761                       
+ Min.   :    0.0         Min.   :    0.0       Length:30410              
+ 1st Qu.:  481.6         1st Qu.:  290.6       Class :character          
+ Median :  992.0         Median :  840.8       Mode  :character          
+ Mean   : 1498.8         Mean   : 1527.3                                 
+ 3rd Qu.: 2226.0         3rd Qu.: 2521.5                                 
+ Max.   :29170.0         Max.   :29185.0                                 
+ NA's   :948             NA's   :17385                                   
+ MESA_ROTATIVA     COTA_ALTIMETRICA_M LAMINA_D_AGUA_M  DATUM_VERTICAL    
+ Min.   :   0.00   Min.   :   0.00    Min.   :   0.0   Length:30410      
+ 1st Qu.:  19.00   1st Qu.:   0.00    1st Qu.:   0.0   Class :character  
+ Median :  32.40   Median :  11.00    Median :   0.0   Mode  :character  
+ Mean   :  57.16   Mean   :  37.78    Mean   : 277.1                     
+ 3rd Qu.:  75.60   3rd Qu.:  55.73    3rd Qu.: 114.0                     
+ Max.   :1600.00   Max.   :6672.00    Max.   :3094.0                     
+                   NA's   :16850      NA's   :14390                      
  UNIDADE_ESTRATIGRAFICA GEOLOGIA_GRUPO_FINAL GEOLOGIA_FORMACAO_FINAL
- Mode:logical           Length:30255         Length:30255           
- NA's:30255             Class :character     Class :character       
+ Mode:logical           Length:30410         Length:30410           
+ NA's:30410             Class :character     Class :character       
                         Mode  :character     Mode  :character       
                                                                     
                                                                     
                                                                     
                                                                     
  GEOLOGIA_MEMBRO_FINAL     CDPE               AGP                 PC           
- Length:30255          Length:30255       Length:30255       Length:30255      
+ Length:30410          Length:30410       Length:30410       Length:30410      
  Class :character      Class :character   Class :character   Class :character  
  Mode  :character      Mode  :character   Mode  :character   Mode  :character  
                                                                                
@@ -568,7 +582,7 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                                
                                                                                
      PAG            PERFIS_CONVENCIONAIS DURANTE_PERFURACAO PERFIS_DIGITAIS   
- Length:30255       Length:30255         Length:30255       Length:30255      
+ Length:30410       Length:30410         Length:30410       Length:30410      
  Class :character   Class :character     Class :character   Class :character  
  Mode  :character   Mode  :character     Mode  :character   Mode  :character  
                                                                               
@@ -576,7 +590,7 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                               
                                                                               
  PERFIS_PROCESSADOS PERFIS_ESPECIAIS   AMOSTRA_LATERAL      SISMICA         
- Length:30255       Length:30255       Length:30255       Length:30255      
+ Length:30410       Length:30410       Length:30410       Length:30410      
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
@@ -584,7 +598,7 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                             
                                                                             
  TABELA_TEMPO_PROFUNDIDADE DADOS_DIRECIONAIS  TESTE_A_CABO      
- Length:30255              Length:30255       Length:30255      
+ Length:30410              Length:30410       Length:30410      
  Class :character          Class :character   Class :character  
  Mode  :character          Mode  :character   Mode  :character  
                                                                 
@@ -592,15 +606,15 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                 
                                                                 
  TESTE_DE_FORMACAO   CANHONEIO          TESTEMUNHO         GEOQUIMICA       
- Length:30255       Length:30255       Length:30255       Length:30255      
+ Length:30410       Length:30410       Length:30410       Length:30410      
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
                                                                             
                                                                             
                                                                             
-  SIG_SONDA          NOM_SONDA         DHA_ATUALIZACAO    ATINGIU_PRESAL    
- Length:30255       Length:30255       Length:30255       Length:30255      
+  SIG_SONDA          NOM_SONDA         ATINGIU_PRESAL     DHA_ATUALIZACAO   
+ Length:30410       Length:30410       Length:30410       Length:30410      
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
@@ -636,17 +650,15 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pocos_01)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 12
-  POCO   OPERA…¹ ESTADO BACIA BLOCO CAMPO TERRA…² CATEG…³ SITUA…⁴ INICIO TERMINO
-  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  
-1 7-PC-… 3R Mac… RN     Poti… PC    PORT… T       Desenv… ARRASA… 25/08… 27/08/…
-2 7-CO-… Petrob… RJ     Camp… CO    CORV… M       Desenv… ABANDO… 26/08… 11/10/…
-3 7-BA-… Petrob… BA     Recô… BA    BURA… T       Desenv… ABANDO… 28/08… 06/09/…
-4 7-ET-… Petrob… RN     Poti… ET    ESTR… T       Desenv… PRODUZ… 30/05… 31/05/…
-5 4-FSL… Petrob… ES     Espí… FSL   FAZE… T       Pionei… ABANDO… 31/05… 30/06/…
-6 7-CAM… Petrob… RN     Poti… CAM   CANT… T       Desenv… INJETA… 01/06… 04/06/…
-# … with 1 more variable: PROFUNDIDADE_MEDIDA_M &lt;dbl&gt;, and abbreviated variable
-#   names ¹​OPERADOR, ²​TERRA_MAR, ³​CATEGORIA, ⁴​SITUACAO
-# ℹ Use `colnames()` to see all variable names</code></pre>
+  POCO     OPERADOR ESTADO BACIA BLOCO CAMPO TERRA_MAR CATEGORIA SITUACAO INICIO
+  &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt; 
+1 7-GC-12… Níon En… RN     Poti… &lt;NA&gt;  GALO… T         Desenvol… PRODUZI… 28/02…
+2 7-GC-13… Níon En… RN     Poti… &lt;NA&gt;  GALO… T         Desenvol… PRODUZI… 05/03…
+3 7-GC-8-… Níon En… RN     Poti… BTP1… GALO… T         Desenvol… PRODUZI… 31/03…
+4 7-ROL-1… Níon En… RN     Poti… &lt;NA&gt;  ROLI… T         Desenvol… PRODUZI… 08/02…
+5 3-BRSA-… Petrobr… RN     Poti… &lt;NA&gt;  ALTO… T         Extensão  ARRASADO 13/03…
+6 7-ET-15… Petrobr… RN     Poti… &lt;NA&gt;  ESTR… T         Desenvol… PRODUZI… 04/04…
+# ℹ 2 more variables: TERMINO &lt;chr&gt;, PROFUNDIDADE_MEDIDA_M &lt;dbl&gt;</code></pre>
 </div>
 </div>
 </section>
@@ -656,7 +668,7 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(pocos_01))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 30235</code></pre>
+<pre><code>[1] 30013</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(pocos_01<span class="sc">$</span>INICIO))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -664,11 +676,11 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(pocos_01<span class="sc">$</span>TERMINO))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1861</code></pre>
+<pre><code>[1] 1839</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(pocos_01<span class="sc">$</span>PROFUNDIDADE_MEDIDA_M))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 17787</code></pre>
+<pre><code>[1] 17385</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pocos_01 <span class="ot">&lt;-</span> pocos_01 <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(<span class="fu">any_of</span>(<span class="fu">c</span>(<span class="st">"TERMINO"</span>,</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">"PROFUNDIDADE_MEDIDA_M"</span>)))</span>
@@ -677,263 +689,20 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(pocos_01, <span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">'Uma tabela mais elegante com as 10 primeras linhas de pocos_01.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <caption>Uma tabela mais elegante com as 10 primeras linhas de pocos_01.</caption>
 <colgroup>
+<col style="width: 9%">
 <col style="width: 8%">
-<col style="width: 5%">
 <col style="width: 4%">
 <col style="width: 5%">
-<col style="width: 3%">
-<col style="width: 8%">
+<col style="width: 5%">
+<col style="width: 10%">
 <col style="width: 5%">
 <col style="width: 9%">
-<col style="width: 15%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 12%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">POCO</th>
-<th style="text-align: left;">OPERADOR</th>
-<th style="text-align: left;">ESTADO</th>
-<th style="text-align: left;">BACIA</th>
-<th style="text-align: left;">BLOCO</th>
-<th style="text-align: left;">CAMPO</th>
-<th style="text-align: left;">TERRA_MAR</th>
-<th style="text-align: left;">CATEGORIA</th>
-<th style="text-align: left;">SITUACAO</th>
-<th style="text-align: left;">INICIO</th>
-<th style="text-align: left;">TERMINO</th>
-<th style="text-align: right;">PROFUNDIDADE_MEDIDA_M</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1-MOR-1-RN</td>
-<td style="text-align: left;">Petrobras</td>
-<td style="text-align: left;">RN</td>
-<td style="text-align: left;">Potiguar</td>
-<td style="text-align: left;">BEN</td>
-<td style="text-align: left;">BENFICA</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Pioneiro</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">12/06/1994 00:00</td>
-<td style="text-align: left;">28/06/1994 00:00</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7-REP-28-RN</td>
-<td style="text-align: left;">Petrobras</td>
-<td style="text-align: left;">RN</td>
-<td style="text-align: left;">Potiguar</td>
-<td style="text-align: left;">BEN</td>
-<td style="text-align: left;">BENFICA</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">INJETANDO</td>
-<td style="text-align: left;">12/04/1995 00:00</td>
-<td style="text-align: left;">18/04/1995 00:00</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7-ET-647-RN</td>
-<td style="text-align: left;">Petrobras</td>
-<td style="text-align: left;">RN</td>
-<td style="text-align: left;">Potiguar</td>
-<td style="text-align: left;">ET</td>
-<td style="text-align: left;">ESTREITO</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">INJETANDO</td>
-<td style="text-align: left;">16/04/1995 00:00</td>
-<td style="text-align: left;">18/04/1995 00:00</td>
-<td style="text-align: right;">277.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7-MRL-54-RJS</td>
-<td style="text-align: left;">Petrobras</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">MRL</td>
-<td style="text-align: left;">MARLIM</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">30/05/1996 00:00</td>
-<td style="text-align: left;">13/06/1996 00:00</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7-BVS-13-RN</td>
-<td style="text-align: left;">Petrobras</td>
-<td style="text-align: left;">RN</td>
-<td style="text-align: left;">Potiguar</td>
-<td style="text-align: left;">BEN</td>
-<td style="text-align: left;">BENFICA</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">06/06/1996 00:00</td>
-<td style="text-align: left;">15/06/1996 00:00</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">9-LUC-31D-AM</td>
-<td style="text-align: left;">Petrobras</td>
-<td style="text-align: left;">AM</td>
-<td style="text-align: left;">Solimões</td>
-<td style="text-align: left;">LUC</td>
-<td style="text-align: left;">LESTE DO URUCU</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Especial</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">10/06/1996 00:00</td>
-<td style="text-align: left;">15/08/1996 00:00</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1-RJS-500-RJS</td>
-<td style="text-align: left;">Petrobras</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">ESP</td>
-<td style="text-align: left;">ESPADARTE</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Pioneiro</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">10/06/1996 00:00</td>
-<td style="text-align: left;">19/07/1996 00:00</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">8-MRL-36D-RJS</td>
-<td style="text-align: left;">Petrobras</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">MRL</td>
-<td style="text-align: left;">MARLIM</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Injeção</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">27/10/1993 00:00</td>
-<td style="text-align: left;">15/11/1993 00:00</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3-ESP-2-RJS</td>
-<td style="text-align: left;">Petrobras</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">ESP</td>
-<td style="text-align: left;">ESPADARTE</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Extensão</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">09/05/1995 00:00</td>
-<td style="text-align: left;">19/06/1995 00:00</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">8-AB-49D-RJS</td>
-<td style="text-align: left;">Petrobras</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">AB</td>
-<td style="text-align: left;">ALBACORA</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Injeção</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">15/04/1996 00:00</td>
-<td style="text-align: left;">30/07/1996 00:00</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(pocos_01))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4328</code></pre>
-</div>
-</div>
-<p><strong>Veja que existia um grande número de dados ausentes</strong></p>
-<p>Antes: 30255 linhas Depois: 10715 linhas</p>
-</section>
-<section id="corrigindo-tipo-de-dados" class="level2">
-<h2 class="anchored" data-anchor-id="corrigindo-tipo-de-dados">Corrigindo tipo de dados</h2>
-<p>As colunas INICIO e TERMINO são datas, mas foram lidas como caracter, vamos corrigir isto!</p>
-<p>Para trabalhar com datas vamos usar o pacote <code>lubridate</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'lubridate'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    date, intersect, setdiff, union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pocos_01<span class="sc">$</span>INICIO <span class="ot">&lt;-</span> <span class="fu">as_date</span>(pocos_01<span class="sc">$</span>INICIO, <span class="at">format=</span><span class="st">"%d/%m/%Y"</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>pocos_01<span class="sc">$</span>TERMINO <span class="ot">&lt;-</span> <span class="fu">as_date</span>(pocos_01<span class="sc">$</span>TERMINO, <span class="at">format=</span><span class="st">"%d/%m/%Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="filtrando-dados" class="level2">
-<h2 class="anchored" data-anchor-id="filtrando-dados">Filtrando dados</h2>
-<p>Vamos analisar os poços de uma detreminada região, para isto podemos fltrar os poços de um bloco. Vamos filtrar somente os poços do CAMPO PEREGRINO usando a função <code>filter</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>pocos_02 <span class="ot">&lt;-</span> pocos_01 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(CAMPO<span class="sc">==</span><span class="st">"PEREGRINO"</span>) <span class="do">##  </span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pocos_02)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     POCO             OPERADOR            ESTADO             BACIA          
- Length:94          Length:94          Length:94          Length:94         
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-    BLOCO              CAMPO            TERRA_MAR          CATEGORIA        
- Length:94          Length:94          Length:94          Length:94         
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-   SITUACAO             INICIO              TERMINO          
- Length:94          Min.   :1994-07-07   Min.   :1994-08-17  
- Class :character   1st Qu.:2011-12-16   1st Qu.:2012-01-27  
- Mode  :character   Median :2013-07-02   Median :2013-08-31  
-                    Mean   :2013-11-27   Mean   :2013-12-27  
-                    3rd Qu.:2015-10-06   3rd Qu.:2015-10-29  
-                    Max.   :2022-02-25   Max.   :2022-03-09  
- PROFUNDIDADE_MEDIDA_M
- Min.   :   0         
- 1st Qu.:4457         
- Median :4925         
- Mean   :5136         
- 3rd Qu.:6213         
- Max.   :8613         </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(pocos_02, <span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">'Uma tabela mais elegante com as 10 primeras linhas de pocos_02.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<caption>Uma tabela mais elegante com as 10 primeras linhas de pocos_02.</caption>
-<colgroup>
-<col style="width: 10%">
-<col style="width: 9%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 6%">
 <col style="width: 6%">
 <col style="width: 10%">
-<col style="width: 16%">
-<col style="width: 6%">
-<col style="width: 6%">
+<col style="width: 10%">
 <col style="width: 13%">
 </colgroup>
 <thead>
@@ -954,35 +723,243 @@ Attaching package: 'lubridate'</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1-RJS-498-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">BM-C-7</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
+<td style="text-align: left;">7-GC-12-RN</td>
+<td style="text-align: left;">Níon Energia</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">GALO DE CAMPINA</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">28/02/2014 00:00</td>
+<td style="text-align: left;">02/03/2014 00:00</td>
+<td style="text-align: right;">758.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-GC-13-RN</td>
+<td style="text-align: left;">Níon Energia</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">GALO DE CAMPINA</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">05/03/2014 00:00</td>
+<td style="text-align: left;">08/03/2014 00:00</td>
+<td style="text-align: right;">777.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-GC-8-RN</td>
+<td style="text-align: left;">Níon Energia</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">BTP10B</td>
+<td style="text-align: left;">GALO DE CAMPINA</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">31/03/2014 00:00</td>
+<td style="text-align: left;">03/04/2014 00:00</td>
+<td style="text-align: right;">790.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-ROL-1-RN</td>
+<td style="text-align: left;">Níon Energia</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">ROLINHA</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">08/02/2014 00:00</td>
+<td style="text-align: left;">10/02/2014 00:00</td>
+<td style="text-align: right;">786.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3-BRSA-1232-RN</td>
+<td style="text-align: left;">Petrobras</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">ALTO DO RODRIGUES</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Extensão</td>
+<td style="text-align: left;">ARRASADO</td>
+<td style="text-align: left;">13/03/2014 00:00</td>
+<td style="text-align: left;">19/03/2014 00:00</td>
+<td style="text-align: right;">488.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-ET-1523D-RN</td>
+<td style="text-align: left;">Petrobras</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">ESTREITO</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">04/04/2015 00:00</td>
+<td style="text-align: left;">06/04/2015 00:00</td>
+<td style="text-align: right;">293.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-ET-1522-RN</td>
+<td style="text-align: left;">Petrobras</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">ESTREITO</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">FECHADO</td>
+<td style="text-align: left;">14/04/2015 00:00</td>
+<td style="text-align: left;">15/04/2015 00:00</td>
+<td style="text-align: right;">264.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-ET-1518-RN</td>
+<td style="text-align: left;">Petrobras</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">ESTREITO</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">09/04/2015 00:00</td>
+<td style="text-align: left;">11/04/2015 00:00</td>
+<td style="text-align: right;">260.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-PIR-276D-AL</td>
+<td style="text-align: left;">Origem Alagoas</td>
+<td style="text-align: left;">AL</td>
+<td style="text-align: left;">Alagoas</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PILAR</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">06/03/2015 00:00</td>
+<td style="text-align: left;">27/03/2015 00:00</td>
+<td style="text-align: right;">2423.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1-BRSA-1300D-BA</td>
+<td style="text-align: left;">Petrobras</td>
+<td style="text-align: left;">BA</td>
+<td style="text-align: left;">Recôncavo</td>
+<td style="text-align: left;">REC-T-70</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">T</td>
 <td style="text-align: left;">Pioneiro</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">1994-07-07</td>
-<td style="text-align: left;">1994-08-17</td>
-<td style="text-align: right;">0.00</td>
+<td style="text-align: left;">ARRASADO</td>
+<td style="text-align: left;">21/03/2015 00:00</td>
+<td style="text-align: left;">29/04/2015 00:00</td>
+<td style="text-align: right;">3051.0</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-2HB-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">BM-C-7</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2011-01-16</td>
-<td style="text-align: left;">2011-02-03</td>
-<td style="text-align: right;">4676.00</td>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(pocos_01))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4574</code></pre>
+</div>
+</div>
+<p><strong>Veja que existia um grande número de dados ausentes</strong></p>
+<p>Antes: 30410 linhas Depois: 11293 linhas</p>
+</section>
+<section id="corrigindo-tipo-de-dados" class="level2">
+<h2 class="anchored" data-anchor-id="corrigindo-tipo-de-dados">Corrigindo tipo de dados</h2>
+<p>As colunas INICIO e TERMINO são datas, mas foram lidas como caracter, vamos corrigir isto!</p>
+<p>Para trabalhar com datas vamos usar o pacote <code>lubridate</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pocos_01<span class="sc">$</span>INICIO <span class="ot">&lt;-</span> <span class="fu">as_date</span>(pocos_01<span class="sc">$</span>INICIO, <span class="at">format=</span><span class="st">"%d/%m/%Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: 11293 failed to parse.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pocos_01<span class="sc">$</span>TERMINO <span class="ot">&lt;-</span> <span class="fu">as_date</span>(pocos_01<span class="sc">$</span>TERMINO, <span class="at">format=</span><span class="st">"%d/%m/%Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: 11293 failed to parse.</code></pre>
+</div>
+</div>
+</section>
+<section id="filtrando-dados" class="level2">
+<h2 class="anchored" data-anchor-id="filtrando-dados">Filtrando dados</h2>
+<p>Vamos analisar os poços de uma detreminada região, para isto podemos fltrar os poços de um bloco. Vamos filtrar somente os poços do CAMPO PEREGRINO usando a função <code>filter</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>pocos_02 <span class="ot">&lt;-</span> pocos_01 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(CAMPO<span class="sc">==</span><span class="st">"PEREGRINO"</span>) <span class="do">##  </span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pocos_02)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     POCO             OPERADOR            ESTADO             BACIA          
+ Length:104         Length:104         Length:104         Length:104        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+    BLOCO              CAMPO            TERRA_MAR          CATEGORIA        
+ Length:104         Length:104         Length:104         Length:104        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+   SITUACAO             INICIO       TERMINO    PROFUNDIDADE_MEDIDA_M
+ Length:104         Min.   :NA    Min.   :NA    Min.   :   0         
+ Class :character   1st Qu.:NA    1st Qu.:NA    1st Qu.:4437         
+ Mode  :character   Median :NA    Median :NA    Median :4877         
+                    Mean   :NaN   Mean   :NaN   Mean   :5009         
+                    3rd Qu.:NA    3rd Qu.:NA    3rd Qu.:6138         
+                    Max.   :NA    Max.   :NA    Max.   :8613         
+                    NA's   :104   NA's   :104                        </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(pocos_02, <span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">'Uma tabela mais elegante com as 10 primeras linhas de pocos_02.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Uma tabela mais elegante com as 10 primeras linhas de pocos_02.</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 9%">
+<col style="width: 26%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">POCO</th>
+<th style="text-align: left;">OPERADOR</th>
+<th style="text-align: left;">ESTADO</th>
+<th style="text-align: left;">BACIA</th>
+<th style="text-align: left;">BLOCO</th>
+<th style="text-align: left;">CAMPO</th>
+<th style="text-align: left;">TERRA_MAR</th>
+<th style="text-align: left;">CATEGORIA</th>
+<th style="text-align: left;">SITUACAO</th>
+<th style="text-align: left;">INICIO</th>
+<th style="text-align: left;">TERMINO</th>
+<th style="text-align: right;">PROFUNDIDADE_MEDIDA_M</th>
 </tr>
+</thead>
+<tbody>
 <tr class="odd">
-<td style="text-align: left;">7-PRG-64HP-RJS</td>
+<td style="text-align: left;">7-PRG-46H-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
@@ -991,40 +968,12 @@ Attaching package: 'lubridate'</code></pre>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2018-11-11</td>
-<td style="text-align: left;">2018-12-05</td>
-<td style="text-align: right;">5790.00</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">7432.00</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">7-PRG-65HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">2019-01-05</td>
-<td style="text-align: left;">2019-01-20</td>
-<td style="text-align: right;">4386.00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7-PRG-73HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2022-02-25</td>
-<td style="text-align: left;">2022-03-09</td>
-<td style="text-align: right;">5694.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">8-PRG-68H-RJS</td>
+<td style="text-align: left;">8-PRG-39D-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
@@ -1032,55 +981,55 @@ Attaching package: 'lubridate'</code></pre>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Injeção</td>
-<td style="text-align: left;">EM AVALIAÇÃO</td>
-<td style="text-align: left;">2019-08-16</td>
-<td style="text-align: left;">2019-09-12</td>
-<td style="text-align: right;">4133.00</td>
+<td style="text-align: left;">INJETANDO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">7075.63</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">7-PRG-66HP-RJS</td>
+<td style="text-align: left;">3-PRG-1DA-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">BM-C-7</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2019-02-11</td>
-<td style="text-align: left;">2019-03-07</td>
-<td style="text-align: right;">6529.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-71HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">Extensão</td>
 <td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">2020-12-08</td>
-<td style="text-align: left;">2020-12-11</td>
-<td style="text-align: right;">3646.00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7-PRG-71HPA-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2020-12-18</td>
-<td style="text-align: left;">2020-01-06</td>
-<td style="text-align: right;">5404.00</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">2655.00</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">7-PRG-40HP-RJS</td>
+<td style="text-align: left;">3-PRG-1-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">BM-C-7</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Extensão</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">2432.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9-PRG-75i-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Especial</td>
+<td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">1513.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-PRG-76H-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
@@ -1088,10 +1037,66 @@ Attaching package: 'lubridate'</code></pre>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2014-07-27</td>
-<td style="text-align: left;">2014-08-03</td>
-<td style="text-align: right;">4797.74</td>
+<td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">688.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-PRG-79HP-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">4708.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-PRG-80HP-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">5907.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9-PRG-78H-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Especial</td>
+<td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">4958.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-PRG-77HP-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">3219.00</td>
 </tr>
 </tbody>
 </table>
@@ -1103,8 +1108,8 @@ Attaching package: 'lubridate'</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(pocos_02<span class="sc">$</span>CATEGORIA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Pioneiro"        "Desenvolvimento" "Injeção"         "Especial"       
-[5] "Extensão"       </code></pre>
+<pre><code>[1] "Desenvolvimento" "Injeção"         "Extensão"        "Especial"       
+[5] "Pioneiro"       </code></pre>
 </div>
 </div>
 </section>
@@ -1115,52 +1120,48 @@ Attaching package: 'lubridate'</code></pre>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pocos_03)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     POCO             OPERADOR            ESTADO             BACIA          
- Length:73          Length:73          Length:73          Length:73         
+ Length:81          Length:81          Length:81          Length:81         
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
                                                                             
                                                                             
                                                                             
     BLOCO              CAMPO            TERRA_MAR          CATEGORIA        
- Length:73          Length:73          Length:73          Length:73         
+ Length:81          Length:81          Length:81          Length:81         
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
                                                                             
                                                                             
-   SITUACAO             INICIO              TERMINO          
- Length:73          Min.   :2010-11-10   Min.   :2010-11-11  
- Class :character   1st Qu.:2012-02-04   1st Qu.:2012-04-06  
- Mode  :character   Median :2013-10-20   Median :2013-11-15  
-                    Mean   :2014-07-23   Mean   :2014-08-21  
-                    3rd Qu.:2016-06-23   3rd Qu.:2016-08-27  
-                    Max.   :2022-02-25   Max.   :2022-03-09  
- PROFUNDIDADE_MEDIDA_M
- Min.   : 742         
- 1st Qu.:4543         
- Median :5066         
- Mean   :5385         
- 3rd Qu.:6383         
- Max.   :8613         </code></pre>
+                                                                            
+   SITUACAO             INICIO       TERMINO    PROFUNDIDADE_MEDIDA_M
+ Length:81          Min.   :NA    Min.   :NA    Min.   : 269         
+ Class :character   1st Qu.:NA    1st Qu.:NA    1st Qu.:4492         
+ Mode  :character   Median :NA    Median :NA    Median :5034         
+                    Mean   :NaN   Mean   :NaN   Mean   :5245         
+                    3rd Qu.:NA    3rd Qu.:NA    3rd Qu.:6383         
+                    Max.   :NA    Max.   :NA    Max.   :8613         
+                    NA's   :81    NA's   :81                         </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(pocos_03, <span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">'Uma tabela mais elegante com as 10 primeras linhas de pocos_03.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <caption>Uma tabela mais elegante com as 10 primeras linhas de pocos_03.</caption>
 <colgroup>
-<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 5%">
+<col style="width: 5%">
 <col style="width: 9%">
+<col style="width: 26%">
 <col style="width: 4%">
 <col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 10%">
-<col style="width: 16%">
-<col style="width: 6%">
-<col style="width: 6%">
 <col style="width: 13%">
 </colgroup>
 <thead>
@@ -1181,6 +1182,132 @@ Attaching package: 'lubridate'</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">7-PRG-46H-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">FECHADO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">7432.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-PRG-76H-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">688.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-PRG-79HP-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">4708.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-PRG-80HP-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">5907.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-PRG-77HP-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">3219.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-PRG-11H-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">6100.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-PRG-70H-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">8326.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-PRG-66HP-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">PRODUZINDO</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">6529.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-PRG-2HA-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">BM-C-7</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">3995.0</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">7-PRG-2HB-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
@@ -1190,135 +1317,9 @@ Attaching package: 'lubridate'</code></pre>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2011-01-16</td>
-<td style="text-align: left;">2011-02-03</td>
-<td style="text-align: right;">4676.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-64HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2018-11-11</td>
-<td style="text-align: left;">2018-12-05</td>
-<td style="text-align: right;">5790.00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7-PRG-65HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">2019-01-05</td>
-<td style="text-align: left;">2019-01-20</td>
-<td style="text-align: right;">4386.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-73HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2022-02-25</td>
-<td style="text-align: left;">2022-03-09</td>
-<td style="text-align: right;">5694.00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7-PRG-66HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2019-02-11</td>
-<td style="text-align: left;">2019-03-07</td>
-<td style="text-align: right;">6529.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-71HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">2020-12-08</td>
-<td style="text-align: left;">2020-12-11</td>
-<td style="text-align: right;">3646.00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7-PRG-71HPA-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2020-12-18</td>
-<td style="text-align: left;">2020-01-06</td>
-<td style="text-align: right;">5404.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-40HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2014-07-27</td>
-<td style="text-align: left;">2014-08-03</td>
-<td style="text-align: right;">4797.74</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7-PRG-8HPA-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">2011-11-07</td>
-<td style="text-align: left;">2011-12-02</td>
-<td style="text-align: right;">4959.87</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-72HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2021-11-17</td>
-<td style="text-align: left;">2021-12-08</td>
-<td style="text-align: right;">5302.00</td>
+<td style="text-align: right;">4676.0</td>
 </tr>
 </tbody>
 </table>
@@ -1332,61 +1333,65 @@ Attaching package: 'lubridate'</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2011-01-16"</code></pre>
+<pre><code>[1] NA</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2011-02-03"</code></pre>
+<pre><code>[1] NA</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>] <span class="sc">-</span> pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 18 days</code></pre>
+<pre><code>Time difference of NA days</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">difftime</span>(pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>], pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>], <span class="at">units =</span> <span class="st">"days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 18 days</code></pre>
+<pre><code>Time difference of NA days</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tempo <span class="ot">&lt;-</span> <span class="fu">difftime</span>(pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>], pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>], <span class="at">units =</span> <span class="st">"days"</span>)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tempo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> 'difftime' num 18
+<pre><code> 'difftime' num NA
  - attr(*, "units")= chr "days"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>(pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>] <span class="sc">%--%</span> pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>])<span class="sc">/</span><span class="fu">ddays</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 18</code></pre>
+<pre><code>[1] NA</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>pocos_03 <span class="ot">&lt;-</span> pocos_03 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">TPERF =</span> (INICIO <span class="sc">%--%</span> TERMINO)<span class="sc">/</span><span class="fu">ddays</span>(<span class="dv">1</span>))</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pocos_03)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     POCO             OPERADOR            ESTADO             BACIA          
- Length:73          Length:73          Length:73          Length:73         
+ Length:81          Length:81          Length:81          Length:81         
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
                                                                             
                                                                             
                                                                             
     BLOCO              CAMPO            TERRA_MAR          CATEGORIA        
- Length:73          Length:73          Length:73          Length:73         
+ Length:81          Length:81          Length:81          Length:81         
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
                                                                             
                                                                             
-   SITUACAO             INICIO              TERMINO          
- Length:73          Min.   :2010-11-10   Min.   :2010-11-11  
- Class :character   1st Qu.:2012-02-04   1st Qu.:2012-04-06  
- Mode  :character   Median :2013-10-20   Median :2013-11-15  
-                    Mean   :2014-07-23   Mean   :2014-08-21  
-                    3rd Qu.:2016-06-23   3rd Qu.:2016-08-27  
-                    Max.   :2022-02-25   Max.   :2022-03-09  
- PROFUNDIDADE_MEDIDA_M     TPERF       
- Min.   : 742          Min.   :-347.0  
- 1st Qu.:4543          1st Qu.:  16.0  
- Median :5066          Median :  24.0  
- Mean   :5385          Mean   :  28.9  
- 3rd Qu.:6383          3rd Qu.:  37.0  
- Max.   :8613          Max.   : 260.0  </code></pre>
+                                                                            
+   SITUACAO             INICIO       TERMINO    PROFUNDIDADE_MEDIDA_M
+ Length:81          Min.   :NA    Min.   :NA    Min.   : 269         
+ Class :character   1st Qu.:NA    1st Qu.:NA    1st Qu.:4492         
+ Mode  :character   Median :NA    Median :NA    Median :5034         
+                    Mean   :NaN   Mean   :NaN   Mean   :5245         
+                    3rd Qu.:NA    3rd Qu.:NA    3rd Qu.:6383         
+                    Max.   :NA    Max.   :NA    Max.   :8613         
+                    NA's   :81    NA's   :81                         
+     TPERF    
+ Min.   : NA  
+ 1st Qu.: NA  
+ Median : NA  
+ Mean   :NaN  
+ 3rd Qu.: NA  
+ Max.   : NA  
+ NA's   :81   </code></pre>
 </div>
 </div>
 <section id="eliminando-colunas-com-tempos-negativos" class="level3">
@@ -1404,7 +1409,7 @@ Attaching package: 'lubridate'</code></pre>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_03, <span class="fu">aes</span>(<span class="at">x=</span>CAMPO, <span class="at">y=</span>TPERF)) <span class="sc">+</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula01/boxplot-1.png" class="img-fluid" width="960"></p>
+<p><img src="imagens/Aula01/boxplot-1.png" class="quarto-discovered-preview-image img-fluid" width="960"></p>
 </div>
 </div>
 <p>Veja que existem alguns tempos bem elevados que estão representados por pontos no box-plot. Eles podem ser considerados pontos afastados (outliers), que neste caso vamos eliminar.</p>
@@ -1422,9 +1427,6 @@ Attaching package: 'lubridate'</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x=</span>TPERF)) <span class="sc">+</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula01/histograma-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -1434,10 +1436,10 @@ Attaching package: 'lubridate'</code></pre>
 </section>
 <section id="criando-um-histograma-usando-a-regra-de-sturges" class="level3">
 <h3 class="anchored" data-anchor-id="criando-um-histograma-usando-a-regra-de-sturges">Criando um histograma usando a regra de Sturges</h3>
-<p>A regra de Sturges indica 7 faixas enquanto que o padrão do ggplot2 é 30.</p>
+<p>A regra de Sturges indica - faixas enquanto que o padrão do ggplot2 é 30.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x =</span> TPERF)) <span class="sc">+</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="fu">round</span>(<span class="dv">1</span><span class="fl">+3.322</span><span class="sc">*</span><span class="fu">log10</span>(<span class="fu">nrow</span>(pocos_04)),<span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x =</span> TPERF)) <span class="sc">+</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="fu">round</span>(<span class="dv">1</span><span class="fl">+3.322</span><span class="sc">*</span><span class="fu">log10</span>(<span class="fu">nrow</span>(pocos_04)),<span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula01/Sturges-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -1447,8 +1449,8 @@ Attaching package: 'lubridate'</code></pre>
 <section id="gráfico-de-dispersão" class="level3">
 <h3 class="anchored" data-anchor-id="gráfico-de-dispersão">Gráfico de Dispersão</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x=</span>PROFUNDIDADE_MEDIDA_M, <span class="at">y=</span>TPERF)) <span class="sc">+</span> </span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x=</span>PROFUNDIDADE_MEDIDA_M, <span class="at">y=</span>TPERF)) <span class="sc">+</span> </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula01/dispersao-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -1460,7 +1462,7 @@ Attaching package: 'lubridate'</code></pre>
 <section id="alterando-nome-das-colunas" class="level3">
 <h3 class="anchored" data-anchor-id="alterando-nome-das-colunas">Alterando nome das colunas</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "POCO"                  "OPERADOR"              "ESTADO"               
  [4] "BACIA"                 "BLOCO"                 "CAMPO"                
@@ -1468,8 +1470,8 @@ Attaching package: 'lubridate'</code></pre>
 [10] "INICIO"                "TERMINO"               "PROFUNDIDADE_MEDIDA_M"
 [13] "TPERF"                </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(pocos_04))</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(pocos_04))</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "poco"                  "operador"              "estado"               
  [4] "bacia"                 "bloco"                 "campo"                
@@ -1626,9 +1628,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1693,6 +1709,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1748,6 +1850,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">Baseado em https://sta210-s22.github.io/website/</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
   </div>
 </footer>
 

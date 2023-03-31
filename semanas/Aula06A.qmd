@@ -20,25 +20,17 @@ knitr::opts_chunk$set(fig.width = 9,
 
 ## Carregando bibliotecas
 
-
 ```{r bibliotecas, message=FALSE}
 library(tidyverse)
 data(iris)
 ```
 
-
-\newpage
-
 ## O que temos aqui?
-
 
 ```{r 1, echo=TRUE}
 head(iris)
 iris %>% count(Species)
 ```
-
-
-\newpage
 
 ## Quais são as médias?
 
@@ -48,9 +40,6 @@ iris %>%
   summarize(across(where(is.numeric), mean, na.rm = TRUE))
 ```
 
-
-\newpage
-
 ## Vamos ver se temos alguma relação entre as variáveis
 
 ```{r 3}
@@ -58,8 +47,6 @@ iris %>%
   group_by(Species) %>% ggplot(aes(x=Sepal.Width, y=Sepal.Length, 
                                    color=Species)) + geom_point()
 ```
-
-\newpage
 
 ## Vamos ver se temos alguma relação entre as variáveis 2
 
@@ -70,9 +57,6 @@ iris %>%
   geom_point() + geom_smooth(method = "lm", se=FALSE)
 ```
 
-
-\newpage
-
 ## Vamos ver se temos alguma relação entre as variáveis 3
 
 ```{r 4}
@@ -80,8 +64,6 @@ iris %>%
   group_by(Species) %>% ggplot(aes(x=Petal.Width, y=Petal.Length, 
                                    color=Species)) + geom_point()
 ```
-
-\newpage
 
 ## Vamos ver se temos alguma relação entre as variáveis 4
 
@@ -92,9 +74,6 @@ iris %>%
   geom_point() + geom_smooth(method = "lm")
 ```
 
-
-\newpage
-
 ## Vamos ver como se distribui o Petal.Width
 
 ```{r 5}
@@ -104,9 +83,6 @@ iris %>%
                                    geom_histogram()
 ```
 
-
-\newpage
-
 ## Vamos ver como se distribui o Petal.Length
 
 ```{r 6}
@@ -115,5 +91,3 @@ iris %>%
   ggplot(aes(x=Petal.Length, fill=Species)) + 
   geom_histogram()
 ```
-
-
