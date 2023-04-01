@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-03-31">
+<meta name="dcterms.date" content="2023-04-01">
 
 <title>IME05-12547 - Carregando dados, Manipulando e Visualizando</title>
 <style>
@@ -415,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 31, 2023</p>
+      <p class="date">April 1, 2023</p>
     </div>
   </div>
   
@@ -870,8 +870,6 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <pre><code>[1] 4574</code></pre>
 </div>
 </div>
-<p><strong>Veja que existia um grande número de dados ausentes</strong></p>
-<p>Antes: 30410 linhas Depois: 11293 linhas</p>
 </section>
 <section id="corrigindo-tipo-de-dados" class="level2">
 <h2 class="anchored" data-anchor-id="corrigindo-tipo-de-dados">Corrigindo tipo de dados</h2>
@@ -879,28 +877,21 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <p>Para trabalhar com datas vamos usar o pacote <code>lubridate</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pocos_01<span class="sc">$</span>INICIO <span class="ot">&lt;-</span> <span class="fu">as_date</span>(pocos_01<span class="sc">$</span>INICIO, <span class="at">format=</span><span class="st">"%d/%m/%Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: 11293 failed to parse.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pocos_01<span class="sc">$</span>TERMINO <span class="ot">&lt;-</span> <span class="fu">as_date</span>(pocos_01<span class="sc">$</span>TERMINO, <span class="at">format=</span><span class="st">"%d/%m/%Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: 11293 failed to parse.</code></pre>
-</div>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pocos_01<span class="sc">$</span>INICIO <span class="ot">&lt;-</span> <span class="fu">dmy_hm</span>(pocos_01<span class="sc">$</span>INICIO, <span class="at">locale =</span> <span class="fu">Sys.getlocale</span>(<span class="st">"LC_TIME"</span>))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>pocos_01<span class="sc">$</span>TERMINO <span class="ot">&lt;-</span> <span class="fu">dmy_hm</span>(pocos_01<span class="sc">$</span>TERMINO, <span class="at">locale =</span> <span class="fu">Sys.getlocale</span>(<span class="st">"LC_TIME"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="filtrando-dados" class="level2">
 <h2 class="anchored" data-anchor-id="filtrando-dados">Filtrando dados</h2>
 <p>Vamos analisar os poços de uma detreminada região, para isto podemos fltrar os poços de um bloco. Vamos filtrar somente os poços do CAMPO PEREGRINO usando a função <code>filter</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>pocos_02 <span class="ot">&lt;-</span> pocos_01 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(CAMPO<span class="sc">==</span><span class="st">"PEREGRINO"</span>) <span class="do">##  </span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pocos_02)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pocos_02 <span class="ot">&lt;-</span> pocos_01 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(CAMPO<span class="sc">==</span><span class="st">"PEREGRINO"</span>) <span class="do">##  </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pocos_02)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     POCO             OPERADOR            ESTADO             BACIA          
  Length:104         Length:104         Length:104         Length:104        
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
                                                                             
                                                                             
                                                                             
@@ -911,35 +902,40 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                             
                                                                             
                                                                             
-                                                                            
-   SITUACAO             INICIO       TERMINO    PROFUNDIDADE_MEDIDA_M
- Length:104         Min.   :NA    Min.   :NA    Min.   :   0         
- Class :character   1st Qu.:NA    1st Qu.:NA    1st Qu.:4437         
- Mode  :character   Median :NA    Median :NA    Median :4877         
-                    Mean   :NaN   Mean   :NaN   Mean   :5009         
-                    3rd Qu.:NA    3rd Qu.:NA    3rd Qu.:6138         
-                    Max.   :NA    Max.   :NA    Max.   :8613         
-                    NA's   :104   NA's   :104                        </code></pre>
+   SITUACAO             INICIO                      
+ Length:104         Min.   :1994-07-07 00:00:00.00  
+ Class :character   1st Qu.:2012-02-01 18:00:00.00  
+ Mode  :character   Median :2013-12-08 12:00:00.00  
+                    Mean   :2014-08-13 13:23:04.61  
+                    3rd Qu.:2017-03-11 12:00:00.00  
+                    Max.   :2022-10-17 00:00:00.00  
+    TERMINO                       PROFUNDIDADE_MEDIDA_M
+ Min.   :1994-08-17 00:00:00.00   Min.   :   0         
+ 1st Qu.:2012-03-06 12:00:00.00   1st Qu.:4437         
+ Median :2014-01-17 00:00:00.00   Median :4877         
+ Mean   :2014-09-16 19:36:55.38   Mean   :5009         
+ 3rd Qu.:2017-04-14 12:00:00.00   3rd Qu.:6138         
+ Max.   :2022-11-03 00:00:00.00   Max.   :8613         </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(pocos_02, <span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">'Uma tabela mais elegante com as 10 primeras linhas de pocos_02.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(pocos_02, <span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">'Uma tabela mais elegante com as 10 primeras linhas de pocos_02.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <caption>Uma tabela mais elegante com as 10 primeras linhas de pocos_02.</caption>
 <colgroup>
 <col style="width: 8%">
 <col style="width: 8%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
 <col style="width: 5%">
 <col style="width: 5%">
 <col style="width: 9%">
-<col style="width: 26%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 13%">
+<col style="width: 25%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 12%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -968,8 +964,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2015-03-06</td>
+<td style="text-align: left;">2015-05-07</td>
 <td style="text-align: right;">7432.00</td>
 </tr>
 <tr class="even">
@@ -982,8 +978,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Injeção</td>
 <td style="text-align: left;">INJETANDO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2014-07-18</td>
+<td style="text-align: left;">2014-09-25</td>
 <td style="text-align: right;">7075.63</td>
 </tr>
 <tr class="odd">
@@ -996,8 +992,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Extensão</td>
 <td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2007-06-04</td>
+<td style="text-align: left;">2007-06-28</td>
 <td style="text-align: right;">2655.00</td>
 </tr>
 <tr class="even">
@@ -1010,8 +1006,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Extensão</td>
 <td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2007-05-05</td>
+<td style="text-align: left;">2007-06-03</td>
 <td style="text-align: right;">2432.00</td>
 </tr>
 <tr class="odd">
@@ -1024,8 +1020,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Especial</td>
 <td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2022-06-11</td>
+<td style="text-align: left;">2022-06-21</td>
 <td style="text-align: right;">1513.00</td>
 </tr>
 <tr class="even">
@@ -1038,8 +1034,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2022-07-05</td>
+<td style="text-align: left;">2022-07-13</td>
 <td style="text-align: right;">688.00</td>
 </tr>
 <tr class="odd">
@@ -1052,8 +1048,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2022-08-21</td>
+<td style="text-align: left;">2022-08-24</td>
 <td style="text-align: right;">4708.00</td>
 </tr>
 <tr class="even">
@@ -1066,8 +1062,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2022-10-17</td>
+<td style="text-align: left;">2022-11-03</td>
 <td style="text-align: right;">5907.00</td>
 </tr>
 <tr class="odd">
@@ -1080,8 +1076,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Especial</td>
 <td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2022-09-13</td>
+<td style="text-align: left;">2022-09-28</td>
 <td style="text-align: right;">4958.00</td>
 </tr>
 <tr class="even">
@@ -1094,8 +1090,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2022-07-16</td>
+<td style="text-align: left;">2022-08-20</td>
 <td style="text-align: right;">3219.00</td>
 </tr>
 </tbody>
@@ -1106,7 +1102,7 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <h3 class="anchored" data-anchor-id="avaliando-os-dados">Avaliando os dados</h3>
 <p>Os poços possuem diversas categorias, vamos ver que categorias existem nestes poços do bloco BES-100.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(pocos_02<span class="sc">$</span>CATEGORIA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(pocos_02<span class="sc">$</span>CATEGORIA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Desenvolvimento" "Injeção"         "Extensão"        "Especial"       
 [5] "Pioneiro"       </code></pre>
@@ -1116,14 +1112,13 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <section id="filtrando-poços-de-desenvolvimento" class="level3">
 <h3 class="anchored" data-anchor-id="filtrando-poços-de-desenvolvimento">Filtrando poços de desenvolvimento</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pocos_03 <span class="ot">&lt;-</span> pocos_02 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(CATEGORIA<span class="sc">==</span><span class="st">"Desenvolvimento"</span>) <span class="do">##  </span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pocos_03)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pocos_03 <span class="ot">&lt;-</span> pocos_02 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(CATEGORIA<span class="sc">==</span><span class="st">"Desenvolvimento"</span>) <span class="do">##  </span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pocos_03)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     POCO             OPERADOR            ESTADO             BACIA          
  Length:81          Length:81          Length:81          Length:81         
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
                                                                             
                                                                             
                                                                             
@@ -1134,35 +1129,40 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                             
                                                                             
                                                                             
-                                                                            
-   SITUACAO             INICIO       TERMINO    PROFUNDIDADE_MEDIDA_M
- Length:81          Min.   :NA    Min.   :NA    Min.   : 269         
- Class :character   1st Qu.:NA    1st Qu.:NA    1st Qu.:4492         
- Mode  :character   Median :NA    Median :NA    Median :5034         
-                    Mean   :NaN   Mean   :NaN   Mean   :5245         
-                    3rd Qu.:NA    3rd Qu.:NA    3rd Qu.:6383         
-                    Max.   :NA    Max.   :NA    Max.   :8613         
-                    NA's   :81    NA's   :81                         </code></pre>
+   SITUACAO             INICIO                      
+ Length:81          Min.   :2010-11-10 00:00:00.00  
+ Class :character   1st Qu.:2012-04-22 00:00:00.00  
+ Mode  :character   Median :2014-10-10 00:00:00.00  
+                    Mean   :2015-03-12 07:24:26.67  
+                    3rd Qu.:2017-05-26 00:00:00.00  
+                    Max.   :2022-10-17 00:00:00.00  
+    TERMINO                       PROFUNDIDADE_MEDIDA_M
+ Min.   :2010-11-11 00:00:00.00   Min.   : 269         
+ 1st Qu.:2012-05-12 00:00:00.00   1st Qu.:4492         
+ Median :2014-11-07 00:00:00.00   Median :5034         
+ Mean   :2015-04-16 03:15:33.32   Mean   :5245         
+ 3rd Qu.:2017-06-04 00:00:00.00   3rd Qu.:6383         
+ Max.   :2022-11-03 00:00:00.00   Max.   :8613         </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(pocos_03, <span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">'Uma tabela mais elegante com as 10 primeras linhas de pocos_03.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(pocos_03, <span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">'Uma tabela mais elegante com as 10 primeras linhas de pocos_03.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <caption>Uma tabela mais elegante com as 10 primeras linhas de pocos_03.</caption>
 <colgroup>
 <col style="width: 8%">
 <col style="width: 8%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
 <col style="width: 5%">
 <col style="width: 5%">
 <col style="width: 9%">
-<col style="width: 26%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 13%">
+<col style="width: 25%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 12%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1191,8 +1191,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2015-03-06</td>
+<td style="text-align: left;">2015-05-07</td>
 <td style="text-align: right;">7432.0</td>
 </tr>
 <tr class="even">
@@ -1205,8 +1205,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2022-07-05</td>
+<td style="text-align: left;">2022-07-13</td>
 <td style="text-align: right;">688.0</td>
 </tr>
 <tr class="odd">
@@ -1219,8 +1219,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2022-08-21</td>
+<td style="text-align: left;">2022-08-24</td>
 <td style="text-align: right;">4708.0</td>
 </tr>
 <tr class="even">
@@ -1233,8 +1233,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2022-10-17</td>
+<td style="text-align: left;">2022-11-03</td>
 <td style="text-align: right;">5907.0</td>
 </tr>
 <tr class="odd">
@@ -1247,8 +1247,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">ABANDONADO TEMPORARIAMENTE SEM MONITORAMENTO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2022-07-16</td>
+<td style="text-align: left;">2022-08-20</td>
 <td style="text-align: right;">3219.0</td>
 </tr>
 <tr class="even">
@@ -1261,8 +1261,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2011-09-11</td>
+<td style="text-align: left;">2011-10-18</td>
 <td style="text-align: right;">6100.4</td>
 </tr>
 <tr class="odd">
@@ -1275,8 +1275,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2020-02-12</td>
+<td style="text-align: left;">2021-10-02</td>
 <td style="text-align: right;">8326.0</td>
 </tr>
 <tr class="even">
@@ -1289,8 +1289,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2019-02-11</td>
+<td style="text-align: left;">2019-03-07</td>
 <td style="text-align: right;">6529.0</td>
 </tr>
 <tr class="odd">
@@ -1303,8 +1303,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2010-11-17</td>
+<td style="text-align: left;">2010-12-10</td>
 <td style="text-align: right;">3995.0</td>
 </tr>
 <tr class="even">
@@ -1317,8 +1317,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2011-01-16</td>
+<td style="text-align: left;">2011-02-03</td>
 <td style="text-align: right;">4676.0</td>
 </tr>
 </tbody>
@@ -1331,40 +1331,39 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <h2 class="anchored" data-anchor-id="criando-uma-coluna-com-mutate">Criando uma coluna com mutate</h2>
 <p>Vamos criar uma coluna que nos dará a duração da perfuração dos poços.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
+<pre><code>[1] "2015-03-06 UTC"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
+<pre><code>[1] "2015-05-07 UTC"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>] <span class="sc">-</span> pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>] <span class="sc">-</span> pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of NA days</code></pre>
+<pre><code>Time difference of 62 days</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">difftime</span>(pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>], pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>], <span class="at">units =</span> <span class="st">"days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">difftime</span>(pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>], pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>], <span class="at">units =</span> <span class="st">"days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of NA days</code></pre>
+<pre><code>Time difference of 62 days</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tempo <span class="ot">&lt;-</span> <span class="fu">difftime</span>(pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>], pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>], <span class="at">units =</span> <span class="st">"days"</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tempo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>tempo <span class="ot">&lt;-</span> <span class="fu">difftime</span>(pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>], pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>], <span class="at">units =</span> <span class="st">"days"</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tempo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> 'difftime' num NA
+<pre><code> 'difftime' num 62
  - attr(*, "units")= chr "days"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>(pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>] <span class="sc">%--%</span> pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>])<span class="sc">/</span><span class="fu">ddays</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>(pocos_03<span class="sc">$</span>INICIO[<span class="dv">1</span>] <span class="sc">%--%</span> pocos_03<span class="sc">$</span>TERMINO[<span class="dv">1</span>])<span class="sc">/</span><span class="fu">ddays</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
+<pre><code>[1] 62</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>pocos_03 <span class="ot">&lt;-</span> pocos_03 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">TPERF =</span> (INICIO <span class="sc">%--%</span> TERMINO)<span class="sc">/</span><span class="fu">ddays</span>(<span class="dv">1</span>))</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pocos_03)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>pocos_03 <span class="ot">&lt;-</span> pocos_03 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">TPERF =</span> (INICIO <span class="sc">%--%</span> TERMINO)<span class="sc">/</span><span class="fu">ddays</span>(<span class="dv">1</span>))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pocos_03)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     POCO             OPERADOR            ESTADO             BACIA          
  Length:81          Length:81          Length:81          Length:81         
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
                                                                             
                                                                             
                                                                             
@@ -1375,29 +1374,26 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
                                                                             
                                                                             
                                                                             
-                                                                            
-   SITUACAO             INICIO       TERMINO    PROFUNDIDADE_MEDIDA_M
- Length:81          Min.   :NA    Min.   :NA    Min.   : 269         
- Class :character   1st Qu.:NA    1st Qu.:NA    1st Qu.:4492         
- Mode  :character   Median :NA    Median :NA    Median :5034         
-                    Mean   :NaN   Mean   :NaN   Mean   :5245         
-                    3rd Qu.:NA    3rd Qu.:NA    3rd Qu.:6383         
-                    Max.   :NA    Max.   :NA    Max.   :8613         
-                    NA's   :81    NA's   :81                         
-     TPERF    
- Min.   : NA  
- 1st Qu.: NA  
- Median : NA  
- Mean   :NaN  
- 3rd Qu.: NA  
- Max.   : NA  
- NA's   :81   </code></pre>
+   SITUACAO             INICIO                      
+ Length:81          Min.   :2010-11-10 00:00:00.00  
+ Class :character   1st Qu.:2012-04-22 00:00:00.00  
+ Mode  :character   Median :2014-10-10 00:00:00.00  
+                    Mean   :2015-03-12 07:24:26.67  
+                    3rd Qu.:2017-05-26 00:00:00.00  
+                    Max.   :2022-10-17 00:00:00.00  
+    TERMINO                       PROFUNDIDADE_MEDIDA_M     TPERF        
+ Min.   :2010-11-11 00:00:00.00   Min.   : 269          Min.   :-347.00  
+ 1st Qu.:2012-05-12 00:00:00.00   1st Qu.:4492          1st Qu.:  13.00  
+ Median :2014-11-07 00:00:00.00   Median :5034          Median :  24.00  
+ Mean   :2015-04-16 03:15:33.32   Mean   :5245          Mean   :  34.83  
+ 3rd Qu.:2017-06-04 00:00:00.00   3rd Qu.:6383          3rd Qu.:  37.00  
+ Max.   :2022-11-03 00:00:00.00   Max.   :8613          Max.   : 598.00  </code></pre>
 </div>
 </div>
 <section id="eliminando-colunas-com-tempos-negativos" class="level3">
 <h3 class="anchored" data-anchor-id="eliminando-colunas-com-tempos-negativos">Eliminando colunas com tempos negativos</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>pocos_03 <span class="ot">&lt;-</span> pocos_03 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TPERF <span class="sc">&gt;</span> <span class="dv">0</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>pocos_03 <span class="ot">&lt;-</span> pocos_03 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TPERF <span class="sc">&gt;</span> <span class="dv">0</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1406,17 +1402,17 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <section id="box-plot" class="level3">
 <h3 class="anchored" data-anchor-id="box-plot">Box-Plot</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_03, <span class="fu">aes</span>(<span class="at">x=</span>CAMPO, <span class="at">y=</span>TPERF)) <span class="sc">+</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_03, <span class="fu">aes</span>(<span class="at">x=</span>CAMPO, <span class="at">y=</span>TPERF)) <span class="sc">+</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula01/boxplot-1.png" class="quarto-discovered-preview-image img-fluid" width="960"></p>
 </div>
 </div>
 <p>Veja que existem alguns tempos bem elevados que estão representados por pontos no box-plot. Eles podem ser considerados pontos afastados (outliers), que neste caso vamos eliminar.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>pocos_04 <span class="ot">&lt;-</span> pocos_03 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TPERF <span class="sc">&lt;</span> <span class="dv">100</span>)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x=</span>CAMPO, <span class="at">y=</span>TPERF)) <span class="sc">+</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>pocos_04 <span class="ot">&lt;-</span> pocos_03 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TPERF <span class="sc">&lt;</span> <span class="dv">100</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x=</span>CAMPO, <span class="at">y=</span>TPERF)) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula01/outliers-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -1425,8 +1421,11 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <section id="histograma" class="level3">
 <h3 class="anchored" data-anchor-id="histograma">Histograma</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x=</span>TPERF)) <span class="sc">+</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x=</span>TPERF)) <span class="sc">+</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula01/histograma-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -1436,10 +1435,10 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 </section>
 <section id="criando-um-histograma-usando-a-regra-de-sturges" class="level3">
 <h3 class="anchored" data-anchor-id="criando-um-histograma-usando-a-regra-de-sturges">Criando um histograma usando a regra de Sturges</h3>
-<p>A regra de Sturges indica - faixas enquanto que o padrão do ggplot2 é 30.</p>
+<p>A regra de Sturges indica 7 faixas enquanto que o padrão do ggplot2 é 30.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x =</span> TPERF)) <span class="sc">+</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="fu">round</span>(<span class="dv">1</span><span class="fl">+3.322</span><span class="sc">*</span><span class="fu">log10</span>(<span class="fu">nrow</span>(pocos_04)),<span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x =</span> TPERF)) <span class="sc">+</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="fu">round</span>(<span class="dv">1</span><span class="fl">+3.322</span><span class="sc">*</span><span class="fu">log10</span>(<span class="fu">nrow</span>(pocos_04)),<span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula01/Sturges-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -1449,8 +1448,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <section id="gráfico-de-dispersão" class="level3">
 <h3 class="anchored" data-anchor-id="gráfico-de-dispersão">Gráfico de Dispersão</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x=</span>PROFUNDIDADE_MEDIDA_M, <span class="at">y=</span>TPERF)) <span class="sc">+</span> </span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pocos_04, <span class="fu">aes</span>(<span class="at">x=</span>PROFUNDIDADE_MEDIDA_M, <span class="at">y=</span>TPERF)) <span class="sc">+</span> </span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula01/dispersao-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -1462,7 +1461,7 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <section id="alterando-nome-das-colunas" class="level3">
 <h3 class="anchored" data-anchor-id="alterando-nome-das-colunas">Alterando nome das colunas</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "POCO"                  "OPERADOR"              "ESTADO"               
  [4] "BACIA"                 "BLOCO"                 "CAMPO"                
@@ -1470,8 +1469,8 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 [10] "INICIO"                "TERMINO"               "PROFUNDIDADE_MEDIDA_M"
 [13] "TPERF"                </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(pocos_04))</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(pocos_04))</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pocos_04)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "poco"                  "operador"              "estado"               
  [4] "bacia"                 "bloco"                 "campo"                

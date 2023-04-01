@@ -89,10 +89,6 @@ knitr::kable(
 sum(is.na(pocos_01))
 ```
 
-**Veja que existia um grande número de dados ausentes**
-
-Antes: `r  nrow(pocos)` linhas Depois: `r  nrow(pocos_01)` linhas
-
 ## Corrigindo tipo de dados
 
 As colunas INICIO e TERMINO são datas, mas foram lidas como caracter, vamos corrigir isto!
@@ -101,8 +97,8 @@ Para trabalhar com datas vamos usar o pacote `lubridate`
 
 ```{r tipo_dados}
 library(lubridate)
-pocos_01$INICIO <- as_date(pocos_01$INICIO, format="%d/%m/%Y")
-pocos_01$TERMINO <- as_date(pocos_01$TERMINO, format="%d/%m/%Y")
+pocos_01$INICIO <- dmy_hm(pocos_01$INICIO, locale = Sys.getlocale("LC_TIME"))
+pocos_01$TERMINO <- dmy_hm(pocos_01$TERMINO, locale = Sys.getlocale("LC_TIME"))
 ```
 
 ## Filtrando dados
