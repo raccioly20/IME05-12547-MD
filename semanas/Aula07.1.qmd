@@ -134,6 +134,20 @@ library(car)
 scatterplot(Vendas ~ TV, data = conj_treino, smooth=F, id.n=1)
 ```
 
+## Outra forma de representação do 1o Modelo
+
+```{r}
+library(ggside)
+ggplot(conj_treino, aes(x=TV, y=Vendas)) +
+    geom_point() +
+    geom_smooth(method = lm, se = FALSE) + 
+    geom_xsidehistogram(bins = round(1+3.322*log10(nrow(conj_treino)),0)) + 
+    geom_ysidehistogram(bins = round(1+3.322*log10(nrow(conj_treino)),0))  
+  
+  #   geom_xsidedensity(aes(y=after_stat(density)), alpha=0.5, size=1, position="stack") +
+  # geom_ysidedensity(aes(x=after_stat(density)), alpha=0.5, size=1, position="stack")
+```
+
 ## Extraindo informações do 1o ajuste
 
 ```{r 1areg_info}
@@ -178,7 +192,6 @@ plot(mod1)
 ```{r}
 shapiro.test(summary(mod1)$residuals)
 ```
-
 
 ## Análise do modelo 2
 

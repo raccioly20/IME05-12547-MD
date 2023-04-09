@@ -28,7 +28,7 @@ library(tidyverse)
 
 O conjunto de dados contém estatísticas sobre as vendas de um produto em 200 diferentes mercados, juntamente com orçamentos publicitários em cada um desses mercados, para diferentes canais de mídia: TV, rádio e jornal. As vendas estão em milhares de unidades e o orçamento está em milhares de dólares.
 
-```{r carrega-dados}
+```{r}
 library(readxl)
 propaganda <- read_excel("Propaganda.xlsx")
 summary(propaganda)
@@ -36,28 +36,28 @@ summary(propaganda)
 
 ## Renomeando
 
-```{r renomeando}
+```{r}
 propaganda <- propaganda %>% rename(Jornal = Newspaper, Vendas = Sales)
 
 ```
 
 ## Sumario
 
-```{r sumario}
+```{r}
 summary(propaganda)
 nrow(propaganda)
 ```
 
 ## Linhas inicias
 
-```{r head}
+```{r}
 library(gt)
 gt(head(propaganda, 10))
 ```
 
 ## Criando amostra de treino e teste
 
-```{r treino_teste, message=FALSE}
+```{r}
 library(caret)
 set.seed(21)
 y <- propaganda$Vendas
@@ -71,21 +71,17 @@ str(conj_teste)
 gt(head(conj_treino, 10))
 ```
 
-\newpage
-
 ## Regressão Simples
 
-```{r 1a_regressão, message=FALSE}
+```{r}
 mod1 <- lm( Vendas ~ TV, data = conj_treino)
 mod2 <- lm( Vendas ~ Radio, data = conj_treino)
 mod3 <- lm( Vendas ~ Jornal, data = conj_treino)
 ```
 
-\newpage
-
 ## 1a Regressão Multipla
 
-```{r regressao-multipla}
+```{r}
 library(car)
 scatterplotMatrix(conj_treino)
 mod4 <- lm( Vendas ~ TV + Radio + Jornal, data = conj_treino)
@@ -94,7 +90,7 @@ summary(mod4)
 
 ## 2a Regressao Multipla
 
-```{r regmult-sem-jornal}
+```{r}
 mod5 <- lm( Vendas ~ TV + Radio, data = conj_treino)
 summary(mod5)
 
@@ -108,13 +104,13 @@ anova(mod5, mod4)
 
 ## Calculando o erro padrão do resíduo com amostra de teste
 
-```{r avaliando_mod5}
+```{r}
 sqrt(mean((conj_teste$Vendas - predict(mod5, conj_teste)) ^ 2)) 
 ```
 
 ## Comparando com a melhor regressão simples
 
-```{r simples_multipla}
+```{r}
 ## Modelo com somente TV
 summary(mod1)$sigma
 summary(mod1)$r.squared
@@ -127,14 +123,14 @@ sqrt(mean((conj_teste$Vendas - predict(mod5, conj_teste)) ^ 2))
 
 ## Análise do Modelo 1
 
-```{r residuos, message=FALSE}
+```{r}
 library(performance)
 check_model(mod5)
 ```
 
 ## Análise do Modelo 2
 
-```{r residuos2, message=FALSE}
+```{r}
 plot(mod5)
 ```
 
@@ -142,26 +138,24 @@ plot(mod5)
 
 Para o gráfico de resíduos versus valores ajustados, podemos usar um teste chamado teste de Tukey de não aditividade (Tukey, 1949), ele é obtido adicionando os quadrados dos valores ajustados ao modelo e reajustando. O valor p para o teste de Tukey é obtido comparando a estatística de teste para a distribuição padrão-normal. O teste confirma a visível impressão de curvatura no gráfico residual, reforçando ainda mais a conclusão que o modelo não é adequado.
 
-```{r residuos3, message=FALSE}
+```{r}
 library(car)
 residualPlots(mod5)
 ```
 
 ## Análise do Modelo com car
 
-```{r car1, message=FALSE}
+```{r}
 library(car)
 vif(mod5)
 ```
 
-## Tentando corrigir o problema
+## Tentando avaliar transformações
 
-```{r transf_resposta}
+```{r}
 summary(p1 <- powerTransform(Vendas ~ TV + Radio, data=conj_treino))
 summary(p2 <- powerTransform(cbind(TV, Radio) ~1 , data=conj_treino))
-mod6 <- lm( log(Vendas) ~ TV + Radio, data = conj_treino)
-summary(mod6)
-residualPlots(mod6)
+
 ```
 
 ## Dado que parece outlier e é um valor influente
@@ -169,6 +163,6 @@ residualPlots(mod6)
 A função OutlierTest () no pacote do car localiza o maior resíduo studentizado em valor absoluto e calcula o teste t com correção de Bonferroni. O testes de Outlier utiliza uma distribuição t para testar se o maior valor do residuo studentizado do modelo é estatisticamente diferente das outras observações. Um valor p significativo indica um outlier extremo que merece um exame mais aprofundado.
 
 ```{r}
-outlierTest(mod6)
+outlierTest(mod5)
 conj_treino[83,]
 ```

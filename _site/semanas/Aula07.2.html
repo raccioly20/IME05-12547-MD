@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2022-08-12">
+<meta name="dcterms.date" content="2023-04-09">
 
 <title>IME05-12547 - Regressão Linear Múltipla</title>
 <style>
@@ -383,7 +383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#análise-do-modelo-2" id="toc-análise-do-modelo-2" class="nav-link" data-scroll-target="#análise-do-modelo-2">Análise do Modelo 2</a></li>
   <li><a href="#análise-do-modelo-3" id="toc-análise-do-modelo-3" class="nav-link" data-scroll-target="#análise-do-modelo-3">Análise do Modelo 3</a></li>
   <li><a href="#análise-do-modelo-com-car" id="toc-análise-do-modelo-com-car" class="nav-link" data-scroll-target="#análise-do-modelo-com-car">Análise do Modelo com car</a></li>
-  <li><a href="#tentando-corrigir-o-problema" id="toc-tentando-corrigir-o-problema" class="nav-link" data-scroll-target="#tentando-corrigir-o-problema">Tentando corrigir o problema</a></li>
+  <li><a href="#tentando-avaliar-transformações" id="toc-tentando-avaliar-transformações" class="nav-link" data-scroll-target="#tentando-avaliar-transformações">Tentando avaliar transformações</a></li>
   <li><a href="#dado-que-parece-outlier-e-é-um-valor-influente" id="toc-dado-que-parece-outlier-e-é-um-valor-influente" class="nav-link" data-scroll-target="#dado-que-parece-outlier-e-é-um-valor-influente">Dado que parece outlier e é um valor influente</a></li>
   </ul>
 </nav>
@@ -410,7 +410,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 12, 2022</p>
+      <p class="date">April 9, 2023</p>
     </div>
   </div>
   
@@ -476,12 +476,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(propaganda, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="ioeolezizx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="xxvjcupvzg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#ioeolezizx .gt_table {
+#xxvjcupvzg .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -506,7 +506,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#ioeolezizx .gt_heading {
+#xxvjcupvzg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -518,7 +518,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ioeolezizx .gt_title {
+#xxvjcupvzg .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xxvjcupvzg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -530,7 +535,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#ioeolezizx .gt_subtitle {
+#xxvjcupvzg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -542,13 +547,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#ioeolezizx .gt_bottom_border {
+#xxvjcupvzg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ioeolezizx .gt_col_headings {
+#xxvjcupvzg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -563,7 +568,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ioeolezizx .gt_col_heading {
+#xxvjcupvzg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -583,7 +588,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#ioeolezizx .gt_column_spanner_outer {
+#xxvjcupvzg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -595,15 +600,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#ioeolezizx .gt_column_spanner_outer:first-child {
+#xxvjcupvzg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ioeolezizx .gt_column_spanner_outer:last-child {
+#xxvjcupvzg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ioeolezizx .gt_column_spanner {
+#xxvjcupvzg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -615,7 +620,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#ioeolezizx .gt_group_heading {
+#xxvjcupvzg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -638,9 +643,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
-#ioeolezizx .gt_empty_group_heading {
+#xxvjcupvzg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -655,15 +661,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#ioeolezizx .gt_from_md > :first-child {
+#xxvjcupvzg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ioeolezizx .gt_from_md > :last-child {
+#xxvjcupvzg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ioeolezizx .gt_row {
+#xxvjcupvzg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -682,7 +688,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#ioeolezizx .gt_stub {
+#xxvjcupvzg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -695,7 +701,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ioeolezizx .gt_stub_row_group {
+#xxvjcupvzg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -709,11 +715,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#ioeolezizx .gt_row_group_first td {
+#xxvjcupvzg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ioeolezizx .gt_summary_row {
+#xxvjcupvzg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -723,16 +729,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ioeolezizx .gt_first_summary_row {
+#xxvjcupvzg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ioeolezizx .gt_first_summary_row.thick {
+#xxvjcupvzg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ioeolezizx .gt_last_summary_row {
+#xxvjcupvzg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -742,7 +748,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#ioeolezizx .gt_grand_summary_row {
+#xxvjcupvzg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -752,7 +758,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ioeolezizx .gt_first_grand_summary_row {
+#xxvjcupvzg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -762,11 +768,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#ioeolezizx .gt_striped {
+#xxvjcupvzg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ioeolezizx .gt_table_body {
+#xxvjcupvzg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -775,7 +781,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#ioeolezizx .gt_footnotes {
+#xxvjcupvzg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -789,7 +795,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ioeolezizx .gt_footnote {
+#xxvjcupvzg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -798,7 +804,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ioeolezizx .gt_sourcenotes {
+#xxvjcupvzg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -812,7 +818,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ioeolezizx .gt_sourcenote {
+#xxvjcupvzg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -820,144 +826,137 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ioeolezizx .gt_left {
+#xxvjcupvzg .gt_left {
   text-align: left;
 }
 
-#ioeolezizx .gt_center {
+#xxvjcupvzg .gt_center {
   text-align: center;
 }
 
-#ioeolezizx .gt_right {
+#xxvjcupvzg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ioeolezizx .gt_font_normal {
+#xxvjcupvzg .gt_font_normal {
   font-weight: normal;
 }
 
-#ioeolezizx .gt_font_bold {
+#xxvjcupvzg .gt_font_bold {
   font-weight: bold;
 }
 
-#ioeolezizx .gt_font_italic {
+#xxvjcupvzg .gt_font_italic {
   font-style: italic;
 }
 
-#ioeolezizx .gt_super {
+#xxvjcupvzg .gt_super {
   font-size: 65%;
 }
 
-#ioeolezizx .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
-#ioeolezizx .gt_footnote_marks {
+#xxvjcupvzg .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#ioeolezizx .gt_asterisk {
+#xxvjcupvzg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ioeolezizx .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#xxvjcupvzg .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#ioeolezizx .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#xxvjcupvzg .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#ioeolezizx .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#xxvjcupvzg .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xxvjcupvzg .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xxvjcupvzg .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
 
 <table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true">
 <thead class="gt_col_headings">
 <tr class="header">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">TV</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Radio</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Jornal</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Vendas</th>
+<th id="TV" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">TV</th>
+<th id="Radio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Radio</th>
+<th id="Jornal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Jornal</th>
+<th id="Vendas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Vendas</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td class="gt_row gt_right">230.1</td>
-<td class="gt_row gt_right">37.8</td>
-<td class="gt_row gt_right">69.2</td>
-<td class="gt_row gt_right">22.1</td>
+<td class="gt_row gt_right" headers="TV">230.1</td>
+<td class="gt_row gt_right" headers="Radio">37.8</td>
+<td class="gt_row gt_right" headers="Jornal">69.2</td>
+<td class="gt_row gt_right" headers="Vendas">22.1</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">44.5</td>
-<td class="gt_row gt_right">39.3</td>
-<td class="gt_row gt_right">45.1</td>
-<td class="gt_row gt_right">10.4</td>
+<td class="gt_row gt_right" headers="TV">44.5</td>
+<td class="gt_row gt_right" headers="Radio">39.3</td>
+<td class="gt_row gt_right" headers="Jornal">45.1</td>
+<td class="gt_row gt_right" headers="Vendas">10.4</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">17.2</td>
-<td class="gt_row gt_right">45.9</td>
-<td class="gt_row gt_right">69.3</td>
-<td class="gt_row gt_right">9.3</td>
+<td class="gt_row gt_right" headers="TV">17.2</td>
+<td class="gt_row gt_right" headers="Radio">45.9</td>
+<td class="gt_row gt_right" headers="Jornal">69.3</td>
+<td class="gt_row gt_right" headers="Vendas">9.3</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">151.5</td>
-<td class="gt_row gt_right">41.3</td>
-<td class="gt_row gt_right">58.5</td>
-<td class="gt_row gt_right">18.5</td>
+<td class="gt_row gt_right" headers="TV">151.5</td>
+<td class="gt_row gt_right" headers="Radio">41.3</td>
+<td class="gt_row gt_right" headers="Jornal">58.5</td>
+<td class="gt_row gt_right" headers="Vendas">18.5</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">180.8</td>
-<td class="gt_row gt_right">10.8</td>
-<td class="gt_row gt_right">58.4</td>
-<td class="gt_row gt_right">12.9</td>
+<td class="gt_row gt_right" headers="TV">180.8</td>
+<td class="gt_row gt_right" headers="Radio">10.8</td>
+<td class="gt_row gt_right" headers="Jornal">58.4</td>
+<td class="gt_row gt_right" headers="Vendas">12.9</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">8.7</td>
-<td class="gt_row gt_right">48.9</td>
-<td class="gt_row gt_right">75.0</td>
-<td class="gt_row gt_right">7.2</td>
+<td class="gt_row gt_right" headers="TV">8.7</td>
+<td class="gt_row gt_right" headers="Radio">48.9</td>
+<td class="gt_row gt_right" headers="Jornal">75.0</td>
+<td class="gt_row gt_right" headers="Vendas">7.2</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">57.5</td>
-<td class="gt_row gt_right">32.8</td>
-<td class="gt_row gt_right">23.5</td>
-<td class="gt_row gt_right">11.8</td>
+<td class="gt_row gt_right" headers="TV">57.5</td>
+<td class="gt_row gt_right" headers="Radio">32.8</td>
+<td class="gt_row gt_right" headers="Jornal">23.5</td>
+<td class="gt_row gt_right" headers="Vendas">11.8</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">120.2</td>
-<td class="gt_row gt_right">19.6</td>
-<td class="gt_row gt_right">11.6</td>
-<td class="gt_row gt_right">13.2</td>
+<td class="gt_row gt_right" headers="TV">120.2</td>
+<td class="gt_row gt_right" headers="Radio">19.6</td>
+<td class="gt_row gt_right" headers="Jornal">11.6</td>
+<td class="gt_row gt_right" headers="Vendas">13.2</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">8.6</td>
-<td class="gt_row gt_right">2.1</td>
-<td class="gt_row gt_right">1.0</td>
-<td class="gt_row gt_right">4.8</td>
+<td class="gt_row gt_right" headers="TV">8.6</td>
+<td class="gt_row gt_right" headers="Radio">2.1</td>
+<td class="gt_row gt_right" headers="Jornal">1.0</td>
+<td class="gt_row gt_right" headers="Vendas">4.8</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">199.8</td>
-<td class="gt_row gt_right">2.6</td>
-<td class="gt_row gt_right">21.2</td>
-<td class="gt_row gt_right">10.6</td>
+<td class="gt_row gt_right" headers="TV">199.8</td>
+<td class="gt_row gt_right" headers="Radio">2.6</td>
+<td class="gt_row gt_right" headers="Jornal">21.2</td>
+<td class="gt_row gt_right" headers="Vendas">10.6</td>
 </tr>
 </tbody>
 </table>
@@ -996,7 +995,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="ikcyvpxrcq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ikcyvpxrcq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -1036,6 +1035,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #ikcyvpxrcq .gt_title {
@@ -1158,6 +1162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #ikcyvpxrcq .gt_empty_group_heading {
@@ -1369,15 +1374,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   font-size: 65%;
 }
 
-#ikcyvpxrcq .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
 #ikcyvpxrcq .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
@@ -1390,94 +1386,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: 0;
 }
 
-#ikcyvpxrcq .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#ikcyvpxrcq .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#ikcyvpxrcq .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#ikcyvpxrcq .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#ikcyvpxrcq .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#ikcyvpxrcq .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ikcyvpxrcq .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ikcyvpxrcq .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
 
 <table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true">
 <thead class="gt_col_headings">
 <tr class="header">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">TV</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Radio</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Jornal</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Vendas</th>
+<th id="TV" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">TV</th>
+<th id="Radio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Radio</th>
+<th id="Jornal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Jornal</th>
+<th id="Vendas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Vendas</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td class="gt_row gt_right">230.1</td>
-<td class="gt_row gt_right">37.8</td>
-<td class="gt_row gt_right">69.2</td>
-<td class="gt_row gt_right">22.1</td>
+<td class="gt_row gt_right" headers="TV">230.1</td>
+<td class="gt_row gt_right" headers="Radio">37.8</td>
+<td class="gt_row gt_right" headers="Jornal">69.2</td>
+<td class="gt_row gt_right" headers="Vendas">22.1</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">151.5</td>
-<td class="gt_row gt_right">41.3</td>
-<td class="gt_row gt_right">58.5</td>
-<td class="gt_row gt_right">18.5</td>
+<td class="gt_row gt_right" headers="TV">151.5</td>
+<td class="gt_row gt_right" headers="Radio">41.3</td>
+<td class="gt_row gt_right" headers="Jornal">58.5</td>
+<td class="gt_row gt_right" headers="Vendas">18.5</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">180.8</td>
-<td class="gt_row gt_right">10.8</td>
-<td class="gt_row gt_right">58.4</td>
-<td class="gt_row gt_right">12.9</td>
+<td class="gt_row gt_right" headers="TV">180.8</td>
+<td class="gt_row gt_right" headers="Radio">10.8</td>
+<td class="gt_row gt_right" headers="Jornal">58.4</td>
+<td class="gt_row gt_right" headers="Vendas">12.9</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">199.8</td>
-<td class="gt_row gt_right">2.6</td>
-<td class="gt_row gt_right">21.2</td>
-<td class="gt_row gt_right">10.6</td>
+<td class="gt_row gt_right" headers="TV">199.8</td>
+<td class="gt_row gt_right" headers="Radio">2.6</td>
+<td class="gt_row gt_right" headers="Jornal">21.2</td>
+<td class="gt_row gt_right" headers="Vendas">10.6</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">66.1</td>
-<td class="gt_row gt_right">5.8</td>
-<td class="gt_row gt_right">24.2</td>
-<td class="gt_row gt_right">8.6</td>
+<td class="gt_row gt_right" headers="TV">66.1</td>
+<td class="gt_row gt_right" headers="Radio">5.8</td>
+<td class="gt_row gt_right" headers="Jornal">24.2</td>
+<td class="gt_row gt_right" headers="Vendas">8.6</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">23.8</td>
-<td class="gt_row gt_right">35.1</td>
-<td class="gt_row gt_right">65.9</td>
-<td class="gt_row gt_right">9.2</td>
+<td class="gt_row gt_right" headers="TV">23.8</td>
+<td class="gt_row gt_right" headers="Radio">35.1</td>
+<td class="gt_row gt_right" headers="Jornal">65.9</td>
+<td class="gt_row gt_right" headers="Vendas">9.2</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">97.5</td>
-<td class="gt_row gt_right">7.6</td>
-<td class="gt_row gt_right">7.2</td>
-<td class="gt_row gt_right">9.7</td>
+<td class="gt_row gt_right" headers="TV">97.5</td>
+<td class="gt_row gt_right" headers="Radio">7.6</td>
+<td class="gt_row gt_right" headers="Jornal">7.2</td>
+<td class="gt_row gt_right" headers="Vendas">9.7</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">195.4</td>
-<td class="gt_row gt_right">47.7</td>
-<td class="gt_row gt_right">52.9</td>
-<td class="gt_row gt_right">22.4</td>
+<td class="gt_row gt_right" headers="TV">195.4</td>
+<td class="gt_row gt_right" headers="Radio">47.7</td>
+<td class="gt_row gt_right" headers="Jornal">52.9</td>
+<td class="gt_row gt_right" headers="Vendas">22.4</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">69.2</td>
-<td class="gt_row gt_right">20.5</td>
-<td class="gt_row gt_right">18.3</td>
-<td class="gt_row gt_right">11.3</td>
+<td class="gt_row gt_right" headers="TV">69.2</td>
+<td class="gt_row gt_right" headers="Radio">20.5</td>
+<td class="gt_row gt_right" headers="Jornal">18.3</td>
+<td class="gt_row gt_right" headers="Vendas">11.3</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">147.3</td>
-<td class="gt_row gt_right">23.9</td>
-<td class="gt_row gt_right">19.1</td>
-<td class="gt_row gt_right">14.6</td>
+<td class="gt_row gt_right" headers="TV">147.3</td>
+<td class="gt_row gt_right" headers="Radio">23.9</td>
+<td class="gt_row gt_right" headers="Jornal">19.1</td>
+<td class="gt_row gt_right" headers="Vendas">14.6</td>
 </tr>
 </tbody>
 </table>
@@ -1485,7 +1483,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div style="page-break-after: always;"></div>
 </section>
 <section id="regressão-simples" class="level2">
 <h2 class="anchored" data-anchor-id="regressão-simples">Regressão Simples</h2>
@@ -1494,7 +1491,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div style="page-break-after: always;"></div>
 </section>
 <section id="a-regressão-multipla" class="level2">
 <h2 class="anchored" data-anchor-id="a-regressão-multipla">1a Regressão Multipla</h2>
@@ -1502,7 +1498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplotMatrix</span>(conj_treino)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula07_2/regressao-multipla-1.png" class="quarto-discovered-preview-image img-fluid" width="960"></p>
+<p><img src="imagens/Aula07_2/unnamed-chunk-8-1.png" class="quarto-discovered-preview-image img-fluid" width="960"></p>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> TV <span class="sc">+</span> Radio <span class="sc">+</span> Jornal, <span class="at">data =</span> conj_treino)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1619,7 +1615,7 @@ Model 2: Vendas ~ TV + Radio + Jornal
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula07_2/residuos-1.png" class="img-fluid" width="960"></p>
+<p><img src="imagens/Aula07_2/unnamed-chunk-13-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section>
@@ -1628,16 +1624,16 @@ Model 2: Vendas ~ TV + Radio + Jornal
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula07_2/residuos2-1.png" class="img-fluid" width="960"></p>
+<p><img src="imagens/Aula07_2/unnamed-chunk-14-1.png" class="img-fluid" width="960"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula07_2/residuos2-2.png" class="img-fluid" width="960"></p>
+<p><img src="imagens/Aula07_2/unnamed-chunk-14-2.png" class="img-fluid" width="960"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula07_2/residuos2-3.png" class="img-fluid" width="960"></p>
+<p><img src="imagens/Aula07_2/unnamed-chunk-14-3.png" class="img-fluid" width="960"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula07_2/residuos2-4.png" class="img-fluid" width="960"></p>
+<p><img src="imagens/Aula07_2/unnamed-chunk-14-4.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section>
@@ -1648,7 +1644,7 @@ Model 2: Vendas ~ TV + Radio + Jornal
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(mod5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula07_2/residuos3-1.png" class="img-fluid" width="960"></p>
+<p><img src="imagens/Aula07_2/unnamed-chunk-15-1.png" class="img-fluid" width="960"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Test stat Pr(&gt;|Test stat|)    
@@ -1671,8 +1667,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </section>
-<section id="tentando-corrigir-o-problema" class="level2">
-<h2 class="anchored" data-anchor-id="tentando-corrigir-o-problema">Tentando corrigir o problema</h2>
+<section id="tentando-avaliar-transformações" class="level2">
+<h2 class="anchored" data-anchor-id="tentando-avaliar-transformações">Tentando avaliar transformações</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(p1 <span class="ot">&lt;-</span> <span class="fu">powerTransform</span>(Vendas <span class="sc">~</span> TV <span class="sc">+</span> Radio, <span class="at">data=</span>conj_treino))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1705,53 +1701,18 @@ Likelihood ratio test that no transformations are needed
                            LRT df       pval
 LR test, lambda = (1 1) 22.189  2 1.5196e-05</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>mod6 <span class="ot">&lt;-</span> <span class="fu">lm</span>( <span class="fu">log</span>(Vendas) <span class="sc">~</span> TV <span class="sc">+</span> Radio, <span class="at">data =</span> conj_treino)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = log(Vendas) ~ TV + Radio, data = conj_treino)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--1.77994 -0.05255  0.04368  0.10055  0.17353 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 1.791156   0.043994  40.713  &lt; 2e-16 ***
-TV          0.003492   0.000218  16.022  &lt; 2e-16 ***
-Radio       0.011524   0.001280   9.006 5.04e-15 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.1975 on 116 degrees of freedom
-Multiple R-squared:  0.765, Adjusted R-squared:  0.761 
-F-statistic: 188.8 on 2 and 116 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(mod6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula07_2/transf_resposta-1.png" class="img-fluid" width="960"></p>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>           Test stat Pr(&gt;|Test stat|)    
-TV           -6.8943        3.092e-10 ***
-Radio        -0.2563           0.7982    
-Tukey test   -0.5761           0.5646    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
 </div>
 </section>
 <section id="dado-que-parece-outlier-e-é-um-valor-influente" class="level2">
 <h2 class="anchored" data-anchor-id="dado-que-parece-outlier-e-é-um-valor-influente">Dado que parece outlier e é um valor influente</h2>
 <p>A função OutlierTest () no pacote do car localiza o maior resíduo studentizado em valor absoluto e calcula o teste t com correção de Bonferroni. O testes de Outlier utiliza uma distribuição t para testar se o maior valor do residuo studentizado do modelo é estatisticamente diferente das outras observações. Um valor p significativo indica um outlier extremo que merece um exame mais aprofundado.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">outlierTest</span>(mod6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">outlierTest</span>(mod5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    rstudent unadjusted p-value Bonferroni p
-83 -18.13798         1.5879e-35   1.8896e-33</code></pre>
+83 -7.289206         4.2486e-11   5.0558e-09</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>conj_treino[<span class="dv">83</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>conj_treino[<span class="dv">83</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
      TV Radio Jornal Vendas

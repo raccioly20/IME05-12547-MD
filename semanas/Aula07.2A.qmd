@@ -40,13 +40,13 @@ library(caret)
 
 -   Stress = stress index
 
-```{r carrega-dados}
+```{r}
 pressao_sangue <- read_delim("bloodpress.txt", col_names = TRUE)
 ```
 
 ## Renomeando
 
-```{r renomeando}
+```{r}
 pressao_sangue <- pressao_sangue %>% rename(PS = BP, Idade = Age,
                                             Peso = Weight, Acorp = BSA,
                                             Pulso = Pulse)
@@ -54,7 +54,7 @@ pressao_sangue <- pressao_sangue %>% rename(PS = BP, Idade = Age,
 
 ## Sumario
 
-```{r sumario}
+```{r}
 summary(pressao_sangue)
 ```
 

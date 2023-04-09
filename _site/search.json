@@ -805,6 +805,13 @@
     "text": "Outra forma de representação do 1o Modelo\n\nlibrary(car)\nscatterplot(Vendas ~ TV, data = conj_treino, smooth=F, id.n=1)"
   },
   {
+    "objectID": "semanas/Aula07.1.html#outra-forma-de-representação-do-1o-modelo-1",
+    "href": "semanas/Aula07.1.html#outra-forma-de-representação-do-1o-modelo-1",
+    "title": "Regressão Linear",
+    "section": "Outra forma de representação do 1o Modelo",
+    "text": "Outra forma de representação do 1o Modelo\n\nlibrary(ggside)\nggplot(conj_treino, aes(x=TV, y=Vendas)) +\n    geom_point() +\n    geom_smooth(method = lm, se = FALSE) + \n    geom_xsidehistogram(bins = round(1+3.322*log10(nrow(conj_treino)),0)) + \n    geom_ysidehistogram(bins = round(1+3.322*log10(nrow(conj_treino)),0))  \n\n\n\n  #   geom_xsidedensity(aes(y=after_stat(density)), alpha=0.5, size=1, position=\"stack\") +\n  # geom_ysidedensity(aes(x=after_stat(density)), alpha=0.5, size=1, position=\"stack\")"
+  },
+  {
     "objectID": "semanas/Aula07.1.html#extraindo-informações-do-1o-ajuste",
     "href": "semanas/Aula07.1.html#extraindo-informações-do-1o-ajuste",
     "title": "Regressão Linear",
@@ -1036,18 +1043,18 @@
     "text": "Análise do Modelo com car\n\nlibrary(car)\nvif(mod5)\n\n      TV    Radio \n1.014454 1.014454"
   },
   {
-    "objectID": "semanas/Aula07.2.html#tentando-corrigir-o-problema",
-    "href": "semanas/Aula07.2.html#tentando-corrigir-o-problema",
+    "objectID": "semanas/Aula07.2.html#tentando-avaliar-transformações",
+    "href": "semanas/Aula07.2.html#tentando-avaliar-transformações",
     "title": "Regressão Linear Múltipla",
-    "section": "Tentando corrigir o problema",
-    "text": "Tentando corrigir o problema\n\nsummary(p1 &lt;- powerTransform(Vendas ~ TV + Radio, data=conj_treino))\n\nbcPower Transformation to Normality \n   Est Power Rounded Pwr Wald Lwr Bnd Wald Upr Bnd\nY1    0.9937           1       0.8018       1.1856\n\nLikelihood ratio test that transformation parameter is equal to 0\n (log transformation)\n                          LRT df       pval\nLR test, lambda = (0) 111.042  1 &lt; 2.22e-16\n\nLikelihood ratio test that no transformation is needed\n                              LRT df    pval\nLR test, lambda = (1) 0.004149754  1 0.94864\n\nsummary(p2 &lt;- powerTransform(cbind(TV, Radio) ~1 , data=conj_treino))\n\nbcPower Transformations to Multinormality \n      Est Power Rounded Pwr Wald Lwr Bnd Wald Upr Bnd\nTV       0.7692         1.0       0.5311       1.0073\nRadio    0.5349         0.5       0.3429       0.7269\n\nLikelihood ratio test that transformation parameters are equal to 0\n (all log transformations)\n                            LRT df       pval\nLR test, lambda = (0 0) 102.457  2 &lt; 2.22e-16\n\nLikelihood ratio test that no transformations are needed\n                           LRT df       pval\nLR test, lambda = (1 1) 22.189  2 1.5196e-05\n\nmod6 &lt;- lm( log(Vendas) ~ TV + Radio, data = conj_treino)\nsummary(mod6)\n\n\nCall:\nlm(formula = log(Vendas) ~ TV + Radio, data = conj_treino)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-1.77994 -0.05255  0.04368  0.10055  0.17353 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 1.791156   0.043994  40.713  &lt; 2e-16 ***\nTV          0.003492   0.000218  16.022  &lt; 2e-16 ***\nRadio       0.011524   0.001280   9.006 5.04e-15 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.1975 on 116 degrees of freedom\nMultiple R-squared:  0.765, Adjusted R-squared:  0.761 \nF-statistic: 188.8 on 2 and 116 DF,  p-value: &lt; 2.2e-16\n\nresidualPlots(mod6)\n\n\n\n\n           Test stat Pr(&gt;|Test stat|)    \nTV           -6.8943        3.092e-10 ***\nRadio        -0.2563           0.7982    \nTukey test   -0.5761           0.5646    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+    "section": "Tentando avaliar transformações",
+    "text": "Tentando avaliar transformações\n\nsummary(p1 &lt;- powerTransform(Vendas ~ TV + Radio, data=conj_treino))\n\nbcPower Transformation to Normality \n   Est Power Rounded Pwr Wald Lwr Bnd Wald Upr Bnd\nY1    0.9937           1       0.8018       1.1856\n\nLikelihood ratio test that transformation parameter is equal to 0\n (log transformation)\n                          LRT df       pval\nLR test, lambda = (0) 111.042  1 &lt; 2.22e-16\n\nLikelihood ratio test that no transformation is needed\n                              LRT df    pval\nLR test, lambda = (1) 0.004149754  1 0.94864\n\nsummary(p2 &lt;- powerTransform(cbind(TV, Radio) ~1 , data=conj_treino))\n\nbcPower Transformations to Multinormality \n      Est Power Rounded Pwr Wald Lwr Bnd Wald Upr Bnd\nTV       0.7692         1.0       0.5311       1.0073\nRadio    0.5349         0.5       0.3429       0.7269\n\nLikelihood ratio test that transformation parameters are equal to 0\n (all log transformations)\n                            LRT df       pval\nLR test, lambda = (0 0) 102.457  2 &lt; 2.22e-16\n\nLikelihood ratio test that no transformations are needed\n                           LRT df       pval\nLR test, lambda = (1 1) 22.189  2 1.5196e-05"
   },
   {
     "objectID": "semanas/Aula07.2.html#dado-que-parece-outlier-e-é-um-valor-influente",
     "href": "semanas/Aula07.2.html#dado-que-parece-outlier-e-é-um-valor-influente",
     "title": "Regressão Linear Múltipla",
     "section": "Dado que parece outlier e é um valor influente",
-    "text": "Dado que parece outlier e é um valor influente\nA função OutlierTest () no pacote do car localiza o maior resíduo studentizado em valor absoluto e calcula o teste t com correção de Bonferroni. O testes de Outlier utiliza uma distribuição t para testar se o maior valor do residuo studentizado do modelo é estatisticamente diferente das outras observações. Um valor p significativo indica um outlier extremo que merece um exame mais aprofundado.\n\noutlierTest(mod6)\n\n    rstudent unadjusted p-value Bonferroni p\n83 -18.13798         1.5879e-35   1.8896e-33\n\nconj_treino[83,]\n\n# A tibble: 1 × 4\n     TV Radio Jornal Vendas\n  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1   0.7  39.6    8.7    1.6"
+    "text": "Dado que parece outlier e é um valor influente\nA função OutlierTest () no pacote do car localiza o maior resíduo studentizado em valor absoluto e calcula o teste t com correção de Bonferroni. O testes de Outlier utiliza uma distribuição t para testar se o maior valor do residuo studentizado do modelo é estatisticamente diferente das outras observações. Um valor p significativo indica um outlier extremo que merece um exame mais aprofundado.\n\noutlierTest(mod5)\n\n    rstudent unadjusted p-value Bonferroni p\n83 -7.289206         4.2486e-11   5.0558e-09\n\nconj_treino[83,]\n\n# A tibble: 1 × 4\n     TV Radio Jornal Vendas\n  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1   0.7  39.6    8.7    1.6"
   },
   {
     "objectID": "semanas/Aula07.2A.html",

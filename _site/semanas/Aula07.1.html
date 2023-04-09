@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2022-11-04">
+<meta name="dcterms.date" content="2023-04-09">
 
 <title>IME05-12547 - Regressão Linear</title>
 <style>
@@ -378,6 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#matriz-de-dispersão" id="toc-matriz-de-dispersão" class="nav-link" data-scroll-target="#matriz-de-dispersão">Matriz de dispersão</a></li>
   <li><a href="#o-mod-regressão" id="toc-o-mod-regressão" class="nav-link" data-scroll-target="#o-mod-regressão">1o Mod Regressão</a></li>
   <li><a href="#outra-forma-de-representação-do-1o-modelo" id="toc-outra-forma-de-representação-do-1o-modelo" class="nav-link" data-scroll-target="#outra-forma-de-representação-do-1o-modelo">Outra forma de representação do 1o Modelo</a></li>
+  <li><a href="#outra-forma-de-representação-do-1o-modelo-1" id="toc-outra-forma-de-representação-do-1o-modelo-1" class="nav-link" data-scroll-target="#outra-forma-de-representação-do-1o-modelo-1">Outra forma de representação do 1o Modelo</a></li>
   <li><a href="#extraindo-informações-do-1o-ajuste" id="toc-extraindo-informações-do-1o-ajuste" class="nav-link" data-scroll-target="#extraindo-informações-do-1o-ajuste">Extraindo informações do 1o ajuste</a></li>
   <li><a href="#intervalo-de-confiança" id="toc-intervalo-de-confiança" class="nav-link" data-scroll-target="#intervalo-de-confiança">Intervalo de Confiança</a></li>
   <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">Anova</a></li>
@@ -419,7 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 4, 2022</p>
+      <p class="date">April 9, 2023</p>
     </div>
   </div>
   
@@ -485,12 +486,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(propaganda, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="zaakklbese" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="bysgmmucda" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#zaakklbese .gt_table {
+#bysgmmucda .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -515,7 +516,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#zaakklbese .gt_heading {
+#bysgmmucda .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -527,7 +528,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#zaakklbese .gt_title {
+#bysgmmucda .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#bysgmmucda .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -539,7 +545,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#zaakklbese .gt_subtitle {
+#bysgmmucda .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -551,13 +557,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#zaakklbese .gt_bottom_border {
+#bysgmmucda .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zaakklbese .gt_col_headings {
+#bysgmmucda .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -572,7 +578,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#zaakklbese .gt_col_heading {
+#bysgmmucda .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -592,7 +598,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#zaakklbese .gt_column_spanner_outer {
+#bysgmmucda .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -604,15 +610,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#zaakklbese .gt_column_spanner_outer:first-child {
+#bysgmmucda .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zaakklbese .gt_column_spanner_outer:last-child {
+#bysgmmucda .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zaakklbese .gt_column_spanner {
+#bysgmmucda .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -624,7 +630,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#zaakklbese .gt_group_heading {
+#bysgmmucda .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -647,9 +653,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
-#zaakklbese .gt_empty_group_heading {
+#bysgmmucda .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -664,15 +671,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#zaakklbese .gt_from_md > :first-child {
+#bysgmmucda .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zaakklbese .gt_from_md > :last-child {
+#bysgmmucda .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zaakklbese .gt_row {
+#bysgmmucda .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -691,7 +698,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#zaakklbese .gt_stub {
+#bysgmmucda .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -704,7 +711,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#zaakklbese .gt_stub_row_group {
+#bysgmmucda .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -718,11 +725,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#zaakklbese .gt_row_group_first td {
+#bysgmmucda .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zaakklbese .gt_summary_row {
+#bysgmmucda .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -732,16 +739,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#zaakklbese .gt_first_summary_row {
+#bysgmmucda .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zaakklbese .gt_first_summary_row.thick {
+#bysgmmucda .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zaakklbese .gt_last_summary_row {
+#bysgmmucda .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -751,7 +758,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#zaakklbese .gt_grand_summary_row {
+#bysgmmucda .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -761,7 +768,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#zaakklbese .gt_first_grand_summary_row {
+#bysgmmucda .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -771,11 +778,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#zaakklbese .gt_striped {
+#bysgmmucda .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zaakklbese .gt_table_body {
+#bysgmmucda .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -784,7 +791,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#zaakklbese .gt_footnotes {
+#bysgmmucda .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -798,7 +805,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#zaakklbese .gt_footnote {
+#bysgmmucda .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -807,7 +814,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#zaakklbese .gt_sourcenotes {
+#bysgmmucda .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -821,7 +828,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#zaakklbese .gt_sourcenote {
+#bysgmmucda .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -829,144 +836,137 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#zaakklbese .gt_left {
+#bysgmmucda .gt_left {
   text-align: left;
 }
 
-#zaakklbese .gt_center {
+#bysgmmucda .gt_center {
   text-align: center;
 }
 
-#zaakklbese .gt_right {
+#bysgmmucda .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zaakklbese .gt_font_normal {
+#bysgmmucda .gt_font_normal {
   font-weight: normal;
 }
 
-#zaakklbese .gt_font_bold {
+#bysgmmucda .gt_font_bold {
   font-weight: bold;
 }
 
-#zaakklbese .gt_font_italic {
+#bysgmmucda .gt_font_italic {
   font-style: italic;
 }
 
-#zaakklbese .gt_super {
+#bysgmmucda .gt_super {
   font-size: 65%;
 }
 
-#zaakklbese .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
-#zaakklbese .gt_footnote_marks {
+#bysgmmucda .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#zaakklbese .gt_asterisk {
+#bysgmmucda .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zaakklbese .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#bysgmmucda .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#zaakklbese .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#bysgmmucda .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#zaakklbese .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#bysgmmucda .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bysgmmucda .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bysgmmucda .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
 
 <table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true">
 <thead class="gt_col_headings">
 <tr class="header">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">TV</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Radio</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Jornal</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Vendas</th>
+<th id="TV" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">TV</th>
+<th id="Radio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Radio</th>
+<th id="Jornal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Jornal</th>
+<th id="Vendas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Vendas</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td class="gt_row gt_right">230.1</td>
-<td class="gt_row gt_right">37.8</td>
-<td class="gt_row gt_right">69.2</td>
-<td class="gt_row gt_right">22.1</td>
+<td class="gt_row gt_right" headers="TV">230.1</td>
+<td class="gt_row gt_right" headers="Radio">37.8</td>
+<td class="gt_row gt_right" headers="Jornal">69.2</td>
+<td class="gt_row gt_right" headers="Vendas">22.1</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">44.5</td>
-<td class="gt_row gt_right">39.3</td>
-<td class="gt_row gt_right">45.1</td>
-<td class="gt_row gt_right">10.4</td>
+<td class="gt_row gt_right" headers="TV">44.5</td>
+<td class="gt_row gt_right" headers="Radio">39.3</td>
+<td class="gt_row gt_right" headers="Jornal">45.1</td>
+<td class="gt_row gt_right" headers="Vendas">10.4</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">17.2</td>
-<td class="gt_row gt_right">45.9</td>
-<td class="gt_row gt_right">69.3</td>
-<td class="gt_row gt_right">9.3</td>
+<td class="gt_row gt_right" headers="TV">17.2</td>
+<td class="gt_row gt_right" headers="Radio">45.9</td>
+<td class="gt_row gt_right" headers="Jornal">69.3</td>
+<td class="gt_row gt_right" headers="Vendas">9.3</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">151.5</td>
-<td class="gt_row gt_right">41.3</td>
-<td class="gt_row gt_right">58.5</td>
-<td class="gt_row gt_right">18.5</td>
+<td class="gt_row gt_right" headers="TV">151.5</td>
+<td class="gt_row gt_right" headers="Radio">41.3</td>
+<td class="gt_row gt_right" headers="Jornal">58.5</td>
+<td class="gt_row gt_right" headers="Vendas">18.5</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">180.8</td>
-<td class="gt_row gt_right">10.8</td>
-<td class="gt_row gt_right">58.4</td>
-<td class="gt_row gt_right">12.9</td>
+<td class="gt_row gt_right" headers="TV">180.8</td>
+<td class="gt_row gt_right" headers="Radio">10.8</td>
+<td class="gt_row gt_right" headers="Jornal">58.4</td>
+<td class="gt_row gt_right" headers="Vendas">12.9</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">8.7</td>
-<td class="gt_row gt_right">48.9</td>
-<td class="gt_row gt_right">75.0</td>
-<td class="gt_row gt_right">7.2</td>
+<td class="gt_row gt_right" headers="TV">8.7</td>
+<td class="gt_row gt_right" headers="Radio">48.9</td>
+<td class="gt_row gt_right" headers="Jornal">75.0</td>
+<td class="gt_row gt_right" headers="Vendas">7.2</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">57.5</td>
-<td class="gt_row gt_right">32.8</td>
-<td class="gt_row gt_right">23.5</td>
-<td class="gt_row gt_right">11.8</td>
+<td class="gt_row gt_right" headers="TV">57.5</td>
+<td class="gt_row gt_right" headers="Radio">32.8</td>
+<td class="gt_row gt_right" headers="Jornal">23.5</td>
+<td class="gt_row gt_right" headers="Vendas">11.8</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">120.2</td>
-<td class="gt_row gt_right">19.6</td>
-<td class="gt_row gt_right">11.6</td>
-<td class="gt_row gt_right">13.2</td>
+<td class="gt_row gt_right" headers="TV">120.2</td>
+<td class="gt_row gt_right" headers="Radio">19.6</td>
+<td class="gt_row gt_right" headers="Jornal">11.6</td>
+<td class="gt_row gt_right" headers="Vendas">13.2</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">8.6</td>
-<td class="gt_row gt_right">2.1</td>
-<td class="gt_row gt_right">1.0</td>
-<td class="gt_row gt_right">4.8</td>
+<td class="gt_row gt_right" headers="TV">8.6</td>
+<td class="gt_row gt_right" headers="Radio">2.1</td>
+<td class="gt_row gt_right" headers="Jornal">1.0</td>
+<td class="gt_row gt_right" headers="Vendas">4.8</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">199.8</td>
-<td class="gt_row gt_right">2.6</td>
-<td class="gt_row gt_right">21.2</td>
-<td class="gt_row gt_right">10.6</td>
+<td class="gt_row gt_right" headers="TV">199.8</td>
+<td class="gt_row gt_right" headers="Radio">2.6</td>
+<td class="gt_row gt_right" headers="Jornal">21.2</td>
+<td class="gt_row gt_right" headers="Vendas">10.6</td>
 </tr>
 </tbody>
 </table>
@@ -1005,7 +1005,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gt<span class="sc">::</span><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="ikcyvpxrcq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ikcyvpxrcq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -1045,6 +1045,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
+}
+
+#ikcyvpxrcq .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #ikcyvpxrcq .gt_title {
@@ -1167,6 +1172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #ikcyvpxrcq .gt_empty_group_heading {
@@ -1378,15 +1384,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   font-size: 65%;
 }
 
-#ikcyvpxrcq .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
 #ikcyvpxrcq .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
@@ -1399,94 +1396,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: 0;
 }
 
-#ikcyvpxrcq .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#ikcyvpxrcq .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#ikcyvpxrcq .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#ikcyvpxrcq .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#ikcyvpxrcq .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#ikcyvpxrcq .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ikcyvpxrcq .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ikcyvpxrcq .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
 
 <table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true">
 <thead class="gt_col_headings">
 <tr class="header">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">TV</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Radio</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Jornal</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Vendas</th>
+<th id="TV" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">TV</th>
+<th id="Radio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Radio</th>
+<th id="Jornal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Jornal</th>
+<th id="Vendas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Vendas</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td class="gt_row gt_right">230.1</td>
-<td class="gt_row gt_right">37.8</td>
-<td class="gt_row gt_right">69.2</td>
-<td class="gt_row gt_right">22.1</td>
+<td class="gt_row gt_right" headers="TV">230.1</td>
+<td class="gt_row gt_right" headers="Radio">37.8</td>
+<td class="gt_row gt_right" headers="Jornal">69.2</td>
+<td class="gt_row gt_right" headers="Vendas">22.1</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">151.5</td>
-<td class="gt_row gt_right">41.3</td>
-<td class="gt_row gt_right">58.5</td>
-<td class="gt_row gt_right">18.5</td>
+<td class="gt_row gt_right" headers="TV">151.5</td>
+<td class="gt_row gt_right" headers="Radio">41.3</td>
+<td class="gt_row gt_right" headers="Jornal">58.5</td>
+<td class="gt_row gt_right" headers="Vendas">18.5</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">180.8</td>
-<td class="gt_row gt_right">10.8</td>
-<td class="gt_row gt_right">58.4</td>
-<td class="gt_row gt_right">12.9</td>
+<td class="gt_row gt_right" headers="TV">180.8</td>
+<td class="gt_row gt_right" headers="Radio">10.8</td>
+<td class="gt_row gt_right" headers="Jornal">58.4</td>
+<td class="gt_row gt_right" headers="Vendas">12.9</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">199.8</td>
-<td class="gt_row gt_right">2.6</td>
-<td class="gt_row gt_right">21.2</td>
-<td class="gt_row gt_right">10.6</td>
+<td class="gt_row gt_right" headers="TV">199.8</td>
+<td class="gt_row gt_right" headers="Radio">2.6</td>
+<td class="gt_row gt_right" headers="Jornal">21.2</td>
+<td class="gt_row gt_right" headers="Vendas">10.6</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">66.1</td>
-<td class="gt_row gt_right">5.8</td>
-<td class="gt_row gt_right">24.2</td>
-<td class="gt_row gt_right">8.6</td>
+<td class="gt_row gt_right" headers="TV">66.1</td>
+<td class="gt_row gt_right" headers="Radio">5.8</td>
+<td class="gt_row gt_right" headers="Jornal">24.2</td>
+<td class="gt_row gt_right" headers="Vendas">8.6</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">23.8</td>
-<td class="gt_row gt_right">35.1</td>
-<td class="gt_row gt_right">65.9</td>
-<td class="gt_row gt_right">9.2</td>
+<td class="gt_row gt_right" headers="TV">23.8</td>
+<td class="gt_row gt_right" headers="Radio">35.1</td>
+<td class="gt_row gt_right" headers="Jornal">65.9</td>
+<td class="gt_row gt_right" headers="Vendas">9.2</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">97.5</td>
-<td class="gt_row gt_right">7.6</td>
-<td class="gt_row gt_right">7.2</td>
-<td class="gt_row gt_right">9.7</td>
+<td class="gt_row gt_right" headers="TV">97.5</td>
+<td class="gt_row gt_right" headers="Radio">7.6</td>
+<td class="gt_row gt_right" headers="Jornal">7.2</td>
+<td class="gt_row gt_right" headers="Vendas">9.7</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">195.4</td>
-<td class="gt_row gt_right">47.7</td>
-<td class="gt_row gt_right">52.9</td>
-<td class="gt_row gt_right">22.4</td>
+<td class="gt_row gt_right" headers="TV">195.4</td>
+<td class="gt_row gt_right" headers="Radio">47.7</td>
+<td class="gt_row gt_right" headers="Jornal">52.9</td>
+<td class="gt_row gt_right" headers="Vendas">22.4</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">69.2</td>
-<td class="gt_row gt_right">20.5</td>
-<td class="gt_row gt_right">18.3</td>
-<td class="gt_row gt_right">11.3</td>
+<td class="gt_row gt_right" headers="TV">69.2</td>
+<td class="gt_row gt_right" headers="Radio">20.5</td>
+<td class="gt_row gt_right" headers="Jornal">18.3</td>
+<td class="gt_row gt_right" headers="Vendas">11.3</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">147.3</td>
-<td class="gt_row gt_right">23.9</td>
-<td class="gt_row gt_right">19.1</td>
-<td class="gt_row gt_right">14.6</td>
+<td class="gt_row gt_right" headers="TV">147.3</td>
+<td class="gt_row gt_right" headers="Radio">23.9</td>
+<td class="gt_row gt_right" headers="Jornal">19.1</td>
+<td class="gt_row gt_right" headers="Vendas">14.6</td>
 </tr>
 </tbody>
 </table>
@@ -1511,7 +1510,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="wcjxydfocs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="wcjxydfocs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -1551,6 +1550,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
+}
+
+#wcjxydfocs .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #wcjxydfocs .gt_title {
@@ -1673,6 +1677,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #wcjxydfocs .gt_empty_group_heading {
@@ -1884,15 +1889,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   font-size: 65%;
 }
 
-#wcjxydfocs .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
 #wcjxydfocs .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
@@ -1905,94 +1901,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: 0;
 }
 
-#wcjxydfocs .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#wcjxydfocs .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#wcjxydfocs .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#wcjxydfocs .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#wcjxydfocs .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#wcjxydfocs .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wcjxydfocs .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wcjxydfocs .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
 
 <table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true">
 <thead class="gt_col_headings">
 <tr class="header">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">TV</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Radio</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Jornal</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Vendas</th>
+<th id="TV" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">TV</th>
+<th id="Radio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Radio</th>
+<th id="Jornal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Jornal</th>
+<th id="Vendas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Vendas</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td class="gt_row gt_right">230.1</td>
-<td class="gt_row gt_right">37.8</td>
-<td class="gt_row gt_right">69.2</td>
-<td class="gt_row gt_right">22.1</td>
+<td class="gt_row gt_right" headers="TV">230.1</td>
+<td class="gt_row gt_right" headers="Radio">37.8</td>
+<td class="gt_row gt_right" headers="Jornal">69.2</td>
+<td class="gt_row gt_right" headers="Vendas">22.1</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">151.5</td>
-<td class="gt_row gt_right">41.3</td>
-<td class="gt_row gt_right">58.5</td>
-<td class="gt_row gt_right">18.5</td>
+<td class="gt_row gt_right" headers="TV">151.5</td>
+<td class="gt_row gt_right" headers="Radio">41.3</td>
+<td class="gt_row gt_right" headers="Jornal">58.5</td>
+<td class="gt_row gt_right" headers="Vendas">18.5</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">180.8</td>
-<td class="gt_row gt_right">10.8</td>
-<td class="gt_row gt_right">58.4</td>
-<td class="gt_row gt_right">12.9</td>
+<td class="gt_row gt_right" headers="TV">180.8</td>
+<td class="gt_row gt_right" headers="Radio">10.8</td>
+<td class="gt_row gt_right" headers="Jornal">58.4</td>
+<td class="gt_row gt_right" headers="Vendas">12.9</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">199.8</td>
-<td class="gt_row gt_right">2.6</td>
-<td class="gt_row gt_right">21.2</td>
-<td class="gt_row gt_right">10.6</td>
+<td class="gt_row gt_right" headers="TV">199.8</td>
+<td class="gt_row gt_right" headers="Radio">2.6</td>
+<td class="gt_row gt_right" headers="Jornal">21.2</td>
+<td class="gt_row gt_right" headers="Vendas">10.6</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">66.1</td>
-<td class="gt_row gt_right">5.8</td>
-<td class="gt_row gt_right">24.2</td>
-<td class="gt_row gt_right">8.6</td>
+<td class="gt_row gt_right" headers="TV">66.1</td>
+<td class="gt_row gt_right" headers="Radio">5.8</td>
+<td class="gt_row gt_right" headers="Jornal">24.2</td>
+<td class="gt_row gt_right" headers="Vendas">8.6</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">23.8</td>
-<td class="gt_row gt_right">35.1</td>
-<td class="gt_row gt_right">65.9</td>
-<td class="gt_row gt_right">9.2</td>
+<td class="gt_row gt_right" headers="TV">23.8</td>
+<td class="gt_row gt_right" headers="Radio">35.1</td>
+<td class="gt_row gt_right" headers="Jornal">65.9</td>
+<td class="gt_row gt_right" headers="Vendas">9.2</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">97.5</td>
-<td class="gt_row gt_right">7.6</td>
-<td class="gt_row gt_right">7.2</td>
-<td class="gt_row gt_right">9.7</td>
+<td class="gt_row gt_right" headers="TV">97.5</td>
+<td class="gt_row gt_right" headers="Radio">7.6</td>
+<td class="gt_row gt_right" headers="Jornal">7.2</td>
+<td class="gt_row gt_right" headers="Vendas">9.7</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">195.4</td>
-<td class="gt_row gt_right">47.7</td>
-<td class="gt_row gt_right">52.9</td>
-<td class="gt_row gt_right">22.4</td>
+<td class="gt_row gt_right" headers="TV">195.4</td>
+<td class="gt_row gt_right" headers="Radio">47.7</td>
+<td class="gt_row gt_right" headers="Jornal">52.9</td>
+<td class="gt_row gt_right" headers="Vendas">22.4</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">69.2</td>
-<td class="gt_row gt_right">20.5</td>
-<td class="gt_row gt_right">18.3</td>
-<td class="gt_row gt_right">11.3</td>
+<td class="gt_row gt_right" headers="TV">69.2</td>
+<td class="gt_row gt_right" headers="Radio">20.5</td>
+<td class="gt_row gt_right" headers="Jornal">18.3</td>
+<td class="gt_row gt_right" headers="Vendas">11.3</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">147.3</td>
-<td class="gt_row gt_right">23.9</td>
-<td class="gt_row gt_right">19.1</td>
-<td class="gt_row gt_right">14.6</td>
+<td class="gt_row gt_right" headers="TV">147.3</td>
+<td class="gt_row gt_right" headers="Radio">23.9</td>
+<td class="gt_row gt_right" headers="Jornal">19.1</td>
+<td class="gt_row gt_right" headers="Vendas">14.6</td>
 </tr>
 </tbody>
 </table>
@@ -2003,7 +2001,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(c_treino_pivot, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="eqztfiyvbl" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="eqztfiyvbl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -2043,6 +2041,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
+}
+
+#eqztfiyvbl .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #eqztfiyvbl .gt_title {
@@ -2165,6 +2168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #eqztfiyvbl .gt_empty_group_heading {
@@ -2376,15 +2380,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   font-size: 65%;
 }
 
-#eqztfiyvbl .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
 #eqztfiyvbl .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
@@ -2397,83 +2392,85 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: 0;
 }
 
-#eqztfiyvbl .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#eqztfiyvbl .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#eqztfiyvbl .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#eqztfiyvbl .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#eqztfiyvbl .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#eqztfiyvbl .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#eqztfiyvbl .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#eqztfiyvbl .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
 
 <table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true">
 <thead class="gt_col_headings">
 <tr class="header">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Vendas</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th">Tipo</th>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th">Orçamento</th>
+<th id="Vendas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Vendas</th>
+<th id="Tipo" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Tipo</th>
+<th id="Orçamento" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Orçamento</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td class="gt_row gt_right">22.1</td>
-<td class="gt_row gt_left">TV</td>
-<td class="gt_row gt_right">230.1</td>
+<td class="gt_row gt_right" headers="Vendas">22.1</td>
+<td class="gt_row gt_left" headers="Tipo">TV</td>
+<td class="gt_row gt_right" headers="Orçamento">230.1</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">22.1</td>
-<td class="gt_row gt_left">Radio</td>
-<td class="gt_row gt_right">37.8</td>
+<td class="gt_row gt_right" headers="Vendas">22.1</td>
+<td class="gt_row gt_left" headers="Tipo">Radio</td>
+<td class="gt_row gt_right" headers="Orçamento">37.8</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">22.1</td>
-<td class="gt_row gt_left">Jornal</td>
-<td class="gt_row gt_right">69.2</td>
+<td class="gt_row gt_right" headers="Vendas">22.1</td>
+<td class="gt_row gt_left" headers="Tipo">Jornal</td>
+<td class="gt_row gt_right" headers="Orçamento">69.2</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">18.5</td>
-<td class="gt_row gt_left">TV</td>
-<td class="gt_row gt_right">151.5</td>
+<td class="gt_row gt_right" headers="Vendas">18.5</td>
+<td class="gt_row gt_left" headers="Tipo">TV</td>
+<td class="gt_row gt_right" headers="Orçamento">151.5</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">18.5</td>
-<td class="gt_row gt_left">Radio</td>
-<td class="gt_row gt_right">41.3</td>
+<td class="gt_row gt_right" headers="Vendas">18.5</td>
+<td class="gt_row gt_left" headers="Tipo">Radio</td>
+<td class="gt_row gt_right" headers="Orçamento">41.3</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">18.5</td>
-<td class="gt_row gt_left">Jornal</td>
-<td class="gt_row gt_right">58.5</td>
+<td class="gt_row gt_right" headers="Vendas">18.5</td>
+<td class="gt_row gt_left" headers="Tipo">Jornal</td>
+<td class="gt_row gt_right" headers="Orçamento">58.5</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">12.9</td>
-<td class="gt_row gt_left">TV</td>
-<td class="gt_row gt_right">180.8</td>
+<td class="gt_row gt_right" headers="Vendas">12.9</td>
+<td class="gt_row gt_left" headers="Tipo">TV</td>
+<td class="gt_row gt_right" headers="Orçamento">180.8</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">12.9</td>
-<td class="gt_row gt_left">Radio</td>
-<td class="gt_row gt_right">10.8</td>
+<td class="gt_row gt_right" headers="Vendas">12.9</td>
+<td class="gt_row gt_left" headers="Tipo">Radio</td>
+<td class="gt_row gt_right" headers="Orçamento">10.8</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right">12.9</td>
-<td class="gt_row gt_left">Jornal</td>
-<td class="gt_row gt_right">58.4</td>
+<td class="gt_row gt_right" headers="Vendas">12.9</td>
+<td class="gt_row gt_left" headers="Tipo">Jornal</td>
+<td class="gt_row gt_right" headers="Orçamento">58.4</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right">10.6</td>
-<td class="gt_row gt_left">TV</td>
-<td class="gt_row gt_right">199.8</td>
+<td class="gt_row gt_right" headers="Vendas">10.6</td>
+<td class="gt_row gt_left" headers="Tipo">TV</td>
+<td class="gt_row gt_right" headers="Orçamento">199.8</td>
 </tr>
 </tbody>
 </table>
@@ -2562,14 +2559,30 @@ F-statistic: 179.2 on 1 and 117 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </section>
+<section id="outra-forma-de-representação-do-1o-modelo-1" class="level2">
+<h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-1o-modelo-1">Outra forma de representação do 1o Modelo</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggside)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(conj_treino, <span class="fu">aes</span>(<span class="at">x=</span>TV, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_xsidehistogram</span>(<span class="at">bins =</span> <span class="fu">round</span>(<span class="dv">1</span><span class="fl">+3.322</span><span class="sc">*</span><span class="fu">log10</span>(<span class="fu">nrow</span>(conj_treino)),<span class="dv">0</span>)) <span class="sc">+</span> </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ysidehistogram</span>(<span class="at">bins =</span> <span class="fu">round</span>(<span class="dv">1</span><span class="fl">+3.322</span><span class="sc">*</span><span class="fu">log10</span>(<span class="fu">nrow</span>(conj_treino)),<span class="dv">0</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="imagens/Aula07_1/unnamed-chunk-2-1.png" class="img-fluid" width="768"></p>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   geom_xsidedensity(aes(y=after_stat(density)), alpha=0.5, size=1, position="stack") +</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_ysidedensity(aes(x=after_stat(density)), alpha=0.5, size=1, position="stack")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="extraindo-informações-do-1o-ajuste" class="level2">
 <h2 class="anchored" data-anchor-id="extraindo-informações-do-1o-ajuste">Extraindo informações do 1o ajuste</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.167319</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.605027</code></pre>
 </div>
@@ -2578,7 +2591,7 @@ F-statistic: 179.2 on 1 and 117 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section id="intervalo-de-confiança" class="level2">
 <h2 class="anchored" data-anchor-id="intervalo-de-confiança">Intervalo de Confiança</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2599,7 +2612,7 @@ Residual standard error: 3.167 on 117 degrees of freedom
 Multiple R-squared:  0.605, Adjusted R-squared:  0.6017 
 F-statistic: 179.2 on 1 and 117 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 2.5 %     97.5 %
 (Intercept) 5.74368904 8.11484821
@@ -2610,7 +2623,7 @@ TV          0.03959625 0.05334545</code></pre>
 <section id="anova" class="level2">
 <h2 class="anchored" data-anchor-id="anova">Anova</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -2626,8 +2639,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="previsões" class="level2">
 <h2 class="anchored" data-anchor-id="previsões">Previsões</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#?predict</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod1, <span class="fu">data.frame</span>(<span class="at">TV=</span><span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">150</span>, <span class="dv">250</span>)), <span class="at">interval =</span> <span class="st">"prediction"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#?predict</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod1, <span class="fu">data.frame</span>(<span class="at">TV=</span><span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">150</span>, <span class="dv">250</span>)), <span class="at">interval =</span> <span class="st">"prediction"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        fit       lwr      upr
 1  9.252811  2.915787 15.58983
@@ -2639,7 +2652,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste" class="level2">
 <h2 class="anchored" data-anchor-id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste">Calculando o erro padrão do resíduo com amostra de teste</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod1, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod1, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.41382</code></pre>
 </div>
@@ -2648,7 +2661,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="análise-do-modelo" class="level2">
 <h2 class="anchored" data-anchor-id="análise-do-modelo">Análise do modelo</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/residuos1a-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2666,7 +2679,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="verificando-normalidade-dos-resíduos" class="level2">
 <h2 class="anchored" data-anchor-id="verificando-normalidade-dos-resíduos">Verificando normalidade dos resíduos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">summary</span>(mod1)<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">summary</span>(mod1)<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -2679,8 +2692,8 @@ W = 0.98867, p-value = 0.4293</code></pre>
 <section id="análise-do-modelo-2" class="level2">
 <h2 class="anchored" data-anchor-id="análise-do-modelo-2">Análise do modelo 2</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/residuos1b-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2689,10 +2702,10 @@ W = 0.98867, p-value = 0.4293</code></pre>
 <section id="o-modelo-de-regressão" class="level2">
 <h2 class="anchored" data-anchor-id="o-modelo-de-regressão">2o Modelo de Regressão</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2713,10 +2726,10 @@ Residual standard error: 3.908 on 117 degrees of freedom
 Multiple R-squared:  0.3986,    Adjusted R-squared:  0.3935 
 F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Radio, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">"blue"</span> ) <span class="sc">+</span> </span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Radio, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">"blue"</span> ) <span class="sc">+</span> </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/2modelo-regressão-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2725,7 +2738,7 @@ F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 <section id="outra-forma-de-representação-do-2o-modelo" class="level2">
 <h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-2o-modelo">Outra forma de representação do 2o Modelo</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F, <span class="at">id.n=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F, <span class="at">id.n=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/2areg-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2734,7 +2747,7 @@ F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 <section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1" class="level2">
 <h2 class="anchored" data-anchor-id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1">Calculando o erro padrão do resíduo com amostra de teste</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod2, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod2, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.808117</code></pre>
 </div>
@@ -2743,7 +2756,7 @@ F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 <section id="análise-de-resíduos" class="level2">
 <h2 class="anchored" data-anchor-id="análise-de-resíduos">Análise de Resíduos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/residuos2-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2753,10 +2766,10 @@ F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 <section id="o-modelo-de-regressão-1" class="level2">
 <h2 class="anchored" data-anchor-id="o-modelo-de-regressão-1">3o Modelo de Regressão</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2777,10 +2790,10 @@ Residual standard error: 4.884 on 117 degrees of freedom
 Multiple R-squared:  0.06084,   Adjusted R-squared:  0.05281 
 F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Jornal, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">"blue"</span> ) <span class="sc">+</span> </span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Jornal, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">"blue"</span> ) <span class="sc">+</span> </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/3omodelo-regressao-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2789,7 +2802,7 @@ F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
 <section id="outra-forma-de-representação-do-3o-modelo" class="level2">
 <h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-3o-modelo">Outra forma de representação do 3o Modelo</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F, <span class="at">id.n=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F, <span class="at">id.n=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/3areg-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -2798,7 +2811,7 @@ F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
 <section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2" class="level2">
 <h2 class="anchored" data-anchor-id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2">Calculando o erro padrão do resíduo com amostra de teste</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod3, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod3, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.38693</code></pre>
 </div>
@@ -2807,7 +2820,7 @@ F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
 <section id="análise-de-resíduos-1" class="level2">
 <h2 class="anchored" data-anchor-id="análise-de-resíduos-1">Análise de Resíduos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="imagens/Aula07_1/residuos3-1.png" class="img-fluid" width="768"></p>
 </div>
