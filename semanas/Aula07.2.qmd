@@ -166,3 +166,15 @@ A função OutlierTest () no pacote do car localiza o maior resíduo studentizad
 outlierTest(mod5)
 conj_treino[83,]
 ```
+
+# Teste dos resíduos
+
+Teste de normalidade Teste de heterocedasticidade (Bresch-Pagan) Teste de autocorrelação (Durbin-Watson)
+
+```{r}
+library(lmtest)
+mod5_sum <- summary(mod5)
+shapiro.test(mod5_sum$residuals)
+bptest(mod5)
+dwtest(mod5)
+```

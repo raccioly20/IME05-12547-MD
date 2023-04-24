@@ -91,18 +91,7 @@ gt::gt(head(conj_treino, 10))
 library(corrplot)
 mat_corr <- cor(conj_treino)
 corrplot(mat_corr)
-```
-
-## Matriz de dispersão
-
-```{r}
-library(psych)
-pairs.panels(conj_treino,
-             method = "pearson", # metodo de correlação
-             hist.col = "#00AFBB",
-             density = TRUE,  # mostra graficos de densidade
-             ellipses = FALSE # mostra elipses de correlação
-             )
+mat_corr
 ```
 
 ## Métodos de seleção de modelo
