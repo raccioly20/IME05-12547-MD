@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-04-26">
+<meta name="dcterms.date" content="2023-05-05">
 
 <title>IME05-12547 - Regularização de Modelos</title>
 <style>
@@ -409,7 +409,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 26, 2023</p>
+      <p class="date">May 5, 2023</p>
     </div>
   </div>
   
@@ -522,6 +522,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="conjunto-de-treino-e-de-teste" class="level2">
 <h2 class="anchored" data-anchor-id="conjunto-de-treino-e-de-teste">Conjunto de treino e de teste</h2>
+<p>Observar que retiramos a variável <strong>rad</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
@@ -589,7 +590,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Por padrão, a função <code>glmnet()</code> executa a regressão ridge automaticamente selecionando a faixa de valores de <span class="math inline">\(\lambda\)</span>. No entanto, aqui nós escolhemos implementar usando uma grade de valores que variam de <span class="math inline">\(\lambda = 10^{-2}\)</span> a <span class="math inline">\(\lambda = 10^{10}\)</span>, cobrindo toda a gama de cenários do modelo nulo contendo apenas o coeficiente linear até o ajuste dos mínimos quadrados.</p>
 <p>Também podemos calcular o modelo para um valor particular de <span class="math inline">\(\lambda\)</span> que não é um dos valores de grade. Observe que, por padrão, a função <code>glmnet()</code> padroniza as variáveis para que elas estejam na mesma escala. <strong>Esta padronização é muito importante no caso da regressão Ridge, pois ela é afetada pela mudança de escala das variáveis explicativas.</strong></p>
-<p>Associado a cada valor de <span class="math inline">\(\lambda\)</span> existe um vetor de coeficientes de regressão de ridge, que é armazenado em uma matriz que pode ser acessada por ‘coef()’. Neste caso, é uma matriz <span class="math inline">\(14 \times 100\)</span>, com 14 linhas (uma para cada preditor, mais uma para o coeficiente linear) e 100 colunas (uma para cada valor de <span class="math inline">\(\lambda\)</span>).</p>
+<p>Associado a cada valor de <span class="math inline">\(\lambda\)</span> existe um vetor de coeficientes de regressão de ridge, que é armazenado em uma matriz que pode ser acessada por ‘coef()’. Neste caso, é uma matriz <span class="math inline">\(13 \times 100\)</span>, com 13 linhas (uma para cada preditor, mais uma para o coeficiente linear) e 100 colunas (uma para cada valor de <span class="math inline">\(\lambda\)</span>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(<span class="fu">coef</span>(ajusreg.ridge))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

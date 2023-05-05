@@ -76,6 +76,8 @@ Observamos acima que todas as variáveis são quantitativas e que não há neces
 
 ## Conjunto de treino e de teste
 
+Observar que retiramos a variável **rad**
+
 ```{r treino_teste}
 library(caret)
 set.seed(21)
@@ -118,7 +120,7 @@ Por padrão, a função `glmnet()` executa a regressão ridge automaticamente se
 
 Também podemos calcular o modelo para um valor particular de $\lambda$ que não é um dos valores de grade. Observe que, por padrão, a função `glmnet()` padroniza as variáveis para que elas estejam na mesma escala. **Esta padronização é muito importante no caso da regressão Ridge, pois ela é afetada pela mudança de escala das variáveis explicativas.**
 
-Associado a cada valor de $\lambda$ existe um vetor de coeficientes de regressão de ridge, que é armazenado em uma matriz que pode ser acessada por 'coef()'. Neste caso, é uma matriz $14 \times 100$, com 14 linhas (uma para cada preditor, mais uma para o coeficiente linear) e 100 colunas (uma para cada valor de $\lambda$).
+Associado a cada valor de $\lambda$ existe um vetor de coeficientes de regressão de ridge, que é armazenado em uma matriz que pode ser acessada por 'coef()'. Neste caso, é uma matriz $13 \times 100$, com 13 linhas (uma para cada preditor, mais uma para o coeficiente linear) e 100 colunas (uma para cada valor de $\lambda$).
 
 ```{r r1}
 dim(coef(ajusreg.ridge))
