@@ -255,7 +255,7 @@ roc_log2 <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=F
 as.numeric(roc_log2$auc)
 ```
 
-## Melhor limite 
+## Melhor limite
 
 ```{r}
 m_limite <- coords(roc_log2, "best", ret = "threshold")$threshold
@@ -264,7 +264,6 @@ y_chapeu <- ifelse(p_chapeu > m_limite, "Sim", "Nao") %>%
              factor(levels = levels(conj_teste$inadimplente))
 confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim")
 ```
-
 
 ## Duas ROCs juntas
 

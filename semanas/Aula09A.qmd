@@ -20,7 +20,6 @@ knitr::opts_chunk$set(fig.width = 9,
 
 ## Carregando Bibliotecas
 
-
 ```{r bibliotecas, message=FALSE}
 library(tidyverse)
 library(ISLR)
@@ -31,7 +30,6 @@ head(Default)
 ```
 
 ## Manipulando os dados
-
 
 ```{r inadimplente}
 credito <- tibble(Default)
@@ -54,7 +52,6 @@ summary(credito)
 
 ```
 
-
 ## Treino e Teste
 
 ```{r conjuntos-treino-teste}
@@ -70,7 +67,6 @@ summary(conj_treino)
 summary(conj_teste)
 
 ```
-
 
 ## SMOTE
 
@@ -103,8 +99,6 @@ y_chapeu <- ifelse(p_chapeu > 0.5, "Sim", "Nao") %>% factor(levels = levels(conj
 confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim") 
 ```
 
-
-
 ## Curva ROC
 
 ```{r ROC, fig.width=9}
@@ -115,5 +109,3 @@ roc_log <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=TR
                  legacy.axes=TRUE) 
 as.numeric(roc_log$auc)
 ```
-
-
