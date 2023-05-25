@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.340">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-01-13">
-
+<meta name="dcterms.date" content="2023-05-23">
 <title>IME05-12547 - Arvores de Classificação - Única e GBM</title>
 <style>
 code{white-space: pre-wrap;}
@@ -58,7 +55,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -77,8 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -97,21 +92,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit"
   }
 }</script>
-
-
 <meta name="twitter:title" content="IME05-12547 - Arvores de Classificação - Única e GBM">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="images/md.png">
 <meta name="twitter:creator" content="@r_accioly">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-
 <body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -122,16 +112,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
     <a href="https://twitter.com/r_accioly" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
@@ -145,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
+<li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">Informação da disciplina</span></a>
@@ -153,8 +138,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visão Geral</span></a>
@@ -167,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
@@ -176,15 +161,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sobre</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
@@ -193,15 +178,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Acesso</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
@@ -210,8 +195,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 01</span></a>
@@ -356,48 +341,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link active" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
+<li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link active" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
   <li><a href="#dados" id="toc-dados" class="nav-link" data-scroll-target="#dados">Dados</a></li>
   <li><a href="#manipulando-os-dados" id="toc-manipulando-os-dados" class="nav-link" data-scroll-target="#manipulando-os-dados">Manipulando os dados</a></li>
   <li><a href="#treino-e-teste" id="toc-treino-e-teste" class="nav-link" data-scroll-target="#treino-e-teste">Treino e Teste</a></li>
-  <li><a href="#arvore-de-classificação" id="toc-arvore-de-classificação" class="nav-link" data-scroll-target="#arvore-de-classificação">Arvore de Classificação</a></li>
+  <li><a href="#arvore-de-classifica%C3%A7%C3%A3o" id="toc-arvore-de-classificação" class="nav-link" data-scroll-target="#arvore-de-classifica%C3%A7%C3%A3o">Arvore de Classificação</a></li>
   <li><a href="#regras" id="toc-regras" class="nav-link" data-scroll-target="#regras">Regras</a></li>
-  <li><a href="#desenhando-a-árvore-de-uma-forma-mais-clara" id="toc-desenhando-a-árvore-de-uma-forma-mais-clara" class="nav-link" data-scroll-target="#desenhando-a-árvore-de-uma-forma-mais-clara">Desenhando a Árvore de uma forma mais clara</a></li>
-  <li><a href="#previsões" id="toc-previsões" class="nav-link" data-scroll-target="#previsões">Previsões</a></li>
-  <li><a href="#arvore-de-classificação-no-caret" id="toc-arvore-de-classificação-no-caret" class="nav-link" data-scroll-target="#arvore-de-classificação-no-caret">Arvore de Classificação no caret</a></li>
-  <li><a href="#uma-forma-melhor-de-ver-a-árvore" id="toc-uma-forma-melhor-de-ver-a-árvore" class="nav-link" data-scroll-target="#uma-forma-melhor-de-ver-a-árvore">Uma forma melhor de ver a Árvore</a></li>
-  <li><a href="#previsões-1" id="toc-previsões-1" class="nav-link" data-scroll-target="#previsões-1">Previsões</a></li>
+  <li><a href="#desenhando-a-%C3%A1rvore-de-uma-forma-mais-clara" id="toc-desenhando-a-árvore-de-uma-forma-mais-clara" class="nav-link" data-scroll-target="#desenhando-a-%C3%A1rvore-de-uma-forma-mais-clara">Desenhando a Árvore de uma forma mais clara</a></li>
+  <li><a href="#previs%C3%B5es" id="toc-previsões" class="nav-link" data-scroll-target="#previs%C3%B5es">Previsões</a></li>
+  <li><a href="#arvore-de-classifica%C3%A7%C3%A3o-no-caret" id="toc-arvore-de-classificação-no-caret" class="nav-link" data-scroll-target="#arvore-de-classifica%C3%A7%C3%A3o-no-caret">Arvore de Classificação no caret</a></li>
+  <li><a href="#uma-forma-melhor-de-ver-a-%C3%A1rvore" id="toc-uma-forma-melhor-de-ver-a-árvore" class="nav-link" data-scroll-target="#uma-forma-melhor-de-ver-a-%C3%A1rvore">Uma forma melhor de ver a Árvore</a></li>
+  <li><a href="#previs%C3%B5es-1" id="toc-previsões-1" class="nav-link" data-scroll-target="#previs%C3%B5es-1">Previsões</a></li>
   <li><a href="#verificando-a-consistencia-dos-resultados" id="toc-verificando-a-consistencia-dos-resultados" class="nav-link" data-scroll-target="#verificando-a-consistencia-dos-resultados">Verificando a consistencia dos resultados</a></li>
   <li><a href="#obtendo-a-arvore" id="toc-obtendo-a-arvore" class="nav-link" data-scroll-target="#obtendo-a-arvore">Obtendo a arvore</a></li>
-  <li><a href="#desenhando-a-árvore-de-uma-forma-mais-clara-1" id="toc-desenhando-a-árvore-de-uma-forma-mais-clara-1" class="nav-link" data-scroll-target="#desenhando-a-árvore-de-uma-forma-mais-clara-1">Desenhando a Árvore de uma forma mais clara</a></li>
-  <li><a href="#gbm" id="toc-gbm" class="nav-link" data-scroll-target="#gbm">GBM</a>
+  <li><a href="#desenhando-a-%C3%A1rvore-de-uma-forma-mais-clara-1" id="toc-desenhando-a-árvore-de-uma-forma-mais-clara-1" class="nav-link" data-scroll-target="#desenhando-a-%C3%A1rvore-de-uma-forma-mais-clara-1">Desenhando a Árvore de uma forma mais clara</a></li>
+  <li>
+<a href="#gbm" id="toc-gbm" class="nav-link" data-scroll-target="#gbm">GBM</a>
   <ul class="collapse">
-  <li><a href="#criando-um-grid-para-avaliar-os-parametros" id="toc-criando-um-grid-para-avaliar-os-parametros" class="nav-link" data-scroll-target="#criando-um-grid-para-avaliar-os-parametros">Criando um grid para avaliar os parametros</a></li>
-  </ul></li>
+<li><a href="#criando-um-grid-para-avaliar-os-parametros" id="toc-criando-um-grid-para-avaliar-os-parametros" class="nav-link" data-scroll-target="#criando-um-grid-para-avaliar-os-parametros">Criando um grid para avaliar os parametros</a></li>
+  </ul>
+</li>
   <li><a href="#avaliando-o-grid-de-parametros" id="toc-avaliando-o-grid-de-parametros" class="nav-link" data-scroll-target="#avaliando-o-grid-de-parametros">Avaliando o grid de parametros</a></li>
   <li><a href="#modelo-final" id="toc-modelo-final" class="nav-link" data-scroll-target="#modelo-final">Modelo final</a></li>
-  <li><a href="#importância-das-variáveis" id="toc-importância-das-variáveis" class="nav-link" data-scroll-target="#importância-das-variáveis">Importância das Variáveis</a></li>
-  <li><a href="#previsão" id="toc-previsão" class="nav-link" data-scroll-target="#previsão">Previsão</a></li>
+  <li><a href="#import%C3%A2ncia-das-vari%C3%A1veis" id="toc-importância-das-variáveis" class="nav-link" data-scroll-target="#import%C3%A2ncia-das-vari%C3%A1veis">Importância das Variáveis</a></li>
+  <li><a href="#previs%C3%A3o" id="toc-previsão" class="nav-link" data-scroll-target="#previs%C3%A3o">Previsão</a></li>
   <li><a href="#curva-roc" id="toc-curva-roc" class="nav-link" data-scroll-target="#curva-roc">Curva ROC</a></li>
-  </ul>
-</nav>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Arvores de Classificação - Única e GBM</h1>
 </div>
 
@@ -415,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 13, 2023</p>
+      <p class="date">May 23, 2023</p>
     </div>
   </div>
   
@@ -423,17 +404,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header>
-
-<section id="bibliotecas" class="level2">
-<h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
+</header><section id="bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.statlearning.com">ISLR</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="dados" class="level2">
-<h2 class="anchored" data-anchor-id="dados">Dados</h2>
+</section><section id="dados" class="level2"><h2 class="anchored" data-anchor-id="dados">Dados</h2>
 <p>Vamos começar a aplicar a metodologia de árvores usando <strong>árvores de classificação</strong> para analisar os dados existentes em <code>Carseats</code>. Este conjunto de dados (simulado) é sobre venda de assentos de criança para carros. Ele tem 400 observações das seguintes variáveis (11), cujos nomes serão convertidos para o português:</p>
 <p>Sales: vendas em unidades (em mil) em cada local</p>
 <p>CompPrice: preço cobrado pelo competidor em cada local</p>
@@ -446,10 +422,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Education: nível de educação em cada local</p>
 <p>Urban: um fator Sim e Não indicando se a loja esta em uma área urbana ou rural</p>
 <p>US: um fator indicando se a loja é nos EUA ou não</p>
-<p>Neste dados, <code>Sales</code> é a variável resposta, só que ela é uma variável contínua, por este motivo vamos usá-la para criar uma variável binária. Vamos usar a função <code>ifelse()</code> para criar a variável binária, que chamaremos de <strong>alta</strong>, ela assume os valores <code>Sim</code> se <code>Sales</code> for maior que 8 e assume o valor <code>Não</code> caso contrário:</p>
+<p>Neste dados, <code>Sales</code> é a variável resposta, só que ela é uma variável contínua, por este motivo vamos usá-la para criar uma variável binária. Vamos usar a função <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> para criar a variável binária, que chamaremos de <strong>alta</strong>, ela assume os valores <code>Sim</code> se <code>Sales</code> for maior que 8 e assume o valor <code>Não</code> caso contrário:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Carseats)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Carseats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Carseats</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Carseats</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Sales          CompPrice       Income        Advertising    
  Min.   : 0.000   Min.   : 77   Min.   : 21.00   Min.   : 0.000  
@@ -473,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                     
                     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Carseats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Carseats</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   400 obs. of  11 variables:
  $ Sales      : num  9.5 11.22 10.06 7.4 4.15 ...
@@ -489,42 +465,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ US         : Factor w/ 2 levels "No","Yes": 2 2 2 2 1 2 1 2 1 2 ...</code></pre>
 </div>
 </div>
-</section>
-<section id="manipulando-os-dados" class="level2">
-<h2 class="anchored" data-anchor-id="manipulando-os-dados">Manipulando os dados</h2>
+</section><section id="manipulando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="manipulando-os-dados">Manipulando os dados</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cad_crianca <span class="ot">&lt;-</span> Carseats <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">vendas =</span> Sales, </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">preco_comp =</span> CompPrice,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">renda =</span> Income,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">propaganda =</span> Advertising,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">populacao =</span> Population,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">preco =</span> Price,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">local_prat =</span> ShelveLoc,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">idade =</span> Age,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">educacao =</span> Education,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">urbano =</span> Urban,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">eua =</span> US)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>cad_crianca <span class="ot">&lt;-</span> cad_crianca <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">alta =</span> <span class="fu">ifelse</span>(vendas <span class="sc">&gt;</span> <span class="dv">8</span>, <span class="st">"Sim"</span>,</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"Não"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">mutate</span>(<span class="at">alta =</span> <span class="fu">factor</span>(alta))</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>cad_crianca<span class="ot">&lt;-</span> cad_crianca <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">local_prat =</span>  <span class="fu">case_when</span>(</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                                      local_prat <span class="sc">==</span> <span class="st">"Bad"</span>  <span class="sc">~</span> <span class="st">"Ruim"</span>,</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>                                      local_prat <span class="sc">==</span> <span class="st">"Good"</span> <span class="sc">~</span> <span class="st">"Bom"</span>,</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>                                      local_prat <span class="sc">==</span> <span class="st">"Medium"</span> <span class="sc">~</span> <span class="st">"Medio"</span>))<span class="sc">%&gt;%</span>                               <span class="fu">mutate</span>(<span class="at">local_prat =</span> <span class="fu">factor</span>(local_prat))</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>cad_crianca<span class="ot">&lt;-</span> cad_crianca <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">urbano =</span>  <span class="fu">case_when</span>(</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>                                      urbano <span class="sc">==</span> <span class="st">"Yes"</span>  <span class="sc">~</span> <span class="st">"Sim"</span>,</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>                                      urbano <span class="sc">==</span> <span class="st">"No"</span> <span class="sc">~</span> <span class="st">"Não"</span>)) <span class="sc">%&gt;%</span>                                       <span class="fu">mutate</span>(<span class="at">urbano =</span> <span class="fu">factor</span>(urbano))</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>cad_crianca<span class="ot">&lt;-</span> cad_crianca <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">eua =</span>  <span class="fu">case_when</span>(</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>                                      eua <span class="sc">==</span> <span class="st">"Yes"</span>  <span class="sc">~</span> <span class="st">"Sim"</span>,</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>                                      eua <span class="sc">==</span> <span class="st">"No"</span> <span class="sc">~</span> <span class="st">"Não"</span>)) <span class="sc">%&gt;%</span>                                          <span class="fu">mutate</span>(<span class="at">eua =</span> <span class="fu">factor</span>(eua))</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>cad_crianca<span class="ot">&lt;-</span> cad_crianca <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>vendas)</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cad_crianca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cad_crianca</span> <span class="op">&lt;-</span> <span class="va">Carseats</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>vendas <span class="op">=</span> <span class="va">Sales</span>, </span>
+<span>                                   preco_comp <span class="op">=</span> <span class="va">CompPrice</span>,</span>
+<span>                                   renda <span class="op">=</span> <span class="va">Income</span>,</span>
+<span>                                   propaganda <span class="op">=</span> <span class="va">Advertising</span>,</span>
+<span>                                   populacao <span class="op">=</span> <span class="va">Population</span>,</span>
+<span>                                   preco <span class="op">=</span> <span class="va">Price</span>,</span>
+<span>                                   local_prat <span class="op">=</span> <span class="va">ShelveLoc</span>,</span>
+<span>                                   idade <span class="op">=</span> <span class="va">Age</span>,</span>
+<span>                                   educacao <span class="op">=</span> <span class="va">Education</span>,</span>
+<span>                                   urbano <span class="op">=</span> <span class="va">Urban</span>,</span>
+<span>                                   eua <span class="op">=</span> <span class="va">US</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cad_crianca</span> <span class="op">&lt;-</span> <span class="va">cad_crianca</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>alta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">vendas</span> <span class="op">&gt;</span> <span class="fl">8</span>, <span class="st">"Sim"</span>,</span>
+<span>                                                   <span class="st">"Não"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>                              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>alta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">alta</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cad_crianca</span><span class="op">&lt;-</span> <span class="va">cad_crianca</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>local_prat <span class="op">=</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>                                      <span class="va">local_prat</span> <span class="op">==</span> <span class="st">"Bad"</span>  <span class="op">~</span> <span class="st">"Ruim"</span>,</span>
+<span>                                      <span class="va">local_prat</span> <span class="op">==</span> <span class="st">"Good"</span> <span class="op">~</span> <span class="st">"Bom"</span>,</span>
+<span>                                      <span class="va">local_prat</span> <span class="op">==</span> <span class="st">"Medium"</span> <span class="op">~</span> <span class="st">"Medio"</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>local_prat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">local_prat</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cad_crianca</span><span class="op">&lt;-</span> <span class="va">cad_crianca</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>urbano <span class="op">=</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>                                      <span class="va">urbano</span> <span class="op">==</span> <span class="st">"Yes"</span>  <span class="op">~</span> <span class="st">"Sim"</span>,</span>
+<span>                                      <span class="va">urbano</span> <span class="op">==</span> <span class="st">"No"</span> <span class="op">~</span> <span class="st">"Não"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                                       <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>urbano <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">urbano</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cad_crianca</span><span class="op">&lt;-</span> <span class="va">cad_crianca</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>eua <span class="op">=</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>                                      <span class="va">eua</span> <span class="op">==</span> <span class="st">"Yes"</span>  <span class="op">~</span> <span class="st">"Sim"</span>,</span>
+<span>                                      <span class="va">eua</span> <span class="op">==</span> <span class="st">"No"</span> <span class="op">~</span> <span class="st">"Não"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                                          <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>eua <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">eua</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cad_crianca</span><span class="op">&lt;-</span> <span class="va">cad_crianca</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">vendas</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">cad_crianca</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   400 obs. of  11 variables:
  $ preco_comp: num  138 111 113 117 141 124 115 136 132 132 ...
@@ -539,7 +513,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ eua       : Factor w/ 2 levels "Não","Sim": 2 2 2 2 1 2 1 2 1 2 ...
  $ alta      : Factor w/ 2 levels "Não","Sim": 2 2 2 1 1 2 1 2 1 1 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cad_crianca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">cad_crianca</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   preco_comp      renda          propaganda       populacao    
  Min.   : 77   Min.   : 21.00   Min.   : 0.000   Min.   : 10.0  
@@ -564,11 +538,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </code></pre>
 </div>
 </div>
-</section>
-<section id="treino-e-teste" class="level2">
-<h2 class="anchored" data-anchor-id="treino-e-teste">Treino e Teste</h2>
+</section><section id="treino-e-teste" class="level2"><h2 class="anchored" data-anchor-id="treino-e-teste">Treino e Teste</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Carregando pacotes exigidos: lattice</code></pre>
 </div>
@@ -581,14 +553,17 @@ Attaching package: 'caret'</code></pre>
 
     lift</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> cad_crianca<span class="sc">$</span>alta</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>indice_teste <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(y, <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> cad_crianca <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>indice_teste)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> cad_crianca <span class="sc">%&gt;%</span> <span class="fu">slice</span>(indice_teste)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_treino)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">cad_crianca</span><span class="op">$</span><span class="va">alta</span></span>
+<span><span class="va">indice_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.2</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">cad_crianca</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="op">-</span><span class="va">indice_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Slicing with a 1-column matrix was deprecated in dplyr 1.1.0.</code></pre>
+</div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">cad_crianca</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">indice_teste</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   319 obs. of  11 variables:
  $ preco_comp: num  138 111 113 141 124 136 132 121 117 122 ...
@@ -603,13 +578,13 @@ Attaching package: 'caret'</code></pre>
  $ eua       : Factor w/ 2 levels "Não","Sim": 2 2 2 1 2 2 1 2 2 1 ...
  $ alta      : Factor w/ 2 levels "Não","Sim": 2 2 2 1 2 2 1 2 2 1 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(conj_treino<span class="sc">$</span>alta))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">$</span><span class="va">alta</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
       Não       Sim 
 0.5893417 0.4106583 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_teste)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   81 obs. of  11 variables:
  $ preco_comp: num  117 115 132 115 147 145 114 121 123 103 ...
@@ -624,37 +599,33 @@ Attaching package: 'caret'</code></pre>
  $ eua       : Factor w/ 2 levels "Não","Sim": 2 1 2 2 2 2 2 2 2 2 ...
  $ alta      : Factor w/ 2 levels "Não","Sim": 1 1 1 2 2 2 2 1 1 1 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(conj_teste<span class="sc">$</span>alta))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">alta</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
       Não       Sim 
 0.5925926 0.4074074 </code></pre>
 </div>
 </div>
-</section>
-<section id="arvore-de-classificação" class="level2">
-<h2 class="anchored" data-anchor-id="arvore-de-classificação">Arvore de Classificação</h2>
+</section><section id="arvore-de-classificação" class="level2"><h2 class="anchored" data-anchor-id="arvore-de-classificação">Arvore de Classificação</h2>
 <p>Na biblioteca rpart as arvores de classificação são obtidas usando o método class. Existem alguns controles que podem ser feitos nos parametros da arvore.</p>
 <p>Neste exemplo só definimos o menor conjunto de dados numa partição (minsplit) e o parametro de complexidade cp.&nbsp;Posteriormente vamos ampliar este controle. Um valor de cp muito pequeno ocasiona overfitting e um valor muito grande resulta numa arvore muito pequena (underfitting). Nos dois casos se diminui o desempenho do modelo.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Usando rpart para desenvolver a arvore  </span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>arvcl <span class="ot">&lt;-</span> <span class="fu">rpart</span>(alta <span class="sc">~</span> ., </span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>conj_treino,</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">method=</span><span class="st">"class"</span>, <span class="co">#para arvore de classificação</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">control=</span><span class="fu">rpart.control</span>(<span class="at">minsplit=</span><span class="dv">30</span>,<span class="at">cp=</span><span class="fl">0.02</span>))</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arvcl)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(arvcl,<span class="at">pretty=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">##Usando rpart para desenvolver a arvore  </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span></span>
+<span><span class="va">arvcl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">alta</span> <span class="op">~</span> <span class="va">.</span>, </span>
+<span>                data<span class="op">=</span><span class="va">conj_treino</span>,</span>
+<span>                method<span class="op">=</span><span class="st">"class"</span>, <span class="co">#para arvore de classificação</span></span>
+<span>                control<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.control.html">rpart.control</a></span><span class="op">(</span>minsplit<span class="op">=</span><span class="fl">30</span>,cp<span class="op">=</span><span class="fl">0.02</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">arvcl</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">arvcl</span>,pretty<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula12.2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="regras" class="level2">
-<h2 class="anchored" data-anchor-id="regras">Regras</h2>
+</section><section id="regras" class="level2"><h2 class="anchored" data-anchor-id="regras">Regras</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regras de Decisão</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>arvcl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Regras de Decisão</span></span>
+<span><span class="va">arvcl</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>n= 319 
 
@@ -676,11 +647,9 @@ node), split, n, loss, yval, (yprob)
      7) preco&lt; 142.5 60   9 Sim (0.15000000 0.85000000) *</code></pre>
 </div>
 </div>
-</section>
-<section id="desenhando-a-árvore-de-uma-forma-mais-clara" class="level2">
-<h2 class="anchored" data-anchor-id="desenhando-a-árvore-de-uma-forma-mais-clara">Desenhando a Árvore de uma forma mais clara</h2>
+</section><section id="desenhando-a-árvore-de-uma-forma-mais-clara" class="level2"><h2 class="anchored" data-anchor-id="desenhando-a-árvore-de-uma-forma-mais-clara">Desenhando a Árvore de uma forma mais clara</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rattle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rattle.togaware.com/">rattle</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Carregando pacotes exigidos: bitops</code></pre>
 </div>
@@ -689,21 +658,19 @@ node), split, n, loss, yval, (yprob)
 Version 5.5.1 Copyright (c) 2006-2021 Togaware Pty Ltd.
 Type 'rattle()' to shake, rattle, and roll your data.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fancyRpartPlot</span>(arvcl, <span class="at">caption =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.org/rpart-plot/index.html">rpart.plot</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/rattle/man/fancyRpartPlot.html">fancyRpartPlot</a></span><span class="op">(</span><span class="va">arvcl</span>, caption <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula12.2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="previsões" class="level2">
-<h2 class="anchored" data-anchor-id="previsões">Previsões</h2>
+</section><section id="previsões" class="level2"><h2 class="anchored" data-anchor-id="previsões">Previsões</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazendo Previsões</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>y_chapeu <span class="ot">&lt;-</span> <span class="fu">predict</span>(arvcl, <span class="at">newdata =</span> conj_teste, <span class="at">type=</span><span class="st">"class"</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(y_chapeu, conj_teste<span class="sc">$</span>alta, <span class="at">positive=</span><span class="st">"Sim"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Fazendo Previsões</span></span>
+<span><span class="va">y_chapeu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">arvcl</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span>, type<span class="op">=</span><span class="st">"class"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">y_chapeu</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">alta</span>, positive<span class="op">=</span><span class="st">"Sim"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix and Statistics
 
@@ -734,61 +701,55 @@ Prediction Não Sim
                                           </code></pre>
 </div>
 </div>
-</section>
-<section id="arvore-de-classificação-no-caret" class="level2">
-<h2 class="anchored" data-anchor-id="arvore-de-classificação-no-caret">Arvore de Classificação no caret</h2>
+</section><section id="arvore-de-classificação-no-caret" class="level2"><h2 class="anchored" data-anchor-id="arvore-de-classificação-no-caret">Arvore de Classificação no caret</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Usando rpart para desenvolver a arvore  </span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Otimizamos o valor de cp usando um 10-fold cv</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># O parametro tuneLength diz para o algoritmo escolher diferentes valores para cp</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># O parametro tuneGrid permite decidir que valores cp deve assumir enquanto que o</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># tuneLength somente limita o número default de parametros que se usa.</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>tgrid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">cp =</span> <span class="fu">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.10</span>,<span class="fl">0.001</span>))</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>ctrl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">classProbs=</span><span class="cn">TRUE</span>)</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>arvclass <span class="ot">&lt;-</span> <span class="fu">train</span>(alta <span class="sc">~</span> . , <span class="at">data =</span> conj_treino, <span class="at">method =</span> <span class="st">"rpart"</span>,</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trControl =</span> ctrl,</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">tuneGrid =</span> tgrid</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>                 )</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostra a acurácia vs cp (parametro de complexidade)</span></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arvclass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">##Usando rpart para desenvolver a arvore  </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span><span class="co">## Otimizamos o valor de cp usando um 10-fold cv</span></span>
+<span><span class="co"># O parametro tuneLength diz para o algoritmo escolher diferentes valores para cp</span></span>
+<span><span class="co"># O parametro tuneGrid permite decidir que valores cp deve assumir enquanto que o</span></span>
+<span><span class="co"># tuneLength somente limita o número default de parametros que se usa.</span></span>
+<span><span class="va">tgrid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>cp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.10</span>,<span class="fl">0.001</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cv"</span>, classProbs<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">arvclass</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span><span class="va">alta</span> <span class="op">~</span> <span class="va">.</span> , data <span class="op">=</span> <span class="va">conj_treino</span>, method <span class="op">=</span> <span class="st">"rpart"</span>,</span>
+<span>                 trControl <span class="op">=</span> <span class="va">ctrl</span>,</span>
+<span>                 tuneGrid <span class="op">=</span> <span class="va">tgrid</span></span>
+<span>                 <span class="op">)</span></span>
+<span><span class="co"># Mostra a acurácia vs cp (parametro de complexidade)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">arvclass</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula12.2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Indica o melhor valor de cp</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>arvclass<span class="sc">$</span>bestTune</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Indica o melhor valor de cp</span></span>
+<span><span class="va">arvclass</span><span class="op">$</span><span class="va">bestTune</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     cp
 7 0.016</code></pre>
 </div>
 </div>
-</section>
-<section id="uma-forma-melhor-de-ver-a-árvore" class="level2">
-<h2 class="anchored" data-anchor-id="uma-forma-melhor-de-ver-a-árvore">Uma forma melhor de ver a Árvore</h2>
+</section><section id="uma-forma-melhor-de-ver-a-árvore" class="level2"><h2 class="anchored" data-anchor-id="uma-forma-melhor-de-ver-a-árvore">Uma forma melhor de ver a Árvore</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">## melhorando apresentação da árvore</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rattle)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fancyRpartPlot</span>(arvclass<span class="sc">$</span>finalModel, <span class="at">caption =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## melhorando apresentação da árvore</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rattle.togaware.com/">rattle</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.org/rpart-plot/index.html">rpart.plot</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/rattle/man/fancyRpartPlot.html">fancyRpartPlot</a></span><span class="op">(</span><span class="va">arvclass</span><span class="op">$</span><span class="va">finalModel</span>, caption <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula12.2_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="previsões-1" class="level2">
-<h2 class="anchored" data-anchor-id="previsões-1">Previsões</h2>
+</section><section id="previsões-1" class="level2"><h2 class="anchored" data-anchor-id="previsões-1">Previsões</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazendo Previsões</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>y_chapeu <span class="ot">&lt;-</span> arvclass <span class="sc">%&gt;%</span> <span class="fu">predict</span>(conj_teste) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">levels</span>(conj_teste<span class="sc">$</span>alta))</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(y_chapeu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Fazendo Previsões</span></span>
+<span><span class="va">y_chapeu</span> <span class="op">&lt;-</span> <span class="va">arvclass</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">alta</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">y_chapeu</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] Não Não Não Sim Sim Não
 Levels: Não Sim</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(y_chapeu, conj_teste<span class="sc">$</span>alta, <span class="at">positive=</span><span class="st">"Sim"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">y_chapeu</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">alta</span>, positive<span class="op">=</span><span class="st">"Sim"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix and Statistics
 
@@ -819,18 +780,16 @@ Prediction Não Sim
                                           </code></pre>
 </div>
 </div>
-</section>
-<section id="verificando-a-consistencia-dos-resultados" class="level2">
-<h2 class="anchored" data-anchor-id="verificando-a-consistencia-dos-resultados">Verificando a consistencia dos resultados</h2>
+</section><section id="verificando-a-consistencia-dos-resultados" class="level2"><h2 class="anchored" data-anchor-id="verificando-a-consistencia-dos-resultados">Verificando a consistencia dos resultados</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">121</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> cad_crianca<span class="sc">$</span>alta</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>indice_teste <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(y, <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> cad_crianca <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>indice_teste)</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> cad_crianca <span class="sc">%&gt;%</span> <span class="fu">slice</span>(indice_teste)</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_treino)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">121</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">cad_crianca</span><span class="op">$</span><span class="va">alta</span></span>
+<span><span class="va">indice_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.2</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">cad_crianca</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="op">-</span><span class="va">indice_teste</span><span class="op">)</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">cad_crianca</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">indice_teste</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   319 obs. of  11 variables:
  $ preco_comp: num  138 113 141 124 115 136 132 121 117 115 ...
@@ -845,13 +804,13 @@ Prediction Não Sim
  $ eua       : Factor w/ 2 levels "Não","Sim": 2 2 1 2 1 2 2 2 2 2 ...
  $ alta      : Factor w/ 2 levels "Não","Sim": 2 2 1 2 1 2 1 2 2 2 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(conj_treino<span class="sc">$</span>alta))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">$</span><span class="va">alta</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
       Não       Sim 
 0.5893417 0.4106583 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_teste)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   81 obs. of  11 variables:
  $ preco_comp: num  111 117 132 122 125 139 103 125 122 121 ...
@@ -866,101 +825,91 @@ Prediction Não Sim
  $ eua       : Factor w/ 2 levels "Não","Sim": 2 2 1 1 2 1 2 1 1 1 ...
  $ alta      : Factor w/ 2 levels "Não","Sim": 2 1 1 1 1 2 1 2 2 1 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(conj_teste<span class="sc">$</span>alta))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">alta</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
       Não       Sim 
 0.5925926 0.4074074 </code></pre>
 </div>
 </div>
-</section>
-<section id="obtendo-a-arvore" class="level2">
-<h2 class="anchored" data-anchor-id="obtendo-a-arvore">Obtendo a arvore</h2>
+</section><section id="obtendo-a-arvore" class="level2"><h2 class="anchored" data-anchor-id="obtendo-a-arvore">Obtendo a arvore</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Usando rpart para desenvolver a arvore  </span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>arvcl <span class="ot">&lt;-</span> <span class="fu">rpart</span>(alta <span class="sc">~</span> ., </span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>conj_treino,</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">method=</span><span class="st">"class"</span>, <span class="co">#para arvore de classificação</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">control=</span><span class="fu">rpart.control</span>(<span class="at">minsplit=</span><span class="dv">30</span>,<span class="at">cp=</span><span class="fl">0.02</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">##Usando rpart para desenvolver a arvore  </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span></span>
+<span><span class="va">arvcl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">alta</span> <span class="op">~</span> <span class="va">.</span>, </span>
+<span>                data<span class="op">=</span><span class="va">conj_treino</span>,</span>
+<span>                method<span class="op">=</span><span class="st">"class"</span>, <span class="co">#para arvore de classificação</span></span>
+<span>                control<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.control.html">rpart.control</a></span><span class="op">(</span>minsplit<span class="op">=</span><span class="fl">30</span>,cp<span class="op">=</span><span class="fl">0.02</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="desenhando-a-árvore-de-uma-forma-mais-clara-1" class="level2">
-<h2 class="anchored" data-anchor-id="desenhando-a-árvore-de-uma-forma-mais-clara-1">Desenhando a Árvore de uma forma mais clara</h2>
+</section><section id="desenhando-a-árvore-de-uma-forma-mais-clara-1" class="level2"><h2 class="anchored" data-anchor-id="desenhando-a-árvore-de-uma-forma-mais-clara-1">Desenhando a Árvore de uma forma mais clara</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rattle)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fancyRpartPlot</span>(arvcl, <span class="at">caption =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rattle.togaware.com/">rattle</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.org/rpart-plot/index.html">rpart.plot</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/rattle/man/fancyRpartPlot.html">fancyRpartPlot</a></span><span class="op">(</span><span class="va">arvcl</span>, caption <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula12.2_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="gbm" class="level2">
-<h2 class="anchored" data-anchor-id="gbm">GBM</h2>
-<section id="criando-um-grid-para-avaliar-os-parametros" class="level3">
-<h3 class="anchored" data-anchor-id="criando-um-grid-para-avaliar-os-parametros">Criando um grid para avaliar os parametros</h3>
+</section><section id="gbm" class="level2"><h2 class="anchored" data-anchor-id="gbm">GBM</h2>
+<section id="criando-um-grid-para-avaliar-os-parametros" class="level3"><h3 class="anchored" data-anchor-id="criando-um-grid-para-avaliar-os-parametros">Criando um grid para avaliar os parametros</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>hiper_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">shrinkage =</span> <span class="fu">c</span>(.<span class="dv">001</span>, .<span class="dv">01</span>, .<span class="dv">1</span>),</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">interaction.depth =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>),</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.minobsinnode =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>),</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">bag.fraction =</span> <span class="fu">c</span>(.<span class="dv">65</span>, <span class="dv">1</span>),</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimal_trees =</span> <span class="dv">0</span>, <span class="co"># um lugar para guardar resultados</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_erro =</span> <span class="dv">0</span>   <span class="co"># um lugar para guardar resultados</span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="co"># número total de combinações</span></span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(hiper_grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hiper_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
+<span>  shrinkage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.001</span>, <span class="fl">.01</span>, <span class="fl">.1</span><span class="op">)</span>,</span>
+<span>  interaction.depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  n.minobsinnode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">15</span><span class="op">)</span>,</span>
+<span>  bag.fraction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.65</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  optimal_trees <span class="op">=</span> <span class="fl">0</span>, <span class="co"># um lugar para guardar resultados</span></span>
+<span>  min_erro <span class="op">=</span> <span class="fl">0</span>   <span class="co"># um lugar para guardar resultados</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># número total de combinações</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">hiper_grid</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 54</code></pre>
 </div>
 </div>
-</section>
-</section>
-<section id="avaliando-o-grid-de-parametros" class="level2">
-<h2 class="anchored" data-anchor-id="avaliando-o-grid-de-parametros">Avaliando o grid de parametros</h2>
+</section></section><section id="avaliando-o-grid-de-parametros" class="level2"><h2 class="anchored" data-anchor-id="avaliando-o-grid-de-parametros">Avaliando o grid de parametros</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gbm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/gbm-developers/gbm">gbm</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loaded gbm 2.1.8.1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>conj_treino<span class="sc">$</span>alta <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(conj_treino<span class="sc">$</span>alta)</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> <span class="fu">transform</span>(conj_treino, <span class="at">alta=</span>alta <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>conj_treino<span class="sc">$</span>eua <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(conj_treino<span class="sc">$</span>eua)</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> <span class="fu">transform</span>(conj_treino, <span class="at">eua=</span>eua <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>conj_treino<span class="sc">$</span>local_prat <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(conj_treino<span class="sc">$</span>local_prat)</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> <span class="fu">transform</span>(conj_treino, <span class="at">local_prat=</span>local_prat <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Busca no grid</span></span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(hiper_grid)) {</span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#</span></span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># treina o modelo</span></span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>  gbm.tune <span class="ot">&lt;-</span> <span class="fu">gbm</span>(</span>
-<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> alta <span class="sc">~</span> .,</span>
-<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">distribution =</span> <span class="st">"bernoulli"</span>,</span>
-<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> conj_treino,</span>
-<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.trees =</span> <span class="dv">5000</span>,</span>
-<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">interaction.depth =</span> hiper_grid<span class="sc">$</span>interaction.depth[i],</span>
-<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">shrinkage =</span> hiper_grid<span class="sc">$</span>shrinkage[i],</span>
-<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.minobsinnode =</span> hiper_grid<span class="sc">$</span>n.minobsinnode[i],</span>
-<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">bag.fraction =</span> hiper_grid<span class="sc">$</span>bag.fraction[i],</span>
-<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">train.fraction =</span> .<span class="dv">75</span>,</span>
-<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.cores =</span> <span class="cn">NULL</span>,</span>
-<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adiciona os erros de treino e arvores ao grid</span></span>
-<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a>  hiper_grid<span class="sc">$</span>optimal_trees[i] <span class="ot">&lt;-</span> <span class="fu">which.min</span>(gbm.tune<span class="sc">$</span>valid.error)</span>
-<span id="cb53-32"><a href="#cb53-32" aria-hidden="true" tabindex="-1"></a>  hiper_grid<span class="sc">$</span>min_erro[i] <span class="ot">&lt;-</span> <span class="fu">min</span>(gbm.tune<span class="sc">$</span>valid.error)</span>
-<span id="cb53-33"><a href="#cb53-33" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb53-34"><a href="#cb53-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-35"><a href="#cb53-35" aria-hidden="true" tabindex="-1"></a>hiper_grid <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(min_erro) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_treino</span><span class="op">$</span><span class="va">alta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">$</span><span class="va">alta</span><span class="op">)</span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span><span class="va">conj_treino</span>, alta<span class="op">=</span><span class="va">alta</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">conj_treino</span><span class="op">$</span><span class="va">eua</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">$</span><span class="va">eua</span><span class="op">)</span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span><span class="va">conj_treino</span>, eua<span class="op">=</span><span class="va">eua</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">conj_treino</span><span class="op">$</span><span class="va">local_prat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">$</span><span class="va">local_prat</span><span class="op">)</span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span><span class="va">conj_treino</span>, local_prat<span class="op">=</span><span class="va">local_prat</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">#Busca no grid</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">hiper_grid</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="co">#</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># treina o modelo</span></span>
+<span>  <span class="va">gbm.tune</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gbm/man/gbm.html">gbm</a></span><span class="op">(</span></span>
+<span>    formula <span class="op">=</span> <span class="va">alta</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>    distribution <span class="op">=</span> <span class="st">"bernoulli"</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
+<span>    n.trees <span class="op">=</span> <span class="fl">5000</span>,</span>
+<span>    interaction.depth <span class="op">=</span> <span class="va">hiper_grid</span><span class="op">$</span><span class="va">interaction.depth</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    shrinkage <span class="op">=</span> <span class="va">hiper_grid</span><span class="op">$</span><span class="va">shrinkage</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    n.minobsinnode <span class="op">=</span> <span class="va">hiper_grid</span><span class="op">$</span><span class="va">n.minobsinnode</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    bag.fraction <span class="op">=</span> <span class="va">hiper_grid</span><span class="op">$</span><span class="va">bag.fraction</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    train.fraction <span class="op">=</span> <span class="fl">.75</span>,</span>
+<span>    n.cores <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># adiciona os erros de treino e arvores ao grid</span></span>
+<span>  <span class="va">hiper_grid</span><span class="op">$</span><span class="va">optimal_trees</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">gbm.tune</span><span class="op">$</span><span class="va">valid.error</span><span class="op">)</span></span>
+<span>  <span class="va">hiper_grid</span><span class="op">$</span><span class="va">min_erro</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">gbm.tune</span><span class="op">$</span><span class="va">valid.error</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">hiper_grid</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">min_erro</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   shrinkage interaction.depth n.minobsinnode bag.fraction optimal_trees
 1       0.10                 3              5         0.65           165
@@ -986,39 +935,35 @@ Prediction Não Sim
 10 0.5576744</code></pre>
 </div>
 </div>
-</section>
-<section id="modelo-final" class="level2">
-<h2 class="anchored" data-anchor-id="modelo-final">Modelo final</h2>
+</section><section id="modelo-final" class="level2"><h2 class="anchored" data-anchor-id="modelo-final">Modelo final</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co"># treina o modelo GBM</span></span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>gbm.fit.final <span class="ot">&lt;-</span> <span class="fu">gbm</span>(</span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> alta <span class="sc">~</span> .,</span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">distribution =</span> <span class="st">"bernoulli"</span>,</span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> conj_treino,</span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.trees =</span> <span class="dv">165</span>,</span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">interaction.depth =</span> <span class="dv">3</span>,</span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">shrinkage =</span> <span class="fl">0.10</span>,</span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.minobsinnode =</span> <span class="dv">5</span>,</span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">bag.fraction =</span> <span class="fl">0.65</span>, </span>
-<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">train.fraction =</span> <span class="dv">1</span>,</span>
-<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.cores =</span> <span class="cn">NULL</span>, </span>
-<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>  )  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># treina o modelo GBM</span></span>
+<span><span class="va">gbm.fit.final</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gbm/man/gbm.html">gbm</a></span><span class="op">(</span></span>
+<span>  formula <span class="op">=</span> <span class="va">alta</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>  distribution <span class="op">=</span> <span class="st">"bernoulli"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
+<span>  n.trees <span class="op">=</span> <span class="fl">165</span>,</span>
+<span>  interaction.depth <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  shrinkage <span class="op">=</span> <span class="fl">0.10</span>,</span>
+<span>  n.minobsinnode <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  bag.fraction <span class="op">=</span> <span class="fl">0.65</span>, </span>
+<span>  train.fraction <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  n.cores <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="importância-das-variáveis" class="level2">
-<h2 class="anchored" data-anchor-id="importância-das-variáveis">Importância das Variáveis</h2>
+</section><section id="importância-das-variáveis" class="level2"><h2 class="anchored" data-anchor-id="importância-das-variáveis">Importância das Variáveis</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mai =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  gbm.fit.final, </span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cBars =</span> <span class="dv">10</span>,</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> relative.influence, <span class="co"># também pode ser usado permutation.test.gbm</span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">las =</span> <span class="dv">2</span></span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span></span>
+<span>  <span class="va">gbm.fit.final</span>, </span>
+<span>  cBars <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  method <span class="op">=</span> <span class="va">relative.influence</span>, <span class="co"># também pode ser usado permutation.test.gbm</span></span>
+<span>  las <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula12.2_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1036,29 +981,27 @@ educacao     educacao  1.1121800
 urbano         urbano  0.2956451</code></pre>
 </div>
 </div>
-</section>
-<section id="previsão" class="level2">
-<h2 class="anchored" data-anchor-id="previsão">Previsão</h2>
+</section><section id="previsão" class="level2"><h2 class="anchored" data-anchor-id="previsão">Previsão</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>conj_teste<span class="sc">$</span>alta <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(conj_teste<span class="sc">$</span>alta)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> <span class="fu">transform</span>(conj_teste, <span class="at">alta=</span>alta <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>conj_teste<span class="sc">$</span>eua <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(conj_teste<span class="sc">$</span>eua)</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> <span class="fu">transform</span>(conj_teste, <span class="at">eua=</span>eua <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>conj_teste<span class="sc">$</span>local_prat <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(conj_teste<span class="sc">$</span>local_prat)</span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> <span class="fu">transform</span>(conj_teste, <span class="at">local_prat=</span>local_prat <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazendo Previsões</span></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>previsao1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(gbm.fit.final, </span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">newdata =</span> conj_teste,</span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n.trees=</span>gbm.fit.final<span class="sc">$</span>n.trees,</span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(previsao1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_teste</span><span class="op">$</span><span class="va">alta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">alta</span><span class="op">)</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span><span class="va">conj_teste</span>, alta<span class="op">=</span><span class="va">alta</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">conj_teste</span><span class="op">$</span><span class="va">eua</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">eua</span><span class="op">)</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span><span class="va">conj_teste</span>, eua<span class="op">=</span><span class="va">eua</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">conj_teste</span><span class="op">$</span><span class="va">local_prat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">local_prat</span><span class="op">)</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span><span class="va">conj_teste</span>, local_prat<span class="op">=</span><span class="va">local_prat</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fazendo Previsões</span></span>
+<span><span class="va">previsao1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">gbm.fit.final</span>, </span>
+<span>                     newdata <span class="op">=</span> <span class="va">conj_teste</span>,</span>
+<span>                     n.trees<span class="op">=</span><span class="va">gbm.fit.final</span><span class="op">$</span><span class="va">n.trees</span>,</span>
+<span>                     type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">previsao1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.965002359 0.784188568 0.176077409 0.003460984 0.027812237 0.995643378</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>gbm.ychapeu <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(previsao1 <span class="sc">&lt;</span> <span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(gbm.ychapeu,<span class="fu">as.factor</span>(conj_teste<span class="sc">$</span>alta), <span class="at">positive=</span><span class="st">"1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gbm.ychapeu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">previsao1</span> <span class="op">&lt;</span> <span class="fl">0.5</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">gbm.ychapeu</span>,<span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">alta</span><span class="op">)</span>, positive<span class="op">=</span><span class="st">"1"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix and Statistics
 
@@ -1089,11 +1032,9 @@ Prediction  0  1
                                           </code></pre>
 </div>
 </div>
-</section>
-<section id="curva-roc" class="level2">
-<h2 class="anchored" data-anchor-id="curva-roc">Curva ROC</h2>
+</section><section id="curva-roc" class="level2"><h2 class="anchored" data-anchor-id="curva-roc">Curva ROC</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://expasy.org/tools/pROC/">pROC</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Type 'citation("pROC")' for a citation.</code></pre>
 </div>
@@ -1106,8 +1047,8 @@ Attaching package: 'pROC'</code></pre>
 
     cov, smooth, var</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>p_chapeu_gbm <span class="ot">&lt;-</span> previsao1</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>roc_gbm <span class="ot">&lt;-</span> <span class="fu">roc</span>(conj_teste<span class="sc">$</span>alta <span class="sc">~</span> p_chapeu_gbm, <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">print.auc=</span><span class="cn">FALSE</span>, <span class="at">col=</span><span class="st">"black"</span>, <span class="at">legacy.axes=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p_chapeu_gbm</span> <span class="op">&lt;-</span> <span class="va">previsao1</span></span>
+<span><span class="va">roc_gbm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">alta</span> <span class="op">~</span> <span class="va">p_chapeu_gbm</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, print.auc<span class="op">=</span><span class="cn">FALSE</span>, col<span class="op">=</span><span class="st">"black"</span>, legacy.axes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Setting levels: control = 0, case = 1</code></pre>
 </div>
@@ -1117,17 +1058,14 @@ Attaching package: 'pROC'</code></pre>
 <div class="cell-output-display">
 <p><img src="Aula12.2_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(roc_gbm<span class="sc">$</span>auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">roc_gbm</span><span class="op">$</span><span class="va">auc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9034091</code></pre>
 </div>
 </div>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1474,9 +1412,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../semanas/Aula12.1.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Arvore de Classificação</span>
       </a>          
@@ -1488,8 +1424,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">Baseado em https://sta210-s22.github.io/website/</div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -1499,7 +1434,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-
 
 
 </body></html>

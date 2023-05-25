@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.340">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2022-12-30">
-
+<meta name="dcterms.date" content="2023-05-23">
 <title>IME05-12547 - Análise de Clusters</title>
 <style>
 code{white-space: pre-wrap;}
@@ -58,7 +55,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -77,8 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -97,21 +92,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit"
   }
 }</script>
-
-
 <meta name="twitter:title" content="IME05-12547 - Análise de Clusters">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="images/md.png">
 <meta name="twitter:creator" content="@r_accioly">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-
 <body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -122,16 +112,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
     <a href="https://twitter.com/r_accioly" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
@@ -145,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
+<li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">Informação da disciplina</span></a>
@@ -153,8 +138,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visão Geral</span></a>
@@ -167,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
@@ -176,15 +161,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sobre</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
@@ -193,15 +178,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Acesso</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
@@ -210,8 +195,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 01</span></a>
@@ -356,42 +341,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link active" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
+<li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link active" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
   <li><a href="#dados" id="toc-dados" class="nav-link" data-scroll-target="#dados">Dados</a></li>
   <li><a href="#manipulando-os-dados" id="toc-manipulando-os-dados" class="nav-link" data-scroll-target="#manipulando-os-dados">Manipulando os dados</a></li>
   <li><a href="#explorando-os-dados" id="toc-explorando-os-dados" class="nav-link" data-scroll-target="#explorando-os-dados">Explorando os dados</a></li>
-  <li><a href="#normalização" id="toc-normalização" class="nav-link" data-scroll-target="#normalização">Normalização</a></li>
-  <li><a href="#métodos-para-obtenção-de-clusters" id="toc-métodos-para-obtenção-de-clusters" class="nav-link" data-scroll-target="#métodos-para-obtenção-de-clusters">Métodos para obtenção de Clusters</a>
+  <li><a href="#normaliza%C3%A7%C3%A3o" id="toc-normalização" class="nav-link" data-scroll-target="#normaliza%C3%A7%C3%A3o">Normalização</a></li>
+  <li>
+<a href="#m%C3%A9todos-para-obten%C3%A7%C3%A3o-de-clusters" id="toc-métodos-para-obtenção-de-clusters" class="nav-link" data-scroll-target="#m%C3%A9todos-para-obten%C3%A7%C3%A3o-de-clusters">Métodos para obtenção de Clusters</a>
   <ul class="collapse">
-  <li><a href="#k-médias" id="toc-k-médias" class="nav-link" data-scroll-target="#k-médias">K-médias</a></li>
+<li><a href="#k-m%C3%A9dias" id="toc-k-médias" class="nav-link" data-scroll-target="#k-m%C3%A9dias">K-médias</a></li>
   <li><a href="#k-medoides" id="toc-k-medoides" class="nav-link" data-scroll-target="#k-medoides">k-medoides</a></li>
   <li><a href="#clusters-hierarquicos" id="toc-clusters-hierarquicos" class="nav-link" data-scroll-target="#clusters-hierarquicos">Clusters Hierarquicos</a></li>
-  </ul></li>
-  <li><a href="#validação-dos-clusters" id="toc-validação-dos-clusters" class="nav-link" data-scroll-target="#validação-dos-clusters">Validação dos Clusters</a>
-  <ul class="collapse">
-  <li><a href="#silhouette" id="toc-silhouette" class="nav-link" data-scroll-target="#silhouette">Silhouette</a></li>
-  </ul></li>
-  <li><a href="#numero-ótimo-de-clusters" id="toc-numero-ótimo-de-clusters" class="nav-link" data-scroll-target="#numero-ótimo-de-clusters">Numero ótimo de clusters</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul>
-</nav>
+</li>
+  <li>
+<a href="#valida%C3%A7%C3%A3o-dos-clusters" id="toc-validação-dos-clusters" class="nav-link" data-scroll-target="#valida%C3%A7%C3%A3o-dos-clusters">Validação dos Clusters</a>
+  <ul class="collapse">
+<li><a href="#silhouette" id="toc-silhouette" class="nav-link" data-scroll-target="#silhouette">Silhouette</a></li>
+  </ul>
+</li>
+  <li><a href="#numero-%C3%B3timo-de-clusters" id="toc-numero-ótimo-de-clusters" class="nav-link" data-scroll-target="#numero-%C3%B3timo-de-clusters">Numero ótimo de clusters</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Análise de Clusters</h1>
 </div>
 
@@ -409,7 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 30, 2022</p>
+      <p class="date">May 23, 2023</p>
     </div>
   </div>
   
@@ -417,65 +400,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header>
-
-<section id="bibliotecas" class="level2">
-<h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
+</header><section id="bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
 <p>Este conteúdo foi adaptado de: https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/clustering-analysis.html</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-✔ ggplot2 3.4.0      ✔ purrr   0.3.5 
-✔ tibble  3.1.8      ✔ dplyr   1.0.10
-✔ tidyr   1.2.1      ✔ stringr 1.4.1 
-✔ readr   2.1.3      ✔ forcats 0.5.2 
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.1     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://svn.r-project.org/R-packages/trunk/cluster/">cluster</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="dados" class="level2">
-<h2 class="anchored" data-anchor-id="dados">Dados</h2>
+</section><section id="dados" class="level2"><h2 class="anchored" data-anchor-id="dados">Dados</h2>
 <p>O conjunto de dados Ruspini, que consiste em 75 pontos dividido em quatro grupos, ele é popular para ilustrar técnicas de agrupamento. É um conjunto de dados muito simples com clusters bem separados. O conjunto de dados original tem os pontos ordenados por grupo. Podemos embaralhar os dados (linhas) usando sample_frac.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ruspini, <span class="at">package=</span><span class="st">"cluster"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">ruspini</span>, package<span class="op">=</span><span class="st">"cluster"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="manipulando-os-dados" class="level2">
-<h2 class="anchored" data-anchor-id="manipulando-os-dados">Manipulando os dados</h2>
+</section><section id="manipulando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="manipulando-os-dados">Manipulando os dados</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ruspini <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(ruspini) <span class="sc">%&gt;%</span> <span class="fu">sample_frac</span>()</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ruspini</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ruspini</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">ruspini</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/sample_n.html">sample_frac</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">ruspini</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 75 × 2
        x     y
    &lt;int&gt; &lt;int&gt;
- 1    44   156
- 2    54   124
- 3    47   149
- 4    99   119
- 5    28    76
- 6     4    53
- 7   101   115
- 8    32   143
- 9   108   111
-10    33   154
-# … with 65 more rows</code></pre>
+ 1    41   150
+ 2    64    30
+ 3    33   154
+ 4    28   147
+ 5    13    69
+ 6   108   116
+ 7    72    31
+ 8    34   141
+ 9    22    74
+10   111   126
+# ℹ 65 more rows</code></pre>
 </div>
 </div>
-</section>
-<section id="explorando-os-dados" class="level2">
-<h2 class="anchored" data-anchor-id="explorando-os-dados">Explorando os dados</h2>
+</section><section id="explorando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="explorando-os-dados">Explorando os dados</h2>
 <p>Nesta etapa os dados são avaliados, pois eventualmente temos situações de dados ausentes, pontos afastados.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ruspini, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ruspini</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ruspini)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ruspini</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x                y         
  Min.   :  4.00   Min.   :  4.00  
@@ -486,16 +462,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  Max.   :117.00   Max.   :156.00  </code></pre>
 </div>
 </div>
-</section>
-<section id="normalização" class="level2">
-<h2 class="anchored" data-anchor-id="normalização">Normalização</h2>
+</section><section id="normalização" class="level2"><h2 class="anchored" data-anchor-id="normalização">Normalização</h2>
 <p>Como os algoritmos usam medidas de distância é necessário usarmos a normalização para que os resultados naõ sejam afetados pela escala dos dados.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Aqui vamos essa função para fazer a normalização</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>escala_numerica <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">%&gt;%</span> <span class="fu">mutate_if</span>(is.numeric, <span class="cf">function</span>(y) <span class="fu">as.vector</span>(<span class="fu">scale</span>(y)))</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ruspini_norm <span class="ot">&lt;-</span> ruspini <span class="sc">%&gt;%</span> <span class="fu">escala_numerica</span>()</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ruspini_norm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Aqui vamos essa função para fazer a normalização</span></span>
+<span><span class="va">escala_numerica</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, <span class="kw">function</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ruspini_norm</span> <span class="op">&lt;-</span> <span class="va">ruspini</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">escala_numerica</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ruspini_norm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x                  y           
  Min.   :-1.66806   Min.   :-1.80743  
@@ -506,31 +480,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  Max.   : 2.03655   Max.   : 1.31355  </code></pre>
 </div>
 </div>
-</section>
-<section id="métodos-para-obtenção-de-clusters" class="level2">
-<h2 class="anchored" data-anchor-id="métodos-para-obtenção-de-clusters">Métodos para obtenção de Clusters</h2>
-<section id="k-médias" class="level3">
-<h3 class="anchored" data-anchor-id="k-médias">K-médias</h3>
+</section><section id="métodos-para-obtenção-de-clusters" class="level2"><h2 class="anchored" data-anchor-id="métodos-para-obtenção-de-clusters">Métodos para obtenção de Clusters</h2>
+<section id="k-médias" class="level3"><h3 class="anchored" data-anchor-id="k-médias">K-médias</h3>
 <p>O algoritmo do k-médias usa a distância Eucliadiana quadrática. Aqui vamos usar k=4 e vamos rodar o algoritmo 10 vezes</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(ruspini_norm, <span class="at">centers =</span> <span class="dv">4</span>, <span class="at">nstart =</span> <span class="dv">10</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>km</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">km</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">ruspini_norm</span>, centers <span class="op">=</span> <span class="fl">4</span>, nstart <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">km</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>K-means clustering with 4 clusters of sizes 15, 20, 23, 17
+<pre><code>K-means clustering with 4 clusters of sizes 20, 23, 17, 15
 
 Cluster means:
            x          y
-1  0.4607268 -1.4912271
-2 -1.1385941 -0.5559591
-3 -0.3595425  1.1091151
-4  1.4194387  0.4692907
+1 -1.1385941 -0.5559591
+2 -0.3595425  1.1091151
+3  1.4194387  0.4692907
+4  0.4607268 -1.4912271
 
 Clustering vector:
- [1] 3 3 3 4 2 2 4 3 4 3 3 4 1 2 1 1 2 3 3 4 2 2 4 1 3 2 2 2 2 1 4 4 3 2 2 3 4 1
-[39] 3 1 4 1 2 2 4 3 1 3 3 2 2 1 3 1 4 2 4 1 3 2 3 4 1 3 1 3 2 2 4 3 3 4 3 1 4
+ [1] 2 4 2 2 1 3 4 2 1 3 1 4 2 1 3 4 2 4 3 3 3 3 3 2 1 2 1 2 4 2 2 2 1 1 2 2 1 3
+[39] 4 3 2 4 3 2 3 2 3 1 2 4 1 3 2 2 1 1 2 1 1 3 1 1 2 4 4 3 1 4 2 4 1 4 4 1 3
 
 Within cluster sum of squares by cluster:
-[1] 1.082373 2.705477 2.658679 3.641276
+[1] 2.705477 2.658679 3.641276 1.082373
  (between_SS / total_SS =  93.2 %)
 
 Available components:
@@ -540,78 +511,76 @@ Available components:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ruspini_clusters <span class="ot">&lt;-</span> ruspini_norm <span class="sc">%&gt;%</span> <span class="fu">add_column</span>(<span class="at">cluster =</span> <span class="fu">factor</span>(km<span class="sc">$</span>cluster))</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ruspini_clusters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ruspini_clusters</span> <span class="op">&lt;-</span> <span class="va">ruspini_norm</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/add_column.html">add_column</a></span><span class="op">(</span>cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">km</span><span class="op">$</span><span class="va">cluster</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ruspini_clusters</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 75 × 3
-         x      y cluster
-     &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  
- 1 -0.357   1.31  3      
- 2 -0.0289  0.657 3      
- 3 -0.258   1.17  3      
- 4  1.45    0.554 4      
- 5 -0.881  -0.329 2      
- 6 -1.67   -0.801 2      
- 7  1.51    0.472 4      
- 8 -0.750   1.05  3      
- 9  1.74    0.390 4      
-10 -0.717   1.27  3      
-# … with 65 more rows</code></pre>
+        x      y cluster
+    &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  
+ 1 -0.455  1.19  2      
+ 2  0.299 -1.27  4      
+ 3 -0.717  1.27  2      
+ 4 -0.881  1.13  2      
+ 5 -1.37  -0.473 1      
+ 6  1.74   0.492 3      
+ 7  0.561 -1.25  4      
+ 8 -0.685  1.01  2      
+ 9 -1.08  -0.370 1      
+10  1.84   0.698 3      
+# ℹ 65 more rows</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ruspini_clusters, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> cluster)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ruspini_clusters</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">cluster</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Adicionando os centroides aos gráficos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>centroids <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(km<span class="sc">$</span>centers, <span class="at">rownames =</span> <span class="st">"cluster"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>centroids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">centroids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">km</span><span class="op">$</span><span class="va">centers</span>, rownames <span class="op">=</span> <span class="st">"cluster"</span><span class="op">)</span></span>
+<span><span class="va">centroids</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   cluster      x      y
   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-1 1        0.461 -1.49 
-2 2       -1.14  -0.556
-3 3       -0.360  1.11 
-4 4        1.42   0.469</code></pre>
+1 1       -1.14  -0.556
+2 2       -0.360  1.11 
+3 3        1.42   0.469
+4 4        0.461 -1.49 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ruspini_clusters, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> cluster)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">data =</span> centroids, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> cluster), <span class="at">shape =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ruspini_clusters</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">cluster</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">centroids</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">cluster</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">3</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Vamos usar a biblioteca factoextra para visualizarmos os clusters</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra">factoextra</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(km, <span class="at">data =</span> ruspini_norm, <span class="at">centroids =</span> <span class="cn">TRUE</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">ellipse.type =</span> <span class="st">"norm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="va">km</span>, data <span class="op">=</span> <span class="va">ruspini_norm</span>, centroids <span class="op">=</span> <span class="cn">TRUE</span>, repel <span class="op">=</span> <span class="cn">TRUE</span>, ellipse.type <span class="op">=</span> <span class="st">"norm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="k-medoides" class="level3">
-<h3 class="anchored" data-anchor-id="k-medoides">k-medoides</h3>
+</section><section id="k-medoides" class="level3"><h3 class="anchored" data-anchor-id="k-medoides">k-medoides</h3>
 <p>Os medoides pertencem ao proprio conjunto de dados. Podemos observar que o resultado é semelhante ao obtido no k-médias, mas o algoritmo é mais lento.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(cluster)</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>kmed <span class="ot">&lt;-</span> <span class="fu">pam</span>(ruspini_norm, <span class="at">k =</span> <span class="dv">4</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(kmed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#library(cluster)</span></span>
+<span><span class="va">kmed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cluster/man/pam.html">pam</a></span><span class="op">(</span><span class="va">ruspini_norm</span>, k <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Medoids:
      ID          x          y
-[1,] 49 -0.3566917  1.1698207
-[2,]  4  1.4464374  0.5538374
-[3,] 26 -1.1762959 -0.5549325
-[4,] 54  0.4629124 -1.4583746
+[1,] 44 -0.3566917  1.1698207
+[2,] 68  0.4629124 -1.4583746
+[3,] 62 -1.1762959 -0.5549325
+[4,] 75  1.4464374  0.5538374
 Clustering vector:
- [1] 1 1 1 2 3 3 2 1 2 1 1 2 4 3 4 4 3 1 1 2 3 3 2 4 1 3 3 3 3 4 2 2 1 3 3 1 2 4
-[39] 1 4 2 4 3 3 2 1 4 1 1 3 3 4 1 4 2 3 2 4 1 3 1 2 4 1 4 1 3 3 2 1 1 2 1 4 2
+ [1] 1 2 1 1 3 4 2 1 3 4 3 2 1 3 4 2 1 2 4 4 4 4 4 1 3 1 3 1 2 1 1 1 3 3 1 1 3 4
+[39] 2 4 1 2 4 1 4 1 4 3 1 2 3 4 1 1 3 3 1 3 3 4 3 3 1 2 2 4 3 2 1 2 3 2 2 3 4
 Objective function:
     build      swap 
 0.4422977 0.3187056 
@@ -619,93 +588,93 @@ Objective function:
 Numerical information per cluster:
      size  max_diss   av_diss  diameter separation
 [1,]   23 0.6558680 0.2993397 1.1591436   0.767612
-[2,]   17 0.9459253 0.3862345 1.4627043   0.767612
+[2,]   15 0.4589783 0.2433250 0.8359025   1.157682
 [3,]   20 0.5755656 0.3401125 1.1192822   1.157682
-[4,]   15 0.4589783 0.2433250 0.8359025   1.157682
+[4,]   17 0.9459253 0.3862345 1.4627043   0.767612
 
 Isolated clusters:
  L-clusters: character(0)
- L*-clusters: [1] 3 4
+ L*-clusters: [1] 2 3
 
 Silhouette plot information:
    cluster neighbor sil_width
-49       1        3 0.8368407
-48       1        3 0.8305019
-3        1        2 0.8222142
-64       1        3 0.8220686
-11       1        3 0.8158429
-1        1        2 0.8150398
-61       1        3 0.8134280
-59       1        3 0.8064757
-53       1        2 0.7984225
-70       1        3 0.7969057
-71       1        3 0.7841631
-25       1        2 0.7794889
-39       1        2 0.7605512
-10       1        3 0.7591035
-19       1        3 0.7473901
-18       1        2 0.7423529
-36       1        3 0.7402623
-8        1        3 0.7249133
-46       1        2 0.7007372
-66       1        3 0.6739284
-2        1        2 0.5661372
-73       1        2 0.5413082
-33       1        2 0.4673917
-7        2        1 0.7898609
-4        2        1 0.7834341
-45       2        1 0.7822308
-55       2        1 0.7790446
-9        2        1 0.7780891
-57       2        1 0.7694930
-37       2        1 0.7624335
-32       2        1 0.7609359
-72       2        1 0.7400337
-31       2        1 0.7392052
-23       2        1 0.7390493
-12       2        1 0.7234199
-62       2        1 0.5894345
-75       2        4 0.5666610
-69       2        1 0.5114355
-41       2        1 0.4358476
-20       2        1 0.3312348
-26       3        1 0.8094377
-34       3        4 0.8027447
-50       3        1 0.7782513
-60       3        4 0.7704646
-29       3        4 0.7700388
-56       3        1 0.7597906
-21       3        1 0.7530091
-67       3        1 0.7436695
-14       3        4 0.7412965
-51       3        1 0.7270442
-27       3        4 0.7255183
-22       3        4 0.7226938
-6        3        4 0.7042349
-35       3        1 0.7026960
-5        3        1 0.6966533
-43       3        4 0.6921822
-44       3        4 0.6756339
-28       3        4 0.6463656
-17       3        1 0.6005277
-68       3        4 0.6004543
-54       4        3 0.8592059
-24       4        3 0.8553255
-47       4        3 0.8530741
-40       4        3 0.8449473
-42       4        3 0.8361633
-63       4        3 0.8187150
-65       4        3 0.8178795
-58       4        2 0.8087015
-13       4        3 0.8013799
-74       4        3 0.7983516
-16       4        3 0.7918724
-30       4        3 0.7768261
-15       4        3 0.7727269
-52       4        2 0.7425993
-38       4        3 0.7328306
+44       1        3 0.8368407
+1        1        3 0.8305019
+54       1        4 0.8222142
+32       1        3 0.8220686
+17       1        3 0.8158429
+31       1        4 0.8150398
+28       1        3 0.8134280
+24       1        3 0.8064757
+49       1        4 0.7984225
+41       1        3 0.7969057
+46       1        3 0.7841631
+57       1        4 0.7794889
+35       1        4 0.7605512
+3        1        3 0.7591035
+30       1        3 0.7473901
+63       1        4 0.7423529
+8        1        3 0.7402623
+69       1        3 0.7249133
+36       1        4 0.7007372
+4        1        3 0.6739284
+26       1        4 0.5661372
+53       1        4 0.5413082
+13       1        4 0.4673917
+68       2        3 0.8592059
+42       2        3 0.8553255
+65       2        3 0.8530741
+70       2        3 0.8449473
+16       2        3 0.8361633
+73       2        3 0.8187150
+12       2        3 0.8178795
+29       2        4 0.8087015
+7        2        3 0.8013799
+18       2        3 0.7983516
+64       2        3 0.7918724
+2        2        3 0.7768261
+50       2        3 0.7727269
+72       2        4 0.7425993
+39       2        3 0.7328306
+62       3        1 0.8094377
+27       3        2 0.8027447
+5        3        1 0.7782513
+11       3        2 0.7704646
+14       3        2 0.7700388
+9        3        1 0.7597906
+34       3        1 0.7530091
+58       3        1 0.7436695
+67       3        2 0.7412965
+56       3        1 0.7270442
+25       3        2 0.7255183
+59       3        2 0.7226938
+55       3        2 0.7042349
+37       3        1 0.7026960
+33       3        1 0.6966533
+61       3        2 0.6921822
+74       3        2 0.6756339
+51       3        2 0.6463656
+48       3        1 0.6005277
+71       3        2 0.6004543
+43       4        1 0.7898609
+75       4        1 0.7834341
+6        4        1 0.7822308
+52       4        1 0.7790446
+38       4        1 0.7780891
+19       4        1 0.7694930
+15       4        1 0.7624335
+66       4        1 0.7609359
+40       4        1 0.7400337
+10       4        1 0.7392052
+45       4        1 0.7390493
+21       4        1 0.7234199
+23       4        1 0.5894345
+20       4        2 0.5666610
+47       4        1 0.5114355
+60       4        1 0.4358476
+22       4        1 0.3312348
 Average silhouette width per cluster:
-[1] 0.7454551 0.6812849 0.7211353 0.8073733
+[1] 0.7454551 0.8073733 0.7211353 0.6812849
 Average silhouette width of total data set:
 [1] 0.7368082
 
@@ -719,7 +688,7 @@ Available components:
  [1] "medoids"    "id.med"     "clustering" "objective"  "isolation" 
  [6] "clusinfo"   "silinfo"    "diss"       "call"       "data"      </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kmed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -729,43 +698,41 @@ Available components:
 </div>
 <p>Outra forma de visualização</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(kmed, ruspini_norm,</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">ellipse.type =</span> <span class="st">"convex"</span>,</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">repel =</span><span class="cn">TRUE</span>,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">ggtheme =</span><span class="fu">theme_minimal</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="va">kmed</span>, <span class="va">ruspini_norm</span>,</span>
+<span>             ellipse.type <span class="op">=</span> <span class="st">"convex"</span>,</span>
+<span>             repel <span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>             ggtheme <span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(kmed<span class="sc">$</span>medoids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">$</span><span class="va">medoids</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th style="text-align: right;">x</th>
 <th style="text-align: right;">y</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">-0.3566917</td>
 <td style="text-align: right;">1.1698207</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">1.4464374</td>
-<td style="text-align: right;">0.5538374</td>
+<td style="text-align: right;">0.4629124</td>
+<td style="text-align: right;">-1.4583746</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">-1.1762959</td>
 <td style="text-align: right;">-0.5549325</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.4629124</td>
-<td style="text-align: right;">-1.4583746</td>
+<td style="text-align: right;">1.4464374</td>
+<td style="text-align: right;">0.5538374</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'janitor'</code></pre>
@@ -775,36 +742,34 @@ Attaching package: 'janitor'</code></pre>
 
     chisq.test, fisher.test</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(kmed<span class="sc">$</span>clustering)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/tabyl.html">tabyl</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">$</span><span class="va">clustering</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> kmed$clustering  n   percent
                1 23 0.3066667
-               2 17 0.2266667
+               2 15 0.2000000
                3 20 0.2666667
-               4 15 0.2000000</code></pre>
+               4 17 0.2266667</code></pre>
 </div>
 </div>
-</section>
-<section id="clusters-hierarquicos" class="level3">
-<h3 class="anchored" data-anchor-id="clusters-hierarquicos">Clusters Hierarquicos</h3>
+</section><section id="clusters-hierarquicos" class="level3"><h3 class="anchored" data-anchor-id="clusters-hierarquicos">Clusters Hierarquicos</h3>
 <p>O agrupamento hierárquico começa com uma matriz de distância ´dist()´ e tem como padrão method=“Euclidiano”. As matrizes de distância tornam-se muito grandes rapidamente (tamanho e complexidade de tempo é O(n2) onde n é o número se pontos de dados. Só é possível calcular e armazenar a matriz para pequenos conjuntos de dados.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">dist</span>(ruspini_norm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">ruspini_norm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A função hclust() implementa o HCA, ou seja, o cluster hierarquico aglomerativo. Vamos começar usando o método completo.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(d, <span class="at">method =</span> <span class="st">"complete"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"complete"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O HCA retorna um dendrograma e não uma definiçaõ de clusters.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Se usarmos a biblioteca factoextra podemos definir o número de clusters que queremos visualizar.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_dend</span>(hc, <span class="at">k=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc</span>, k<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: The `&lt;scale&gt;` argument of `guides()` cannot be `FALSE`. Use "none" instead as
 of ggplot2 3.3.4.
@@ -817,102 +782,90 @@ of ggplot2 3.3.4.
 </div>
 <p>Podemos extrair as atraibuições de cluster cortando o dendrograma em 4 partes e adicionando a identidade aos dados.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc, <span class="at">k =</span> <span class="dv">4</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>cluster_completo <span class="ot">&lt;-</span> ruspini_norm <span class="sc">%&gt;%</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_column</span>(<span class="at">cluster =</span> <span class="fu">factor</span>(clusters))</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>cluster_completo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">clusters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc</span>, k <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">cluster_completo</span> <span class="op">&lt;-</span> <span class="va">ruspini_norm</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/add_column.html">add_column</a></span><span class="op">(</span>cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">clusters</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">cluster_completo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 75 × 3
-         x      y cluster
-     &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  
- 1 -0.357   1.31  1      
- 2 -0.0289  0.657 1      
- 3 -0.258   1.17  1      
- 4  1.45    0.554 2      
- 5 -0.881  -0.329 3      
- 6 -1.67   -0.801 3      
- 7  1.51    0.472 2      
- 8 -0.750   1.05  1      
- 9  1.74    0.390 2      
-10 -0.717   1.27  1      
-# … with 65 more rows</code></pre>
+        x      y cluster
+    &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  
+ 1 -0.455  1.19  1      
+ 2  0.299 -1.27  2      
+ 3 -0.717  1.27  1      
+ 4 -0.881  1.13  1      
+ 5 -1.37  -0.473 3      
+ 6  1.74   0.492 4      
+ 7  0.561 -1.25  2      
+ 8 -0.685  1.01  1      
+ 9 -1.08  -0.370 3      
+10  1.84   0.698 4      
+# ℹ 65 more rows</code></pre>
 </div>
 </div>
 <p>Podemos usar o método de Ward para obter o cluster.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>hc_w <span class="ot">&lt;-</span> <span class="fu">hclust</span>(d, <span class="at">method =</span> <span class="st">"ward.D"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hc_w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"ward.D"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O HCA retorna um dendrograma e não uma definiçaõ de clusters.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc_w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">hc_w</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Se usarmos a biblioteca factoextra podemos definir o número de clusters que queremos visualizar.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_dend</span>(hc_w, <span class="at">k=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc_w</span>, k<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(<span class="fu">list</span>(<span class="at">data =</span> ruspini_norm, <span class="at">cluster =</span> <span class="fu">cutree</span>(hc_w, <span class="at">k =</span> <span class="dv">4</span>)), <span class="at">geom =</span> <span class="st">"point"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ruspini_norm</span>, cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc_w</span>, k <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-</section>
-<section id="validação-dos-clusters" class="level2">
-<h2 class="anchored" data-anchor-id="validação-dos-clusters">Validação dos Clusters</h2>
-<section id="silhouette" class="level3">
-<h3 class="anchored" data-anchor-id="silhouette">Silhouette</h3>
+</section></section><section id="validação-dos-clusters" class="level2"><h2 class="anchored" data-anchor-id="validação-dos-clusters">Validação dos Clusters</h2>
+<section id="silhouette" class="level3"><h3 class="anchored" data-anchor-id="silhouette">Silhouette</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(cluster)</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">silhouette</span>(kmed<span class="sc">$</span>clustering,d))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#library(cluster)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/cluster/man/silhouette.html">silhouette</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">$</span><span class="va">clustering</span>,<span class="va">d</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_silhouette</span>(<span class="fu">silhouette</span>(kmed<span class="sc">$</span>clustering, d))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_silhouette.html">fviz_silhouette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/cluster/man/silhouette.html">silhouette</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">$</span><span class="va">clustering</span>, <span class="va">d</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cluster size ave.sil.width
 1       1   23          0.75
-2       2   17          0.68
+2       2   15          0.81
 3       3   20          0.72
-4       4   15          0.81</code></pre>
+4       4   17          0.68</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-</section>
-<section id="numero-ótimo-de-clusters" class="level2">
-<h2 class="anchored" data-anchor-id="numero-ótimo-de-clusters">Numero ótimo de clusters</h2>
+</section></section><section id="numero-ótimo-de-clusters" class="level2"><h2 class="anchored" data-anchor-id="numero-ótimo-de-clusters">Numero ótimo de clusters</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Usando o silhouette</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(ruspini_norm, pam, <span class="at">method =</span><span class="st">"silhouette"</span>, <span class="at">k.max =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Usando o silhouette</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_nbclust.html">fviz_nbclust</a></span><span class="op">(</span><span class="va">ruspini_norm</span>, <span class="va">pam</span>, method <span class="op">=</span><span class="st">"silhouette"</span>, k.max <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Metodo do cotovelo</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(ruspini_norm, kmeans, <span class="at">method =</span><span class="st">"wss"</span>, <span class="at">k.max =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Metodo do cotovelo</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_nbclust.html">fviz_nbclust</a></span><span class="op">(</span><span class="va">ruspini_norm</span>, <span class="va">kmeans</span>, method <span class="op">=</span><span class="st">"wss"</span>, k.max <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Aula13_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
+</section><section id="section" class="level2"><h2 class="anchored" data-anchor-id="section"></h2>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1259,9 +1212,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../semanas/Aula11.2.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Arvore de Regressão</span>
       </a>          
@@ -1273,8 +1224,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">Baseado em https://sta210-s22.github.io/website/</div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -1284,7 +1234,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-
 
 
 </body></html>
