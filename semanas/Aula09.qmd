@@ -208,6 +208,13 @@ mod3 <- glm(inadimplente ~ balanco + estudante,data=conj_treino,family=binomial)
 summary(mod3)
 coef(mod3)
 summary(mod3)$coef
+
+```
+
+## Comparando os  modelos
+
+```{r}
+anova(mod2,mod3,test='LR')
 ```
 
 ## Avaliando o modelo novamente

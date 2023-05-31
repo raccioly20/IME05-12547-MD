@@ -18,7 +18,7 @@
     "href": "index.html",
     "title": "IME05-12547/14149 Mineração de Dados",
     "section": "",
-    "text": "Bom dia / Boa tarde / Boa Noite,\nAqui vocês vão encontrar alguns dos exemplos apresentados em aula, com uso do R. O objetivo é mostrar as possibilidades de aplicação do R nesta disciplina.\nOs códigos apresentados em aula serão colocado por aqui também.\n[📖] Explorando 01\n[📖] Explorando 01A\n[📖] Explorando 02\n[📖] Explorando 03\n[📖] Explorando 04\n[📖] Explorando 05\n[📖] Explorando 06\n[📖] Explorando 06A\n[📖] Regressão Simples\n[📖] Regressão Múltipla\n[📖] Problemas na Regressão\n[📖] Seleção de Modelos\n[📖] Métodos de Encolhimento\n[📖] Classificação 1os passos\n[📖] KNN\n[📖] Regressão Logística\n[📖] SMOTE\n[📖] LDA e QDA\n[📖] Arvore de Classificação\n[📖] Arvore de Classificação\n[📖] Arvore de Regressão\n[📖] Arvore de Regressão\n[📖] Análise de Clusters\n[📖] Análise de Associação"
+    "text": "Bom dia / Boa tarde / Boa Noite,\nAqui vocês vão encontrar alguns dos exemplos apresentados em aula, com uso do R. O objetivo é mostrar as possibilidades de aplicação do R nesta disciplina.\nOs códigos apresentados em aula serão colocado por aqui também.\n[📖] Explorando 01\n[📖] Explorando 01A\n[📖] Explorando 02\n[📖] Explorando 03\n[📖] Explorando 04\n[📖] Explorando 05\n[📖] Explorando 06\n[📖] Explorando 06A\n[📖] Regressão Simples\n[📖] Regressão Múltipla\n[📖] Problemas na Regressão\n[📖] Seleção de Modelos\n[📖] Métodos de Encolhimento\n[📖] Classificação 1os passos\n[📖] KNN\n[📖] Regressão Logística\n[📖] SMOTE\n[📖] LDA e QDA\n[📖] Arvore de Regressão\n[📖] Arvore de Regressão GBM\n[📖] Arvore de Regressão XGBoost\n[📖] Arvore de Classificação\n[📖] Arvore de Classificação\n[📖] Arvore de Classificação XGBoost\n[📖] Análise de Clusters\n[📖] Análise de Associação"
   },
   {
     "objectID": "semanas/Aula01.html#lendo-dados-de-arquivos-csv",
@@ -1876,6 +1876,13 @@
     "text": "3a Regressão Logística (sem receita)\n\nmod3 &lt;- glm(inadimplente ~ balanco + estudante,data=conj_treino,family=binomial)\nsummary(mod3)\n\n\nCall:\nglm(formula = inadimplente ~ balanco + estudante, family = binomial, \n    data = conj_treino)\n\nDeviance Residuals: \n    Min       1Q   Median       3Q      Max  \n-2.4991  -0.1410  -0.0535  -0.0192   3.7631  \n\nCoefficients:\n              Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept) -1.089e+01  4.220e-01  -25.81  &lt; 2e-16 ***\nbalanco      5.842e-03  2.658e-04   21.98  &lt; 2e-16 ***\nestudante   -7.016e-01  1.655e-01   -4.24 2.23e-05 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 2333.8  on 7998  degrees of freedom\nResidual deviance: 1249.1  on 7996  degrees of freedom\nAIC: 1255.1\n\nNumber of Fisher Scoring iterations: 8\n\ncoef(mod3)\n\n  (Intercept)       balanco     estudante \n-10.891361318   0.005842385  -0.701581567 \n\nsummary(mod3)$coef\n\n                 Estimate   Std. Error    z value      Pr(&gt;|z|)\n(Intercept) -10.891361318 0.4220005414 -25.808880 7.048822e-147\nbalanco       0.005842385 0.0002658371  21.977315 4.747239e-107\nestudante    -0.701581567 0.1654530947  -4.240365  2.231563e-05"
   },
   {
+    "objectID": "semanas/Aula09.html#comparando-os-modelos",
+    "href": "semanas/Aula09.html#comparando-os-modelos",
+    "title": "Regressão Logística",
+    "section": "Comparando os modelos",
+    "text": "Comparando os modelos\n\nanova(mod2,mod3,test='LR')\n\nAnalysis of Deviance Table\n\nModel 1: inadimplente ~ balanco + receita + estudante\nModel 2: inadimplente ~ balanco + estudante\n  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)\n1      7995     1248.2                     \n2      7996     1249.1 -1 -0.83946   0.3596"
+  },
+  {
     "objectID": "semanas/Aula09.html#avaliando-o-modelo-novamente",
     "href": "semanas/Aula09.html#avaliando-o-modelo-novamente",
     "title": "Regressão Logística",
@@ -2275,6 +2282,69 @@
     "text": "Gráfico de Dependencia Parcial (Partial Dependence Plot)\n\ngraf_rm &lt;- plot(gbm.fit.final, i = \"rm\")\ngraf_lstat &lt;- plot(gbm.fit.final, i = \"lstat\")\ngridExtra::grid.arrange(graf_lstat, graf_rm, ncol = 2)"
   },
   {
+    "objectID": "semanas/Aula11.3.html",
+    "href": "semanas/Aula11.3.html",
+    "title": "Arvores de Regressão - XGBoost",
+    "section": "",
+    "text": "library(MASS)\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "semanas/Aula11.3.html#bibliotecas",
+    "href": "semanas/Aula11.3.html#bibliotecas",
+    "title": "Arvores de Regressão - XGBoost",
+    "section": "",
+    "text": "library(MASS)\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "semanas/Aula11.3.html#avaliando-selecionando-dados",
+    "href": "semanas/Aula11.3.html#avaliando-selecionando-dados",
+    "title": "Arvores de Regressão - XGBoost",
+    "section": "Avaliando, selecionando dados",
+    "text": "Avaliando, selecionando dados\n\ndata(\"Boston\")\nnames(Boston)\n\n [1] \"crim\"    \"zn\"      \"indus\"   \"chas\"    \"nox\"     \"rm\"      \"age\"    \n [8] \"dis\"     \"rad\"     \"tax\"     \"ptratio\" \"black\"   \"lstat\"   \"medv\"   \n\ndados &lt;- Boston"
+  },
+  {
+    "objectID": "semanas/Aula11.3.html#treino-e-teste-com-todas-as-variáveis",
+    "href": "semanas/Aula11.3.html#treino-e-teste-com-todas-as-variáveis",
+    "title": "Arvores de Regressão - XGBoost",
+    "section": "Treino e Teste com todas as variáveis",
+    "text": "Treino e Teste com todas as variáveis\n\n## Vamos criar os conjuntos de treino teste e desenvolver a arvore \n## com todas as variáveis.\nlibrary(caret)\n\nCarregando pacotes exigidos: lattice\n\n\n\nAttaching package: 'caret'\n\n\nThe following object is masked from 'package:purrr':\n\n    lift\n\nset.seed(21)\nindice &lt;- createDataPartition(dados$medv, times=1, p=0.75, list=FALSE)\nconj_treino &lt;- dados[indice,] %&gt;% select(-rad, -medv)\ny_treino &lt;- dados[indice,] %&gt;% select(medv)\nconj_teste &lt;- dados[-indice,] %&gt;% select(-rad, -medv)\ny_teste &lt;- dados[-indice,] %&gt;% select(medv)\nstr(conj_treino)\n\n'data.frame':   381 obs. of  12 variables:\n $ crim   : num  0.00632 0.02729 0.03237 0.06905 0.02985 ...\n $ zn     : num  18 0 0 0 0 12.5 12.5 12.5 12.5 12.5 ...\n $ indus  : num  2.31 7.07 2.18 2.18 2.18 7.87 7.87 7.87 7.87 7.87 ...\n $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.538 0.469 0.458 0.458 0.458 0.524 0.524 0.524 0.524 0.524 ...\n $ rm     : num  6.58 7.18 7 7.15 6.43 ...\n $ age    : num  65.2 61.1 45.8 54.2 58.7 66.6 96.1 100 94.3 39 ...\n $ dis    : num  4.09 4.97 6.06 6.06 6.06 ...\n $ tax    : num  296 242 222 222 222 311 311 311 311 311 ...\n $ ptratio: num  15.3 17.8 18.7 18.7 18.7 15.2 15.2 15.2 15.2 15.2 ...\n $ black  : num  397 393 395 397 394 ...\n $ lstat  : num  4.98 4.03 2.94 5.33 5.21 ...\n\nstr(conj_teste)\n\n'data.frame':   125 obs. of  12 variables:\n $ crim   : num  0.0273 0.17 0.1175 0.6274 0.8027 ...\n $ zn     : num  0 12.5 12.5 0 0 0 0 0 0 75 ...\n $ indus  : num  7.07 7.87 7.87 8.14 8.14 8.14 8.14 5.96 5.96 2.95 ...\n $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.469 0.524 0.524 0.538 0.538 0.538 0.538 0.499 0.499 0.428 ...\n $ rm     : num  6.42 6 6.01 5.83 5.46 ...\n $ age    : num  78.9 85.9 82.9 56.5 36.6 91.7 82 61.4 30.2 21.8 ...\n $ dis    : num  4.97 6.59 6.23 4.5 3.8 ...\n $ tax    : num  242 311 311 307 307 307 307 279 279 252 ...\n $ ptratio: num  17.8 15.2 15.2 21 21 21 21 19.2 19.2 18.3 ...\n $ black  : num  397 387 397 396 289 ...\n $ lstat  : num  9.14 17.1 13.27 8.47 11.69 ..."
+  },
+  {
+    "objectID": "semanas/Aula11.3.html#preparando-os-dados",
+    "href": "semanas/Aula11.3.html#preparando-os-dados",
+    "title": "Arvores de Regressão - XGBoost",
+    "section": "Preparando os dados",
+    "text": "Preparando os dados\n\nlibrary(vtreat)\n\nCarregando pacotes exigidos: wrapr\n\n\n\nAttaching package: 'wrapr'\n\n\nThe following object is masked from 'package:dplyr':\n\n    coalesce\n\n\nThe following objects are masked from 'package:tidyr':\n\n    pack, unpack\n\n\nThe following object is masked from 'package:tibble':\n\n    view\n\nvars &lt;- c(\"crim\",\"zn\",\"indus\",\"chas\",\"nox\",\"rm\",\"age\",\"dis\",\"tax\",\"ptratio\",\"black\",\"lstat\")\nplanotrat &lt;- designTreatmentsZ(conj_treino, vars, verbose=FALSE)\nnovasvars &lt;- planotrat$scoreFrame %&gt;%\nfilter(code %in% c(\"clean\", \"lev\")) %&gt;% magrittr::use_series(varName)\nconj_treino.trat &lt;- prepare(planotrat, conj_treino, varRestriction = novasvars)\nstr(conj_treino.trat)\n\n'data.frame':   381 obs. of  12 variables:\n $ crim   : num  0.00632 0.02729 0.03237 0.06905 0.02985 ...\n $ zn     : num  18 0 0 0 0 12.5 12.5 12.5 12.5 12.5 ...\n $ indus  : num  2.31 7.07 2.18 2.18 2.18 7.87 7.87 7.87 7.87 7.87 ...\n $ chas   : num  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.538 0.469 0.458 0.458 0.458 0.524 0.524 0.524 0.524 0.524 ...\n $ rm     : num  6.58 7.18 7 7.15 6.43 ...\n $ age    : num  65.2 61.1 45.8 54.2 58.7 66.6 96.1 100 94.3 39 ...\n $ dis    : num  4.09 4.97 6.06 6.06 6.06 ...\n $ tax    : num  296 242 222 222 222 311 311 311 311 311 ...\n $ ptratio: num  15.3 17.8 18.7 18.7 18.7 15.2 15.2 15.2 15.2 15.2 ...\n $ black  : num  397 393 395 397 394 ...\n $ lstat  : num  4.98 4.03 2.94 5.33 5.21 ...\n\nconj_teste.trat &lt;- prepare(planotrat, conj_teste, varRestriction = novasvars)\nstr(conj_teste.trat)\n\n'data.frame':   125 obs. of  12 variables:\n $ crim   : num  0.0273 0.17 0.1175 0.6274 0.8027 ...\n $ zn     : num  0 12.5 12.5 0 0 0 0 0 0 75 ...\n $ indus  : num  7.07 7.87 7.87 8.14 8.14 8.14 8.14 5.96 5.96 2.95 ...\n $ chas   : num  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.469 0.524 0.524 0.538 0.538 0.538 0.538 0.499 0.499 0.428 ...\n $ rm     : num  6.42 6 6.01 5.83 5.46 ...\n $ age    : num  78.9 85.9 82.9 56.5 36.6 91.7 82 61.4 30.2 21.8 ...\n $ dis    : num  4.97 6.59 6.23 4.5 3.8 ...\n $ tax    : num  242 311 311 307 307 307 307 279 279 252 ...\n $ ptratio: num  17.8 15.2 15.2 21 21 21 21 19.2 19.2 18.3 ...\n $ black  : num  397 387 397 396 289 ...\n $ lstat  : num  9.14 17.1 13.27 8.47 11.69 ..."
+  },
+  {
+    "objectID": "semanas/Aula11.3.html#a-tentativa-xgboost",
+    "href": "semanas/Aula11.3.html#a-tentativa-xgboost",
+    "title": "Arvores de Regressão - XGBoost",
+    "section": "1a tentativa Xgboost",
+    "text": "1a tentativa Xgboost\n\nlibrary(xgboost)\n\n\nAttaching package: 'xgboost'\n\n\nThe following object is masked from 'package:dplyr':\n\n    slice\n\nset.seed(21)\ncv &lt;- xgb.cv(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino),\n             objective = \"reg:squarederror\", nrounds = 100, nfold = 5, eta = 0.3, max_depth = 6,\n             verbose = FALSE)\n# cv\nelog &lt;- as.data.frame(cv$evaluation_log)\nelog %&gt;% \n   summarize(ntrees.train = which.min(train_rmse_mean),   # find the index of min(train_rmse_mean)\n             ntrees.test  = which.min(test_rmse_mean))   # find the index of min(test_rmse_mean)\n\n  ntrees.train ntrees.test\n1          100          95\n\n(nrounds &lt;- which.min(elog$test_rmse_mean))\n\n[1] 95"
+  },
+  {
+    "objectID": "semanas/Aula11.3.html#modelo-final",
+    "href": "semanas/Aula11.3.html#modelo-final",
+    "title": "Arvores de Regressão - XGBoost",
+    "section": "Modelo Final",
+    "text": "Modelo Final\n\n modelo_xgb &lt;- xgboost(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino),\n             objective = \"reg:squarederror\", nrounds = nrounds, eta = 0.3, max_depth = 6,\n             verbose = FALSE)"
+  },
+  {
+    "objectID": "semanas/Aula11.3.html#previsões",
+    "href": "semanas/Aula11.3.html#previsões",
+    "title": "Arvores de Regressão - XGBoost",
+    "section": "Previsões",
+    "text": "Previsões\n\nconj_teste.trat$prev &lt;- predict(modelo_xgb, as.matrix(conj_teste.trat))\nconj_teste.trat$medv &lt;- y_teste$medv \n\nggplot(conj_teste.trat, aes(x = prev, y = medv)) + \n  geom_point() + \n  geom_abline()"
+  },
+  {
+    "objectID": "semanas/Aula11.3.html#calculando-o-rmse",
+    "href": "semanas/Aula11.3.html#calculando-o-rmse",
+    "title": "Arvores de Regressão - XGBoost",
+    "section": "Calculando o RMSE",
+    "text": "Calculando o RMSE\n\nconj_teste.trat %&gt;%\n  mutate(residuos = medv - prev) %&gt;%\n  summarize(rmse = sqrt(mean(residuos^2)))\n\n      rmse\n1 3.584738"
+  },
+  {
     "objectID": "semanas/Aula12.1.html",
     "href": "semanas/Aula12.1.html",
     "title": "Arvores de Classificação - Única e GBM",
@@ -2560,6 +2630,69 @@
     "title": "Arvores de Classificação - Única e GBM",
     "section": "Curva ROC",
     "text": "Curva ROC\n\nlibrary(pROC)\n\nType 'citation(\"pROC\")' for a citation.\n\n\n\nAttaching package: 'pROC'\n\n\nThe following objects are masked from 'package:stats':\n\n    cov, smooth, var\n\np_chapeu_gbm &lt;- previsao1\nroc_gbm &lt;- roc(conj_teste$alta ~ p_chapeu_gbm, plot = TRUE, print.auc=FALSE, col=\"black\", legacy.axes=TRUE)\n\nSetting levels: control = 0, case = 1\n\n\nSetting direction: controls &lt; cases\n\n\n\n\nas.numeric(roc_gbm$auc)\n\n[1] 0.9034091"
+  },
+  {
+    "objectID": "semanas/Aula12.3.html",
+    "href": "semanas/Aula12.3.html",
+    "title": "Arvores de Classificação - XGboost",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(ISLR)"
+  },
+  {
+    "objectID": "semanas/Aula12.3.html#bibliotecas",
+    "href": "semanas/Aula12.3.html#bibliotecas",
+    "title": "Arvores de Classificação - XGboost",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(ISLR)"
+  },
+  {
+    "objectID": "semanas/Aula12.3.html#dados",
+    "href": "semanas/Aula12.3.html#dados",
+    "title": "Arvores de Classificação - XGboost",
+    "section": "Dados",
+    "text": "Dados\n\ndata(Default)\nsummary(Default)\n\n default    student       balance           income     \n No :9667   No :7056   Min.   :   0.0   Min.   :  772  \n Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  \n                       Median : 823.6   Median :34553  \n                       Mean   : 835.4   Mean   :33517  \n                       3rd Qu.:1166.3   3rd Qu.:43808  \n                       Max.   :2654.3   Max.   :73554  \n\nstr(Default)\n\n'data.frame':   10000 obs. of  4 variables:\n $ default: Factor w/ 2 levels \"No\",\"Yes\": 1 1 1 1 1 1 1 1 1 1 ...\n $ student: Factor w/ 2 levels \"No\",\"Yes\": 1 2 1 1 1 2 1 2 1 1 ...\n $ balance: num  730 817 1074 529 786 ...\n $ income : num  44362 12106 31767 35704 38463 ...\n\nhead(Default)\n\n  default student   balance    income\n1      No      No  729.5265 44361.625\n2      No     Yes  817.1804 12106.135\n3      No      No 1073.5492 31767.139\n4      No      No  529.2506 35704.494\n5      No      No  785.6559 38463.496\n6      No     Yes  919.5885  7491.559"
+  },
+  {
+    "objectID": "semanas/Aula12.3.html#manipulando-os-dados",
+    "href": "semanas/Aula12.3.html#manipulando-os-dados",
+    "title": "Arvores de Classificação - XGboost",
+    "section": "Manipulando os dados",
+    "text": "Manipulando os dados\n\ncredito &lt;- tibble(Default)\nsummary(credito)\n\n default    student       balance           income     \n No :9667   No :7056   Min.   :   0.0   Min.   :  772  \n Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  \n                       Median : 823.6   Median :34553  \n                       Mean   : 835.4   Mean   :33517  \n                       3rd Qu.:1166.3   3rd Qu.:43808  \n                       Max.   :2654.3   Max.   :73554  \n\n# renomeando colunas\ncredito &lt;- credito %&gt;% \n                rename( inadimplente = default, estudante = student, balanco = balance,\n                receita = income)\ncredito &lt;- credito %&gt;% mutate( inadimplente =  case_when(\n                           inadimplente == \"No\"  ~ \"Nao\",\n                           inadimplente == \"Yes\" ~ \"Sim\"\n                          )) %&gt;% mutate(inadimplente = factor(inadimplente))\ncredito &lt;- credito %&gt;% mutate( estudante =  case_when(\n                           estudante == \"No\"  ~ 0,\n                           estudante == \"Yes\" ~ 1\n                          )) \n\nstr(credito)\n\ntibble [10,000 × 4] (S3: tbl_df/tbl/data.frame)\n $ inadimplente: Factor w/ 2 levels \"Nao\",\"Sim\": 1 1 1 1 1 1 1 1 1 1 ...\n $ estudante   : num [1:10000] 0 1 0 0 0 1 0 1 0 0 ...\n $ balanco     : num [1:10000] 730 817 1074 529 786 ...\n $ receita     : num [1:10000] 44362 12106 31767 35704 38463 ...\n\nsummary(credito)\n\n inadimplente   estudante         balanco          receita     \n Nao:9667     Min.   :0.0000   Min.   :   0.0   Min.   :  772  \n Sim: 333     1st Qu.:0.0000   1st Qu.: 481.7   1st Qu.:21340  \n              Median :0.0000   Median : 823.6   Median :34553  \n              Mean   :0.2944   Mean   : 835.4   Mean   :33517  \n              3rd Qu.:1.0000   3rd Qu.:1166.3   3rd Qu.:43808  \n              Max.   :1.0000   Max.   :2654.3   Max.   :73554"
+  },
+  {
+    "objectID": "semanas/Aula12.3.html#treino-e-teste",
+    "href": "semanas/Aula12.3.html#treino-e-teste",
+    "title": "Arvores de Classificação - XGboost",
+    "section": "Treino e Teste",
+    "text": "Treino e Teste\n\nlibrary(caret)\n\nCarregando pacotes exigidos: lattice\n\n\n\nAttaching package: 'caret'\n\n\nThe following object is masked from 'package:purrr':\n\n    lift\n\nset.seed(21)\ny &lt;- credito$inadimplente\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nx_conj_treino &lt;- credito %&gt;% slice(-indice_teste) %&gt;% select(-inadimplente)\n\nWarning: Slicing with a 1-column matrix was deprecated in dplyr 1.1.0.\n\nx_conj_teste &lt;- credito %&gt;% slice(indice_teste) %&gt;% select(-inadimplente)\ny_treino &lt;- credito %&gt;% slice(-indice_teste) %&gt;% select(inadimplente) \ny_treino &lt;- as.integer(unlist(y_treino))-1\ny_teste &lt;- credito %&gt;% slice(indice_teste) %&gt;% select(inadimplente)\ny_teste &lt;- as.integer(unlist(y_teste))-1\n\n\nlibrary(vtreat)\n\nCarregando pacotes exigidos: wrapr\n\n\n\nAttaching package: 'wrapr'\n\n\nThe following object is masked from 'package:dplyr':\n\n    coalesce\n\n\nThe following objects are masked from 'package:tidyr':\n\n    pack, unpack\n\n\nThe following object is masked from 'package:tibble':\n\n    view\n\nvars &lt;- c(\"balanco\",\"receita\",\"estudante\")\nplanotrat &lt;- designTreatmentsZ(x_conj_treino, vars, verbose=FALSE)\nnovasvars &lt;- planotrat$scoreFrame %&gt;%\nfilter(code %in% c(\"clean\", \"lev\")) %&gt;% magrittr::use_series(varName)\nconj_treino.trat &lt;- prepare(planotrat, x_conj_treino, varRestriction = novasvars)\nstr(conj_treino.trat)\n\n'data.frame':   7999 obs. of  3 variables:\n $ balanco  : num  730 817 1074 529 786 ...\n $ receita  : num  44362 12106 31767 35704 38463 ...\n $ estudante: num  0 1 0 0 0 1 0 1 0 0 ...\n\nconj_teste.trat &lt;- prepare(planotrat, x_conj_teste, varRestriction = novasvars)\nstr(conj_teste.trat)\n\n'data.frame':   2001 obs. of  3 variables:\n $ balanco  : num  1221 237 0 1120 495 ...\n $ receita  : num  13269 28252 50265 16556 54385 ...\n $ estudante: num  1 0 0 1 0 1 1 1 0 0 ..."
+  },
+  {
+    "objectID": "semanas/Aula12.3.html#treinando",
+    "href": "semanas/Aula12.3.html#treinando",
+    "title": "Arvores de Classificação - XGboost",
+    "section": "Treinando",
+    "text": "Treinando\n\n## 1a tentativa Xgboost\nlibrary(xgboost)\n\n\nAttaching package: 'xgboost'\n\n\nThe following object is masked from 'package:dplyr':\n\n    slice\n\nnum_class = 2\nparams = list(\n  booster=\"gbtree\",\n  eta=0.001,\n  max_depth=5,\n  gamma=3,\n  subsample=0.75,\n  colsample_bytree=1,\n  objective=\"multi:softprob\",\n  eval_metric=\"mlogloss\",\n  num_class=num_class\n)\n\nset.seed(21)\ncv &lt;- xgb.cv(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino), params=params, \n             nrounds = 10000, nfold = 5, early_stopping_rounds=10, \n             nthreads=1, verbose=FALSE)\n# cv\nelog &lt;- as.data.frame(cv$evaluation_log)\nelog %&gt;% \n   summarize(ntrees.train = which.min(train_mlogloss_mean),  \n             ntrees.test  = which.min(test_mlogloss_mean))   \n\n  ntrees.train ntrees.test\n1         6678        6668\n\n(nrounds &lt;- which.min(elog$test_mlogloss_mean))\n\n[1] 6668"
+  },
+  {
+    "objectID": "semanas/Aula12.3.html#modelo-final",
+    "href": "semanas/Aula12.3.html#modelo-final",
+    "title": "Arvores de Classificação - XGboost",
+    "section": "Modelo Final",
+    "text": "Modelo Final\n\nmodelo_xgb &lt;- xgboost(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino),\n             params=params, nrounds = nrounds, verbose = FALSE)"
+  },
+  {
+    "objectID": "semanas/Aula12.3.html#previsões",
+    "href": "semanas/Aula12.3.html#previsões",
+    "title": "Arvores de Classificação - XGboost",
+    "section": "Previsões",
+    "text": "Previsões\n\nconj_teste.trat$prev &lt;- predict(modelo_xgb, as.matrix(conj_teste.trat), reshape=T)"
+  },
+  {
+    "objectID": "semanas/Aula12.3.html#avaliando",
+    "href": "semanas/Aula12.3.html#avaliando",
+    "title": "Arvores de Classificação - XGboost",
+    "section": "Avaliando",
+    "text": "Avaliando\n\nxgb.ychapeu &lt;- as.factor(ifelse(conj_teste.trat$prev[,1] &gt; 0.5,0,1))\nconfusionMatrix(xgb.ychapeu,as.factor(y_teste), positive=\"1\")\n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction    0    1\n         0 1924   38\n         1   10   29\n                                          \n               Accuracy : 0.976           \n                 95% CI : (0.9683, 0.9823)\n    No Information Rate : 0.9665          \n    P-Value [Acc &gt; NIR] : 0.008318        \n                                          \n                  Kappa : 0.5357          \n                                          \n Mcnemar's Test P-Value : 9.735e-05       \n                                          \n            Sensitivity : 0.43284         \n            Specificity : 0.99483         \n         Pos Pred Value : 0.74359         \n         Neg Pred Value : 0.98063         \n             Prevalence : 0.03348         \n         Detection Rate : 0.01449         \n   Detection Prevalence : 0.01949         \n      Balanced Accuracy : 0.71383         \n                                          \n       'Positive' Class : 1"
   },
   {
     "objectID": "semanas/Aula13.html",

@@ -1,0 +1,130 @@
+---
+title: "Arvores de Classificação - XGboost"
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+format:
+ html:
+    code-link: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.height=6.5, fig.width=7.)
+```
+
+## Bibliotecas
+
+```{r bibliotecas , message=FALSE}
+library(tidyverse)
+library(ISLR)
+```
+
+## Dados
+
+```{r}
+data(Default)
+summary(Default)
+str(Default)
+head(Default)
+```
+
+## Manipulando os dados
+
+```{r}
+credito <- tibble(Default)
+summary(credito)
+# renomeando colunas
+credito <- credito %>% 
+                rename( inadimplente = default, estudante = student, balanco = balance,
+                receita = income)
+credito <- credito %>% mutate( inadimplente =  case_when(
+                           inadimplente == "No"  ~ "Nao",
+                           inadimplente == "Yes" ~ "Sim"
+                          )) %>% mutate(inadimplente = factor(inadimplente))
+credito <- credito %>% mutate( estudante =  case_when(
+                           estudante == "No"  ~ 0,
+                           estudante == "Yes" ~ 1
+                          )) 
+
+str(credito)
+summary(credito)
+```
+
+## Treino e Teste
+
+```{r}
+library(caret)
+set.seed(21)
+y <- credito$inadimplente
+indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
+
+x_conj_treino <- credito %>% slice(-indice_teste) %>% select(-inadimplente)
+x_conj_teste <- credito %>% slice(indice_teste) %>% select(-inadimplente)
+y_treino <- credito %>% slice(-indice_teste) %>% select(inadimplente) 
+y_treino <- as.integer(unlist(y_treino))-1
+y_teste <- credito %>% slice(indice_teste) %>% select(inadimplente)
+y_teste <- as.integer(unlist(y_teste))-1
+```
+
+```{r}
+library(vtreat)
+vars <- c("balanco","receita","estudante")
+planotrat <- designTreatmentsZ(x_conj_treino, vars, verbose=FALSE)
+novasvars <- planotrat$scoreFrame %>%
+filter(code %in% c("clean", "lev")) %>% magrittr::use_series(varName)
+conj_treino.trat <- prepare(planotrat, x_conj_treino, varRestriction = novasvars)
+str(conj_treino.trat)
+conj_teste.trat <- prepare(planotrat, x_conj_teste, varRestriction = novasvars)
+str(conj_teste.trat)
+
+```
+
+## Treinando
+
+```{r}
+## 1a tentativa Xgboost
+library(xgboost)
+num_class = 2
+params = list(
+  booster="gbtree",
+  eta=0.001,
+  max_depth=5,
+  gamma=3,
+  subsample=0.75,
+  colsample_bytree=1,
+  objective="multi:softprob",
+  eval_metric="mlogloss",
+  num_class=num_class
+)
+
+set.seed(21)
+cv <- xgb.cv(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino), params=params, 
+             nrounds = 10000, nfold = 5, early_stopping_rounds=10, 
+             nthreads=1, verbose=FALSE)
+# cv
+elog <- as.data.frame(cv$evaluation_log)
+elog %>% 
+   summarize(ntrees.train = which.min(train_mlogloss_mean),  
+             ntrees.test  = which.min(test_mlogloss_mean))   
+(nrounds <- which.min(elog$test_mlogloss_mean))
+```
+
+## Modelo Final
+
+```{r final}
+modelo_xgb <- xgboost(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino),
+             params=params, nrounds = nrounds, verbose = FALSE)
+```
+
+## Previsões
+
+```{r}
+conj_teste.trat$prev <- predict(modelo_xgb, as.matrix(conj_teste.trat), reshape=T)
+
+```
+
+## Avaliando
+
+```{r}
+xgb.ychapeu <- as.factor(ifelse(conj_teste.trat$prev[,1] > 0.5,0,1))
+confusionMatrix(xgb.ychapeu,as.factor(y_teste), positive="1")
+```

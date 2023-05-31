@@ -1,0 +1,100 @@
+---
+title: 'Arvores de Regressão - XGBoost'
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+format:
+ html:
+    code-link: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.height=6.5, fig.width=7.)
+```
+
+## Bibliotecas
+
+```{r bibliotecas , message=FALSE}
+library(MASS)
+library(tidyverse)
+```
+
+## Avaliando, selecionando dados
+
+```{r dados}
+data("Boston")
+names(Boston)
+dados <- Boston 
+```
+
+## Treino e Teste com todas as variáveis
+
+```{r conjuntos-treino-teste}
+## Vamos criar os conjuntos de treino teste e desenvolver a arvore 
+## com todas as variáveis.
+library(caret)
+set.seed(21)
+indice <- createDataPartition(dados$medv, times=1, p=0.75, list=FALSE)
+conj_treino <- dados[indice,] %>% select(-rad, -medv)
+y_treino <- dados[indice,] %>% select(medv)
+conj_teste <- dados[-indice,] %>% select(-rad, -medv)
+y_teste <- dados[-indice,] %>% select(medv)
+str(conj_treino)
+str(conj_teste)
+```
+
+## Preparando os dados
+
+```{r}
+library(vtreat)
+vars <- c("crim","zn","indus","chas","nox","rm","age","dis","tax","ptratio","black","lstat")
+planotrat <- designTreatmentsZ(conj_treino, vars, verbose=FALSE)
+novasvars <- planotrat$scoreFrame %>%
+filter(code %in% c("clean", "lev")) %>% magrittr::use_series(varName)
+conj_treino.trat <- prepare(planotrat, conj_treino, varRestriction = novasvars)
+str(conj_treino.trat)
+conj_teste.trat <- prepare(planotrat, conj_teste, varRestriction = novasvars)
+str(conj_teste.trat)
+```
+
+## 1a tentativa Xgboost
+
+```{r xgboots}
+library(xgboost)
+set.seed(21)
+cv <- xgb.cv(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino),
+             objective = "reg:squarederror", nrounds = 100, nfold = 5, eta = 0.3, max_depth = 6,
+             verbose = FALSE)
+# cv
+elog <- as.data.frame(cv$evaluation_log)
+elog %>% 
+   summarize(ntrees.train = which.min(train_rmse_mean),   # find the index of min(train_rmse_mean)
+             ntrees.test  = which.min(test_rmse_mean))   # find the index of min(test_rmse_mean)
+(nrounds <- which.min(elog$test_rmse_mean))
+```
+
+## Modelo Final
+
+```{r final}
+ modelo_xgb <- xgboost(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino),
+             objective = "reg:squarederror", nrounds = nrounds, eta = 0.3, max_depth = 6,
+             verbose = FALSE)
+```
+
+## Previsões
+
+```{r}
+conj_teste.trat$prev <- predict(modelo_xgb, as.matrix(conj_teste.trat))
+conj_teste.trat$medv <- y_teste$medv 
+
+ggplot(conj_teste.trat, aes(x = prev, y = medv)) + 
+  geom_point() + 
+  geom_abline()
+```
+
+## Calculando o RMSE
+
+```{r}
+conj_teste.trat %>%
+  mutate(residuos = medv - prev) %>%
+  summarize(rmse = sqrt(mean(residuos^2)))
+```
