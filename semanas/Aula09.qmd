@@ -199,7 +199,7 @@ coef(mod2)
 summary(mod2)$coef
 ```
 
-## É possível se ver que receita não é significativa
+**É possível se ver que receita não é significativa**
 
 ## 3a Regressão Logística (sem receita)
 
@@ -211,11 +211,22 @@ summary(mod3)$coef
 
 ```
 
-## Comparando os  modelos
+## Comparando os modelos
 
 ```{r}
 anova(mod2,mod3,test='LR')
 ```
+
+## StepAIC
+
+Ao invé de usarmos a estatística de Wald para selecionar as variáveis significativas, podemos usar o AIC (**equivalente ao Cp**) como usamos na regressão múltipla para selecionar as variáveis explicativas.
+
+```{r}
+library(MASS)
+mod3a <- stepAIC(mod2, trace=FALSE)
+summary(mod3a)
+```
+
 
 ## Avaliando o modelo novamente
 
@@ -265,6 +276,7 @@ as.numeric(roc_log2$auc)
 
 ```{r}
 m_limite <- coords(roc_log2, "best", ret = "threshold")$threshold
+m_limite
 p_chapeu <- predict(mod3, newdata = conj_teste, type = "response")
 y_chapeu <- ifelse(p_chapeu > m_limite, "Sim", "Nao") %>% 
              factor(levels = levels(conj_teste$inadimplente))
