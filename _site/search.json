@@ -2198,6 +2198,13 @@
     "text": "Teste com o conjunto de teste\n\nprevisao3 &lt;- predict(melh_ajus, conj_teste, 11) \nRMSE(previsao3, conj_teste$medv)\n\n[1] 5.936577"
   },
   {
+    "objectID": "semanas/Aula11.1.html#e-se-usarmos-outra-semente",
+    "href": "semanas/Aula11.1.html#e-se-usarmos-outra-semente",
+    "title": "Arvores de Regressão",
+    "section": "E se usarmos outra semente?",
+    "text": "E se usarmos outra semente?\n\n## Vamos criar os conjuntos de treino teste e desenvolver a arvore \n## com todas as variáveis.\nlibrary(caret)\nset.seed(23)\nindice &lt;- createDataPartition(dados$medv, times=1, p=0.75, list=FALSE)\nconj_treino &lt;- dados[indice,]\n\narvreg1s &lt;- rpart(medv ~ ., \n                data=conj_treino,\n                method=\"anova\", #para arvore de regressão\n                control=rpart.control(minsplit=30,cp=0.01))\nplot(arvreg1s)\ntext(arvreg1s,pretty=0)\n\n\n\narvreg1s\n\nn= 381 \n\nnode), split, n, deviance, yval\n      * denotes terminal node\n\n 1) root 381 31257.8400 22.41496  \n   2) rm&lt; 6.92 321 11786.7500 19.74361  \n     4) lstat&gt;=14.4 133  2558.5280 14.88722  \n       8) crim&gt;=6.99237 59   866.3051 11.96949 *\n       9) crim&lt; 6.99237 74   789.4865 17.21351 *\n     5) lstat&lt; 14.4 188  3872.3890 23.17926  \n      10) lstat&gt;=5.51 165  2166.8920 22.28970  \n        20) lstat&gt;=9.675 86   527.0414 20.76977 *\n        21) lstat&lt; 9.675 79  1224.8950 23.94430 *\n      11) lstat&lt; 5.51 23   638.2548 29.56087 *\n   3) rm&gt;=6.92 60  4925.2370 36.70667  \n     6) rm&lt; 7.437 39  1510.0630 31.43077  \n      12) ptratio&gt;=18.55 10   750.6440 25.84000 *\n      13) ptratio&lt; 18.55 29   339.0703 33.35862 *\n     7) rm&gt;=7.437 21   313.5495 46.50476 *"
+  },
+  {
     "objectID": "semanas/Aula11.2.html",
     "href": "semanas/Aula11.2.html",
     "title": "Arvores de Regressão - Gradient Boosting",

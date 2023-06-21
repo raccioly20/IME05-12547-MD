@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.3.340">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-05-23">
+<meta name="dcterms.date" content="2023-06-21">
 <title>IME05-12547 - Arvores de Regressão</title>
 <style>
 code{white-space: pre-wrap;}
@@ -378,6 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#vamos-comparar-com-regress%C3%A3o-multipla" id="toc-vamos-comparar-com-regressão-multipla" class="nav-link" data-scroll-target="#vamos-comparar-com-regress%C3%A3o-multipla">Vamos comparar com Regressão Multipla</a></li>
   <li><a href="#obtem-a-f%C3%B3rmula-do-modelo" id="toc-obtem-a-fórmula-do-modelo" class="nav-link" data-scroll-target="#obtem-a-f%C3%B3rmula-do-modelo">Obtem a fórmula do modelo</a></li>
   <li><a href="#teste-com-o-conjunto-de-teste" id="toc-teste-com-o-conjunto-de-teste" class="nav-link" data-scroll-target="#teste-com-o-conjunto-de-teste">Teste com o conjunto de teste</a></li>
+  <li><a href="#e-se-usarmos-outra-semente" id="toc-e-se-usarmos-outra-semente" class="nav-link" data-scroll-target="#e-se-usarmos-outra-semente">E se usarmos outra semente?</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -399,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 23, 2023</p>
+      <p class="date">June 21, 2023</p>
     </div>
   </div>
   
@@ -842,6 +843,48 @@ node), split, n, deviance, yval
 <span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">RMSE</a></span><span class="op">(</span><span class="va">previsao3</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.936577</code></pre>
+</div>
+</div>
+</section><section id="e-se-usarmos-outra-semente" class="level2"><h2 class="anchored" data-anchor-id="e-se-usarmos-outra-semente">E se usarmos outra semente?</h2>
+<div class="cell">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Vamos criar os conjuntos de treino teste e desenvolver a arvore </span></span>
+<span><span class="co">## com todas as variáveis.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">23</span><span class="op">)</span></span>
+<span><span class="va">indice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">dados</span><span class="op">$</span><span class="va">medv</span>, times<span class="op">=</span><span class="fl">1</span>, p<span class="op">=</span><span class="fl">0.75</span>, list<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">dados</span><span class="op">[</span><span class="va">indice</span>,<span class="op">]</span></span>
+<span></span>
+<span><span class="va">arvreg1s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>, </span>
+<span>                data<span class="op">=</span><span class="va">conj_treino</span>,</span>
+<span>                method<span class="op">=</span><span class="st">"anova"</span>, <span class="co">#para arvore de regressão</span></span>
+<span>                control<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.control.html">rpart.control</a></span><span class="op">(</span>minsplit<span class="op">=</span><span class="fl">30</span>,cp<span class="op">=</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">arvreg1s</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">arvreg1s</span>,pretty<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Aula11.1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">arvreg1s</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>n= 381 
+
+node), split, n, deviance, yval
+      * denotes terminal node
+
+ 1) root 381 31257.8400 22.41496  
+   2) rm&lt; 6.92 321 11786.7500 19.74361  
+     4) lstat&gt;=14.4 133  2558.5280 14.88722  
+       8) crim&gt;=6.99237 59   866.3051 11.96949 *
+       9) crim&lt; 6.99237 74   789.4865 17.21351 *
+     5) lstat&lt; 14.4 188  3872.3890 23.17926  
+      10) lstat&gt;=5.51 165  2166.8920 22.28970  
+        20) lstat&gt;=9.675 86   527.0414 20.76977 *
+        21) lstat&lt; 9.675 79  1224.8950 23.94430 *
+      11) lstat&lt; 5.51 23   638.2548 29.56087 *
+   3) rm&gt;=6.92 60  4925.2370 36.70667  
+     6) rm&lt; 7.437 39  1510.0630 31.43077  
+      12) ptratio&gt;=18.55 10   750.6440 25.84000 *
+      13) ptratio&lt; 18.55 29   339.0703 33.35862 *
+     7) rm&gt;=7.437 21   313.5495 46.50476 *</code></pre>
 </div>
 </div>
 

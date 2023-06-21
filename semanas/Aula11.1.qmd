@@ -243,3 +243,24 @@ coef(melh_ajus, 11)
 previsao3 <- predict(melh_ajus, conj_teste, 11) 
 RMSE(previsao3, conj_teste$medv)
 ```
+
+
+## E se usarmos outra semente?
+
+```{r}
+## Vamos criar os conjuntos de treino teste e desenvolver a arvore 
+## com todas as variáveis.
+library(caret)
+set.seed(23)
+indice <- createDataPartition(dados$medv, times=1, p=0.75, list=FALSE)
+conj_treino <- dados[indice,]
+
+arvreg1s <- rpart(medv ~ ., 
+                data=conj_treino,
+                method="anova", #para arvore de regressão
+                control=rpart.control(minsplit=30,cp=0.01))
+plot(arvreg1s)
+text(arvreg1s,pretty=0)
+arvreg1s
+```
+
