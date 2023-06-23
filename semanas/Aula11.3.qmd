@@ -34,10 +34,8 @@ dados <- Boston
 library(caret)
 set.seed(21)
 indice <- createDataPartition(dados$medv, times=1, p=0.75, list=FALSE)
-conj_treino <- dados[indice,] %>% select(-rad, -medv)
-y_treino <- dados[indice,] %>% select(medv)
-conj_teste <- dados[-indice,] %>% select(-rad, -medv)
-y_teste <- dados[-indice,] %>% select(medv)
+conj_treino <- dados[indice,]
+conj_teste <- dados[-indice,] 
 str(conj_treino)
 str(conj_teste)
 ```
@@ -45,15 +43,11 @@ str(conj_teste)
 ## Preparando os dados
 
 ```{r}
-library(vtreat)
-vars <- c("crim","zn","indus","chas","nox","rm","age","dis","tax","ptratio","black","lstat")
-planotrat <- designTreatmentsZ(conj_treino, vars, verbose=FALSE)
-novasvars <- planotrat$scoreFrame %>%
-filter(code %in% c("clean", "lev")) %>% magrittr::use_series(varName)
-conj_treino.trat <- prepare(planotrat, conj_treino, varRestriction = novasvars)
-str(conj_treino.trat)
-conj_teste.trat <- prepare(planotrat, conj_teste, varRestriction = novasvars)
-str(conj_teste.trat)
+x_treino <- model.matrix(medv ~ . , data = conj_treino)[, -1]
+y_treino <- conj_treino$medv
+
+x_teste <- model.matrix(medv ~ . , data = conj_teste)[, -1]
+y_teste = conj_teste$medv
 ```
 
 ## 1a tentativa Xgboost
@@ -61,7 +55,7 @@ str(conj_teste.trat)
 ```{r xgboots}
 library(xgboost)
 set.seed(21)
-cv <- xgb.cv(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino),
+cv <- xgb.cv(data = as.matrix(x_treino), label = as.matrix(y_treino),
              objective = "reg:squarederror", nrounds = 100, nfold = 5, eta = 0.3, max_depth = 6,
              verbose = FALSE)
 # cv
@@ -75,7 +69,7 @@ elog %>%
 ## Modelo Final
 
 ```{r final}
- modelo_xgb <- xgboost(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino),
+ modelo_xgb <- xgboost(data = as.matrix(x_treino), label = as.matrix(y_treino),
              objective = "reg:squarederror", nrounds = nrounds, eta = 0.3, max_depth = 6,
              verbose = FALSE)
 ```
@@ -83,10 +77,10 @@ elog %>%
 ## Previsões
 
 ```{r}
-conj_teste.trat$prev <- predict(modelo_xgb, as.matrix(conj_teste.trat))
-conj_teste.trat$medv <- y_teste$medv 
+conj_teste$prev <- predict(modelo_xgb, as.matrix(x_teste))
 
-ggplot(conj_teste.trat, aes(x = prev, y = medv)) + 
+
+ggplot(conj_teste, aes(x = prev, y = medv)) + 
   geom_point() + 
   geom_abline()
 ```
@@ -94,7 +88,7 @@ ggplot(conj_teste.trat, aes(x = prev, y = medv)) +
 ## Calculando o RMSE
 
 ```{r}
-conj_teste.trat %>%
+conj_teste %>%
   mutate(residuos = medv - prev) %>%
   summarize(rmse = sqrt(mean(residuos^2)))
 ```

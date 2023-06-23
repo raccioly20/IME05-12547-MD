@@ -40,32 +40,22 @@ head(conj_treino)
 head(conj_teste)
 ```
 
-## 1a tentativa GBM
+## Parametros do GBM
 
 ```{r gbm1}
 library(gbm)
 set.seed(21)
 # treinar o modelo GBM
-gbm.fit <- gbm(formula = medv ~ .,
-                distribution = "gaussian", #  minimizar erro quadrático
-                data = conj_treino,
-                n.trees = 10000,  # número de árvores
-                interaction.depth = 3,  # profundidade da arvore
-                shrinkage = 0.1,   # aprendizado rápido
-                cv.folds = 5, # 5 envelopes de validaçõa cruzada
-                n.cores = NULL, # 
-                verbose = FALSE)
+# gbm.fit <- gbm(formula = medv ~ .,
+#                 distribution = "gaussian", #  minimizar erro quadrático
+#                 data = conj_treino,
+#                 n.trees = 10000,  # número de árvores
+#                 interaction.depth = 3,  # profundidade da arvore
+#                 shrinkage = 0.1,   # aprendizado rápido
+#                 cv.folds = 5, # 5 envelopes de validaçõa cruzada
+#                 n.cores = NULL, # 
+#                 verbose = FALSE)
 
-# Achar o índice do modelo com menor erro de valiação cruzada
-min_MSE <- which.min(gbm.fit$cv.error)
-
-# Obter o MSE e calcular o RMSE
-sqrt(gbm.fit$cv.error[min_MSE])
-
-# Mostrar a função de perda (loss function) como resultado do número de árvores combinadas
-# A linha preta são os valores para as perdas de treino e a verde as de teste
-# A linha azul pontilhada indica o número de árvores que minimiza os erros da validação cruzada
-gbm.perf(gbm.fit, method = "cv")
 ```
 
 ## Criando um grid para avaliar os parametros e os respectivos RMSEs
