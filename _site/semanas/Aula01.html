@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-05-25">
+<meta name="dcterms.date" content="2023-08-24">
 <title>IME05-12547 - Carregando dados, Manipulando e Visualizando</title>
 <style>
 code{white-space: pre-wrap;}
@@ -89,7 +89,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <meta name="twitter:title" content="IME05-12547 - Carregando dados, Manipulando e Visualizando">
@@ -108,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Explorando 01</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -118,8 +119,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/r_accioly" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+    <a href="https://github.com/raccioly20" rel="" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/r_accioly" rel="" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -412,7 +413,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 25, 2023</p>
+      <p class="date">August 24, 2023</p>
     </div>
   </div>
   
@@ -428,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">## O read_delim permite que seja definido o tipo de delimitador dos dados</span></span>
 <span><span class="va">pocos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span><span class="op">(</span><span class="va">url</span>, delim <span class="op">=</span> <span class="st">";"</span>, locale<span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span>, col_names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 30450 Columns: 60
+<pre><code>Rows: 30516 Columns: 60
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ";"
 chr (51): POCO, CADASTRO, OPERADOR, POCO_OPERADOR, ESTADO, BACIA, BLOCO, SIG...
@@ -441,14 +442,14 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pocos</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 60
-  POCO      CADASTRO   OPERADOR POCO_OPERADOR ESTADO BACIA BLOCO SIG_CAMPO CAMPO
-  &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;
-1 7-L-10-BA 202400001… &lt;NA&gt;     7L   0010  BA BA     Recô… &lt;NA&gt;  "L    "   LOBA…
-2 1-AL-3-AL 081150000… &lt;NA&gt;     1AL  0003  AL AL     Alag… Bras…  &lt;NA&gt;     &lt;NA&gt; 
-3 3-L-11-BA 202400001… &lt;NA&gt;     3L   0011  BA BA     Recô… &lt;NA&gt;  "L    "   LOBA…
-4 1-C-1-BA  202400001… 3R Cand… 1C   0001  BA BA     Recô… C     "C    "   CAND…
-5 7-L-12-BA 202400001… &lt;NA&gt;     7L   0012  BA BA     Recô… &lt;NA&gt;  "L    "   LOBA…
-6 1-AL-5-AL 081150000… &lt;NA&gt;     1AL  0005  AL AL     Alag… Bras…  &lt;NA&gt;     &lt;NA&gt; 
+  POCO        CADASTRO OPERADOR POCO_OPERADOR ESTADO BACIA BLOCO SIG_CAMPO CAMPO
+  &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;
+1 7-FZB-447-… 3010003… 3R Faze… 7FZB 0447  CE CE     Poti… FZB   "FZB  "   FAZE…
+2 7-AP-143D-… 7210003… 3R Poti… 7AP  0143D RN RN     Poti… CAM   "CAM  "   CANT…
+3 7-CAM-460-… 7210003… 3R Poti… 7CAM 0460  RN RN     Poti… CAM   "CAM  "   CANT…
+4 7-AR-288-BA 2024005… Petrobr… 7AR  0288  BA BA     Recô… AR    "AR   "   ARAÇ…
+5 7-FZB-448-… 3010003… 3R Faze… 7FZB 0448  CE CE     Poti… FZB   "FZB  "   FAZE…
+6 7-MO-67D-RN 7210003… 3R Poti… 7MO  0067D RN RN     Poti… MO    "MO   "   MOSS…
 # ℹ 51 more variables: TERRA_MAR &lt;chr&gt;, POCO_POS_ANP &lt;chr&gt;, TIPO &lt;chr&gt;,
 #   CATEGORIA &lt;chr&gt;, RECLASSIFICACAO &lt;chr&gt;, SITUACAO &lt;chr&gt;, INICIO &lt;chr&gt;,
 #   TERMINO &lt;chr&gt;, CONCLUSAO &lt;chr&gt;, TITULARIDADE &lt;chr&gt;, LATITUDE_BASE_4C &lt;chr&gt;,
@@ -465,9 +466,9 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyverse.tidyverse.org">"tidyverse"</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.1     ✔ purrr     1.0.1
+✔ dplyr     1.1.2     ✔ purrr     1.0.1
 ✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.1     ✔ tibble    3.2.1
+✔ ggplot2   3.4.2     ✔ tibble    3.2.1
 ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -475,142 +476,139 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 </div>
-<p>Vamos primeiro conhecer o que tem na base de dados pocos. A base de dados possui 30450 linhas</p>
+<p>Vamos primeiro conhecer o que tem na base de dados pocos. A base de dados possui 30516 linhas</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">pocos</span><span class="op">)</span>  <span class="co"># Tipo de base de dados</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame" </code></pre>
 </div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pocos</span><span class="op">)</span> <span class="co"># Sumario da base de dados</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">pocos</span><span class="op">)</span> <span class="co"># estrutura da base de dados</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     POCO             CADASTRO           OPERADOR         POCO_OPERADOR     
- Length:30450       Length:30450       Length:30450       Length:30450      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-                                                                            
-    ESTADO             BACIA              BLOCO            SIG_CAMPO        
- Length:30450       Length:30450       Length:30450       Length:30450      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-                                                                            
-    CAMPO            TERRA_MAR         POCO_POS_ANP           TIPO          
- Length:30450       Length:30450       Length:30450       Length:30450      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-                                                                            
-  CATEGORIA         RECLASSIFICACAO      SITUACAO            INICIO         
- Length:30450       Length:30450       Length:30450       Length:30450      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-                                                                            
-   TERMINO           CONCLUSAO         TITULARIDADE       LATITUDE_BASE_4C  
- Length:30450       Length:30450       Length:30450       Length:30450      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-                                                                            
- LONGITUDE_BASE_4C  LATITUDE_BASE_DD  LONGITUDE_BASE_DD DATUM_HORIZONTAL  
- Length:30450       Min.   :-32.927   Min.   :-73.38    Length:30450      
- Class :character   1st Qu.:-12.694   1st Qu.:-39.65    Class :character  
- Mode  :character   Median :-10.710   Median :-37.83    Mode  :character  
-                    Mean   :-11.497   Mean   :-38.84                      
-                    3rd Qu.: -5.328   3rd Qu.:-36.98                      
-                    Max.   :  4.528   Max.   :-34.83                      
-                                                                          
- TIPO_DE_COORDENADA_DE_BASE   DIRECAO          PROFUNDIDADE_VERTICAL_M
- Length:30450               Length:30450       Min.   :-59053.0       
- Class :character           Class :character   1st Qu.:  -645.5       
- Mode  :character           Mode  :character   Median :     0.0       
-                                               Mean   :  -226.8       
-                                               3rd Qu.:     0.0       
-                                               Max.   :528084.0       
-                                               NA's   :18248          
- PROFUNDIDADE_SONDADOR_M PROFUNDIDADE_MEDIDA_M REFERENCIA_DE_PROFUNDIDADE
- Min.   :    0           Min.   :    0         Length:30450              
- 1st Qu.:  482           1st Qu.:  269         Class :character          
- Median :  994           Median :  795         Mode  :character          
- Mean   : 1501           Mean   : 1459                                   
- 3rd Qu.: 2230           3rd Qu.: 2334                                   
- Max.   :29170           Max.   :29185                                   
- NA's   :948             NA's   :16728                                   
- MESA_ROTATIVA     COTA_ALTIMETRICA_M LAMINA_D_AGUA_M  DATUM_VERTICAL    
- Min.   :   0.00   Min.   :   0.00    Min.   :   0.0   Length:30450      
- 1st Qu.:  19.00   1st Qu.:   0.00    1st Qu.:   0.0   Class :character  
- Median :  32.40   Median :   7.70    Median :   0.0   Mode  :character  
- Mean   :  57.13   Mean   :  35.99    Mean   : 274.9                     
- 3rd Qu.:  75.55   3rd Qu.:  52.40    3rd Qu.: 109.0                     
- Max.   :1600.00   Max.   :6672.00    Max.   :3094.0                     
-                   NA's   :16199      NA's   :14172                      
- UNIDADE_ESTRATIGRAFICA GEOLOGIA_GRUPO_FINAL GEOLOGIA_FORMACAO_FINAL
- Mode:logical           Length:30450         Length:30450           
- NA's:30450             Class :character     Class :character       
-                        Mode  :character     Mode  :character       
-                                                                    
-                                                                    
-                                                                    
-                                                                    
- GEOLOGIA_MEMBRO_FINAL     CDPE               AGP                 PC           
- Length:30450          Length:30450       Length:30450       Length:30450      
- Class :character      Class :character   Class :character   Class :character  
- Mode  :character      Mode  :character   Mode  :character   Mode  :character  
-                                                                               
-                                                                               
-                                                                               
-                                                                               
-     PAG            PERFIS_CONVENCIONAIS DURANTE_PERFURACAO PERFIS_DIGITAIS   
- Length:30450       Length:30450         Length:30450       Length:30450      
- Class :character   Class :character     Class :character   Class :character  
- Mode  :character   Mode  :character     Mode  :character   Mode  :character  
-                                                                              
-                                                                              
-                                                                              
-                                                                              
- PERFIS_PROCESSADOS PERFIS_ESPECIAIS   AMOSTRA_LATERAL      SISMICA         
- Length:30450       Length:30450       Length:30450       Length:30450      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-                                                                            
- TABELA_TEMPO_PROFUNDIDADE DADOS_DIRECIONAIS  TESTE_A_CABO      
- Length:30450              Length:30450       Length:30450      
- Class :character          Class :character   Class :character  
- Mode  :character          Mode  :character   Mode  :character  
-                                                                
-                                                                
-                                                                
-                                                                
- TESTE_DE_FORMACAO   CANHONEIO          TESTEMUNHO         GEOQUIMICA       
- Length:30450       Length:30450       Length:30450       Length:30450      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-                                                                            
-  SIG_SONDA          NOM_SONDA         ATINGIU_PRESAL     DHA_ATUALIZACAO   
- Length:30450       Length:30450       Length:30450       Length:30450      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-                                                                            </code></pre>
+<pre><code>spc_tbl_ [30,516 × 60] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ POCO                      : chr [1:30516] "7-FZB-447-CE" "7-AP-143D-RN" "7-CAM-460-RN" "7-AR-288-BA" ...
+ $ CADASTRO                  : chr [1:30516] "301000368700" "721000368800" "721000368600" "202400548400" ...
+ $ OPERADOR                  : chr [1:30516] "3R Fazenda Belém" "3R Potiguar" "3R Potiguar" "Petrobras" ...
+ $ POCO_OPERADOR             : chr [1:30516] "7FZB 0447  CE" "7AP  0143D RN" "7CAM 0460  RN" "7AR  0288  BA" ...
+ $ ESTADO                    : chr [1:30516] "CE" "RN" "RN" "BA" ...
+ $ BACIA                     : chr [1:30516] "Potiguar" "Potiguar" "Potiguar" "Recôncavo" ...
+ $ BLOCO                     : chr [1:30516] "FZB" "CAM" "CAM" "AR" ...
+ $ SIG_CAMPO                 : chr [1:30516] "FZB  " "CAM  " "CAM  " "AR   " ...
+ $ CAMPO                     : chr [1:30516] "FAZENDA BELÉM CE" "CANTO DO AMARO" "CANTO DO AMARO" "ARAÇÁS" ...
+ $ TERRA_MAR                 : chr [1:30516] "T" "T" "T" "T" ...
+ $ POCO_POS_ANP              : chr [1:30516] "N" "N" "N" "N" ...
+ $ TIPO                      : chr [1:30516] "7 " "7 " "7 " "7 " ...
+ $ CATEGORIA                 : chr [1:30516] "Desenvolvimento" "Desenvolvimento" "Desenvolvimento" "Desenvolvimento" ...
+ $ RECLASSIFICACAO           : chr [1:30516] "PRODUTOR COMERCIAL DE PETRÓLEO" "PRODUTOR COMERCIAL DE PETRÓLEO" "SECO SEM INDÍCIOS" "PRODUTOR COMERCIAL DE PETRÓLEO" ...
+ $ SITUACAO                  : chr [1:30516] "INJETANDO" "FECHADO" "ABANDONADO PERMANENTEMENTE" "FECHADO" ...
+ $ INICIO                    : chr [1:30516] "30/08/1990 00:00" "31/08/1990 00:00" "31/08/1990 00:00" "03/09/1990 00:00" ...
+ $ TERMINO                   : chr [1:30516] "02/09/1990 00:00" "06/09/1990 00:00" "04/09/1990 00:00" "20/09/1990 00:00" ...
+ $ CONCLUSAO                 : chr [1:30516] "02/09/1990 00:00" "06/09/1990 00:00" "04/09/1990 00:00" "20/09/1990 00:00" ...
+ $ TITULARIDADE              : chr [1:30516] "Público" "Público" "Público" "Público" ...
+ $ LATITUDE_BASE_4C          : chr [1:30516] "-04:43:58,908" "-05:09:42,706" "-05:08:33,731" "-12:06:25,052" ...
+ $ LONGITUDE_BASE_4C         : chr [1:30516] "-37:32:49,771" "-37:14:19,357" "-37:11:25,697" "-38:10:15,681" ...
+ $ LATITUDE_BASE_DD          : num [1:30516] -4.73 -5.16 -5.14 -12.11 -4.73 ...
+ $ LONGITUDE_BASE_DD         : num [1:30516] -37.5 -37.2 -37.2 -38.2 -37.5 ...
+ $ DATUM_HORIZONTAL          : chr [1:30516] "SIRGAS2000" "SIRGAS2000" "SIRGAS2000" "SIRGAS2000" ...
+ $ TIPO_DE_COORDENADA_DE_BASE: chr [1:30516] "Definitiva" "Definitiva" "Definitiva" "Definitiva" ...
+ $ DIRECAO                   : chr [1:30516] "Vertical" "Direcional" "Vertical" "Vertical" ...
+ $ PROFUNDIDADE_VERTICAL_M   : num [1:30516] NA NA NA NA NA NA 0 NA NA NA ...
+ $ PROFUNDIDADE_SONDADOR_M   : num [1:30516] 455 812 880 2879 450 ...
+ $ PROFUNDIDADE_MEDIDA_M     : num [1:30516] NA NA NA NA NA ...
+ $ REFERENCIA_DE_PROFUNDIDADE: chr [1:30516] "MR" "MR" "MR" "MR" ...
+ $ MESA_ROTATIVA             : num [1:30516] 66 11 30 200 67 ...
+ $ COTA_ALTIMETRICA_M        : num [1:30516] NA NA NA NA NA NA 0 NA NA NA ...
+ $ LAMINA_D_AGUA_M           : num [1:30516] NA NA NA NA NA NA 419 NA NA NA ...
+ $ DATUM_VERTICAL            : chr [1:30516] NA NA NA NA ...
+ $ UNIDADE_ESTRATIGRAFICA    : logi [1:30516] NA NA NA NA NA NA ...
+ $ GEOLOGIA_GRUPO_FINAL      : chr [1:30516] NA NA NA NA ...
+ $ GEOLOGIA_FORMACAO_FINAL   : chr [1:30516] NA NA NA NA ...
+ $ GEOLOGIA_MEMBRO_FINAL     : chr [1:30516] NA NA NA NA ...
+ $ CDPE                      : chr [1:30516] NA NA NA NA ...
+ $ AGP                       : chr [1:30516] NA NA NA NA ...
+ $ PC                        : chr [1:30516] NA NA NA NA ...
+ $ PAG                       : chr [1:30516] NA NA NA NA ...
+ $ PERFIS_CONVENCIONAIS      : chr [1:30516] NA NA NA NA ...
+ $ DURANTE_PERFURACAO        : chr [1:30516] NA NA NA NA ...
+ $ PERFIS_DIGITAIS           : chr [1:30516] "Existe" "Existe" "Existe" "Existe" ...
+ $ PERFIS_PROCESSADOS        : chr [1:30516] NA NA NA NA ...
+ $ PERFIS_ESPECIAIS          : chr [1:30516] NA NA NA NA ...
+ $ AMOSTRA_LATERAL           : chr [1:30516] NA NA NA NA ...
+ $ SISMICA                   : chr [1:30516] NA NA NA NA ...
+ $ TABELA_TEMPO_PROFUNDIDADE : chr [1:30516] NA NA NA NA ...
+ $ DADOS_DIRECIONAIS         : chr [1:30516] NA NA NA NA ...
+ $ TESTE_A_CABO              : chr [1:30516] NA NA NA NA ...
+ $ TESTE_DE_FORMACAO         : chr [1:30516] NA NA NA NA ...
+ $ CANHONEIO                 : chr [1:30516] NA NA NA NA ...
+ $ TESTEMUNHO                : chr [1:30516] NA NA NA NA ...
+ $ GEOQUIMICA                : chr [1:30516] NA NA NA NA ...
+ $ SIG_SONDA                 : chr [1:30516] "SC-85" "SC-82" "SC-86" "SC-103" ...
+ $ NOM_SONDA                 : chr [1:30516] "SONDA CONVENCIONAL 85" "SONDA CONVENCIONAL 82" "SONDA CONVENCIONAL 86" "SONDA CONVENCIONAL 103" ...
+ $ ATINGIU_PRESAL            : chr [1:30516] NA NA NA NA ...
+ $ DHA_ATUALIZACAO           : chr [1:30516] "06/08/2023 05:00" "06/08/2023 05:00" "06/08/2023 05:00" "06/08/2023 05:00" ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   POCO = col_character(),
+  ..   CADASTRO = col_character(),
+  ..   OPERADOR = col_character(),
+  ..   POCO_OPERADOR = col_character(),
+  ..   ESTADO = col_character(),
+  ..   BACIA = col_character(),
+  ..   BLOCO = col_character(),
+  ..   SIG_CAMPO = col_character(),
+  ..   CAMPO = col_character(),
+  ..   TERRA_MAR = col_character(),
+  ..   POCO_POS_ANP = col_character(),
+  ..   TIPO = col_character(),
+  ..   CATEGORIA = col_character(),
+  ..   RECLASSIFICACAO = col_character(),
+  ..   SITUACAO = col_character(),
+  ..   INICIO = col_character(),
+  ..   TERMINO = col_character(),
+  ..   CONCLUSAO = col_character(),
+  ..   TITULARIDADE = col_character(),
+  ..   LATITUDE_BASE_4C = col_character(),
+  ..   LONGITUDE_BASE_4C = col_character(),
+  ..   LATITUDE_BASE_DD = col_double(),
+  ..   LONGITUDE_BASE_DD = col_double(),
+  ..   DATUM_HORIZONTAL = col_character(),
+  ..   TIPO_DE_COORDENADA_DE_BASE = col_character(),
+  ..   DIRECAO = col_character(),
+  ..   PROFUNDIDADE_VERTICAL_M = col_double(),
+  ..   PROFUNDIDADE_SONDADOR_M = col_double(),
+  ..   PROFUNDIDADE_MEDIDA_M = col_double(),
+  ..   REFERENCIA_DE_PROFUNDIDADE = col_character(),
+  ..   MESA_ROTATIVA = col_double(),
+  ..   COTA_ALTIMETRICA_M = col_double(),
+  ..   LAMINA_D_AGUA_M = col_double(),
+  ..   DATUM_VERTICAL = col_character(),
+  ..   UNIDADE_ESTRATIGRAFICA = col_logical(),
+  ..   GEOLOGIA_GRUPO_FINAL = col_character(),
+  ..   GEOLOGIA_FORMACAO_FINAL = col_character(),
+  ..   GEOLOGIA_MEMBRO_FINAL = col_character(),
+  ..   CDPE = col_character(),
+  ..   AGP = col_character(),
+  ..   PC = col_character(),
+  ..   PAG = col_character(),
+  ..   PERFIS_CONVENCIONAIS = col_character(),
+  ..   DURANTE_PERFURACAO = col_character(),
+  ..   PERFIS_DIGITAIS = col_character(),
+  ..   PERFIS_PROCESSADOS = col_character(),
+  ..   PERFIS_ESPECIAIS = col_character(),
+  ..   AMOSTRA_LATERAL = col_character(),
+  ..   SISMICA = col_character(),
+  ..   TABELA_TEMPO_PROFUNDIDADE = col_character(),
+  ..   DADOS_DIRECIONAIS = col_character(),
+  ..   TESTE_A_CABO = col_character(),
+  ..   TESTE_DE_FORMACAO = col_character(),
+  ..   CANHONEIO = col_character(),
+  ..   TESTEMUNHO = col_character(),
+  ..   GEOQUIMICA = col_character(),
+  ..   SIG_SONDA = col_character(),
+  ..   NOM_SONDA = col_character(),
+  ..   ATINGIU_PRESAL = col_character(),
+  ..   DHA_ATUALIZACAO = col_character()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
 </div>
 </div>
 </section><section id="dados-de-poços" class="level2"><h2 class="anchored" data-anchor-id="dados-de-poços">Dados de poços</h2>
@@ -622,7 +620,6 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <li>OPERADOR</li>
 <li>ESTADO</li>
 <li>BACIA</li>
-<li>BLOCO</li>
 <li>CAMPO</li>
 <li>TERRA_MAR</li>
 <li>CATEGORIA</li>
@@ -634,42 +631,69 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <p>Para selecionar colunas usamos a função <code>select</code></p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Vamos selecionar as colunas listadas acima</span></span>
-<span><span class="va">pocos_01</span> <span class="op">&lt;-</span> <span class="va">pocos</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">POCO</span>,<span class="va">OPERADOR</span>,<span class="va">ESTADO</span>,<span class="va">BACIA</span>,<span class="va">BLOCO</span>, <span class="va">CAMPO</span>,<span class="va">TERRA_MAR</span>,<span class="va">CATEGORIA</span>,<span class="va">SITUACAO</span>, <span class="va">INICIO</span>, <span class="va">TERMINO</span>, <span class="va">PROFUNDIDADE_MEDIDA_M</span><span class="op">)</span></span>
+<span><span class="va">pocos_01</span> <span class="op">&lt;-</span> <span class="va">pocos</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">POCO</span>,<span class="va">OPERADOR</span>,<span class="va">ESTADO</span>,<span class="va">BACIA</span>, <span class="va">CAMPO</span>,<span class="va">TERRA_MAR</span>,<span class="va">CATEGORIA</span>,<span class="va">SITUACAO</span>, <span class="va">INICIO</span>, <span class="va">TERMINO</span>, <span class="va">PROFUNDIDADE_MEDIDA_M</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 12
-  POCO     OPERADOR ESTADO BACIA BLOCO CAMPO TERRA_MAR CATEGORIA SITUACAO INICIO
-  &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt; 
-1 7-L-10-… &lt;NA&gt;     BA     Recô… &lt;NA&gt;  LOBA… T         Desenvol… ABANDON… 20/12…
-2 1-AL-3-… &lt;NA&gt;     AL     Alag… Bras… &lt;NA&gt;  T         Pioneiro  ARRASADO 26/02…
-3 3-L-11-… &lt;NA&gt;     BA     Recô… &lt;NA&gt;  LOBA… T         Extensão  ABANDON… 09/03…
-4 1-C-1-BA 3R Cand… BA     Recô… C     CAND… T         Pioneiro  PRODUZI… 02/04…
-5 7-L-12-… &lt;NA&gt;     BA     Recô… &lt;NA&gt;  LOBA… T         Desenvol… DEVOLVI… 10/04…
-6 1-AL-5-… &lt;NA&gt;     AL     Alag… Bras… &lt;NA&gt;  T         Pioneiro  ARRASADO 21/08…
-# ℹ 2 more variables: TERMINO &lt;chr&gt;, PROFUNDIDADE_MEDIDA_M &lt;dbl&gt;</code></pre>
+<pre><code># A tibble: 6 × 11
+  POCO   OPERADOR ESTADO BACIA CAMPO TERRA_MAR CATEGORIA SITUACAO INICIO TERMINO
+  &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  
+1 7-FZB… 3R Faze… CE     Poti… FAZE… T         Desenvol… INJETAN… 30/08… 02/09/…
+2 7-AP-… 3R Poti… RN     Poti… CANT… T         Desenvol… FECHADO  31/08… 06/09/…
+3 7-CAM… 3R Poti… RN     Poti… CANT… T         Desenvol… ABANDON… 31/08… 04/09/…
+4 7-AR-… Petrobr… BA     Recô… ARAÇ… T         Desenvol… FECHADO  03/09… 20/09/…
+5 7-FZB… 3R Faze… CE     Poti… FAZE… T         Desenvol… ABANDON… 03/09… 06/09/…
+6 7-MO-… 3R Poti… RN     Poti… MOSS… T         Desenvol… ABANDON… 04/09… 10/09/…
+# ℹ 1 more variable: PROFUNDIDADE_MEDIDA_M &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     POCO             OPERADOR            ESTADO             BACIA          
+ Length:30516       Length:30516       Length:30516       Length:30516      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+    CAMPO            TERRA_MAR          CATEGORIA           SITUACAO        
+ Length:30516       Length:30516       Length:30516       Length:30516      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+    INICIO            TERMINO          PROFUNDIDADE_MEDIDA_M
+ Length:30516       Length:30516       Min.   :   0         
+ Class :character   Class :character   1st Qu.: 262         
+ Mode  :character   Mode  :character   Median : 781         
+                                       Mean   :1438         
+                                       3rd Qu.:2288         
+                                       Max.   :8613         
+                                       NA's   :16535        </code></pre>
 </div>
 </div>
 </section><section id="manipulação-de-dados" class="level2"><h2 class="anchored" data-anchor-id="manipulação-de-dados">Manipulação de dados</h2>
 <p>Vamos eliminar as linhas de dados que apresenta dados ausentes “NA” nas colunas TERMINO e PROFUNDIDADE_MEDIDA_M.</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 29411</code></pre>
+<pre><code>[1] 25542</code></pre>
 </div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">$</span><span class="va">INICIO</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">$</span><span class="va">INICIO</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1852</code></pre>
+<pre><code>[1] 1862</code></pre>
 </div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">$</span><span class="va">PROFUNDIDADE_MEDIDA_M</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">$</span><span class="va">PROFUNDIDADE_MEDIDA_M</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 16728</code></pre>
+<pre><code>[1] 16535</code></pre>
 </div>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_01</span> <span class="op">&lt;-</span> <span class="va">pocos_01</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"TERMINO"</span>,</span>
-<span>                                          <span class="st">"PROFUNDIDADE_MEDIDA_M"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_01</span> <span class="op">&lt;-</span> <span class="va">pocos_01</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"TERMINO"</span>,</span>
+<span>                            <span class="st">"PROFUNDIDADE_MEDIDA_M"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># melhorando a visualização dos dados</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pocos_01</span>, <span class="fl">10</span><span class="op">)</span>, booktabs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -679,24 +703,22 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <caption>Uma tabela mais elegante com as 10 primeras linhas de pocos_01.</caption>
 <colgroup>
 <col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 3%">
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 4%">
+<col style="width: 9%">
+<col style="width: 21%">
 <col style="width: 8%">
-<col style="width: 3%">
-<col style="width: 5%">
-<col style="width: 3%">
-<col style="width: 9%">
-<col style="width: 5%">
-<col style="width: 9%">
-<col style="width: 15%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 12%">
+<col style="width: 8%">
+<col style="width: 10%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">POCO</th>
 <th style="text-align: left;">OPERADOR</th>
 <th style="text-align: left;">ESTADO</th>
 <th style="text-align: left;">BACIA</th>
-<th style="text-align: left;">BLOCO</th>
 <th style="text-align: left;">CAMPO</th>
 <th style="text-align: left;">TERRA_MAR</th>
 <th style="text-align: left;">CATEGORIA</th>
@@ -707,222 +729,225 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1-P-1-BA</td>
-<td style="text-align: left;">Alcom</td>
-<td style="text-align: left;">BA</td>
-<td style="text-align: left;">Recôncavo</td>
-<td style="text-align: left;">P</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Pioneiro</td>
-<td style="text-align: left;">DEVOLVIDO</td>
-<td style="text-align: left;">25/04/1945 00:00</td>
-<td style="text-align: left;">15/12/1945 00:00</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: left;">7-AB-8D-RJS</td>
+<td style="text-align: left;">Petrobras</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">ALBACORA</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">05/09/1990 00:00</td>
+<td style="text-align: left;">03/10/1990 00:00</td>
+<td style="text-align: right;">3349.0</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">7-I-22-BA</td>
-<td style="text-align: left;">NTF</td>
-<td style="text-align: left;">BA</td>
-<td style="text-align: left;">Recôncavo</td>
-<td style="text-align: left;">I_AM4</td>
-<td style="text-align: left;">ITAPARICA</td>
+<td style="text-align: left;">7-CAM-457-RN</td>
+<td style="text-align: left;">3R Potiguar</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">CANTO DO AMARO</td>
 <td style="text-align: left;">T</td>
 <td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">10/01/1946 00:00</td>
-<td style="text-align: left;">26/08/1946 00:00</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: left;">INJETANDO</td>
+<td style="text-align: left;">07/09/1990 00:00</td>
+<td style="text-align: left;">14/09/1990 00:00</td>
+<td style="text-align: right;">814.5</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1-P-2-BA</td>
-<td style="text-align: left;">Alcom</td>
+<td style="text-align: left;">4-RUC-25-AM</td>
+<td style="text-align: left;">Petrobras</td>
+<td style="text-align: left;">AM</td>
+<td style="text-align: left;">Solimões</td>
+<td style="text-align: left;">RIO URUCU</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Pioneiro Adjacente</td>
+<td style="text-align: left;">ARRASADO</td>
+<td style="text-align: left;">16/04/1991 00:00</td>
+<td style="text-align: left;">20/06/1991 00:00</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-RUC-28-AM</td>
+<td style="text-align: left;">Petrobras</td>
+<td style="text-align: left;">AM</td>
+<td style="text-align: left;">Solimões</td>
+<td style="text-align: left;">RIO URUCU</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ARRASADO</td>
+<td style="text-align: left;">08/02/1992 00:00</td>
+<td style="text-align: left;">28/03/1992 00:00</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-FQ-48-ES</td>
+<td style="text-align: left;">Seacrest SPE Cricaré</td>
+<td style="text-align: left;">ES</td>
+<td style="text-align: left;">Espírito Santo</td>
+<td style="text-align: left;">FAZENDA CEDRO</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">FECHADO</td>
+<td style="text-align: left;">31/08/1989 00:00</td>
+<td style="text-align: left;">09/09/1989 00:00</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4-RI-33-BA</td>
+<td style="text-align: left;">Petrobras</td>
 <td style="text-align: left;">BA</td>
 <td style="text-align: left;">Recôncavo</td>
-<td style="text-align: left;">P</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Pioneiro Adjacente</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">05/09/1989 00:00</td>
+<td style="text-align: left;">12/09/1989 00:00</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-NMR-10-RN</td>
+<td style="text-align: left;">Petrobras</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">NOROESTE DO MORRO ROSADO</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ARRASADO</td>
+<td style="text-align: left;">07/09/1989 00:00</td>
+<td style="text-align: left;">08/10/1989 00:00</td>
+<td style="text-align: right;">2279.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-FQ-52-ES</td>
+<td style="text-align: left;">Seacrest SPE Cricaré</td>
+<td style="text-align: left;">ES</td>
+<td style="text-align: left;">Espírito Santo</td>
+<td style="text-align: left;">FAZENDA CEDRO</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">DEVOLVIDO</td>
+<td style="text-align: left;">30/07/1990 00:00</td>
+<td style="text-align: left;">06/08/1990 00:00</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1-SMI-2-RN</td>
+<td style="text-align: left;">Potiguar E&amp;P S.A.</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">PAJEÚ</td>
 <td style="text-align: left;">T</td>
 <td style="text-align: left;">Pioneiro</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">19/03/1946 00:00</td>
-<td style="text-align: left;">25/05/1946 00:00</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: left;">ABANDONADO TEMPORARIAMENTE COM MONITORAMENTO</td>
+<td style="text-align: left;">02/08/1990 00:00</td>
+<td style="text-align: left;">07/08/1990 00:00</td>
+<td style="text-align: right;">0.0</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2-PST-1-BA</td>
-<td style="text-align: left;">Alcom</td>
-<td style="text-align: left;">BA</td>
-<td style="text-align: left;">Recôncavo</td>
-<td style="text-align: left;">P</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">4-RE-35-RN</td>
+<td style="text-align: left;">3R Potiguar</td>
+<td style="text-align: left;">RN</td>
+<td style="text-align: left;">Potiguar</td>
+<td style="text-align: left;">BENFICA</td>
 <td style="text-align: left;">T</td>
-<td style="text-align: left;">Estratigráfico</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">17/05/1946 00:00</td>
-<td style="text-align: left;">14/06/1946 00:00</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2-PST-2-BA</td>
-<td style="text-align: left;">Alcom</td>
-<td style="text-align: left;">BA</td>
-<td style="text-align: left;">Recôncavo</td>
-<td style="text-align: left;">P</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Estratigráfico</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">29/06/1946 00:00</td>
-<td style="text-align: left;">18/07/1946 00:00</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2-PST-3-BA</td>
-<td style="text-align: left;">PetroRecôncavo</td>
-<td style="text-align: left;">BA</td>
-<td style="text-align: left;">Recôncavo</td>
-<td style="text-align: left;">MJ</td>
-<td style="text-align: left;">MATA DE SÃO JOÃO</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Estratigráfico</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">08/08/1946 00:00</td>
-<td style="text-align: left;">25/08/1946 00:00</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2-PST-4-BA</td>
-<td style="text-align: left;">PetroRecôncavo</td>
-<td style="text-align: left;">BA</td>
-<td style="text-align: left;">Recôncavo</td>
-<td style="text-align: left;">MJ</td>
-<td style="text-align: left;">MATA DE SÃO JOÃO</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Estratigráfico</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">25/09/1946 00:00</td>
-<td style="text-align: left;">21/10/1946 00:00</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2-PST-7-BA</td>
-<td style="text-align: left;">PetroRecôncavo</td>
-<td style="text-align: left;">BA</td>
-<td style="text-align: left;">Recôncavo</td>
-<td style="text-align: left;">MJ</td>
-<td style="text-align: left;">MATA DE SÃO JOÃO</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Estratigráfico</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">04/02/1947 00:00</td>
-<td style="text-align: left;">24/02/1947 00:00</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2-PST-7A-BA</td>
-<td style="text-align: left;">PetroRecôncavo</td>
-<td style="text-align: left;">BA</td>
-<td style="text-align: left;">Recôncavo</td>
-<td style="text-align: left;">MJ</td>
-<td style="text-align: left;">MATA DE SÃO JOÃO</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Estratigráfico</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">11/02/1947 00:00</td>
-<td style="text-align: left;">25/03/1947 00:00</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2-PST-8-BA</td>
-<td style="text-align: left;">PetroRecôncavo</td>
-<td style="text-align: left;">BA</td>
-<td style="text-align: left;">Recôncavo</td>
-<td style="text-align: left;">MJ</td>
-<td style="text-align: left;">MATA DE SÃO JOÃO</td>
-<td style="text-align: left;">T</td>
-<td style="text-align: left;">Estratigráfico</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">01/04/1947 00:00</td>
-<td style="text-align: left;">14/04/1947 00:00</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: left;">Pioneiro Adjacente</td>
+<td style="text-align: left;">FECHADO</td>
+<td style="text-align: left;">06/08/1990 00:00</td>
+<td style="text-align: left;">18/08/1990 00:00</td>
+<td style="text-align: right;">0.0</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4596</code></pre>
+<pre><code>[1] 1280</code></pre>
 </div>
 </div>
 </section><section id="corrigindo-tipo-de-dados" class="level2"><h2 class="anchored" data-anchor-id="corrigindo-tipo-de-dados">Corrigindo tipo de dados</h2>
 <p>As colunas INICIO e TERMINO são datas, mas foram lidas como caracter, vamos corrigir isto!</p>
 <p>Para trabalhar com datas vamos usar o pacote <code>lubridate</code></p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
 <span><span class="va">pocos_01</span><span class="op">$</span><span class="va">INICIO</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">dmy_hm</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">$</span><span class="va">INICIO</span>, locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/locales.html">Sys.getlocale</a></span><span class="op">(</span><span class="st">"LC_TIME"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">pocos_01</span><span class="op">$</span><span class="va">TERMINO</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">dmy_hm</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">$</span><span class="va">TERMINO</span>, locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/locales.html">Sys.getlocale</a></span><span class="op">(</span><span class="st">"LC_TIME"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">pocos_01</span><span class="op">$</span><span class="va">TERMINO</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">dmy_hm</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">$</span><span class="va">TERMINO</span>, locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/locales.html">Sys.getlocale</a></span><span class="op">(</span><span class="st">"LC_TIME"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">pocos_01</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [12,258 × 11] (S3: tbl_df/tbl/data.frame)
+ $ POCO                 : chr [1:12258] "7-AB-8D-RJS" "7-CAM-457-RN" "4-RUC-25-AM" "7-RUC-28-AM" ...
+ $ OPERADOR             : chr [1:12258] "Petrobras" "3R Potiguar" "Petrobras" "Petrobras" ...
+ $ ESTADO               : chr [1:12258] "RJ" "RN" "AM" "AM" ...
+ $ BACIA                : chr [1:12258] "Campos" "Potiguar" "Solimões" "Solimões" ...
+ $ CAMPO                : chr [1:12258] "ALBACORA" "CANTO DO AMARO" "RIO URUCU" "RIO URUCU" ...
+ $ TERRA_MAR            : chr [1:12258] "M" "T" "T" "T" ...
+ $ CATEGORIA            : chr [1:12258] "Desenvolvimento" "Desenvolvimento" "Pioneiro Adjacente" "Desenvolvimento" ...
+ $ SITUACAO             : chr [1:12258] "ABANDONADO PERMANENTEMENTE" "INJETANDO" "ARRASADO" "ARRASADO" ...
+ $ INICIO               : POSIXct[1:12258], format: "1990-09-05" "1990-09-07" ...
+ $ TERMINO              : POSIXct[1:12258], format: "1990-10-03" "1990-09-14" ...
+ $ PROFUNDIDADE_MEDIDA_M: num [1:12258] 3349 814 0 0 0 ...</code></pre>
+</div>
 </div>
 </section><section id="filtrando-dados" class="level2"><h2 class="anchored" data-anchor-id="filtrando-dados">Filtrando dados</h2>
 <p>Vamos analisar os poços de uma detreminada região, para isto podemos fltrar os poços de um bloco. Vamos filtrar somente os poços do CAMPO PEREGRINO usando a função <code>filter</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_02</span> <span class="op">&lt;-</span> <span class="va">pocos_01</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">CAMPO</span><span class="op">==</span><span class="st">"PEREGRINO"</span><span class="op">)</span> <span class="co">##  </span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_02</span> <span class="op">&lt;-</span> <span class="va">pocos_01</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">CAMPO</span><span class="op">==</span><span class="st">"PEREGRINO"</span><span class="op">)</span> <span class="co">##  </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pocos_02</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     POCO             OPERADOR            ESTADO             BACIA          
- Length:106         Length:106         Length:106         Length:106        
+ Length:107         Length:107         Length:107         Length:107        
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
                                                                             
                                                                             
-    BLOCO              CAMPO            TERRA_MAR          CATEGORIA        
- Length:106         Length:106         Length:106         Length:106        
+    CAMPO            TERRA_MAR          CATEGORIA           SITUACAO        
+ Length:107         Length:107         Length:107         Length:107        
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
                                                                             
                                                                             
-   SITUACAO             INICIO                      
- Length:106         Min.   :1994-07-07 00:00:00.00  
- Class :character   1st Qu.:2012-02-04 18:00:00.00  
- Mode  :character   Median :2014-01-03 00:00:00.00  
-                    Mean   :2014-10-09 08:49:48.68  
-                    3rd Qu.:2017-05-18 00:00:00.00  
-                    Max.   :2022-11-29 00:00:00.00  
-    TERMINO                       PROFUNDIDADE_MEDIDA_M
- Min.   :1994-08-17 00:00:00.00   Min.   :   0         
- 1st Qu.:2012-03-16 00:00:00.00   1st Qu.:4452         
- Median :2014-03-02 00:00:00.00   Median :4924         
- Mean   :2014-11-12 18:33:57.74   Mean   :5045         
- 3rd Qu.:2017-05-26 12:00:00.00   3rd Qu.:6213         
- Max.   :2023-01-05 00:00:00.00   Max.   :8613         </code></pre>
+     INICIO                          TERMINO                     
+ Min.   :1994-07-07 00:00:00.00   Min.   :1994-08-17 00:00:00.0  
+ 1st Qu.:2012-02-05 12:00:00.00   1st Qu.:2012-03-23 00:00:00.0  
+ Median :2014-01-17 00:00:00.00   Median :2014-03-02 00:00:00.0  
+ Mean   :2014-11-07 04:02:14.57   Mean   :2014-12-11 13:27:28.5  
+ 3rd Qu.:2017-06-07 00:00:00.00   3rd Qu.:2017-06-04 00:00:00.0  
+ Max.   :2023-03-18 00:00:00.00   Max.   :2023-04-20 00:00:00.0  
+ PROFUNDIDADE_MEDIDA_M
+ Min.   :   0         
+ 1st Qu.:4452         
+ Median :4958         
+ Mean   :5052         
+ 3rd Qu.:6175         
+ Max.   :8613         </code></pre>
 </div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pocos_02</span>, <span class="fl">10</span><span class="op">)</span>, booktabs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  caption <span class="op">=</span> <span class="st">'Uma tabela mais elegante com as 10 primeras linhas de pocos_02.'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <caption>Uma tabela mais elegante com as 10 primeras linhas de pocos_02.</caption>
 <colgroup>
-<col style="width: 10%">
+<col style="width: 9%">
 <col style="width: 9%">
 <col style="width: 4%">
 <col style="width: 4%">
-<col style="width: 3%">
 <col style="width: 6%">
 <col style="width: 6%">
 <col style="width: 10%">
 <col style="width: 17%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 13%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 14%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">POCO</th>
 <th style="text-align: left;">OPERADOR</th>
 <th style="text-align: left;">ESTADO</th>
 <th style="text-align: left;">BACIA</th>
-<th style="text-align: left;">BLOCO</th>
 <th style="text-align: left;">CAMPO</th>
 <th style="text-align: left;">TERRA_MAR</th>
 <th style="text-align: left;">CATEGORIA</th>
@@ -933,218 +958,217 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">7-PRG-31H-RJS</td>
+<td style="text-align: left;">3-ENC-3-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">2013-04-19</td>
-<td style="text-align: left;">2013-09-28</td>
-<td style="text-align: right;">6052.50</td>
+<td style="text-align: left;">Extensão</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">2005-08-05</td>
+<td style="text-align: left;">2005-08-20</td>
+<td style="text-align: right;">2332.00</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">7-PRG-27H-RJS</td>
+<td style="text-align: left;">3-PRG-1DA-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Extensão</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">2007-06-04</td>
+<td style="text-align: left;">2007-06-28</td>
+<td style="text-align: right;">2655.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3-ENC-4-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Extensão</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">2005-09-20</td>
+<td style="text-align: left;">2005-10-12</td>
+<td style="text-align: right;">2345.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1-RJS-498-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Pioneiro</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">1994-07-07</td>
+<td style="text-align: left;">1994-08-17</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3-PRG-1-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Extensão</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">2007-05-05</td>
+<td style="text-align: left;">2007-06-03</td>
+<td style="text-align: right;">2432.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-PRG-19HA-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2013-02-01</td>
-<td style="text-align: left;">2013-03-08</td>
-<td style="text-align: right;">5688.40</td>
+<td style="text-align: left;">2012-06-15</td>
+<td style="text-align: left;">2012-07-30</td>
+<td style="text-align: right;">6670.00</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">8-PRG-30DA-RJS</td>
+<td style="text-align: left;">7-PRG-16H-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Injeção</td>
-<td style="text-align: left;">INJETANDO</td>
-<td style="text-align: left;">2013-06-04</td>
-<td style="text-align: left;">2013-06-21</td>
-<td style="text-align: right;">6250.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-40HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2014-07-27</td>
-<td style="text-align: left;">2014-08-03</td>
-<td style="text-align: right;">4797.74</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">8-PRG-36H-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Injeção</td>
 <td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">2013-12-20</td>
-<td style="text-align: left;">2014-03-02</td>
-<td style="text-align: right;">4456.00</td>
+<td style="text-align: left;">2011-10-12</td>
+<td style="text-align: left;">2012-04-06</td>
+<td style="text-align: right;">4268.00</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">8-PRG-39D-RJS</td>
+<td style="text-align: left;">7-PRG-12HA-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Injeção</td>
-<td style="text-align: left;">INJETANDO</td>
-<td style="text-align: left;">2014-07-18</td>
-<td style="text-align: left;">2014-09-25</td>
-<td style="text-align: right;">7075.63</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">8-PRG-36HA-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Injeção</td>
-<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">2014-03-02</td>
-<td style="text-align: left;">2014-05-10</td>
-<td style="text-align: right;">4467.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">8-PRG-38H-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Injeção</td>
-<td style="text-align: left;">INJETANDO</td>
-<td style="text-align: left;">2014-01-17</td>
-<td style="text-align: left;">2014-03-02</td>
-<td style="text-align: right;">5960.00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7-PRG-35HPA-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">2013-11-27</td>
-<td style="text-align: left;">2013-12-04</td>
-<td style="text-align: right;">4757.30</td>
+<td style="text-align: left;">2011-10-29</td>
+<td style="text-align: left;">2011-11-03</td>
+<td style="text-align: right;">5358.00</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-35HP-RJS</td>
+<tr class="odd">
+<td style="text-align: left;">7-PRG-8HPA-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">2013-11-15</td>
-<td style="text-align: left;">2013-11-28</td>
-<td style="text-align: right;">3781.00</td>
+<td style="text-align: left;">2011-11-07</td>
+<td style="text-align: left;">2011-12-02</td>
+<td style="text-align: right;">4959.87</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-PRG-19H-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">2012-04-15</td>
+<td style="text-align: left;">2012-06-17</td>
+<td style="text-align: right;">4452.00</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 <section id="avaliando-os-dados" class="level3"><h3 class="anchored" data-anchor-id="avaliando-os-dados">Avaliando os dados</h3>
-<p>Os poços possuem diversas categorias, vamos ver que categorias existem nestes poços do bloco BES-100.</p>
+<p>Os poços possuem diversas categorias, vamos ver que categorias existem nestes poços campo de Peregrino.</p>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">pocos_02</span><span class="op">$</span><span class="va">CATEGORIA</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">pocos_02</span><span class="op">$</span><span class="va">CATEGORIA</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Desenvolvimento" "Injeção"         "Extensão"        "Pioneiro"       
+<pre><code>[1] "Extensão"        "Pioneiro"        "Desenvolvimento" "Injeção"        
 [5] "Especial"       </code></pre>
+</div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_02</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">CATEGORIA</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>total<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  CATEGORIA       total
+  &lt;chr&gt;           &lt;int&gt;
+1 Desenvolvimento    84
+2 Especial            3
+3 Extensão            7
+4 Injeção            12
+5 Pioneiro            1</code></pre>
 </div>
 </div>
 </section><section id="filtrando-poços-de-desenvolvimento" class="level3"><h3 class="anchored" data-anchor-id="filtrando-poços-de-desenvolvimento">Filtrando poços de desenvolvimento</h3>
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span> <span class="op">&lt;-</span> <span class="va">pocos_02</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">CATEGORIA</span><span class="op">==</span><span class="st">"Desenvolvimento"</span><span class="op">)</span> <span class="co">##  </span></span>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span> <span class="op">&lt;-</span> <span class="va">pocos_02</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">CATEGORIA</span><span class="op">==</span><span class="st">"Desenvolvimento"</span><span class="op">)</span> <span class="co">##  </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pocos_03</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     POCO             OPERADOR            ESTADO             BACIA          
- Length:83          Length:83          Length:83          Length:83         
+ Length:84          Length:84          Length:84          Length:84         
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
                                                                             
                                                                             
-    BLOCO              CAMPO            TERRA_MAR          CATEGORIA        
- Length:83          Length:83          Length:83          Length:83         
+    CAMPO            TERRA_MAR          CATEGORIA           SITUACAO        
+ Length:84          Length:84          Length:84          Length:84         
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
                                                                             
                                                                             
-   SITUACAO             INICIO                      
- Length:83          Min.   :2010-11-10 00:00:00.00  
- Class :character   1st Qu.:2012-04-25 12:00:00.00  
- Mode  :character   Median :2014-11-07 00:00:00.00  
-                    Mean   :2015-05-18 18:47:42.65  
-                    3rd Qu.:2017-07-02 00:00:00.00  
-                    Max.   :2022-11-29 00:00:00.00  
-    TERMINO                       PROFUNDIDADE_MEDIDA_M
- Min.   :2010-11-11 00:00:00.00   Min.   : 269         
- 1st Qu.:2012-05-30 00:00:00.00   1st Qu.:4509         
- Median :2014-11-11 00:00:00.00   Median :5066         
- Mean   :2015-06-22 18:47:42.65   Mean   :5284         
- 3rd Qu.:2017-06-24 12:00:00.00   3rd Qu.:6410         
- Max.   :2023-01-05 00:00:00.00   Max.   :8613         </code></pre>
+     INICIO                       TERMINO                      
+ Min.   :2010-11-10 00:00:00   Min.   :2010-11-11 00:00:00.00  
+ 1st Qu.:2012-04-27 06:00:00   1st Qu.:2012-06-08 00:00:00.00  
+ Median :2014-11-20 00:00:00   Median :2014-12-05 00:00:00.00  
+ Mean   :2015-06-21 20:00:00   Mean   :2015-07-26 19:25:42.85  
+ 3rd Qu.:2017-08-06 00:00:00   3rd Qu.:2017-08-15 12:00:00.00  
+ Max.   :2023-03-18 00:00:00   Max.   :2023-04-20 00:00:00.00  
+ PROFUNDIDADE_MEDIDA_M
+ Min.   : 269         
+ 1st Qu.:4518         
+ Median :5081         
+ Mean   :5291         
+ 3rd Qu.:6397         
+ Max.   :8613         </code></pre>
 </div>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pocos_03</span>, <span class="fl">10</span><span class="op">)</span>, booktabs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  caption <span class="op">=</span> <span class="st">'Uma tabela mais elegante com as 10 primeras linhas de pocos_03.'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <caption>Uma tabela mais elegante com as 10 primeras linhas de pocos_03.</caption>
 <colgroup>
-<col style="width: 10%">
+<col style="width: 9%">
 <col style="width: 9%">
 <col style="width: 4%">
 <col style="width: 4%">
-<col style="width: 4%">
 <col style="width: 6%">
 <col style="width: 6%">
 <col style="width: 10%">
-<col style="width: 16%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 14%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">POCO</th>
 <th style="text-align: left;">OPERADOR</th>
 <th style="text-align: left;">ESTADO</th>
 <th style="text-align: left;">BACIA</th>
-<th style="text-align: left;">BLOCO</th>
 <th style="text-align: left;">CAMPO</th>
 <th style="text-align: left;">TERRA_MAR</th>
 <th style="text-align: left;">CATEGORIA</th>
@@ -1155,144 +1179,134 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">7-PRG-31H-RJS</td>
+<td style="text-align: left;">7-PRG-19HA-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">2013-04-19</td>
-<td style="text-align: left;">2013-09-28</td>
-<td style="text-align: right;">6052.50</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-27H-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2013-02-01</td>
-<td style="text-align: left;">2013-03-08</td>
-<td style="text-align: right;">5688.40</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7-PRG-40HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2014-07-27</td>
-<td style="text-align: left;">2014-08-03</td>
-<td style="text-align: right;">4797.74</td>
+<td style="text-align: left;">2012-06-15</td>
+<td style="text-align: left;">2012-07-30</td>
+<td style="text-align: right;">6670.00</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">7-PRG-35HPA-RJS</td>
+<td style="text-align: left;">7-PRG-16H-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">2013-11-27</td>
-<td style="text-align: left;">2013-12-04</td>
-<td style="text-align: right;">4757.30</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7-PRG-35HP-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">2013-11-15</td>
-<td style="text-align: left;">2013-11-28</td>
-<td style="text-align: right;">3781.00</td>
+<td style="text-align: left;">2011-10-12</td>
+<td style="text-align: left;">2012-04-06</td>
+<td style="text-align: right;">4268.00</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-64HP-RJS</td>
+<tr class="odd">
+<td style="text-align: left;">7-PRG-12HA-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">2018-11-11</td>
-<td style="text-align: left;">2018-12-05</td>
-<td style="text-align: right;">5790.00</td>
+<td style="text-align: left;">2011-10-29</td>
+<td style="text-align: left;">2011-11-03</td>
+<td style="text-align: right;">5358.00</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">7-PRG-58HB-RJS</td>
+<tr class="even">
+<td style="text-align: left;">7-PRG-8HPA-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">BM-C-7</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
-<td style="text-align: left;">2017-06-19</td>
-<td style="text-align: left;">2017-06-04</td>
-<td style="text-align: right;">5555.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7-PRG-28H-RJS</td>
-<td style="text-align: left;">Equinor Brasil</td>
-<td style="text-align: left;">RJ</td>
-<td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PEREGRINO</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Desenvolvimento</td>
-<td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2013-03-10</td>
-<td style="text-align: left;">2013-07-21</td>
-<td style="text-align: right;">4811.00</td>
+<td style="text-align: left;">2011-11-07</td>
+<td style="text-align: left;">2011-12-02</td>
+<td style="text-align: right;">4959.87</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">7-PRG-32HP-RJS</td>
+<td style="text-align: left;">7-PRG-19H-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">2012-04-15</td>
+<td style="text-align: left;">2012-06-17</td>
+<td style="text-align: right;">4452.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-PRG-17H-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">2012-04-22</td>
+<td style="text-align: left;">2012-05-12</td>
+<td style="text-align: right;">6351.90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-PRG-16HA-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">FECHADO</td>
-<td style="text-align: left;">2013-07-30</td>
-<td style="text-align: left;">2013-08-03</td>
-<td style="text-align: right;">4698.00</td>
+<td style="text-align: left;">2012-04-29</td>
+<td style="text-align: left;">2012-05-05</td>
+<td style="text-align: right;">4129.00</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">7-PRG-49H-RJS</td>
+<td style="text-align: left;">7-PRG-18H-RJS</td>
 <td style="text-align: left;">Equinor Brasil</td>
 <td style="text-align: left;">RJ</td>
 <td style="text-align: left;">Campos</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">2012-05-31</td>
+<td style="text-align: left;">2012-07-04</td>
+<td style="text-align: right;">5396.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7-PRG-20H-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
+<td style="text-align: left;">PEREGRINO</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Desenvolvimento</td>
+<td style="text-align: left;">ABANDONADO PERMANENTEMENTE</td>
+<td style="text-align: left;">2012-07-22</td>
+<td style="text-align: left;">2012-08-24</td>
+<td style="text-align: right;">5442.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7-PRG-29H-RJS</td>
+<td style="text-align: left;">Equinor Brasil</td>
+<td style="text-align: left;">RJ</td>
+<td style="text-align: left;">Campos</td>
 <td style="text-align: left;">PEREGRINO</td>
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Desenvolvimento</td>
 <td style="text-align: left;">PRODUZINDO</td>
-<td style="text-align: left;">2015-06-28</td>
-<td style="text-align: left;">2015-08-21</td>
-<td style="text-align: right;">8080.20</td>
+<td style="text-align: left;">2013-04-20</td>
+<td style="text-align: left;">2013-06-07</td>
+<td style="text-align: right;">4604.00</td>
 </tr>
 </tbody>
 </table>
@@ -1301,96 +1315,104 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 </section></section><section id="criando-uma-coluna-com-mutate" class="level2"><h2 class="anchored" data-anchor-id="criando-uma-coluna-com-mutate">Criando uma coluna com mutate</h2>
 <p>Vamos criar uma coluna que nos dará a duração da perfuração dos poços.</p>
 <div class="cell">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span><span class="op">$</span><span class="va">INICIO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span><span class="op">$</span><span class="va">INICIO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2013-04-19 UTC"</code></pre>
+<pre><code>[1] "2012-06-15 UTC"</code></pre>
 </div>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2013-09-28 UTC"</code></pre>
+<pre><code>[1] "2012-07-30 UTC"</code></pre>
 </div>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">pocos_03</span><span class="op">$</span><span class="va">INICIO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">pocos_03</span><span class="op">$</span><span class="va">INICIO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 162 days</code></pre>
+<pre><code>Time difference of 45 days</code></pre>
 </div>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/difftime.html">difftime</a></span><span class="op">(</span><span class="va">pocos_03</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">pocos_03</span><span class="op">$</span><span class="va">INICIO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, units <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/difftime.html">difftime</a></span><span class="op">(</span><span class="va">pocos_03</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">pocos_03</span><span class="op">$</span><span class="va">INICIO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, units <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 162 days</code></pre>
+<pre><code>Time difference of 45 days</code></pre>
 </div>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tempo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/difftime.html">difftime</a></span><span class="op">(</span><span class="va">pocos_03</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">pocos_03</span><span class="op">$</span><span class="va">INICIO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, units <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tempo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/difftime.html">difftime</a></span><span class="op">(</span><span class="va">pocos_03</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">pocos_03</span><span class="op">$</span><span class="va">INICIO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, units <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">tempo</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> 'difftime' num 162
+<pre><code> 'difftime' num 45
  - attr(*, "units")= chr "days"</code></pre>
 </div>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">pocos_03</span><span class="op">$</span><span class="va">INICIO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op"><a href="https://lubridate.tidyverse.org/reference/interval.html">%--%</a></span> <span class="va">pocos_03</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">pocos_03</span><span class="op">$</span><span class="va">INICIO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op"><a href="https://lubridate.tidyverse.org/reference/interval.html">%--%</a></span> <span class="va">pocos_03</span><span class="op">$</span><span class="va">TERMINO</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 162</code></pre>
+<pre><code>[1] 45</code></pre>
 </div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span> <span class="op">&lt;-</span> <span class="va">pocos_03</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>TPERF <span class="op">=</span> <span class="op">(</span><span class="va">INICIO</span> <span class="op"><a href="https://lubridate.tidyverse.org/reference/interval.html">%--%</a></span> <span class="va">TERMINO</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span> <span class="op">&lt;-</span> <span class="va">pocos_03</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>TPERF <span class="op">=</span> <span class="op">(</span><span class="va">INICIO</span> <span class="op"><a href="https://lubridate.tidyverse.org/reference/interval.html">%--%</a></span> <span class="va">TERMINO</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pocos_03</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     POCO             OPERADOR            ESTADO             BACIA          
- Length:83          Length:83          Length:83          Length:83         
+ Length:84          Length:84          Length:84          Length:84         
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
                                                                             
                                                                             
-    BLOCO              CAMPO            TERRA_MAR          CATEGORIA        
- Length:83          Length:83          Length:83          Length:83         
+    CAMPO            TERRA_MAR          CATEGORIA           SITUACAO        
+ Length:84          Length:84          Length:84          Length:84         
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
                                                                             
                                                                             
                                                                             
-   SITUACAO             INICIO                      
- Length:83          Min.   :2010-11-10 00:00:00.00  
- Class :character   1st Qu.:2012-04-25 12:00:00.00  
- Mode  :character   Median :2014-11-07 00:00:00.00  
-                    Mean   :2015-05-18 18:47:42.65  
-                    3rd Qu.:2017-07-02 00:00:00.00  
-                    Max.   :2022-11-29 00:00:00.00  
-    TERMINO                       PROFUNDIDADE_MEDIDA_M     TPERF       
- Min.   :2010-11-11 00:00:00.00   Min.   : 269          Min.   :-347.0  
- 1st Qu.:2012-05-30 00:00:00.00   1st Qu.:4509          1st Qu.:  14.0  
- Median :2014-11-11 00:00:00.00   Median :5066          Median :  24.0  
- Mean   :2015-06-22 18:47:42.65   Mean   :5284          Mean   :  35.0  
- 3rd Qu.:2017-06-24 12:00:00.00   3rd Qu.:6410          3rd Qu.:  37.5  
- Max.   :2023-01-05 00:00:00.00   Max.   :8613          Max.   : 598.0  </code></pre>
+     INICIO                       TERMINO                      
+ Min.   :2010-11-10 00:00:00   Min.   :2010-11-11 00:00:00.00  
+ 1st Qu.:2012-04-27 06:00:00   1st Qu.:2012-06-08 00:00:00.00  
+ Median :2014-11-20 00:00:00   Median :2014-12-05 00:00:00.00  
+ Mean   :2015-06-21 20:00:00   Mean   :2015-07-26 19:25:42.85  
+ 3rd Qu.:2017-08-06 00:00:00   3rd Qu.:2017-08-15 12:00:00.00  
+ Max.   :2023-03-18 00:00:00   Max.   :2023-04-20 00:00:00.00  
+ PROFUNDIDADE_MEDIDA_M     TPERF        
+ Min.   : 269          Min.   :-347.00  
+ 1st Qu.:4518          1st Qu.:  14.50  
+ Median :5081          Median :  24.50  
+ Mean   :5291          Mean   :  34.98  
+ 3rd Qu.:6397          3rd Qu.:  37.25  
+ Max.   :8613          Max.   : 598.00  </code></pre>
 </div>
 </div>
 <section id="eliminando-colunas-com-tempos-negativos" class="level3"><h3 class="anchored" data-anchor-id="eliminando-colunas-com-tempos-negativos">Eliminando colunas com tempos negativos</h3>
 <div class="cell">
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span> <span class="op">&lt;-</span> <span class="va">pocos_03</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">TPERF</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">TPERF</span><span class="op">&lt;</span><span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">POCO</span>, <span class="va">INICIO</span>, <span class="va">TERMINO</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  POCO            INICIO              TERMINO            
+  &lt;chr&gt;           &lt;dttm&gt;              &lt;dttm&gt;             
+1 7-PRG-71HPA-RJS 2020-12-18 00:00:00 2020-01-06 00:00:00
+2 7-PRG-58HB-RJS  2017-06-19 00:00:00 2017-06-04 00:00:00</code></pre>
+</div>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_03</span> <span class="op">&lt;-</span> <span class="va">pocos_03</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">TPERF</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="visualizando-os-dados-de-peregrino" class="level2"><h2 class="anchored" data-anchor-id="visualizando-os-dados-de-peregrino">Visualizando os dados de PEREGRINO</h2>
 <section id="box-plot" class="level3"><h3 class="anchored" data-anchor-id="box-plot">Box-Plot</h3>
 <div class="cell">
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pocos_03</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">CAMPO</span>, y<span class="op">=</span><span class="va">TPERF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pocos_03</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">CAMPO</span>, y<span class="op">=</span><span class="va">TPERF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula01/boxplot-1.png" class="img-fluid" width="960"></p>
+<p><img src="Aula01_files/figure-html/boxplot-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Veja que existem alguns tempos bem elevados que estão representados por pontos no box-plot. Eles podem ser considerados pontos afastados (outliers), que neste caso vamos eliminar.</p>
 <div class="cell">
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_04</span> <span class="op">&lt;-</span> <span class="va">pocos_03</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">TPERF</span> <span class="op">&lt;</span> <span class="fl">100</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos_04</span> <span class="op">&lt;-</span> <span class="va">pocos_03</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">TPERF</span> <span class="op">&lt;</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pocos_04</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">CAMPO</span>, y<span class="op">=</span><span class="va">TPERF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula01/outliers-1.png" class="img-fluid" width="960"></p>
+<p><img src="Aula01_files/figure-html/outliers-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section><section id="histograma" class="level3"><h3 class="anchored" data-anchor-id="histograma">Histograma</h3>
 <div class="cell">
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pocos_04</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">TPERF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pocos_04</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">TPERF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula01/histograma-1.png" class="img-fluid" width="960"></p>
+<p><img src="Aula01_files/figure-html/histograma-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Veja que desta forma o ggplot usa o seu padrão de 30 faixas de dados, que geralmente não é o mais adequado.</p>
@@ -1398,19 +1420,23 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 </section><section id="criando-um-histograma-usando-a-regra-de-sturges" class="level3"><h3 class="anchored" data-anchor-id="criando-um-histograma-usando-a-regra-de-sturges">Criando um histograma usando a regra de Sturges</h3>
 <p>A regra de Sturges indica 7 faixas enquanto que o padrão do ggplot2 é 30.</p>
 <div class="cell">
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pocos_04</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">TPERF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pocos_04</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">TPERF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fl">3.322</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">pocos_04</span><span class="op">)</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula01/Sturges-1.png" class="img-fluid" width="960"></p>
+<p><img src="Aula01_files/figure-html/Sturges-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Veja que agora temos um histograma mais suave.</p>
 </section><section id="gráfico-de-dispersão" class="level3"><h3 class="anchored" data-anchor-id="gráfico-de-dispersão">Gráfico de Dispersão</h3>
 <div class="cell">
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pocos_04</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">PROFUNDIDADE_MEDIDA_M</span>, y<span class="op">=</span><span class="va">TPERF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pocos_04</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">PROFUNDIDADE_MEDIDA_M</span>, y<span class="op">=</span><span class="va">TPERF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula01/dispersao-1.png" class="img-fluid" width="960"></p>
+<p><img src="Aula01_files/figure-html/dispersao-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">pocos_04</span><span class="op">$</span><span class="va">PROFUNDIDADE_MEDIDA_M</span>, <span class="va">pocos_04</span><span class="op">$</span><span class="va">TPERF</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5257089</code></pre>
 </div>
 </div>
 <p>Podemos perceber que há uma relação entre o tempo de perfuração e a profundidade do poço.</p>
@@ -1418,22 +1444,20 @@ lgl  (1): UNIDADE_ESTRATIGRAFICA
 <p>Se fossemos construir um modelo certamente terímos que investigar o porque destes comportamentos.</p>
 </section><section id="alterando-nome-das-colunas" class="level3"><h3 class="anchored" data-anchor-id="alterando-nome-das-colunas">Alterando nome das colunas</h3>
 <div class="cell">
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pocos_04</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pocos_04</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "POCO"                  "OPERADOR"              "ESTADO"               
- [4] "BACIA"                 "BLOCO"                 "CAMPO"                
- [7] "TERRA_MAR"             "CATEGORIA"             "SITUACAO"             
-[10] "INICIO"                "TERMINO"               "PROFUNDIDADE_MEDIDA_M"
-[13] "TPERF"                </code></pre>
+ [4] "BACIA"                 "CAMPO"                 "TERRA_MAR"            
+ [7] "CATEGORIA"             "SITUACAO"              "INICIO"               
+[10] "TERMINO"               "PROFUNDIDADE_MEDIDA_M" "TPERF"                </code></pre>
 </div>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pocos_04</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pocos_04</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pocos_04</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pocos_04</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pocos_04</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "poco"                  "operador"              "estado"               
- [4] "bacia"                 "bloco"                 "campo"                
- [7] "terra_mar"             "categoria"             "situacao"             
-[10] "inicio"                "termino"               "profundidade_medida_m"
-[13] "tperf"                </code></pre>
+ [4] "bacia"                 "campo"                 "terra_mar"            
+ [7] "categoria"             "situacao"              "inicio"               
+[10] "termino"               "profundidade_medida_m" "tperf"                </code></pre>
 </div>
 </div>
 

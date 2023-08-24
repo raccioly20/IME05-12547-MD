@@ -7,18 +7,13 @@ format:
     code-link: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.retina = 3, fig.height=8, fig.width=10, dev=c("png"), fig.path="imagens/Aula01A/")
-
-```
-
 ## Entrada de dados no R
 
 ## Lendo dados de arquivos xlsx
 
 ```{r csv}
 library(readxl)
-dados_seg <- read_xlsx("E:/OneDrive/Documents/GitHub/IME05-12547/indicadoressegurancapublicauf.xlsx", col_names = TRUE, sheet = "Ocorrências")
+dados_seg <- read_xlsx("D:/GitHub/IME05-12547-MD/semanas/indicadoressegurancapublicauf.xlsx", col_names = TRUE, sheet = "Ocorrências")
 head(dados_seg)
 str(dados_seg)
 ```
@@ -26,7 +21,6 @@ str(dados_seg)
 ## Lendo dados de através de uma url
 
 ```{r}
-library(readxl)
 library(httr)
 url <- "http://dados.mj.gov.br/dataset/210b9ae2-21fc-4986-89c6-2006eb4db247/resource/feeae05e-faba-406c-8a4a-512aec91a9d1/download/indicadoressegurancapublicauf.xlsx"
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
@@ -34,6 +28,7 @@ segur <- read_xlsx(tf, sheet = "Ocorrências")
 str(segur)
 head(segur)
 ```
+
 
 ## Bibliotecas
 

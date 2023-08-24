@@ -7,11 +7,6 @@ format:
     code-link: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.retina = 3, fig.height = 6,
-                      dev=c("png"), fig.path="imagens/Aula02/")
-```
-
 ## Carregando bibliotescas
 
 Vamos trabalhar de novo com os dados do gapminder para fazer algumas manipulações de dados que são muito úteis no dia a dia.
@@ -41,7 +36,6 @@ head(gap_07, n=10) %>% knitr::kable(booktabs = TRUE) # primeiros dez paises da b
 tail(gap_07, n=10) %>% knitr::kable(booktabs = TRUE) # últimos 10 países 
 ```
 
-\newpage
 
 ## Manipulando 1
 
@@ -61,7 +55,7 @@ filter(gapminder, year == 2007 & continent != "Oceania")
 
 ```
 
-\newpage
+
 
 ## Manipulando 3
 
@@ -85,7 +79,7 @@ p1 <- p + geom_point()
 p1
 ```
 
-\newpage
+
 
 ## Visualizando 2
 
@@ -101,7 +95,7 @@ p3 <- p + geom_point() + geom_line()
 p3
 ```
 
-\newpage
+
 
 ## Visualizando 4 - Usando o pacote patchwork
 
@@ -130,7 +124,7 @@ gapminder %>% filter(year == 2007) %>%
 
 ```
 
-\newpage
+
 
 ## Mudando orientação dos dados
 
@@ -142,7 +136,6 @@ propaganda <- propaganda %>% rename(Jornal = Newspaper, Vendas = Sales)
 propaganda %>% tidyr::pivot_longer(!Vendas, names_to="Midia", values_to="Orcamento")
 ```
 
-\newpage
 
 ```{r pivot2}
 library(readr)

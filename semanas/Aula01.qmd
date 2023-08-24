@@ -7,11 +7,6 @@ format:
     code-link: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.retina = 3, fig.height=7, fig.width=10, dev=c("png"), fig.path="imagens/Aula01/")
-
-```
-
 ## Entrada de dados no R
 
 ## Lendo dados de arquivos csv
@@ -38,7 +33,7 @@ Vamos primeiro conhecer o que tem na base de dados pocos. A base de dados possui
 
 ```{r conhecendo_pocos}
 class(pocos)  # Tipo de base de dados
-summary(pocos) # Sumario da base de dados
+str(pocos) # estrutura da base de dados
 ```
 
 ## Dados de poços
@@ -53,21 +48,21 @@ Vamos inicialmente selecionar algumas colunas para podermos trabalhar com os dad
 2)  OPERADOR
 3)  ESTADO
 4)  BACIA
-5)  BLOCO
-6)  CAMPO
-7)  TERRA_MAR
-8)  CATEGORIA
-9)  SITUACAO
-10) INICIO
-11) TERMINO
-12) PROFUNDIDADE_MEDIDA_M
+5)  CAMPO
+6)  TERRA_MAR
+7)  CATEGORIA
+8)  SITUACAO
+9)  INICIO
+10) TERMINO
+11) PROFUNDIDADE_MEDIDA_M
 
 Para selecionar colunas usamos a função `select`
 
 ```{r selecionando}
 ## Vamos selecionar as colunas listadas acima
-pocos_01 <- pocos %>% select(POCO,OPERADOR,ESTADO,BACIA,BLOCO, CAMPO,TERRA_MAR,CATEGORIA,SITUACAO, INICIO, TERMINO, PROFUNDIDADE_MEDIDA_M)
+pocos_01 <- pocos %>% select(POCO,OPERADOR,ESTADO,BACIA, CAMPO,TERRA_MAR,CATEGORIA,SITUACAO, INICIO, TERMINO, PROFUNDIDADE_MEDIDA_M)
 head(pocos_01)
+summary(pocos_01)
 ```
 
 ## Manipulação de dados
@@ -80,7 +75,7 @@ sum(is.na(pocos_01$INICIO))
 sum(is.na(pocos_01$TERMINO))
 sum(is.na(pocos_01$PROFUNDIDADE_MEDIDA_M))
 pocos_01 <- pocos_01 %>% drop_na(any_of(c("TERMINO",
-                                          "PROFUNDIDADE_MEDIDA_M")))
+                            "PROFUNDIDADE_MEDIDA_M")))
 # melhorando a visualização dos dados
 knitr::kable(
   head(pocos_01, 10), booktabs = TRUE,
@@ -98,6 +93,7 @@ Para trabalhar com datas vamos usar o pacote `lubridate`
 library(lubridate)
 pocos_01$INICIO <- dmy_hm(pocos_01$INICIO, locale = Sys.getlocale("LC_TIME"))
 pocos_01$TERMINO <- dmy_hm(pocos_01$TERMINO, locale = Sys.getlocale("LC_TIME"))
+str(pocos_01)
 ```
 
 ## Filtrando dados
@@ -114,10 +110,11 @@ knitr::kable(
 
 ### Avaliando os dados
 
-Os poços possuem diversas categorias, vamos ver que categorias existem nestes poços do bloco BES-100.
+Os poços possuem diversas categorias, vamos ver que categorias existem nestes poços campo de Peregrino.
 
 ```{r identificando}
 unique(pocos_02$CATEGORIA)
+pocos_02 %>% group_by(CATEGORIA) %>% summarize(total=n())
 ```
 
 ### Filtrando poços de desenvolvimento
@@ -149,6 +146,7 @@ summary(pocos_03)
 ### Eliminando colunas com tempos negativos
 
 ```{r filtrando_coluna}
+pocos_03 %>% filter(TPERF<0) %>% select(POCO, INICIO, TERMINO)
 pocos_03 <- pocos_03 %>% filter(TPERF > 0) 
 ```
 
@@ -196,6 +194,7 @@ Veja que agora temos um histograma mais suave.
 ```{r dispersao}
 ggplot(pocos_04, aes(x=PROFUNDIDADE_MEDIDA_M, y=TPERF)) + 
   geom_point()
+cor(pocos_04$PROFUNDIDADE_MEDIDA_M, pocos_04$TPERF)
 ```
 
 Podemos perceber que há uma relação entre o tempo de perfuração e a profundidade do poço.
