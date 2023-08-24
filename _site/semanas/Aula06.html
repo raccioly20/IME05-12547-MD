@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-05-25">
+<meta name="dcterms.date" content="2023-08-24">
 <title>IME05-12547 - Eixos - Escalas - Cores</title>
 <style>
 code{white-space: pre-wrap;}
@@ -374,7 +374,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#customizando-t%C3%ADtulos-r%C3%B3tulos-de-eixo-e-legendas" id="toc-customizando-títulos-rótulos-de-eixo-e-legendas" class="nav-link" data-scroll-target="#customizando-t%C3%ADtulos-r%C3%B3tulos-de-eixo-e-legendas">Customizando títulos, rótulos de eixo e legendas</a></li>
   <li><a href="#sem-legenda" id="toc-sem-legenda" class="nav-link" data-scroll-target="#sem-legenda">Sem legenda</a></li>
   <li><a href="#legenda-dentro-do-gr%C3%A1fico" id="toc-legenda-dentro-do-gráfico" class="nav-link" data-scroll-target="#legenda-dentro-do-gr%C3%A1fico">Legenda dentro do gráfico</a></li>
-  <li><a href="#salvando-o-gr%C3%A1fico" id="toc-salvando-o-gráfico" class="nav-link" data-scroll-target="#salvando-o-gr%C3%A1fico">Salvando o gráfico</a></li>
   <li><a href="#aumentando-o-tamanho-do-texto-e-mudando-para-portugues" id="toc-aumentando-o-tamanho-do-texto-e-mudando-para-portugues" class="nav-link" data-scroll-target="#aumentando-o-tamanho-do-texto-e-mudando-para-portugues">Aumentando o tamanho do texto e mudando para portugues</a></li>
   </ul></nav>
     </div>
@@ -397,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 25, 2023</p>
+      <p class="date">August 24, 2023</p>
     </div>
   </div>
   
@@ -416,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">gap_07</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gdpPercap</span>, y <span class="op">=</span> <span class="va">lifeExp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/graf-dispersao-pad-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aula06_files/figure-html/graf-dispersao-pad-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section><section id="transformando-o-eixo-x-para-escala-logarítimica" class="level2"><h2 class="anchored" data-anchor-id="transformando-o-eixo-x-para-escala-logarítimica">Transformando o eixo x para escala logarítimica</h2>
@@ -425,7 +424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>trans <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/escala-log-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aula06_files/figure-html/escala-log-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section><section id="outra-forma-de-transformação-do-eixo-x" class="level2"><h2 class="anchored" data-anchor-id="outra-forma-de-transformação-do-eixo-x">Outra forma de transformação do eixo x</h2>
@@ -434,7 +433,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/outra-escala-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aula06_files/figure-html/outra-escala-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section><section id="definindo-limites-para-o-eixo-y" class="level2"><h2 class="anchored" data-anchor-id="definindo-limites-para-o-eixo-y">Definindo limites para o eixo y</h2>
@@ -444,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">95</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/limites-eixoy-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aula06_files/figure-html/limites-eixoy-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section><section id="grafico-com-cores-normais" class="level2"><h2 class="anchored" data-anchor-id="grafico-com-cores-normais">Grafico com cores normais</h2>
@@ -453,7 +452,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/cores-normais-1.png" class="img-fluid" width="864"></p>
+<p><img src="Aula06_files/figure-html/cores-normais-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
 </section><section id="grafico-usando-uma-paleta-de-cores-diferente" class="level2"><h2 class="anchored" data-anchor-id="grafico-usando-uma-paleta-de-cores-diferente">Grafico usando uma paleta de cores diferente</h2>
@@ -463,7 +462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/cores-outras-1.png" class="img-fluid" width="864"></p>
+<p><img src="Aula06_files/figure-html/cores-outras-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
 </section><section id="usando-codigos-manuais-para-as-cores" class="level2"><h2 class="anchored" data-anchor-id="usando-codigos-manuais-para-as-cores">Usando codigos manuais para as cores</h2>
@@ -474,7 +473,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#FF0000"</span>, <span class="st">"#00A08A"</span>, <span class="st">"#F2AD00"</span>,</span>
 <span>                                <span class="st">"#F98400"</span>, <span class="st">"#5BBCD6"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/codigos-cores-1.png" class="img-fluid" width="864"></p>
+<p><img src="Aula06_files/figure-html/codigos-cores-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
 </section><section id="definindo-as-cores-e-tamanho-dos-pontos" class="level2"><h2 class="anchored" data-anchor-id="definindo-as-cores-e-tamanho-dos-pontos">Definindo as cores e tamanho dos pontos</h2>
@@ -483,7 +482,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"darkblue"</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/cores-tamanho-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aula06_files/figure-html/cores-tamanho-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section><section id="customizando-títulos-rótulos-de-eixo-e-legendas" class="level2"><h2 class="anchored" data-anchor-id="customizando-títulos-rótulos-de-eixo-e-legendas">Customizando títulos, rótulos de eixo e legendas</h2>
@@ -494,7 +493,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/legenda_baixo-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aula06_files/figure-html/legenda_baixo-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section><section id="sem-legenda" class="level2"><h2 class="anchored" data-anchor-id="sem-legenda">Sem legenda</h2>
@@ -505,7 +504,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/sem-legenda-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aula06_files/figure-html/sem-legenda-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section><section id="legenda-dentro-do-gráfico" class="level2"><h2 class="anchored" data-anchor-id="legenda-dentro-do-gráfico">Legenda dentro do gráfico</h2>
@@ -516,26 +515,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.85</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/legenda-dentro-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aula06_files/figure-html/legenda-dentro-1.png" class="img-fluid" width="672"></p>
 </div>
-</div>
-</section><section id="salvando-o-gráfico" class="level2"><h2 class="anchored" data-anchor-id="salvando-o-gráfico">Salvando o gráfico</h2>
-<div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">graf1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">gap_07</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gdpPercap</span>, y <span class="op">=</span> <span class="va">lifeExp</span>, color <span class="op">=</span> <span class="va">continent</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.85</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">graf1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="imagens/Aula06/salvando-grafico-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"Exp_vida_pib_2007_1.png"</span>, plot<span class="op">=</span><span class="va">graf1</span>, width <span class="op">=</span> <span class="fl">7</span>, height <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="aumentando-o-tamanho-do-texto-e-mudando-para-portugues" class="level2"><h2 class="anchored" data-anchor-id="aumentando-o-tamanho-do-texto-e-mudando-para-portugues">Aumentando o tamanho do texto e mudando para portugues</h2>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">graf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">gap_07</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gdpPercap</span>, y <span class="op">=</span> <span class="va">lifeExp</span>, color <span class="op">=</span> <span class="va">continent</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">graf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">gap_07</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gdpPercap</span>, y <span class="op">=</span> <span class="va">lifeExp</span>, color <span class="op">=</span> <span class="va">continent</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -550,9 +535,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="va">graf2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="imagens/Aula06/mudando-texto-1.png" class="img-fluid" width="864"></p>
+<p><img src="Aula06_files/figure-html/mudando-texto-1.png" class="img-fluid" width="864"></p>
 </div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"Exp_vida_pib_2007_2.png"</span>, plot <span class="op">=</span> <span class="va">graf2</span>, width <span class="op">=</span> <span class="fl">7</span>, height <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
