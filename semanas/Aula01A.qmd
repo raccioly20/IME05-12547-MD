@@ -29,7 +29,6 @@ str(segur)
 head(segur)
 ```
 
-
 ## Bibliotecas
 
 Vamos carregar as bibliotecas que serão usadas na manipulação e visualização de dados.
@@ -46,6 +45,12 @@ unique(dados_seg$UF)
 dados_segRJ <- dados_seg %>% filter(UF=="Rio de Janeiro")
 summary(dados_segRJ)
 ```
+
+```{r}
+library(summarytools)
+dfSummary(dados_seg) |> stview(method = "render")
+```
+
 
 ```{r manipulando2}
 unique(dados_segRJ$`Tipo Crime`)
