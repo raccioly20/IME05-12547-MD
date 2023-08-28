@@ -5,6 +5,9 @@ date: "`r Sys.Date()`"
 format:
  html:
     code-link: true
+    fig.retina: 3
+    fig.height: 10
+    fig.width: 10
 ---
 
 ## Carregando bibliotecas
@@ -41,7 +44,8 @@ nrow(propaganda)
 
 ```{r}
 library(gt)
-gt(head(propaganda, 10))
+gt(head(propaganda, 10))  %>% 
+  tab_header(title = "Propaganda")
 ```
 
 ## Criando amostra de treino e teste
@@ -52,12 +56,13 @@ set.seed(21)
 y <- propaganda$Vendas
 indice_teste <- createDataPartition(y, times = 1, p = 0.40, list = FALSE)
 
-conj_treino <- propaganda %>% slice(-indice_teste)
-conj_teste <- propaganda %>% slice(indice_teste)
+conj_treino <- propaganda[-indice_teste, ]
+conj_teste <- propaganda[indice_teste, ]
 
 str(conj_treino)
 str(conj_teste)
-gt(head(conj_treino, 10))
+gt(head(conj_treino, 10))  %>% 
+  tab_header(title = "Propaganda")
 ```
 
 ## Regressão Simples
@@ -110,20 +115,23 @@ summary(mod5)$adj.r.squared
 sqrt(mean((conj_teste$Vendas - predict(mod5, conj_teste)) ^ 2))
 ```
 
-## Análise do Modelo 1
+## Análise do Modelo - Parte 1
 
 ```{r}
+#| fig-width: 10
+#| fig-height: 15
+  
 library(performance)
 check_model(mod5)
 ```
 
-## Análise do Modelo 2
+## Análise do Modelo - Parte 2
 
 ```{r}
 plot(mod5)
 ```
 
-## Análise do Modelo 3
+## Análise do Modelo - Parte 3
 
 Para o gráfico de resíduos versus valores ajustados, podemos usar um teste chamado teste de Tukey de não aditividade (Tukey, 1949), ele é obtido adicionando os quadrados dos valores ajustados ao modelo e reajustando. O valor p para o teste de Tukey é obtido comparando a estatística de teste para a distribuição padrão-normal. O teste confirma a visível impressão de curvatura no gráfico residual, reforçando ainda mais a conclusão que o modelo não é adequado.
 
