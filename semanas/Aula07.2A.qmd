@@ -57,11 +57,13 @@ cor(pressao_sangue[,-1])
 Aqui vemos que a presssão sanguinea tem uma correlação forte com o peso e também com a área corporal. O peso e a area corporal tem uma correlação forte. Esta correlação alta pode indicar a existencia de multicolinearidade.
 
 ```{r}
+#| message: false
 library(psych)
 pairs.panels(pressao_sangue[,-1])
 ```
 
 ```{r}
+#| message: false
 dados <- pressao_sangue[,-1]
 mod1 <- lm(PS ~ ., data=dados)
 summary(mod1)
@@ -86,9 +88,13 @@ residualPlots(mod3)
 Teste de normalidade Teste de heterocedasticidade (Bresch-Pagan) Teste de autocorrelação (Durbin-Watson)
 
 ```{r}
+#| message: false
 library(lmtest)
 mod3_sum <- summary(mod3)
+# Teste de normalidade
 shapiro.test(mod3_sum$residuals)
+# Teste de hetrocedasticidade
 bptest(mod3)
+# Teste de autocorrelação
 dwtest(mod3)
 ```

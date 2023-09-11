@@ -61,9 +61,27 @@ conj_teste <- propaganda[indice_teste, ]
 
 str(conj_treino)
 str(conj_teste)
-gt(head(conj_treino, 10))  %>% 
-  tab_header(title = "Propaganda")
+
+library(skimr)
+conj_treino %>% skim()
+conj_teste %>% skim()
 ```
+
+## E se eu usar uma outra semente?
+
+```{r}
+set.seed(23)
+y2 <- propaganda$Vendas
+indice_teste2 <- createDataPartition(y2, times = 1, p = 0.40, list = FALSE)
+
+conj_treino2 <- propaganda[-indice_teste2, ]
+conj_teste2 <- propaganda[indice_teste2, ]
+
+conj_treino2 %>% skim()
+conj_teste2 %>% skim()
+```
+
+Veja que as amostram ficaram com resultados diferentes!
 
 ## Regressão Simples
 
@@ -95,6 +113,14 @@ summary(mod5)
 ```{r}
 anova(mod5, mod4)
 ```
+
+## Vamos comparar com o modelo só com TV
+
+```{r}
+anova(mod1, mod5)
+```
+
+Veja que agora a diferença é significativa. O melhor modelo é o com TV e Radio (mod5)
 
 ## Calculando o erro padrão do resíduo com amostra de teste
 
@@ -140,20 +166,38 @@ library(car)
 residualPlots(mod5)
 ```
 
-## Análise do Modelo com car
-
-```{r}
-library(car)
-vif(mod5)
-```
-
 ## Tentando avaliar transformações
 
 ```{r}
 summary(p1 <- powerTransform(Vendas ~ TV + Radio, data=conj_treino))
 summary(p2 <- powerTransform(cbind(TV, Radio) ~1 , data=conj_treino))
+boxCox(mod5, lambda = seq(-2, 2, 1/10))
 
 ```
+
+
+## Análise do Modelo com car
+
+```{r}
+# Fator de inflação da variância
+vif(mod5)
+```
+
+# Teste dos resíduos
+
+Teste de normalidade Teste de heterocedasticidade (Bresch-Pagan) Teste de autocorrelação (Durbin-Watson)
+
+```{r}
+library(lmtest)
+mod5_sum <- summary(mod5)
+# Teste de normalidade
+shapiro.test(mod5_sum$residuals)
+# Teste de heterocedasticidade
+bptest(mod5)
+#Teste de autocorrelação
+dwtest(mod5)
+```
+
 
 ## Dado que parece outlier e é um valor influente
 
@@ -164,14 +208,3 @@ outlierTest(mod5)
 conj_treino[83,]
 ```
 
-# Teste dos resíduos
-
-Teste de normalidade Teste de heterocedasticidade (Bresch-Pagan) Teste de autocorrelação (Durbin-Watson)
-
-```{r}
-library(lmtest)
-mod5_sum <- summary(mod5)
-shapiro.test(mod5_sum$residuals)
-bptest(mod5)
-dwtest(mod5)
-```
