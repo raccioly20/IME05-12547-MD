@@ -5,9 +5,6 @@ date: "`r Sys.Date()`"
 format:
  html:
     code-link: true
-    fig.retina: 3
-    fig.height: 10
-    fig.width: 10
 ---
 
 ## Carregando bibliotecas
@@ -175,7 +172,6 @@ boxCox(mod5, lambda = seq(-2, 2, 1/10))
 
 ```
 
-
 ## Análise do Modelo com car
 
 ```{r}
@@ -198,7 +194,6 @@ bptest(mod5)
 dwtest(mod5)
 ```
 
-
 ## Dado que parece outlier e é um valor influente
 
 A função OutlierTest () no pacote do car localiza o maior resíduo studentizado em valor absoluto e calcula o teste t com correção de Bonferroni. O testes de Outlier utiliza uma distribuição t para testar se o maior valor do residuo studentizado do modelo é estatisticamente diferente das outras observações. Um valor p significativo indica um outlier extremo que merece um exame mais aprofundado.
@@ -207,4 +202,3 @@ A função OutlierTest () no pacote do car localiza o maior resíduo studentizad
 outlierTest(mod5)
 conj_treino[83,]
 ```
-

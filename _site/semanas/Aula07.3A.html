@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-08-28">
+<meta name="dcterms.date" content="2023-09-13">
 <title>IME05-12547 - Seleção de Modelos</title>
 <style>
 code{white-space: pre-wrap;}
@@ -403,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 28, 2023</p>
+      <p class="date">September 13, 2023</p>
     </div>
   </div>
   
@@ -2113,263 +2113,260 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
 <span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
 <span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-link: true</span></span>
-<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a><span class="co">    fig.retina: 3</span></span>
-<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a><span class="co">    fig.height: 7</span></span>
-<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a><span class="co">    fig.width: 10</span></span>
-<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-18"><a href="#cb88-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb88-19"><a href="#cb88-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
-<span id="cb88-20"><a href="#cb88-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb88-21"><a href="#cb88-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb88-22"><a href="#cb88-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb88-23"><a href="#cb88-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-24"><a href="#cb88-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-25"><a href="#cb88-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Carregando Bibliotecas</span></span>
-<span id="cb88-26"><a href="#cb88-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-27"><a href="#cb88-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r bibliotecas, message=FALSE}</span></span>
-<span id="cb88-28"><a href="#cb88-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb88-29"><a href="#cb88-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb88-30"><a href="#cb88-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaps)</span>
-<span id="cb88-31"><a href="#cb88-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-32"><a href="#cb88-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-33"><a href="#cb88-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Carregando os dados</span></span>
-<span id="cb88-34"><a href="#cb88-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-35"><a href="#cb88-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{r Dados }</span></span>
-<span id="cb88-36"><a href="#cb88-36" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Boston)</span>
-<span id="cb88-37"><a href="#cb88-37" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Boston)</span>
-<span id="cb88-38"><a href="#cb88-38" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Boston)</span>
-<span id="cb88-39"><a href="#cb88-39" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Boston)</span>
-<span id="cb88-40"><a href="#cb88-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-41"><a href="#cb88-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-42"><a href="#cb88-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explicação das variáveis</span></span>
-<span id="cb88-43"><a href="#cb88-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-44"><a href="#cb88-44" aria-hidden="true" tabindex="-1"></a><span class="in">```{r Boston}</span></span>
-<span id="cb88-45"><a href="#cb88-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Boston Database</span></span>
-<span id="cb88-46"><a href="#cb88-46" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-47"><a href="#cb88-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) crim - taxa de criminalidade per capita por cidade.</span></span>
-<span id="cb88-48"><a href="#cb88-48" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-49"><a href="#cb88-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) zn - proporção de terrenos residenciais para lotes acima de 25,000 sq.ft.</span></span>
-<span id="cb88-50"><a href="#cb88-50" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-51"><a href="#cb88-51" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) indus - proporção de negócios não comerciais por acres e por cidade.</span></span>
-<span id="cb88-52"><a href="#cb88-52" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-53"><a href="#cb88-53" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) chas - variável dummy do Rio Charles (= 1 se próximo do rio; 0 de outra forma).</span></span>
-<span id="cb88-54"><a href="#cb88-54" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-55"><a href="#cb88-55" aria-hidden="true" tabindex="-1"></a><span class="co"># 5) nox - concentração de óxido de nitrogênio (partes por 10 milhões).</span></span>
-<span id="cb88-56"><a href="#cb88-56" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-57"><a href="#cb88-57" aria-hidden="true" tabindex="-1"></a><span class="co"># 6) rm - número médio de cômodos por habitação</span></span>
-<span id="cb88-58"><a href="#cb88-58" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-59"><a href="#cb88-59" aria-hidden="true" tabindex="-1"></a><span class="co"># 7) age - proporção da unidade ocupadas pelos proprietários construídas antes 1940.</span></span>
-<span id="cb88-60"><a href="#cb88-60" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-61"><a href="#cb88-61" aria-hidden="true" tabindex="-1"></a><span class="co"># 8) dis - média ponderada das distâncias dos 5 pontos de emprego em Boston.</span></span>
-<span id="cb88-62"><a href="#cb88-62" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-63"><a href="#cb88-63" aria-hidden="true" tabindex="-1"></a><span class="co"># 9) rad - indice de acessibilidade das avenidas radiais.</span></span>
-<span id="cb88-64"><a href="#cb88-64" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-65"><a href="#cb88-65" aria-hidden="true" tabindex="-1"></a><span class="co"># 10) tax - valor cheio da taxa de propriedade por $10,000.</span></span>
-<span id="cb88-66"><a href="#cb88-66" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-67"><a href="#cb88-67" aria-hidden="true" tabindex="-1"></a><span class="co"># 11) ptratio - razão aluno-professor por cidade.</span></span>
-<span id="cb88-68"><a href="#cb88-68" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-69"><a href="#cb88-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 12) black - 1000(Bk−0.63)21000(Bk−0.63)2 proporção de negros por cidade.</span></span>
-<span id="cb88-70"><a href="#cb88-70" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-71"><a href="#cb88-71" aria-hidden="true" tabindex="-1"></a><span class="co"># 13) lstat - percentual de baixo status da população.</span></span>
-<span id="cb88-72"><a href="#cb88-72" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb88-73"><a href="#cb88-73" aria-hidden="true" tabindex="-1"></a><span class="co"># 14) medv - valor mediano das casas ocupadas pelos proprietário em $1000s. (Var. Resposta)</span></span>
-<span id="cb88-74"><a href="#cb88-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-75"><a href="#cb88-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-76"><a href="#cb88-76" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conjunto de teste e treino</span></span>
-<span id="cb88-77"><a href="#cb88-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-78"><a href="#cb88-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{r treino_teste}</span></span>
-<span id="cb88-79"><a href="#cb88-79" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb88-80"><a href="#cb88-80" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
-<span id="cb88-81"><a href="#cb88-81" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> Boston<span class="sc">$</span>medv</span>
-<span id="cb88-82"><a href="#cb88-82" aria-hidden="true" tabindex="-1"></a>indice_teste <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(y, <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb88-16"><a href="#cb88-16" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
+<span id="cb88-17"><a href="#cb88-17" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb88-18"><a href="#cb88-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb88-19"><a href="#cb88-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb88-20"><a href="#cb88-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-21"><a href="#cb88-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-22"><a href="#cb88-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Carregando Bibliotecas</span></span>
+<span id="cb88-23"><a href="#cb88-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-24"><a href="#cb88-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r bibliotecas, message=FALSE}</span></span>
+<span id="cb88-25"><a href="#cb88-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb88-26"><a href="#cb88-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb88-27"><a href="#cb88-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaps)</span>
+<span id="cb88-28"><a href="#cb88-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-29"><a href="#cb88-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-30"><a href="#cb88-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Carregando os dados</span></span>
+<span id="cb88-31"><a href="#cb88-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-32"><a href="#cb88-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r Dados }</span></span>
+<span id="cb88-33"><a href="#cb88-33" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Boston)</span>
+<span id="cb88-34"><a href="#cb88-34" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Boston)</span>
+<span id="cb88-35"><a href="#cb88-35" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Boston)</span>
+<span id="cb88-36"><a href="#cb88-36" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Boston)</span>
+<span id="cb88-37"><a href="#cb88-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-38"><a href="#cb88-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-39"><a href="#cb88-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explicação das variáveis</span></span>
+<span id="cb88-40"><a href="#cb88-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-41"><a href="#cb88-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r Boston}</span></span>
+<span id="cb88-42"><a href="#cb88-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Boston Database</span></span>
+<span id="cb88-43"><a href="#cb88-43" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-44"><a href="#cb88-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) crim - taxa de criminalidade per capita por cidade.</span></span>
+<span id="cb88-45"><a href="#cb88-45" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-46"><a href="#cb88-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) zn - proporção de terrenos residenciais para lotes acima de 25,000 sq.ft.</span></span>
+<span id="cb88-47"><a href="#cb88-47" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-48"><a href="#cb88-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) indus - proporção de negócios não comerciais por acres e por cidade.</span></span>
+<span id="cb88-49"><a href="#cb88-49" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-50"><a href="#cb88-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) chas - variável dummy do Rio Charles (= 1 se próximo do rio; 0 de outra forma).</span></span>
+<span id="cb88-51"><a href="#cb88-51" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-52"><a href="#cb88-52" aria-hidden="true" tabindex="-1"></a><span class="co"># 5) nox - concentração de óxido de nitrogênio (partes por 10 milhões).</span></span>
+<span id="cb88-53"><a href="#cb88-53" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-54"><a href="#cb88-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 6) rm - número médio de cômodos por habitação</span></span>
+<span id="cb88-55"><a href="#cb88-55" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-56"><a href="#cb88-56" aria-hidden="true" tabindex="-1"></a><span class="co"># 7) age - proporção da unidade ocupadas pelos proprietários construídas antes 1940.</span></span>
+<span id="cb88-57"><a href="#cb88-57" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-58"><a href="#cb88-58" aria-hidden="true" tabindex="-1"></a><span class="co"># 8) dis - média ponderada das distâncias dos 5 pontos de emprego em Boston.</span></span>
+<span id="cb88-59"><a href="#cb88-59" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-60"><a href="#cb88-60" aria-hidden="true" tabindex="-1"></a><span class="co"># 9) rad - indice de acessibilidade das avenidas radiais.</span></span>
+<span id="cb88-61"><a href="#cb88-61" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-62"><a href="#cb88-62" aria-hidden="true" tabindex="-1"></a><span class="co"># 10) tax - valor cheio da taxa de propriedade por $10,000.</span></span>
+<span id="cb88-63"><a href="#cb88-63" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-64"><a href="#cb88-64" aria-hidden="true" tabindex="-1"></a><span class="co"># 11) ptratio - razão aluno-professor por cidade.</span></span>
+<span id="cb88-65"><a href="#cb88-65" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-66"><a href="#cb88-66" aria-hidden="true" tabindex="-1"></a><span class="co"># 12) black - 1000(Bk−0.63)21000(Bk−0.63)2 proporção de negros por cidade.</span></span>
+<span id="cb88-67"><a href="#cb88-67" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-68"><a href="#cb88-68" aria-hidden="true" tabindex="-1"></a><span class="co"># 13) lstat - percentual de baixo status da população.</span></span>
+<span id="cb88-69"><a href="#cb88-69" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb88-70"><a href="#cb88-70" aria-hidden="true" tabindex="-1"></a><span class="co"># 14) medv - valor mediano das casas ocupadas pelos proprietário em $1000s. (Var. Resposta)</span></span>
+<span id="cb88-71"><a href="#cb88-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-72"><a href="#cb88-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-73"><a href="#cb88-73" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conjunto de teste e treino</span></span>
+<span id="cb88-74"><a href="#cb88-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-75"><a href="#cb88-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r treino_teste}</span></span>
+<span id="cb88-76"><a href="#cb88-76" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb88-77"><a href="#cb88-77" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
+<span id="cb88-78"><a href="#cb88-78" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> Boston<span class="sc">$</span>medv</span>
+<span id="cb88-79"><a href="#cb88-79" aria-hidden="true" tabindex="-1"></a>indice_teste <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(y, <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb88-80"><a href="#cb88-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-81"><a href="#cb88-81" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> Boston <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>indice_teste)</span>
+<span id="cb88-82"><a href="#cb88-82" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> Boston <span class="sc">%&gt;%</span> <span class="fu">slice</span>(indice_teste)</span>
 <span id="cb88-83"><a href="#cb88-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-84"><a href="#cb88-84" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> Boston <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>indice_teste)</span>
-<span id="cb88-85"><a href="#cb88-85" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> Boston <span class="sc">%&gt;%</span> <span class="fu">slice</span>(indice_teste)</span>
-<span id="cb88-86"><a href="#cb88-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-87"><a href="#cb88-87" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_treino)</span>
-<span id="cb88-88"><a href="#cb88-88" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_teste)</span>
-<span id="cb88-89"><a href="#cb88-89" aria-hidden="true" tabindex="-1"></a>gt<span class="sc">::</span><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))</span>
-<span id="cb88-90"><a href="#cb88-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-91"><a href="#cb88-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-92"><a href="#cb88-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Matriz de correlação</span></span>
-<span id="cb88-93"><a href="#cb88-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-94"><a href="#cb88-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r corrplot1, fig.height=4.5, figure.width=8, message=FALSE}</span></span>
-<span id="cb88-95"><a href="#cb88-95" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb88-96"><a href="#cb88-96" aria-hidden="true" tabindex="-1"></a>mat_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(conj_treino)</span>
-<span id="cb88-97"><a href="#cb88-97" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(mat_corr)</span>
-<span id="cb88-98"><a href="#cb88-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-99"><a href="#cb88-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-100"><a href="#cb88-100" aria-hidden="true" tabindex="-1"></a>\newpage</span>
-<span id="cb88-101"><a href="#cb88-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-102"><a href="#cb88-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## Matriz de dispersão</span></span>
-<span id="cb88-103"><a href="#cb88-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-104"><a href="#cb88-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{r splom2}</span></span>
-<span id="cb88-105"><a href="#cb88-105" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb88-106"><a href="#cb88-106" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs.panels</span>(conj_treino,</span>
-<span id="cb88-107"><a href="#cb88-107" aria-hidden="true" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">"pearson"</span>, <span class="co"># metodo de correlação</span></span>
-<span id="cb88-108"><a href="#cb88-108" aria-hidden="true" tabindex="-1"></a>             <span class="at">hist.col =</span> <span class="st">"#00AFBB"</span>,</span>
-<span id="cb88-109"><a href="#cb88-109" aria-hidden="true" tabindex="-1"></a>             <span class="at">density =</span> <span class="cn">TRUE</span>,  <span class="co"># mostra graficos de densidade</span></span>
-<span id="cb88-110"><a href="#cb88-110" aria-hidden="true" tabindex="-1"></a>             <span class="at">ellipses =</span> <span class="cn">FALSE</span> <span class="co"># mostra elipses de correlação</span></span>
-<span id="cb88-111"><a href="#cb88-111" aria-hidden="true" tabindex="-1"></a>             )</span>
-<span id="cb88-112"><a href="#cb88-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-113"><a href="#cb88-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-114"><a href="#cb88-114" aria-hidden="true" tabindex="-1"></a>\newpage</span>
-<span id="cb88-115"><a href="#cb88-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-116"><a href="#cb88-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## Métodos de seleção de modelo</span></span>
-<span id="cb88-117"><a href="#cb88-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-118"><a href="#cb88-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r melhor_modelo}</span></span>
-<span id="cb88-119"><a href="#cb88-119" aria-hidden="true" tabindex="-1"></a><span class="do">## Best Subset sem definir o número máx de subsets a ser avaliado</span></span>
-<span id="cb88-120"><a href="#cb88-120" aria-hidden="true" tabindex="-1"></a>ajusreg.comp <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> ., <span class="at">data=</span>conj_treino)</span>
-<span id="cb88-121"><a href="#cb88-121" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ajusreg.comp)</span>
-<span id="cb88-122"><a href="#cb88-122" aria-hidden="true" tabindex="-1"></a><span class="do">## Não testou todas as combinações possíveis</span></span>
-<span id="cb88-123"><a href="#cb88-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-124"><a href="#cb88-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-125"><a href="#cb88-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## nvmax=13</span></span>
-<span id="cb88-126"><a href="#cb88-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-127"><a href="#cb88-127" aria-hidden="true" tabindex="-1"></a><span class="in">```{r modelo_completo}</span></span>
-<span id="cb88-128"><a href="#cb88-128" aria-hidden="true" tabindex="-1"></a>ajusreg.comp <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> ., <span class="at">data=</span>conj_treino, <span class="at">nvmax=</span><span class="dv">13</span>)</span>
-<span id="cb88-129"><a href="#cb88-129" aria-hidden="true" tabindex="-1"></a>sumario.reg <span class="ot">&lt;-</span> <span class="fu">summary</span>(ajusreg.comp)</span>
-<span id="cb88-130"><a href="#cb88-130" aria-hidden="true" tabindex="-1"></a>sumario.reg</span>
-<span id="cb88-131"><a href="#cb88-131" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sumario.reg)</span>
-<span id="cb88-132"><a href="#cb88-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-133"><a href="#cb88-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-134"><a href="#cb88-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## Avaliando os modelos</span></span>
-<span id="cb88-135"><a href="#cb88-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-136"><a href="#cb88-136" aria-hidden="true" tabindex="-1"></a><span class="in">```{r avaliando}</span></span>
-<span id="cb88-137"><a href="#cb88-137" aria-hidden="true" tabindex="-1"></a><span class="do">## Os modelos vão ser escolhidos com base no menor Cp</span></span>
-<span id="cb88-138"><a href="#cb88-138" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sumario.reg<span class="sc">$</span>cp,<span class="at">xlab=</span><span class="st">"Número de Variáveis"</span>,<span class="at">ylab=</span><span class="st">"Cp"</span>)</span>
-<span id="cb88-139"><a href="#cb88-139" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(sumario.reg<span class="sc">$</span>cp)</span>
-<span id="cb88-140"><a href="#cb88-140" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">11</span>,sumario.reg<span class="sc">$</span>cp[<span class="dv">11</span>],<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb88-141"><a href="#cb88-141" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-142"><a href="#cb88-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-143"><a href="#cb88-143" aria-hidden="true" tabindex="-1"></a><span class="fu">## Como extrair detalhes do ajuste</span></span>
-<span id="cb88-144"><a href="#cb88-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-145"><a href="#cb88-145" aria-hidden="true" tabindex="-1"></a><span class="in">```{r detalhes}</span></span>
-<span id="cb88-146"><a href="#cb88-146" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.comp,<span class="dv">11</span>)  </span>
-<span id="cb88-147"><a href="#cb88-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-148"><a href="#cb88-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-149"><a href="#cb88-149" aria-hidden="true" tabindex="-1"></a><span class="fu">## Forward Stepwise (passo a passo à frente)</span></span>
-<span id="cb88-150"><a href="#cb88-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-151"><a href="#cb88-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{r FR}</span></span>
-<span id="cb88-152"><a href="#cb88-152" aria-hidden="true" tabindex="-1"></a>ajusreg.fwd <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> . , <span class="at">data=</span>conj_treino,<span class="at">nvmax=</span><span class="dv">13</span>, <span class="at">method=</span><span class="st">"forward"</span>)</span>
-<span id="cb88-153"><a href="#cb88-153" aria-hidden="true" tabindex="-1"></a>sumario.reg.fwd <span class="ot">&lt;-</span> <span class="fu">summary</span>(ajusreg.fwd)</span>
-<span id="cb88-154"><a href="#cb88-154" aria-hidden="true" tabindex="-1"></a>sumario.reg.fwd </span>
-<span id="cb88-155"><a href="#cb88-155" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(sumario.reg.fwd<span class="sc">$</span>cp)</span>
-<span id="cb88-156"><a href="#cb88-156" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sumario.reg.fwd<span class="sc">$</span>cp,<span class="at">xlab=</span><span class="st">"Número de Variáveis"</span>,<span class="at">ylab=</span><span class="st">"Cp"</span>)</span>
-<span id="cb88-157"><a href="#cb88-157" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">11</span>,sumario.reg.fwd<span class="sc">$</span>cp[<span class="dv">11</span>],<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb88-158"><a href="#cb88-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-159"><a href="#cb88-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-160"><a href="#cb88-160" aria-hidden="true" tabindex="-1"></a><span class="fu">## Como extrair detalhes do ajuste</span></span>
-<span id="cb88-161"><a href="#cb88-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-162"><a href="#cb88-162" aria-hidden="true" tabindex="-1"></a><span class="in">```{r detalhes2}</span></span>
-<span id="cb88-163"><a href="#cb88-163" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.fwd,<span class="dv">11</span>)  </span>
-<span id="cb88-164"><a href="#cb88-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-165"><a href="#cb88-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-166"><a href="#cb88-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## Backward Stepwise (passo a passo atrás)</span></span>
-<span id="cb88-167"><a href="#cb88-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-168"><a href="#cb88-168" aria-hidden="true" tabindex="-1"></a><span class="in">```{r BR, fig.height=4.5, figure.width=6.5}</span></span>
-<span id="cb88-169"><a href="#cb88-169" aria-hidden="true" tabindex="-1"></a>ajusreg.bwd <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> . , <span class="at">data=</span>conj_treino,<span class="at">nvmax=</span><span class="dv">13</span>, <span class="at">method=</span><span class="st">"backward"</span>)</span>
-<span id="cb88-170"><a href="#cb88-170" aria-hidden="true" tabindex="-1"></a>sumario.reg.bwd <span class="ot">&lt;-</span> <span class="fu">summary</span>(ajusreg.bwd)</span>
-<span id="cb88-171"><a href="#cb88-171" aria-hidden="true" tabindex="-1"></a>sumario.reg.bwd</span>
-<span id="cb88-172"><a href="#cb88-172" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(sumario.reg.bwd<span class="sc">$</span>cp)</span>
-<span id="cb88-173"><a href="#cb88-173" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sumario.reg.bwd<span class="sc">$</span>cp,<span class="at">xlab=</span><span class="st">"Número de Variáveis"</span>,<span class="at">ylab=</span><span class="st">"Cp"</span>)</span>
-<span id="cb88-174"><a href="#cb88-174" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">11</span>,sumario.reg.bwd<span class="sc">$</span>cp[<span class="dv">11</span>],<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb88-175"><a href="#cb88-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-176"><a href="#cb88-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-177"><a href="#cb88-177" aria-hidden="true" tabindex="-1"></a><span class="fu">## Como extrair detalhes do ajuste</span></span>
-<span id="cb88-178"><a href="#cb88-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-179"><a href="#cb88-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r detalhes3}</span></span>
-<span id="cb88-180"><a href="#cb88-180" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.bwd,<span class="dv">11</span>)  </span>
-<span id="cb88-181"><a href="#cb88-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-182"><a href="#cb88-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-183"><a href="#cb88-183" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comportamento dos erros de treino e teste</span></span>
-<span id="cb88-184"><a href="#cb88-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-185"><a href="#cb88-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{r erros}</span></span>
-<span id="cb88-186"><a href="#cb88-186" aria-hidden="true" tabindex="-1"></a><span class="do">## Codigo original de T. Hastie</span></span>
-<span id="cb88-187"><a href="#cb88-187" aria-hidden="true" tabindex="-1"></a>reg.fwd <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> . ,<span class="at">data=</span>conj_treino,<span class="at">nvmax=</span><span class="dv">13</span>, <span class="at">method=</span><span class="st">"forward"</span>)</span>
-<span id="cb88-188"><a href="#cb88-188" aria-hidden="true" tabindex="-1"></a>val.erro <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">13</span>)</span>
-<span id="cb88-189"><a href="#cb88-189" aria-hidden="true" tabindex="-1"></a>x.teste <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(medv<span class="sc">~</span>.,<span class="at">data=</span>conj_teste)</span>
-<span id="cb88-190"><a href="#cb88-190" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>){</span>
-<span id="cb88-191"><a href="#cb88-191" aria-hidden="true" tabindex="-1"></a>  coefi <span class="ot">&lt;-</span> <span class="fu">coef</span>(reg.fwd,<span class="at">id=</span>i)</span>
-<span id="cb88-192"><a href="#cb88-192" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">&lt;-</span> x.teste[,<span class="fu">names</span>(coefi)]<span class="sc">%*%</span>coefi</span>
-<span id="cb88-193"><a href="#cb88-193" aria-hidden="true" tabindex="-1"></a>  val.erro[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>((conj_teste<span class="sc">$</span>medv <span class="sc">-</span> pred)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb88-194"><a href="#cb88-194" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb88-195"><a href="#cb88-195" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">sqrt</span>(val.erro),<span class="at">ylab=</span><span class="st">"Raiz do EQM"</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">8</span>),<span class="at">pch=</span><span class="dv">19</span>,<span class="at">type=</span><span class="st">"b"</span>)</span>
-<span id="cb88-196"><a href="#cb88-196" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">sqrt</span>(reg.fwd<span class="sc">$</span>rss[<span class="sc">-</span><span class="dv">1</span>]<span class="sc">/</span><span class="dv">403</span>),<span class="at">col=</span><span class="st">"blue"</span>,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">type=</span><span class="st">"b"</span>)</span>
-<span id="cb88-197"><a href="#cb88-197" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">"Treino"</span>,<span class="st">"Teste"</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="st">"blue"</span>,<span class="st">"black"</span>),<span class="at">pch=</span><span class="dv">19</span>)</span>
-<span id="cb88-198"><a href="#cb88-198" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-199"><a href="#cb88-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-200"><a href="#cb88-200" aria-hidden="true" tabindex="-1"></a><span class="fu">## Testando outra estatística de seleção de modelos - BIC</span></span>
-<span id="cb88-201"><a href="#cb88-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-202"><a href="#cb88-202" aria-hidden="true" tabindex="-1"></a><span class="in">```{r BIC}</span></span>
-<span id="cb88-203"><a href="#cb88-203" aria-hidden="true" tabindex="-1"></a>ajusreg.fwd1 <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> . , <span class="at">data=</span>conj_treino,<span class="at">nvmax=</span><span class="dv">13</span>, <span class="at">method=</span><span class="st">"forward"</span>)</span>
-<span id="cb88-204"><a href="#cb88-204" aria-hidden="true" tabindex="-1"></a>sumario.reg.fwd1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(ajusreg.fwd1)</span>
-<span id="cb88-205"><a href="#cb88-205" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sumario.reg.fwd1)</span>
-<span id="cb88-206"><a href="#cb88-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-207"><a href="#cb88-207" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(sumario.reg.fwd1<span class="sc">$</span>bic)</span>
-<span id="cb88-208"><a href="#cb88-208" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sumario.reg.fwd1<span class="sc">$</span>bic,<span class="at">xlab=</span><span class="st">"Número de Variáveis"</span>,<span class="at">ylab=</span><span class="st">"BIC"</span>)</span>
-<span id="cb88-209"><a href="#cb88-209" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">7</span>,sumario.reg.fwd1<span class="sc">$</span>bic[<span class="dv">7</span>],<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb88-210"><a href="#cb88-210" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.fwd1,<span class="dv">7</span>)  </span>
+<span id="cb88-84"><a href="#cb88-84" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_treino)</span>
+<span id="cb88-85"><a href="#cb88-85" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_teste)</span>
+<span id="cb88-86"><a href="#cb88-86" aria-hidden="true" tabindex="-1"></a>gt<span class="sc">::</span><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))</span>
+<span id="cb88-87"><a href="#cb88-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-88"><a href="#cb88-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-89"><a href="#cb88-89" aria-hidden="true" tabindex="-1"></a><span class="fu">## Matriz de correlação</span></span>
+<span id="cb88-90"><a href="#cb88-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-91"><a href="#cb88-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r corrplot1, fig.height=4.5, figure.width=8, message=FALSE}</span></span>
+<span id="cb88-92"><a href="#cb88-92" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb88-93"><a href="#cb88-93" aria-hidden="true" tabindex="-1"></a>mat_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(conj_treino)</span>
+<span id="cb88-94"><a href="#cb88-94" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(mat_corr)</span>
+<span id="cb88-95"><a href="#cb88-95" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-96"><a href="#cb88-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-97"><a href="#cb88-97" aria-hidden="true" tabindex="-1"></a>\newpage</span>
+<span id="cb88-98"><a href="#cb88-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-99"><a href="#cb88-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## Matriz de dispersão</span></span>
+<span id="cb88-100"><a href="#cb88-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-101"><a href="#cb88-101" aria-hidden="true" tabindex="-1"></a><span class="in">```{r splom2}</span></span>
+<span id="cb88-102"><a href="#cb88-102" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb88-103"><a href="#cb88-103" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs.panels</span>(conj_treino,</span>
+<span id="cb88-104"><a href="#cb88-104" aria-hidden="true" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">"pearson"</span>, <span class="co"># metodo de correlação</span></span>
+<span id="cb88-105"><a href="#cb88-105" aria-hidden="true" tabindex="-1"></a>             <span class="at">hist.col =</span> <span class="st">"#00AFBB"</span>,</span>
+<span id="cb88-106"><a href="#cb88-106" aria-hidden="true" tabindex="-1"></a>             <span class="at">density =</span> <span class="cn">TRUE</span>,  <span class="co"># mostra graficos de densidade</span></span>
+<span id="cb88-107"><a href="#cb88-107" aria-hidden="true" tabindex="-1"></a>             <span class="at">ellipses =</span> <span class="cn">FALSE</span> <span class="co"># mostra elipses de correlação</span></span>
+<span id="cb88-108"><a href="#cb88-108" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb88-109"><a href="#cb88-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-110"><a href="#cb88-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-111"><a href="#cb88-111" aria-hidden="true" tabindex="-1"></a>\newpage</span>
+<span id="cb88-112"><a href="#cb88-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-113"><a href="#cb88-113" aria-hidden="true" tabindex="-1"></a><span class="fu">## Métodos de seleção de modelo</span></span>
+<span id="cb88-114"><a href="#cb88-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-115"><a href="#cb88-115" aria-hidden="true" tabindex="-1"></a><span class="in">```{r melhor_modelo}</span></span>
+<span id="cb88-116"><a href="#cb88-116" aria-hidden="true" tabindex="-1"></a><span class="do">## Best Subset sem definir o número máx de subsets a ser avaliado</span></span>
+<span id="cb88-117"><a href="#cb88-117" aria-hidden="true" tabindex="-1"></a>ajusreg.comp <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> ., <span class="at">data=</span>conj_treino)</span>
+<span id="cb88-118"><a href="#cb88-118" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ajusreg.comp)</span>
+<span id="cb88-119"><a href="#cb88-119" aria-hidden="true" tabindex="-1"></a><span class="do">## Não testou todas as combinações possíveis</span></span>
+<span id="cb88-120"><a href="#cb88-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-121"><a href="#cb88-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-122"><a href="#cb88-122" aria-hidden="true" tabindex="-1"></a><span class="fu">## nvmax=13</span></span>
+<span id="cb88-123"><a href="#cb88-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-124"><a href="#cb88-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r modelo_completo}</span></span>
+<span id="cb88-125"><a href="#cb88-125" aria-hidden="true" tabindex="-1"></a>ajusreg.comp <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> ., <span class="at">data=</span>conj_treino, <span class="at">nvmax=</span><span class="dv">13</span>)</span>
+<span id="cb88-126"><a href="#cb88-126" aria-hidden="true" tabindex="-1"></a>sumario.reg <span class="ot">&lt;-</span> <span class="fu">summary</span>(ajusreg.comp)</span>
+<span id="cb88-127"><a href="#cb88-127" aria-hidden="true" tabindex="-1"></a>sumario.reg</span>
+<span id="cb88-128"><a href="#cb88-128" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sumario.reg)</span>
+<span id="cb88-129"><a href="#cb88-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-130"><a href="#cb88-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-131"><a href="#cb88-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## Avaliando os modelos</span></span>
+<span id="cb88-132"><a href="#cb88-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-133"><a href="#cb88-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r avaliando}</span></span>
+<span id="cb88-134"><a href="#cb88-134" aria-hidden="true" tabindex="-1"></a><span class="do">## Os modelos vão ser escolhidos com base no menor Cp</span></span>
+<span id="cb88-135"><a href="#cb88-135" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sumario.reg<span class="sc">$</span>cp,<span class="at">xlab=</span><span class="st">"Número de Variáveis"</span>,<span class="at">ylab=</span><span class="st">"Cp"</span>)</span>
+<span id="cb88-136"><a href="#cb88-136" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(sumario.reg<span class="sc">$</span>cp)</span>
+<span id="cb88-137"><a href="#cb88-137" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">11</span>,sumario.reg<span class="sc">$</span>cp[<span class="dv">11</span>],<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"red"</span>)</span>
+<span id="cb88-138"><a href="#cb88-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-139"><a href="#cb88-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-140"><a href="#cb88-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## Como extrair detalhes do ajuste</span></span>
+<span id="cb88-141"><a href="#cb88-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-142"><a href="#cb88-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r detalhes}</span></span>
+<span id="cb88-143"><a href="#cb88-143" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.comp,<span class="dv">11</span>)  </span>
+<span id="cb88-144"><a href="#cb88-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-145"><a href="#cb88-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-146"><a href="#cb88-146" aria-hidden="true" tabindex="-1"></a><span class="fu">## Forward Stepwise (passo a passo à frente)</span></span>
+<span id="cb88-147"><a href="#cb88-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-148"><a href="#cb88-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{r FR}</span></span>
+<span id="cb88-149"><a href="#cb88-149" aria-hidden="true" tabindex="-1"></a>ajusreg.fwd <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> . , <span class="at">data=</span>conj_treino,<span class="at">nvmax=</span><span class="dv">13</span>, <span class="at">method=</span><span class="st">"forward"</span>)</span>
+<span id="cb88-150"><a href="#cb88-150" aria-hidden="true" tabindex="-1"></a>sumario.reg.fwd <span class="ot">&lt;-</span> <span class="fu">summary</span>(ajusreg.fwd)</span>
+<span id="cb88-151"><a href="#cb88-151" aria-hidden="true" tabindex="-1"></a>sumario.reg.fwd </span>
+<span id="cb88-152"><a href="#cb88-152" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(sumario.reg.fwd<span class="sc">$</span>cp)</span>
+<span id="cb88-153"><a href="#cb88-153" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sumario.reg.fwd<span class="sc">$</span>cp,<span class="at">xlab=</span><span class="st">"Número de Variáveis"</span>,<span class="at">ylab=</span><span class="st">"Cp"</span>)</span>
+<span id="cb88-154"><a href="#cb88-154" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">11</span>,sumario.reg.fwd<span class="sc">$</span>cp[<span class="dv">11</span>],<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"red"</span>)</span>
+<span id="cb88-155"><a href="#cb88-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-156"><a href="#cb88-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-157"><a href="#cb88-157" aria-hidden="true" tabindex="-1"></a><span class="fu">## Como extrair detalhes do ajuste</span></span>
+<span id="cb88-158"><a href="#cb88-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-159"><a href="#cb88-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r detalhes2}</span></span>
+<span id="cb88-160"><a href="#cb88-160" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.fwd,<span class="dv">11</span>)  </span>
+<span id="cb88-161"><a href="#cb88-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-162"><a href="#cb88-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-163"><a href="#cb88-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## Backward Stepwise (passo a passo atrás)</span></span>
+<span id="cb88-164"><a href="#cb88-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-165"><a href="#cb88-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{r BR, fig.height=4.5, figure.width=6.5}</span></span>
+<span id="cb88-166"><a href="#cb88-166" aria-hidden="true" tabindex="-1"></a>ajusreg.bwd <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> . , <span class="at">data=</span>conj_treino,<span class="at">nvmax=</span><span class="dv">13</span>, <span class="at">method=</span><span class="st">"backward"</span>)</span>
+<span id="cb88-167"><a href="#cb88-167" aria-hidden="true" tabindex="-1"></a>sumario.reg.bwd <span class="ot">&lt;-</span> <span class="fu">summary</span>(ajusreg.bwd)</span>
+<span id="cb88-168"><a href="#cb88-168" aria-hidden="true" tabindex="-1"></a>sumario.reg.bwd</span>
+<span id="cb88-169"><a href="#cb88-169" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(sumario.reg.bwd<span class="sc">$</span>cp)</span>
+<span id="cb88-170"><a href="#cb88-170" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sumario.reg.bwd<span class="sc">$</span>cp,<span class="at">xlab=</span><span class="st">"Número de Variáveis"</span>,<span class="at">ylab=</span><span class="st">"Cp"</span>)</span>
+<span id="cb88-171"><a href="#cb88-171" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">11</span>,sumario.reg.bwd<span class="sc">$</span>cp[<span class="dv">11</span>],<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"red"</span>)</span>
+<span id="cb88-172"><a href="#cb88-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-173"><a href="#cb88-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-174"><a href="#cb88-174" aria-hidden="true" tabindex="-1"></a><span class="fu">## Como extrair detalhes do ajuste</span></span>
+<span id="cb88-175"><a href="#cb88-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-176"><a href="#cb88-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{r detalhes3}</span></span>
+<span id="cb88-177"><a href="#cb88-177" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.bwd,<span class="dv">11</span>)  </span>
+<span id="cb88-178"><a href="#cb88-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-179"><a href="#cb88-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-180"><a href="#cb88-180" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comportamento dos erros de treino e teste</span></span>
+<span id="cb88-181"><a href="#cb88-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-182"><a href="#cb88-182" aria-hidden="true" tabindex="-1"></a><span class="in">```{r erros}</span></span>
+<span id="cb88-183"><a href="#cb88-183" aria-hidden="true" tabindex="-1"></a><span class="do">## Codigo original de T. Hastie</span></span>
+<span id="cb88-184"><a href="#cb88-184" aria-hidden="true" tabindex="-1"></a>reg.fwd <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> . ,<span class="at">data=</span>conj_treino,<span class="at">nvmax=</span><span class="dv">13</span>, <span class="at">method=</span><span class="st">"forward"</span>)</span>
+<span id="cb88-185"><a href="#cb88-185" aria-hidden="true" tabindex="-1"></a>val.erro <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">13</span>)</span>
+<span id="cb88-186"><a href="#cb88-186" aria-hidden="true" tabindex="-1"></a>x.teste <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(medv<span class="sc">~</span>.,<span class="at">data=</span>conj_teste)</span>
+<span id="cb88-187"><a href="#cb88-187" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>){</span>
+<span id="cb88-188"><a href="#cb88-188" aria-hidden="true" tabindex="-1"></a>  coefi <span class="ot">&lt;-</span> <span class="fu">coef</span>(reg.fwd,<span class="at">id=</span>i)</span>
+<span id="cb88-189"><a href="#cb88-189" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">&lt;-</span> x.teste[,<span class="fu">names</span>(coefi)]<span class="sc">%*%</span>coefi</span>
+<span id="cb88-190"><a href="#cb88-190" aria-hidden="true" tabindex="-1"></a>  val.erro[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>((conj_teste<span class="sc">$</span>medv <span class="sc">-</span> pred)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb88-191"><a href="#cb88-191" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb88-192"><a href="#cb88-192" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">sqrt</span>(val.erro),<span class="at">ylab=</span><span class="st">"Raiz do EQM"</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">8</span>),<span class="at">pch=</span><span class="dv">19</span>,<span class="at">type=</span><span class="st">"b"</span>)</span>
+<span id="cb88-193"><a href="#cb88-193" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">sqrt</span>(reg.fwd<span class="sc">$</span>rss[<span class="sc">-</span><span class="dv">1</span>]<span class="sc">/</span><span class="dv">403</span>),<span class="at">col=</span><span class="st">"blue"</span>,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">type=</span><span class="st">"b"</span>)</span>
+<span id="cb88-194"><a href="#cb88-194" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">"Treino"</span>,<span class="st">"Teste"</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="st">"blue"</span>,<span class="st">"black"</span>),<span class="at">pch=</span><span class="dv">19</span>)</span>
+<span id="cb88-195"><a href="#cb88-195" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-196"><a href="#cb88-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-197"><a href="#cb88-197" aria-hidden="true" tabindex="-1"></a><span class="fu">## Testando outra estatística de seleção de modelos - BIC</span></span>
+<span id="cb88-198"><a href="#cb88-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-199"><a href="#cb88-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{r BIC}</span></span>
+<span id="cb88-200"><a href="#cb88-200" aria-hidden="true" tabindex="-1"></a>ajusreg.fwd1 <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(medv <span class="sc">~</span> . , <span class="at">data=</span>conj_treino,<span class="at">nvmax=</span><span class="dv">13</span>, <span class="at">method=</span><span class="st">"forward"</span>)</span>
+<span id="cb88-201"><a href="#cb88-201" aria-hidden="true" tabindex="-1"></a>sumario.reg.fwd1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(ajusreg.fwd1)</span>
+<span id="cb88-202"><a href="#cb88-202" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sumario.reg.fwd1)</span>
+<span id="cb88-203"><a href="#cb88-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-204"><a href="#cb88-204" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(sumario.reg.fwd1<span class="sc">$</span>bic)</span>
+<span id="cb88-205"><a href="#cb88-205" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sumario.reg.fwd1<span class="sc">$</span>bic,<span class="at">xlab=</span><span class="st">"Número de Variáveis"</span>,<span class="at">ylab=</span><span class="st">"BIC"</span>)</span>
+<span id="cb88-206"><a href="#cb88-206" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">7</span>,sumario.reg.fwd1<span class="sc">$</span>bic[<span class="dv">7</span>],<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"red"</span>)</span>
+<span id="cb88-207"><a href="#cb88-207" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.fwd1,<span class="dv">7</span>)  </span>
+<span id="cb88-208"><a href="#cb88-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-209"><a href="#cb88-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-210"><a href="#cb88-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb88-211"><a href="#cb88-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-212"><a href="#cb88-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-213"><a href="#cb88-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-214"><a href="#cb88-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-215"><a href="#cb88-215" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando o Cp novamente</span></span>
-<span id="cb88-216"><a href="#cb88-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-217"><a href="#cb88-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cp_denovo}</span></span>
-<span id="cb88-218"><a href="#cb88-218" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(sumario.reg.fwd1<span class="sc">$</span>cp)</span>
-<span id="cb88-219"><a href="#cb88-219" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sumario.reg.fwd1<span class="sc">$</span>cp,<span class="at">xlab=</span><span class="st">"Número de Variáveis"</span>,<span class="at">ylab=</span><span class="st">"Cp"</span>)</span>
-<span id="cb88-220"><a href="#cb88-220" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">11</span>,sumario.reg.fwd1<span class="sc">$</span>cp[<span class="dv">11</span>],<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb88-221"><a href="#cb88-221" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.fwd1,<span class="dv">11</span>)</span>
-<span id="cb88-222"><a href="#cb88-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-223"><a href="#cb88-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-224"><a href="#cb88-224" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparando os dois modelos com o lm()</span></span>
-<span id="cb88-225"><a href="#cb88-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-226"><a href="#cb88-226" aria-hidden="true" tabindex="-1"></a><span class="in">```{r comparando}</span></span>
-<span id="cb88-227"><a href="#cb88-227" aria-hidden="true" tabindex="-1"></a><span class="do">## Usando o lm para ajustar o modelo com as variáveis selecionadas pelo BIC</span></span>
-<span id="cb88-228"><a href="#cb88-228" aria-hidden="true" tabindex="-1"></a>mod_bic <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> chas <span class="sc">+</span> nox <span class="sc">+</span> rm <span class="sc">+</span> dis <span class="sc">+</span> ptratio <span class="sc">+</span> black <span class="sc">+</span> lstat, <span class="at">data=</span>conj_treino) </span>
-<span id="cb88-229"><a href="#cb88-229" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_bic)</span>
-<span id="cb88-230"><a href="#cb88-230" aria-hidden="true" tabindex="-1"></a>mod_cp <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> crim <span class="sc">+</span> zn <span class="sc">+</span> chas <span class="sc">+</span> nox <span class="sc">+</span> rm <span class="sc">+</span> dis <span class="sc">+</span> rad <span class="sc">+</span> tax <span class="sc">+</span> ptratio <span class="sc">+</span> black <span class="sc">+</span> lstat, <span class="at">data=</span>conj_treino)</span>
-<span id="cb88-231"><a href="#cb88-231" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_cp)</span>
-<span id="cb88-232"><a href="#cb88-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-233"><a href="#cb88-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-234"><a href="#cb88-234" aria-hidden="true" tabindex="-1"></a><span class="fu">## Eliminando a variável não significativa</span></span>
-<span id="cb88-235"><a href="#cb88-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-236"><a href="#cb88-236" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eliminando}</span></span>
-<span id="cb88-237"><a href="#cb88-237" aria-hidden="true" tabindex="-1"></a>mod_cp2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> zn <span class="sc">+</span> chas <span class="sc">+</span> nox <span class="sc">+</span> rm <span class="sc">+</span> dis <span class="sc">+</span> rad <span class="sc">+</span> tax <span class="sc">+</span> ptratio <span class="sc">+</span> black <span class="sc">+</span> lstat, <span class="at">data=</span>conj_treino)</span>
-<span id="cb88-238"><a href="#cb88-238" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_cp2)</span>
-<span id="cb88-239"><a href="#cb88-239" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-240"><a href="#cb88-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-241"><a href="#cb88-241" aria-hidden="true" tabindex="-1"></a><span class="fu">## Avaliando Colinearidade</span></span>
-<span id="cb88-242"><a href="#cb88-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-243"><a href="#cb88-243" aria-hidden="true" tabindex="-1"></a>Uma investigação minuciosa da multicollinearidade envolverá a análise do valor do $R^2$ que resulta da regressão de cada uma das variáveis explicativas contra todas as outras. A relação entre as variáveis explicativas pode ser julgada examinando uma quantidade chamada fator de inflacionário da variância (FIV) ou Variance Inflation Factor (VIF). Seja $Rj~^{2}$ o quadrado do coeficiente de correlação múltipla que resulta quando a variável explicativa $Xj~$ é ajustada contra todas as outras variáveis explicativas. Então o vif para $Xj~$ é $VIFj = 1 / (1-Rj~^{2})$</span>
-<span id="cb88-244"><a href="#cb88-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-245"><a href="#cb88-245" aria-hidden="true" tabindex="-1"></a>**A regra geral é que vifs superiores a 4 justificam novas investigações, enquanto VIFs superiores a 10 são sinais de multicollinearidade grave que requerem correção.**</span>
-<span id="cb88-246"><a href="#cb88-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-247"><a href="#cb88-247" aria-hidden="true" tabindex="-1"></a><span class="in">```{r car, message=FALSE}</span></span>
-<span id="cb88-248"><a href="#cb88-248" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb88-249"><a href="#cb88-249" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(mod_cp2)</span>
-<span id="cb88-250"><a href="#cb88-250" aria-hidden="true" tabindex="-1"></a><span class="do">## Vamos eliminar tax e ver o que acontece</span></span>
-<span id="cb88-251"><a href="#cb88-251" aria-hidden="true" tabindex="-1"></a>mod_cp3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> zn <span class="sc">+</span> chas <span class="sc">+</span> nox <span class="sc">+</span> rm <span class="sc">+</span> dis <span class="sc">+</span> rad <span class="sc">+</span> ptratio <span class="sc">+</span> black <span class="sc">+</span> lstat, <span class="at">data=</span>conj_treino)</span>
-<span id="cb88-252"><a href="#cb88-252" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_cp3)</span>
-<span id="cb88-253"><a href="#cb88-253" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(mod_cp3)</span>
-<span id="cb88-254"><a href="#cb88-254" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb88-255"><a href="#cb88-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-256"><a href="#cb88-256" aria-hidden="true" tabindex="-1"></a><span class="fu">## Testando os dois modelos com o conjunto de teste</span></span>
-<span id="cb88-257"><a href="#cb88-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-258"><a href="#cb88-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r C_teste}</span></span>
-<span id="cb88-259"><a href="#cb88-259" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo com base no Cp</span></span>
-<span id="cb88-260"><a href="#cb88-260" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_cp3)<span class="sc">$</span>sigma</span>
-<span id="cb88-261"><a href="#cb88-261" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_cp3)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb88-262"><a href="#cb88-262" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>medv <span class="sc">-</span> <span class="fu">predict</span>(mod_cp3, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>))</span>
-<span id="cb88-263"><a href="#cb88-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-264"><a href="#cb88-264" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo com base no BIC</span></span>
-<span id="cb88-265"><a href="#cb88-265" aria-hidden="true" tabindex="-1"></a>mod_bic <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> chas <span class="sc">+</span> nox <span class="sc">+</span> rm <span class="sc">+</span> dis <span class="sc">+</span> ptratio <span class="sc">+</span> black <span class="sc">+</span> lstat, <span class="at">data=</span>conj_treino) </span>
-<span id="cb88-266"><a href="#cb88-266" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_bic)<span class="sc">$</span>sigma</span>
-<span id="cb88-267"><a href="#cb88-267" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_bic)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb88-268"><a href="#cb88-268" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>medv <span class="sc">-</span> <span class="fu">predict</span>(mod_bic, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>))</span>
-<span id="cb88-269"><a href="#cb88-269" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-212"><a href="#cb88-212" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando o Cp novamente</span></span>
+<span id="cb88-213"><a href="#cb88-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-214"><a href="#cb88-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cp_denovo}</span></span>
+<span id="cb88-215"><a href="#cb88-215" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(sumario.reg.fwd1<span class="sc">$</span>cp)</span>
+<span id="cb88-216"><a href="#cb88-216" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sumario.reg.fwd1<span class="sc">$</span>cp,<span class="at">xlab=</span><span class="st">"Número de Variáveis"</span>,<span class="at">ylab=</span><span class="st">"Cp"</span>)</span>
+<span id="cb88-217"><a href="#cb88-217" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">11</span>,sumario.reg.fwd1<span class="sc">$</span>cp[<span class="dv">11</span>],<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"red"</span>)</span>
+<span id="cb88-218"><a href="#cb88-218" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.fwd1,<span class="dv">11</span>)</span>
+<span id="cb88-219"><a href="#cb88-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-220"><a href="#cb88-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-221"><a href="#cb88-221" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparando os dois modelos com o lm()</span></span>
+<span id="cb88-222"><a href="#cb88-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-223"><a href="#cb88-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{r comparando}</span></span>
+<span id="cb88-224"><a href="#cb88-224" aria-hidden="true" tabindex="-1"></a><span class="do">## Usando o lm para ajustar o modelo com as variáveis selecionadas pelo BIC</span></span>
+<span id="cb88-225"><a href="#cb88-225" aria-hidden="true" tabindex="-1"></a>mod_bic <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> chas <span class="sc">+</span> nox <span class="sc">+</span> rm <span class="sc">+</span> dis <span class="sc">+</span> ptratio <span class="sc">+</span> black <span class="sc">+</span> lstat, <span class="at">data=</span>conj_treino) </span>
+<span id="cb88-226"><a href="#cb88-226" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_bic)</span>
+<span id="cb88-227"><a href="#cb88-227" aria-hidden="true" tabindex="-1"></a>mod_cp <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> crim <span class="sc">+</span> zn <span class="sc">+</span> chas <span class="sc">+</span> nox <span class="sc">+</span> rm <span class="sc">+</span> dis <span class="sc">+</span> rad <span class="sc">+</span> tax <span class="sc">+</span> ptratio <span class="sc">+</span> black <span class="sc">+</span> lstat, <span class="at">data=</span>conj_treino)</span>
+<span id="cb88-228"><a href="#cb88-228" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_cp)</span>
+<span id="cb88-229"><a href="#cb88-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-230"><a href="#cb88-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-231"><a href="#cb88-231" aria-hidden="true" tabindex="-1"></a><span class="fu">## Eliminando a variável não significativa</span></span>
+<span id="cb88-232"><a href="#cb88-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-233"><a href="#cb88-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eliminando}</span></span>
+<span id="cb88-234"><a href="#cb88-234" aria-hidden="true" tabindex="-1"></a>mod_cp2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> zn <span class="sc">+</span> chas <span class="sc">+</span> nox <span class="sc">+</span> rm <span class="sc">+</span> dis <span class="sc">+</span> rad <span class="sc">+</span> tax <span class="sc">+</span> ptratio <span class="sc">+</span> black <span class="sc">+</span> lstat, <span class="at">data=</span>conj_treino)</span>
+<span id="cb88-235"><a href="#cb88-235" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_cp2)</span>
+<span id="cb88-236"><a href="#cb88-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-237"><a href="#cb88-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-238"><a href="#cb88-238" aria-hidden="true" tabindex="-1"></a><span class="fu">## Avaliando Colinearidade</span></span>
+<span id="cb88-239"><a href="#cb88-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-240"><a href="#cb88-240" aria-hidden="true" tabindex="-1"></a>Uma investigação minuciosa da multicollinearidade envolverá a análise do valor do $R^2$ que resulta da regressão de cada uma das variáveis explicativas contra todas as outras. A relação entre as variáveis explicativas pode ser julgada examinando uma quantidade chamada fator de inflacionário da variância (FIV) ou Variance Inflation Factor (VIF). Seja $Rj~^{2}$ o quadrado do coeficiente de correlação múltipla que resulta quando a variável explicativa $Xj~$ é ajustada contra todas as outras variáveis explicativas. Então o vif para $Xj~$ é $VIFj = 1 / (1-Rj~^{2})$</span>
+<span id="cb88-241"><a href="#cb88-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-242"><a href="#cb88-242" aria-hidden="true" tabindex="-1"></a>**A regra geral é que vifs superiores a 4 justificam novas investigações, enquanto VIFs superiores a 10 são sinais de multicollinearidade grave que requerem correção.**</span>
+<span id="cb88-243"><a href="#cb88-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-244"><a href="#cb88-244" aria-hidden="true" tabindex="-1"></a><span class="in">```{r car, message=FALSE}</span></span>
+<span id="cb88-245"><a href="#cb88-245" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb88-246"><a href="#cb88-246" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(mod_cp2)</span>
+<span id="cb88-247"><a href="#cb88-247" aria-hidden="true" tabindex="-1"></a><span class="do">## Vamos eliminar tax e ver o que acontece</span></span>
+<span id="cb88-248"><a href="#cb88-248" aria-hidden="true" tabindex="-1"></a>mod_cp3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> zn <span class="sc">+</span> chas <span class="sc">+</span> nox <span class="sc">+</span> rm <span class="sc">+</span> dis <span class="sc">+</span> rad <span class="sc">+</span> ptratio <span class="sc">+</span> black <span class="sc">+</span> lstat, <span class="at">data=</span>conj_treino)</span>
+<span id="cb88-249"><a href="#cb88-249" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_cp3)</span>
+<span id="cb88-250"><a href="#cb88-250" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(mod_cp3)</span>
+<span id="cb88-251"><a href="#cb88-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb88-252"><a href="#cb88-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-253"><a href="#cb88-253" aria-hidden="true" tabindex="-1"></a><span class="fu">## Testando os dois modelos com o conjunto de teste</span></span>
+<span id="cb88-254"><a href="#cb88-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-255"><a href="#cb88-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r C_teste}</span></span>
+<span id="cb88-256"><a href="#cb88-256" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo com base no Cp</span></span>
+<span id="cb88-257"><a href="#cb88-257" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_cp3)<span class="sc">$</span>sigma</span>
+<span id="cb88-258"><a href="#cb88-258" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_cp3)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb88-259"><a href="#cb88-259" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>medv <span class="sc">-</span> <span class="fu">predict</span>(mod_cp3, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>))</span>
+<span id="cb88-260"><a href="#cb88-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-261"><a href="#cb88-261" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo com base no BIC</span></span>
+<span id="cb88-262"><a href="#cb88-262" aria-hidden="true" tabindex="-1"></a>mod_bic <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> chas <span class="sc">+</span> nox <span class="sc">+</span> rm <span class="sc">+</span> dis <span class="sc">+</span> ptratio <span class="sc">+</span> black <span class="sc">+</span> lstat, <span class="at">data=</span>conj_treino) </span>
+<span id="cb88-263"><a href="#cb88-263" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_bic)<span class="sc">$</span>sigma</span>
+<span id="cb88-264"><a href="#cb88-264" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_bic)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb88-265"><a href="#cb88-265" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>medv <span class="sc">-</span> <span class="fu">predict</span>(mod_bic, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>))</span>
+<span id="cb88-266"><a href="#cb88-266" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
