@@ -66,8 +66,8 @@ set.seed(21)
 y <- Boston$medv
 indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
 
-conj_treino <- Boston %>% slice(-indice_teste)
-conj_teste <- Boston %>% slice(indice_teste)
+conj_treino <- Boston[-indice_teste,]
+conj_teste <- Boston[indice_teste, ]
 
 str(conj_treino)
 str(conj_teste)

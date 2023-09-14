@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-09-13">
+<meta name="dcterms.date" content="2023-09-14">
 <title>IME05-12547 - Regularização de Modelos</title>
 <style>
 code{white-space: pre-wrap;}
@@ -61,8 +61,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../semanas/Aula07.4A.html" rel="next">
-<link href="../semanas/Aula07.3.html" rel="prev">
+<link href="../semanas/Aula08.0.html" rel="next">
+<link href="../semanas/Aula07.4.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -106,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula07.4.html">Métodos de Encolhimento</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula07.4A.html">Métodos de Encolhimento</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -271,13 +271,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.4.html" class="sidebar-item-text sidebar-link active">
+  <a href="../semanas/Aula07.4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Métodos de Encolhimento</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.4A.html" class="sidebar-item-text sidebar-link">
+  <a href="../semanas/Aula07.4A.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Métodos de Encolhimento</span></a>
   </div>
 </li>
@@ -374,16 +374,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#carregando-os-dados" id="toc-carregando-os-dados" class="nav-link" data-scroll-target="#carregando-os-dados">Carregando os dados</a></li>
   <li><a href="#significado-das-vari%C3%A1veis" id="toc-significado-das-variáveis" class="nav-link" data-scroll-target="#significado-das-vari%C3%A1veis">Significado das variáveis</a></li>
   <li><a href="#conjunto-de-treino-e-de-teste" id="toc-conjunto-de-treino-e-de-teste" class="nav-link" data-scroll-target="#conjunto-de-treino-e-de-teste">Conjunto de treino e de teste</a></li>
-  <li><a href="#m%C3%A9todos-de-regulariza%C3%A7%C3%A3o" id="toc-métodos-de-regularização" class="nav-link" data-scroll-target="#m%C3%A9todos-de-regulariza%C3%A7%C3%A3o">Métodos de Regularização</a></li>
-  <li><a href="#regress%C3%A3o-ridge" id="toc-regressão-ridge" class="nav-link" data-scroll-target="#regress%C3%A3o-ridge">Regressão Ridge</a></li>
-  <li><a href="#cross-validation-no-ridge" id="toc-cross-validation-no-ridge" class="nav-link" data-scroll-target="#cross-validation-no-ridge">Cross-Validation no Ridge</a></li>
-  <li><a href="#avaliando-com-conjunto-de-teste" id="toc-avaliando-com-conjunto-de-teste" class="nav-link" data-scroll-target="#avaliando-com-conjunto-de-teste">Avaliando com conjunto de teste</a></li>
+  <li><a href="#m%C3%A9todos-de-regulariza%C3%A7%C3%A3o-com-o-caret" id="toc-métodos-de-regularização-com-o-caret" class="nav-link" data-scroll-target="#m%C3%A9todos-de-regulariza%C3%A7%C3%A3o-com-o-caret">Métodos de Regularização com o caret</a></li>
+  <li><a href="#cross-validation-no-caret" id="toc-cross-validation-no-caret" class="nav-link" data-scroll-target="#cross-validation-no-caret">Cross-Validation no caret</a></li>
+  <li><a href="#avaliando-o-modelo-com-o-conjunto-de-teste" id="toc-avaliando-o-modelo-com-o-conjunto-de-teste" class="nav-link" data-scroll-target="#avaliando-o-modelo-com-o-conjunto-de-teste">Avaliando o modelo com o conjunto de teste</a></li>
+  <li><a href="#modelo-final-ridge" id="toc-modelo-final-ridge" class="nav-link" data-scroll-target="#modelo-final-ridge">Modelo Final Ridge</a></li>
   <li><a href="#lasso" id="toc-lasso" class="nav-link" data-scroll-target="#lasso">LASSO</a></li>
   <li><a href="#valida%C3%A7%C3%A3o-cruzada-no-lasso" id="toc-validação-cruzada-no-lasso" class="nav-link" data-scroll-target="#valida%C3%A7%C3%A3o-cruzada-no-lasso">Validação Cruzada no LASSO</a></li>
-  <li><a href="#avaliando-com-conjunto-de-teste-1" id="toc-avaliando-com-conjunto-de-teste-1" class="nav-link" data-scroll-target="#avaliando-com-conjunto-de-teste-1">Avaliando com conjunto de teste</a></li>
-  <li><a href="#comparando-com-a-sele%C3%A7%C3%A3o-de-modelos-usando-o-cp" id="toc-comparando-com-a-seleção-de-modelos-usando-o-cp" class="nav-link" data-scroll-target="#comparando-com-a-sele%C3%A7%C3%A3o-de-modelos-usando-o-cp">Comparando com a seleção de modelos usando o Cp</a></li>
-  <li><a href="#ajustando-no-lm-e-vendo-o-erro-no-conjunto-de-teste" id="toc-ajustando-no-lm-e-vendo-o-erro-no-conjunto-de-teste" class="nav-link" data-scroll-target="#ajustando-no-lm-e-vendo-o-erro-no-conjunto-de-teste">Ajustando no lm() e vendo o erro no conjunto de teste</a></li>
-  <li><a href="#e-o-bic" id="toc-e-o-bic" class="nav-link" data-scroll-target="#e-o-bic">E o BIC?</a></li>
+  <li><a href="#avaliando-com-conjunto-de-teste" id="toc-avaliando-com-conjunto-de-teste" class="nav-link" data-scroll-target="#avaliando-com-conjunto-de-teste">Avaliando com conjunto de teste</a></li>
+  <li><a href="#modelo-final-lasso" id="toc-modelo-final-lasso" class="nav-link" data-scroll-target="#modelo-final-lasso">Modelo Final Lasso</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -405,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 13, 2023</p>
+      <p class="date">September 14, 2023</p>
     </div>
   </div>
   
@@ -526,13 +524,13 @@ Attaching package: 'caret'</code></pre>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">Boston</span><span class="op">$</span><span class="va">medv</span></span>
 <span><span class="va">indice_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.2</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">Boston</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="op">-</span><span class="va">indice_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Slicing with a 1-column matrix was deprecated in dplyr 1.1.0.</code></pre>
-</div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">conj_treino</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/lm.ridge.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">rad</span><span class="op">)</span></span>
-<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">Boston</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">indice_teste</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">Boston</span><span class="op">[</span><span class="op">-</span><span class="va">indice_teste</span>, <span class="op">]</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">Boston</span><span class="op">[</span><span class="va">indice_teste</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">conj_treino</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/lm.ridge.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">rad</span><span class="op">)</span></span>
 <span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">conj_teste</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/lm.ridge.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">rad</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   403 obs. of  13 variables:
@@ -550,7 +548,7 @@ Attaching package: 'caret'</code></pre>
  $ lstat  : num  4.98 9.14 4.03 2.94 5.33 ...
  $ medv   : num  24 21.6 34.7 33.4 36.2 28.7 22.9 27.1 18.9 15 ...</code></pre>
 </div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   103 obs. of  13 variables:
  $ crim   : num  0.211 0.63 0.627 1.252 0.852 ...
@@ -568,303 +566,283 @@ Attaching package: 'caret'</code></pre>
  $ medv   : num  16.5 20.4 19.9 13.6 19.6 12.7 13.5 30.8 24.7 14.4 ...</code></pre>
 </div>
 </div>
-</section><section id="métodos-de-regularização" class="level2"><h2 class="anchored" data-anchor-id="métodos-de-regularização">Métodos de Regularização</h2>
-<p>O pacote glmnet não usa a linguagem de formula, em particular nós devemos passar <span class="math inline">\(x\)</span> como uma matriz e <span class="math inline">\(y\)</span> como um vetor, pois não se usa a sintaxe <span class="math inline">\(y \sim x\)</span>. Com isso será necessário ajustar x e y. A função model.matrix() é particularmente útil para criar x; não só produz uma matriz correspondente as variáveis explicativas, <strong>mas também transforma automaticamente quaisquer variáveis qualitativas em variáveis dummy. Esta última propriedade é importante porque o glmnet() só pode tomar insumos numéricos e quantitativos.</strong></p>
+</section><section id="métodos-de-regularização-com-o-caret" class="level2"><h2 class="anchored" data-anchor-id="métodos-de-regularização-com-o-caret">Métodos de Regularização com o caret</h2>
+<p>Usando o caret para selecionar o melhor modelo</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="va">medv</span> <span class="op">~</span> <span class="va">.</span> , data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">y_treino</span> <span class="op">&lt;-</span> <span class="va">conj_treino</span><span class="op">$</span><span class="va">medv</span></span>
-<span></span>
-<span><span class="va">x_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="va">medv</span> <span class="op">~</span> <span class="va">.</span> , data <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">y_teste</span> <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">train_control</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span></span>
+<span>  method <span class="op">=</span> <span class="st">"repeatedcv"</span>,</span>
+<span>  number <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># validação cruzada com 10 folds</span></span>
+<span>  repeats <span class="op">=</span> <span class="fl">5</span>,  <span class="co"># 5 repetições</span></span>
+<span>  savePredictions <span class="op">=</span> <span class="st">"final"</span>  <span class="co"># salva os resultados do modelo final</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="regressão-ridge" class="level2"><h2 class="anchored" data-anchor-id="regressão-ridge">Regressão Ridge</h2>
-<p>Primeiro vamos ajustar um modelo de regressão Ridge. Isso é conseguido chamando <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> com <code>alpha=0</code>, se <code>alpha=1</code> então <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> ajusta um lasso.(veja o arquivo de ajuda).</p>
-<div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Estabelecendo um grid de valores para lambda</span></span>
-<span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">10</span>, length <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
-<span><span class="va">ajusreg.ridge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span>, lambda <span class="op">=</span> <span class="va">grid</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Por padrão, a função <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> executa a regressão ridge automaticamente selecionando a faixa de valores de <span class="math inline">\(\lambda\)</span>. No entanto, aqui nós escolhemos implementar usando uma grade de valores que variam de <span class="math inline">\(\lambda = 10^{-2}\)</span> a <span class="math inline">\(\lambda = 10^{10}\)</span>, cobrindo toda a gama de cenários do modelo nulo contendo apenas o coeficiente linear até o ajuste dos mínimos quadrados.</p>
-<p>Também podemos calcular o modelo para um valor particular de <span class="math inline">\(\lambda\)</span> que não é um dos valores de grade. Observe que, por padrão, a função <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> padroniza as variáveis para que elas estejam na mesma escala. <strong>Esta padronização é muito importante no caso da regressão Ridge, pois ela é afetada pela mudança de escala das variáveis explicativas.</strong></p>
-<p>Associado a cada valor de <span class="math inline">\(\lambda\)</span> existe um vetor de coeficientes de regressão de ridge, que é armazenado em uma matriz que pode ser acessada por ‘coef()’. Neste caso, é uma matriz <span class="math inline">\(13 \times 100\)</span>, com 13 linhas (uma para cada preditor, mais uma para o coeficiente linear) e 100 colunas (uma para cada valor de <span class="math inline">\(\lambda\)</span>).</p>
-<div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  13 100</code></pre>
-</div>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span>, xvar<span class="op">=</span><span class="st">"lambda"</span>, label<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Representando os coeficientes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Aula07.4_files/figure-html/r1-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Quando <span class="math inline">\(\lambda\)</span> é grande o esperado é que os coeficentes sejam pequenos e quando <span class="math inline">\(\lambda\)</span> é pequeno os coeficientes assumem valores maiores.</p>
-<div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.ridge</span><span class="op">$</span><span class="va">lambda</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="co"># Mostra primeiro valor de lambda</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1e+10</code></pre>
-</div>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="co"># Mostra os coeficientes associados com o primeiro valor</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  (Intercept)          crim            zn         indus          chas 
- 2.247246e+01 -4.109894e-10  1.380771e-10 -6.245296e-10  6.798952e-09 
-          nox            rm           age           dis           tax 
--3.138930e-08  9.031398e-09 -1.154044e-10  1.094430e-09 -2.354379e-11 
-      ptratio         black         lstat 
--2.000167e-09  3.131126e-11 -8.446650e-10 </code></pre>
-</div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.ridge</span><span class="op">$</span><span class="va">lambda</span><span class="op">[</span><span class="fl">100</span><span class="op">]</span> <span class="co"># Mostra centésimo valor de lambda</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.01</code></pre>
-</div>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span><span class="op">)</span><span class="op">[</span>,<span class="fl">100</span><span class="op">]</span> <span class="co"># Mostra os coeficientes associados com o centésimo valor</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  (Intercept)          crim            zn         indus          chas 
- 1.678767e+01 -1.657453e-02  2.307677e-02 -6.932521e-02  3.914065e+00 
-          nox            rm           age           dis           tax 
--1.315187e+01  5.586213e+00 -2.297883e-02 -1.312388e+00  6.917237e-04 
-      ptratio         black         lstat 
--8.347461e-01  1.262501e-02 -3.575121e-01 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.users.sonic.net">plotmo</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Carregando pacotes exigidos: Formula</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Carregando pacotes exigidos: plotrix</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Carregando pacotes exigidos: TeachingDemos</code></pre>
-</div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/plotmo/man/plot_glmnet.html">plot_glmnet</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Aula07.4_files/figure-html/r3-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section><section id="cross-validation-no-ridge" class="level2"><h2 class="anchored" data-anchor-id="cross-validation-no-ridge">Cross-Validation no Ridge</h2>
+</section><section id="cross-validation-no-caret" class="level2"><h2 class="anchored" data-anchor-id="cross-validation-no-caret">Cross-Validation no caret</h2>
 <p>Nós podemos usar o k-fold cross validation para identificar o melhor valor de <span class="math inline">\(\lambda\)</span></p>
-<p>A biblioteca glmnet já tem internamente uma função para uso do crosss validation. O default são 10 envelopes de dados <code>nfold=10</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
-<span><span class="va">ridge_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/cv.glmnet.html">cv.glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span><span class="op">)</span> <span class="co">## por padrão k=10</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ridge_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span><span class="va">mdl_ridge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span></span>
+<span>  <span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"glmnet"</span>,</span>
+<span>  metric <span class="op">=</span> <span class="st">"RMSE"</span>,  </span>
+<span>  preProcess <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"center"</span>, <span class="st">"scale"</span><span class="op">)</span>,</span>
+<span>  tuneGrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
+<span>    .alpha <span class="op">=</span> <span class="fl">0</span>,  <span class="co"># regressão ridge</span></span>
+<span>    .lambda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  trControl <span class="op">=</span> <span class="va">train_control</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">mdl_ridge</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>glmnet 
+
+403 samples
+ 12 predictor
+
+Pre-processing: centered (12), scaled (12) 
+Resampling: Cross-Validated (10 fold, repeated 5 times) 
+Summary of sample sizes: 363, 362, 364, 362, 363, 363, ... 
+Resampling results across tuning parameters:
+
+  lambda  RMSE      Rsquared   MAE     
+  0.00    4.637618  0.7506012  3.264499
+  0.05    4.637618  0.7506012  3.264499
+  0.10    4.637618  0.7506012  3.264499
+  0.15    4.637618  0.7506012  3.264499
+  0.20    4.637618  0.7506012  3.264499
+  0.25    4.637618  0.7506012  3.264499
+  0.30    4.637618  0.7506012  3.264499
+  0.35    4.637618  0.7506012  3.264499
+  0.40    4.637618  0.7506012  3.264499
+  0.45    4.637618  0.7506012  3.264499
+  0.50    4.637618  0.7506012  3.264499
+  0.55    4.637618  0.7506012  3.264499
+  0.60    4.637618  0.7506012  3.264499
+  0.65    4.637618  0.7506012  3.264499
+  0.70    4.638946  0.7505734  3.265041
+  0.75    4.640216  0.7505864  3.265350
+  0.80    4.641506  0.7506047  3.265713
+  0.85    4.642949  0.7506107  3.266347
+  0.90    4.644555  0.7506056  3.267143
+  0.95    4.646293  0.7505908  3.268062
+  1.00    4.648169  0.7505660  3.269133
+  1.05    4.650182  0.7505317  3.270338
+  1.10    4.652305  0.7504891  3.271706
+  1.15    4.654534  0.7504397  3.273161
+  1.20    4.656872  0.7503822  3.274721
+  1.25    4.659312  0.7503173  3.276326
+  1.30    4.661864  0.7502445  3.278033
+  1.35    4.664479  0.7501669  3.279822
+  1.40    4.667203  0.7500825  3.281662
+  1.45    4.669988  0.7499929  3.283542
+  1.50    4.672848  0.7498988  3.285483
+  1.55    4.675811  0.7497974  3.287470
+  1.60    4.678812  0.7496924  3.289436
+  1.65    4.681881  0.7495839  3.291397
+  1.70    4.685044  0.7494686  3.293438
+  1.75    4.688235  0.7493504  3.295552
+  1.80    4.691480  0.7492294  3.297766
+  1.85    4.694817  0.7491018  3.300018
+  1.90    4.698183  0.7489717  3.302337
+  1.95    4.701583  0.7488388  3.304735
+  2.00    4.705048  0.7487026  3.307202
+  2.05    4.708583  0.7485609  3.309708
+  2.10    4.712128  0.7484176  3.312242
+  2.15    4.715701  0.7482729  3.314858
+  2.20    4.719341  0.7481242  3.317537
+  2.25    4.723039  0.7479706  3.320286
+  2.30    4.726740  0.7478163  3.323069
+  2.35    4.730460  0.7476607  3.325868
+  2.40    4.734231  0.7475026  3.328720
+  2.45    4.738069  0.7473390  3.331673
+  2.50    4.741908  0.7471747  3.334656
+  2.55    4.745758  0.7470089  3.337643
+  2.60    4.749627  0.7468433  3.340630
+  2.65    4.753554  0.7466733  3.343683
+  2.70    4.757530  0.7464993  3.346808
+  2.75    4.761495  0.7463253  3.349970
+  2.80    4.765469  0.7461500  3.353135
+  2.85    4.769456  0.7459752  3.356357
+  2.90    4.773493  0.7457967  3.359599
+  2.95    4.777582  0.7456139  3.362885
+  3.00    4.781661  0.7454309  3.366147
+  3.05    4.785741  0.7452474  3.369400
+  3.10    4.789816  0.7450647  3.372650
+  3.15    4.793920  0.7448809  3.375876
+  3.20    4.798079  0.7446923  3.379129
+  3.25    4.802268  0.7445010  3.382396
+  3.30    4.806435  0.7443105  3.385656
+  3.35    4.810603  0.7441195  3.388912
+  3.40    4.814760  0.7439297  3.392136
+  3.45    4.818939  0.7437394  3.395334
+  3.50    4.823164  0.7435449  3.398543
+  3.55    4.827425  0.7433471  3.401784
+  3.60    4.831675  0.7431492  3.405011
+  3.65    4.835911  0.7429519  3.408201
+  3.70    4.840140  0.7427547  3.411373
+  3.75    4.844365  0.7425585  3.414501
+  3.80    4.848618  0.7423607  3.417625
+  3.85    4.852915  0.7421585  3.420776
+  3.90    4.857239  0.7419539  3.423951
+  3.95    4.861544  0.7417497  3.427149
+  4.00    4.865834  0.7415465  3.430337
+  4.05    4.870115  0.7413429  3.433516
+  4.10    4.874382  0.7411408  3.436681
+  4.15    4.878667  0.7409383  3.439865
+  4.20    4.882985  0.7407323  3.443068
+  4.25    4.887338  0.7405230  3.446274
+  4.30    4.891696  0.7403127  3.449481
+  4.35    4.896028  0.7401037  3.452682
+  4.40    4.900348  0.7398952  3.455865
+  4.45    4.904652  0.7396873  3.459021
+  4.50    4.908943  0.7394808  3.462155
+  4.55    4.913247  0.7392740  3.465272
+  4.60    4.917579  0.7390643  3.468414
+  4.65    4.921944  0.7388514  3.471580
+  4.70    4.926322  0.7386368  3.474742
+  4.75    4.930675  0.7384232  3.477870
+  4.80    4.935006  0.7382112  3.480974
+  4.85    4.939333  0.7379987  3.484092
+  4.90    4.943630  0.7377883  3.487175
+  4.95    4.947921  0.7375787  3.490254
+  5.00    4.952227  0.7373683  3.493337
+
+Tuning parameter 'alpha' was held constant at a value of 0
+RMSE was used to select the optimal model using the smallest value.
+The final values used for the model were alpha = 0 and lambda = 0.65.</code></pre>
+</div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mdl_ridge</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Regressão Ridge Ajuste do Parametro"</span>, x <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula07.4_files/figure-html/r4-1.png" class="img-fluid" width="672"></p>
+<p><img src="Aula07.4A_files/figure-html/r4-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_lamb</span> <span class="op">&lt;-</span> <span class="va">ridge_cv</span><span class="op">$</span><span class="va">lambda.min</span>  <span class="co"># Seleciona o lambda que minimiza o MSE (EQM) de treino</span></span>
-<span><span class="va">m_lamb</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6844251</code></pre>
-</div>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">m_lamb</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.3791761</code></pre>
-</div>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ridge_cv</span>, s<span class="op">=</span><span class="va">m_lamb</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>13 x 1 sparse Matrix of class "dgCMatrix"
-                       s1
-(Intercept) 14.7144706557
-crim        -0.0214927174
-zn           0.0200504882
-indus       -0.0735317662
-chas         3.8343862492
-nox         -9.4460044931
-rm           5.3120091904
-age         -0.0185326152
-dis         -1.0110801641
-tax         -0.0003434427
-ptratio     -0.7785448609
-black        0.0116393260
-lstat       -0.3465721929</code></pre>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/varImp.html">varImp</a></span><span class="op">(</span><span class="va">mdl_ridge</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Aula07.4A_files/figure-html/r4-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section><section id="avaliando-com-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="avaliando-com-conjunto-de-teste">Avaliando com conjunto de teste</h2>
-<p>Em seguida avaliamos seu MSE no conjunto de teste, usando <span class="math inline">\(\lambda\)</span> = m_lamb. Observe o uso da função ‘predict()’: desta vez temos previsões para um conjunto de teste, com o argumento <code>newx</code>.</p>
+</section><section id="avaliando-o-modelo-com-o-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="avaliando-o-modelo-com-o-conjunto-de-teste">Avaliando o modelo com o conjunto de teste</h2>
+<p>Aqui usamos a reamostragem com os dados de teste para avaliar o modelo</p>
 <div class="cell">
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.ridge2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span>, lambda <span class="op">=</span> <span class="va">m_lamb</span><span class="op">)</span></span>
-<span><span class="va">y_prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">ajusreg.ridge2</span>, s <span class="op">=</span> <span class="va">m_lamb</span>, newx <span class="op">=</span> <span class="va">x_teste</span><span class="op">)</span></span>
-<span><span class="co"># Metricas de desempenho</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">y_prev</span> <span class="op">-</span> <span class="va">y_teste</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Metricas de desempenho</span></span>
+<span><span class="va">pr_ridge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">postResample</a></span><span class="op">(</span>pred <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mdl_ridge</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span>, obs <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span>
+<span><span class="va">pr_ridge</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.980257</code></pre>
+<pre><code>     RMSE  Rsquared       MAE 
+5.9785023 0.5777472 3.7537707 </code></pre>
+</div>
+</div>
+</section><section id="modelo-final-ridge" class="level2"><h2 class="anchored" data-anchor-id="modelo-final-ridge">Modelo Final Ridge</h2>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span><span class="va">mdl_final_ridge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span></span>
+<span>  <span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"glmnet"</span>,</span>
+<span>  metric <span class="op">=</span> <span class="st">"RMSE"</span>,</span>
+<span>  preProcess <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"center"</span>, <span class="st">"scale"</span><span class="op">)</span>,</span>
+<span>  tuneGrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    .alpha <span class="op">=</span> <span class="va">mdl_ridge</span><span class="op">$</span><span class="va">bestTune</span><span class="op">$</span><span class="va">alpha</span>,  <span class="co"># hiperparametro otimizado</span></span>
+<span>    .lambda <span class="op">=</span> <span class="va">mdl_ridge</span><span class="op">$</span><span class="va">bestTune</span><span class="op">$</span><span class="va">lambda</span><span class="op">)</span>,  <span class="co"># hiperparametro otimizado</span></span>
+<span>  trControl <span class="op">=</span> <span class="va">train_control</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">mdl_final_ridge</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>glmnet 
+
+403 samples
+ 12 predictor
+
+Pre-processing: centered (12), scaled (12) 
+Resampling: Cross-Validated (10 fold, repeated 5 times) 
+Summary of sample sizes: 363, 362, 364, 362, 363, 363, ... 
+Resampling results:
+
+  RMSE      Rsquared   MAE     
+  4.637618  0.7506012  3.264499
+
+Tuning parameter 'alpha' was held constant at a value of 0
+Tuning
+ parameter 'lambda' was held constant at a value of 0.65</code></pre>
+</div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mdl_final_ridge</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.978502</code></pre>
 </div>
 </div>
 </section><section id="lasso" class="level2"><h2 class="anchored" data-anchor-id="lasso">LASSO</h2>
-<p>Primeiro ajustamos com todos os dados como no caso do Ridge</p>
-<div class="cell">
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ajusreg.lasso</span>, xvar<span class="op">=</span><span class="st">"lambda"</span>, label<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Representando os coeficientes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Aula07.4_files/figure-html/LASSO-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/plotmo/man/plot_glmnet.html">plot_glmnet</a></span><span class="op">(</span><span class="va">ajusreg.lasso</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Aula07.4_files/figure-html/LASSO-2.png" class="img-fluid" width="672"></p>
-</div>
-</div>
 </section><section id="validação-cruzada-no-lasso" class="level2"><h2 class="anchored" data-anchor-id="validação-cruzada-no-lasso">Validação Cruzada no LASSO</h2>
 <div class="cell">
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasso_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/cv.glmnet.html">cv.glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lasso_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span><span class="va">mdl_lasso</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span></span>
+<span>  <span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"glmnet"</span>,</span>
+<span>  metric <span class="op">=</span> <span class="st">"RMSE"</span>,</span>
+<span>  preProcess <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"center"</span>, <span class="st">"scale"</span><span class="op">)</span>,</span>
+<span>  tuneGrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
+<span>    .alpha <span class="op">=</span> <span class="fl">1</span>,  <span class="co"># regressão lasso</span></span>
+<span>    .lambda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  trControl <span class="op">=</span> <span class="va">train_control</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">mdl_lasso</span><span class="op">$</span><span class="va">bestTune</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  alpha lambda
+2     1   0.05</code></pre>
+</div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mdl_lasso</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Regressão Lasso - Ajuste de parametro"</span>, x <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula07.4_files/figure-html/Lasso2-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_lamb1</span> <span class="op">&lt;-</span> <span class="va">lasso_cv</span><span class="op">$</span><span class="va">lambda.min</span>  <span class="co"># Seleciona o lambda que minimiza o MSE de treino</span></span>
-<span><span class="va">m_lamb1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0595278</code></pre>
-</div>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">m_lamb1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -2.821312</code></pre>
-</div>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lasso_cv</span>, s<span class="op">=</span><span class="va">m_lamb1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>13 x 1 sparse Matrix of class "dgCMatrix"
-                       s1
-(Intercept)  14.763435253
-crim         -0.006217225
-zn            0.017479823
-indus        -0.050830256
-chas          3.644367387
-nox         -11.463040415
-rm            5.608066407
-age          -0.018352749
-dis          -1.107502465
-tax           .          
-ptratio      -0.825247011
-black         0.012263992
-lstat        -0.362939273</code></pre>
+<p><img src="Aula07.4A_files/figure-html/Lasso2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section><section id="avaliando-com-conjunto-de-teste-1" class="level2"><h2 class="anchored" data-anchor-id="avaliando-com-conjunto-de-teste-1">Avaliando com conjunto de teste</h2>
+</section><section id="avaliando-com-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="avaliando-com-conjunto-de-teste">Avaliando com conjunto de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">1</span>, lambda <span class="op">=</span> <span class="va">m_lamb1</span><span class="op">)</span></span>
-<span><span class="va">y_prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">ajusreg.lasso2</span>, s <span class="op">=</span> <span class="va">m_lamb1</span>, newx <span class="op">=</span> <span class="va">x_teste</span><span class="op">)</span></span>
-<span><span class="co"># Metricas de desempenho</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">y_prev</span> <span class="op">-</span> <span class="va">y_teste</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Metricas de desempenho</span></span>
+<span><span class="va">pr_lasso</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">postResample</a></span><span class="op">(</span>pred <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mdl_lasso</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span>, obs <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span>
+<span><span class="va">pr_lasso</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6.027343</code></pre>
+<pre><code>     RMSE  Rsquared       MAE 
+6.0255455 0.5735621 3.7869316 </code></pre>
 </div>
 </div>
-</section><section id="comparando-com-a-seleção-de-modelos-usando-o-cp" class="level2"><h2 class="anchored" data-anchor-id="comparando-com-a-seleção-de-modelos-usando-o-cp">Comparando com a seleção de modelos usando o Cp</h2>
+</section><section id="modelo-final-lasso" class="level2"><h2 class="anchored" data-anchor-id="modelo-final-lasso">Modelo Final Lasso</h2>
 <div class="cell">
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">leaps</span><span class="op">)</span></span>
-<span><span class="va">ajusreg.comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaps/man/regsubsets.html">regsubsets</a></span><span class="op">(</span><span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">conj_treino</span>, nvmax<span class="op">=</span><span class="fl">12</span><span class="op">)</span></span>
-<span><span class="va">sumario.reg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ajusreg.comp</span><span class="op">)</span></span>
-<span><span class="co">## Os modelos vão ser escolhidos com base no menor Cp</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span>,xlab<span class="op">=</span><span class="st">"Número de Variáveis"</span>,ylab<span class="op">=</span><span class="st">"Cp"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span><span class="va">mdl_final_lasso</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span></span>
+<span>  <span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"glmnet"</span>,</span>
+<span>  metric <span class="op">=</span> <span class="st">"RMSE"</span>,</span>
+<span>  preProcess <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"center"</span>, <span class="st">"scale"</span><span class="op">)</span>,</span>
+<span>  tuneGrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    .alpha <span class="op">=</span> <span class="va">mdl_lasso</span><span class="op">$</span><span class="va">bestTune</span><span class="op">$</span><span class="va">alpha</span>,  <span class="co"># hiperparametro otimizado</span></span>
+<span>    .lambda <span class="op">=</span> <span class="va">mdl_lasso</span><span class="op">$</span><span class="va">bestTune</span><span class="op">$</span><span class="va">lambda</span><span class="op">)</span>,  <span class="co"># hiperparametro otimizado</span></span>
+<span>  trControl <span class="op">=</span> <span class="va">train_control</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">mdl_final_lasso</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9</code></pre>
-</div>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fl">9</span>,<span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Aula07.4_files/figure-html/outro-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section><section id="ajustando-no-lm-e-vendo-o-erro-no-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="ajustando-no-lm-e-vendo-o-erro-no-conjunto-de-teste">Ajustando no lm() e vendo o erro no conjunto de teste</h2>
-<p>Observando so resultados de erro vemos que tanto a regressão Ridge como o LASSO apresentaram valores de erro maiores que o modelo definido através da melhor seleção de modelos (best subset regression). Aqui usamos o Cp de Mallows como critério de deleção de variáveis.</p>
-<div class="cell">
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.comp</span>,<span class="fl">9</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> (Intercept)           zn         chas          nox           rm          age 
- 17.03537172   0.02326045   3.81378291 -14.60482205   5.66380782  -0.02328124 
-         dis      ptratio        black        lstat 
- -1.26249225  -0.87101806   0.01301181  -0.36615078 </code></pre>
-</div>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">outro_mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">medv</span> <span class="op">~</span> <span class="va">zn</span> <span class="op">+</span> <span class="va">chas</span> <span class="op">+</span> <span class="va">nox</span> <span class="op">+</span> <span class="va">rm</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">dis</span> <span class="op">+</span> <span class="va">ptratio</span> <span class="op">+</span> <span class="va">black</span> <span class="op">+</span> <span class="va">lstat</span>, data<span class="op">=</span><span class="va">conj_treino</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">outro_mod</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = medv ~ zn + chas + nox + rm + age + dis + ptratio + 
-    black + lstat, data = conj_treino)
+<pre><code>glmnet 
 
-Residuals:
-     Min       1Q   Median       3Q      Max 
--18.9383  -2.6575  -0.5304   1.7899  27.0979 
+403 samples
+ 12 predictor
 
-Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  17.035372   5.393193   3.159 0.001707 ** 
-zn            0.023260   0.014828   1.569 0.117534    
-chas          3.813783   1.008205   3.783 0.000179 ***
-nox         -14.604822   3.654556  -3.996 7.68e-05 ***
-rm            5.663808   0.473979  11.949  &lt; 2e-16 ***
-age          -0.023281   0.014296  -1.629 0.104207    
-dis          -1.262492   0.209990  -6.012 4.19e-09 ***
-ptratio      -0.871018   0.125529  -6.939 1.64e-11 ***
-black         0.013012   0.002708   4.806 2.20e-06 ***
-lstat        -0.366151   0.057248  -6.396 4.54e-10 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Pre-processing: centered (12), scaled (12) 
+Resampling: Cross-Validated (10 fold, repeated 5 times) 
+Summary of sample sizes: 363, 362, 364, 362, 363, 363, ... 
+Resampling results:
 
-Residual standard error: 4.608 on 393 degrees of freedom
-Multiple R-squared:  0.7549,    Adjusted R-squared:  0.7493 
-F-statistic: 134.5 on 9 and 393 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">outro_mod</span>, <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 6.032965</code></pre>
-</div>
-</div>
-</section><section id="e-o-bic" class="level2"><h2 class="anchored" data-anchor-id="e-o-bic">E o BIC?</h2>
-<p>E se escolhessemos o BIC como critério de seleção de variáveis explicativas? Neste caso os resultados foram iguais ao Cp. Entretanto, dá para perceber que o BIC apresentou uma certa estabilidade entre 7 e 9 variáveis. Se quisermos ter um modelo mais enxuto poderiamos optar por 7 variáveis.</p>
-<div class="cell">
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.comp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaps/man/regsubsets.html">regsubsets</a></span><span class="op">(</span><span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">conj_treino</span>, nvmax<span class="op">=</span><span class="fl">12</span><span class="op">)</span></span>
-<span><span class="va">sumario.reg1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ajusreg.comp1</span><span class="op">)</span></span>
-<span><span class="co">## Os modelos vão ser escolhidos com base no menor BIC</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sumario.reg1</span><span class="op">$</span><span class="va">bic</span>,xlab<span class="op">=</span><span class="st">"Número de Variáveis"</span>,ylab<span class="op">=</span><span class="st">"BIC"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg1</span><span class="op">$</span><span class="va">bic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 7</code></pre>
-</div>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fl">7</span>,<span class="va">sumario.reg1</span><span class="op">$</span><span class="va">bic</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Aula07.4_files/figure-html/BIC-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.comp1</span>,<span class="fl">7</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> (Intercept)         chas          nox           rm          dis      ptratio 
- 18.15699005   3.62527238 -16.32477597   5.61737907  -1.00175093  -0.95906300 
-       black        lstat 
-  0.01229926  -0.39019735 </code></pre>
-</div>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">outro_mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">medv</span> <span class="op">~</span> <span class="va">chas</span> <span class="op">+</span> <span class="va">nox</span> <span class="op">+</span> <span class="va">rm</span> <span class="op">+</span> <span class="va">dis</span> <span class="op">+</span> <span class="va">ptratio</span> <span class="op">+</span> <span class="va">black</span> <span class="op">+</span> <span class="va">lstat</span>, data<span class="op">=</span><span class="va">conj_treino</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">outro_mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = medv ~ chas + nox + rm + dis + ptratio + black + 
-    lstat, data = conj_treino)
+  RMSE      Rsquared   MAE     
+  4.637888  0.7498274  3.268108
 
-Residuals:
-     Min       1Q   Median       3Q      Max 
--18.4971  -2.7789  -0.5478   1.7933  26.9857 
-
-Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  18.156990   5.385606   3.371 0.000822 ***
-chas          3.625272   1.009714   3.590 0.000372 ***
-nox         -16.324776   3.534591  -4.619 5.24e-06 ***
-rm            5.617379   0.457084  12.290  &lt; 2e-16 ***
-dis          -1.001751   0.180856  -5.539 5.56e-08 ***
-ptratio      -0.959063   0.119626  -8.017 1.24e-14 ***
-black         0.012299   0.002702   4.552 7.07e-06 ***
-lstat        -0.390197   0.053934  -7.235 2.44e-12 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 4.631 on 395 degrees of freedom
-Multiple R-squared:  0.7512,    Adjusted R-squared:  0.7468 
-F-statistic: 170.4 on 7 and 395 DF,  p-value: &lt; 2.2e-16</code></pre>
+Tuning parameter 'alpha' was held constant at a value of 1
+Tuning
+ parameter 'lambda' was held constant at a value of 0.05</code></pre>
 </div>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">outro_mod1</span>, <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mdl_final_lasso</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6.023672</code></pre>
+<pre><code>[1] 6.025546</code></pre>
 </div>
 </div>
 
@@ -1217,13 +1195,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="../semanas/Aula07.3.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Seleção de Modelos</span>
+      <a href="../semanas/Aula07.4.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Métodos de Encolhimento</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../semanas/Aula07.4A.html" class="pagination-link">
-        <span class="nav-page-text">Métodos de Encolhimento</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../semanas/Aula08.0.html" class="pagination-link">
+        <span class="nav-page-text">Classificação 1os passos</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
