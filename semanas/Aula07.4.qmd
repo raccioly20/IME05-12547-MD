@@ -65,8 +65,6 @@ Observamos acima que todas as variáveis são quantitativas e que não há neces
 
 ## Conjunto de treino e de teste
 
-Observar que retiramos a variável **rad**
-
 ```{r treino_teste}
 library(caret)
 set.seed(21)
@@ -74,9 +72,8 @@ y <- Boston$medv
 indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
 
 conj_treino <- Boston %>% slice(-indice_teste)
-conj_treino <- conj_treino %>% select(-rad)
 conj_teste <- Boston %>% slice(indice_teste)
-conj_teste <- conj_teste %>% select(-rad)
+
 str(conj_treino)
 str(conj_teste)
 
@@ -188,42 +185,3 @@ y_prev <- predict(ajusreg.lasso2, s = m_lamb1, newx = x_teste)
 sqrt(mean((y_prev - y_teste)^2))
 ```
 
-## Comparando com a seleção de modelos usando o Cp
-
-```{r outro}
-library(leaps)
-ajusreg.comp <- regsubsets(medv ~ ., data=conj_treino, nvmax=12)
-sumario.reg <- summary(ajusreg.comp)
-## Os modelos vão ser escolhidos com base no menor Cp
-plot(sumario.reg$cp,xlab="Número de Variáveis",ylab="Cp")
-which.min(sumario.reg$cp)
-points(9,sumario.reg$cp[9],pch=20,col="red")
-```
-
-## Ajustando no lm() e vendo o erro no conjunto de teste
-
-Observando so resultados de erro vemos que tanto a regressão Ridge como o LASSO apresentaram valores de erro maiores que o modelo definido através da melhor seleção de modelos (best subset regression). Aqui usamos o Cp de Mallows como critério de deleção de variáveis.
-
-```{r erro_teste}
-coef(ajusreg.comp,9) 
-outro_mod <- lm(medv ~ zn + chas + nox + rm + age + dis + ptratio + black + lstat, data=conj_treino)
-summary(outro_mod)
-sqrt(mean((conj_teste$medv - predict(outro_mod, conj_teste)) ^ 2)) 
-```
-
-## E o BIC?
-
-E se escolhessemos o BIC como critério de seleção de variáveis explicativas? Neste caso os resultados foram iguais ao Cp. Entretanto, dá para perceber que o BIC apresentou uma certa estabilidade entre 7 e 9 variáveis. Se quisermos ter um modelo mais enxuto poderiamos optar por 7 variáveis.
-
-```{r BIC}
-ajusreg.comp1 <- regsubsets(medv ~ ., data=conj_treino, nvmax=12)
-sumario.reg1 <- summary(ajusreg.comp1)
-## Os modelos vão ser escolhidos com base no menor BIC
-plot(sumario.reg1$bic,xlab="Número de Variáveis",ylab="BIC")
-which.min(sumario.reg1$bic)
-points(7,sumario.reg1$bic[7],pch=20,col="red")
-coef(ajusreg.comp1,7) 
-outro_mod1 <- lm(medv ~ chas + nox + rm + dis + ptratio + black + lstat, data=conj_treino)
-summary(outro_mod1)
-sqrt(mean((conj_teste$medv - predict(outro_mod1, conj_teste)) ^ 2))
-```

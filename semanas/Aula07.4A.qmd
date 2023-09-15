@@ -77,9 +77,6 @@ indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
 conj_treino <- Boston[-indice_teste, ]
 conj_teste <- Boston[indice_teste, ]
 
-conj_treino <- conj_treino %>% select(-rad)
-conj_teste <- conj_teste %>% select(-rad)
-
 str(conj_treino)
 str(conj_teste)
 
@@ -102,8 +99,6 @@ train_control <- trainControl(
 
 Nós podemos usar o k-fold cross validation para identificar o melhor valor de $\lambda$
 
-
-
 ```{r r4}
 set.seed(21)
 mdl_ridge <- train(
@@ -114,7 +109,7 @@ mdl_ridge <- train(
   preProcess = c("center", "scale"),
   tuneGrid = expand.grid(
     .alpha = 0,  # regressão ridge
-    .lambda = seq(0, 5, length.out = 101)
+    .lambda = seq(0, 5, length.out = 201)
   ),
   trControl = train_control
   )
@@ -133,7 +128,6 @@ Aqui usamos a reamostragem com os dados de teste para avaliar o modelo
 pr_ridge <- postResample(pred = predict(mdl_ridge, newdata = conj_teste), obs = conj_teste$medv)
 pr_ridge
 ```
-
 
 ## Modelo Final Ridge
 
@@ -155,8 +149,6 @@ mdl_final_ridge
 sqrt(mean((conj_teste$medv - predict(mdl_final_ridge, newdata = conj_teste)) ^ 2))
 ```
 
-
-
 ## LASSO
 
 ## Validação Cruzada no LASSO
@@ -171,7 +163,7 @@ mdl_lasso <- train(
   preProcess = c("center", "scale"),
   tuneGrid = expand.grid(
     .alpha = 1,  # regressão lasso
-    .lambda = seq(0, 5, length.out = 101)
+    .lambda = seq(0, 5, length.out = 201)
   ),
   trControl = train_control
   )

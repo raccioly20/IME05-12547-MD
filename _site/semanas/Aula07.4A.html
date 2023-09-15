@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-09-14">
+<meta name="dcterms.date" content="2023-09-15">
 <title>IME05-12547 - Regularização de Modelos</title>
 <style>
 code{white-space: pre-wrap;}
@@ -403,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 14, 2023</p>
+      <p class="date">September 15, 2023</p>
     </div>
   </div>
   
@@ -528,12 +528,9 @@ Attaching package: 'caret'</code></pre>
 <span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">Boston</span><span class="op">[</span><span class="op">-</span><span class="va">indice_teste</span>, <span class="op">]</span></span>
 <span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">Boston</span><span class="op">[</span><span class="va">indice_teste</span>, <span class="op">]</span></span>
 <span></span>
-<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">conj_treino</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/lm.ridge.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">rad</span><span class="op">)</span></span>
-<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">conj_teste</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/lm.ridge.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">rad</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   403 obs. of  13 variables:
+<pre><code>'data.frame':   403 obs. of  14 variables:
  $ crim   : num  0.00632 0.02731 0.02729 0.03237 0.06905 ...
  $ zn     : num  18 0 0 0 0 0 12.5 12.5 12.5 12.5 ...
  $ indus  : num  2.31 7.07 7.07 2.18 2.18 2.18 7.87 7.87 7.87 7.87 ...
@@ -542,6 +539,7 @@ Attaching package: 'caret'</code></pre>
  $ rm     : num  6.58 6.42 7.18 7 7.15 ...
  $ age    : num  65.2 78.9 61.1 45.8 54.2 58.7 66.6 96.1 85.9 94.3 ...
  $ dis    : num  4.09 4.97 4.97 6.06 6.06 ...
+ $ rad    : int  1 2 2 3 3 3 5 5 5 5 ...
  $ tax    : num  296 242 242 222 222 222 311 311 311 311 ...
  $ ptratio: num  15.3 17.8 17.8 18.7 18.7 18.7 15.2 15.2 15.2 15.2 ...
  $ black  : num  397 397 393 395 397 ...
@@ -550,7 +548,7 @@ Attaching package: 'caret'</code></pre>
 </div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   103 obs. of  13 variables:
+<pre><code>'data.frame':   103 obs. of  14 variables:
  $ crim   : num  0.211 0.63 0.627 1.252 0.852 ...
  $ zn     : num  12.5 0 0 0 0 0 0 75 0 0 ...
  $ indus  : num  7.87 8.14 8.14 8.14 8.14 8.14 8.14 2.95 6.91 6.91 ...
@@ -559,6 +557,7 @@ Attaching package: 'caret'</code></pre>
  $ rm     : num  5.63 5.95 5.83 5.57 5.96 ...
  $ age    : num  100 61.8 56.5 98.1 89.2 94.1 96.9 21.8 6.5 95.3 ...
  $ dis    : num  6.08 4.71 4.5 3.8 4.01 ...
+ $ rad    : int  5 4 4 4 4 4 4 3 3 3 ...
  $ tax    : num  311 307 307 307 307 307 307 252 233 233 ...
  $ ptratio: num  15.2 21 21 21 21 21 21 18.3 17.9 17.9 ...
  $ black  : num  387 397 396 377 393 ...
@@ -588,7 +587,7 @@ Attaching package: 'caret'</code></pre>
 <span>  preProcess <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"center"</span>, <span class="st">"scale"</span><span class="op">)</span>,</span>
 <span>  tuneGrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
 <span>    .alpha <span class="op">=</span> <span class="fl">0</span>,  <span class="co"># regressão ridge</span></span>
-<span>    .lambda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span></span>
+<span>    .lambda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, length.out <span class="op">=</span> <span class="fl">201</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  trControl <span class="op">=</span> <span class="va">train_control</span></span>
 <span>  <span class="op">)</span></span>
@@ -597,115 +596,215 @@ Attaching package: 'caret'</code></pre>
 <pre><code>glmnet 
 
 403 samples
- 12 predictor
+ 13 predictor
 
-Pre-processing: centered (12), scaled (12) 
+Pre-processing: centered (13), scaled (13) 
 Resampling: Cross-Validated (10 fold, repeated 5 times) 
 Summary of sample sizes: 363, 362, 364, 362, 363, 363, ... 
 Resampling results across tuning parameters:
 
   lambda  RMSE      Rsquared   MAE     
-  0.00    4.637618  0.7506012  3.264499
-  0.05    4.637618  0.7506012  3.264499
-  0.10    4.637618  0.7506012  3.264499
-  0.15    4.637618  0.7506012  3.264499
-  0.20    4.637618  0.7506012  3.264499
-  0.25    4.637618  0.7506012  3.264499
-  0.30    4.637618  0.7506012  3.264499
-  0.35    4.637618  0.7506012  3.264499
-  0.40    4.637618  0.7506012  3.264499
-  0.45    4.637618  0.7506012  3.264499
-  0.50    4.637618  0.7506012  3.264499
-  0.55    4.637618  0.7506012  3.264499
-  0.60    4.637618  0.7506012  3.264499
-  0.65    4.637618  0.7506012  3.264499
-  0.70    4.638946  0.7505734  3.265041
-  0.75    4.640216  0.7505864  3.265350
-  0.80    4.641506  0.7506047  3.265713
-  0.85    4.642949  0.7506107  3.266347
-  0.90    4.644555  0.7506056  3.267143
-  0.95    4.646293  0.7505908  3.268062
-  1.00    4.648169  0.7505660  3.269133
-  1.05    4.650182  0.7505317  3.270338
-  1.10    4.652305  0.7504891  3.271706
-  1.15    4.654534  0.7504397  3.273161
-  1.20    4.656872  0.7503822  3.274721
-  1.25    4.659312  0.7503173  3.276326
-  1.30    4.661864  0.7502445  3.278033
-  1.35    4.664479  0.7501669  3.279822
-  1.40    4.667203  0.7500825  3.281662
-  1.45    4.669988  0.7499929  3.283542
-  1.50    4.672848  0.7498988  3.285483
-  1.55    4.675811  0.7497974  3.287470
-  1.60    4.678812  0.7496924  3.289436
-  1.65    4.681881  0.7495839  3.291397
-  1.70    4.685044  0.7494686  3.293438
-  1.75    4.688235  0.7493504  3.295552
-  1.80    4.691480  0.7492294  3.297766
-  1.85    4.694817  0.7491018  3.300018
-  1.90    4.698183  0.7489717  3.302337
-  1.95    4.701583  0.7488388  3.304735
-  2.00    4.705048  0.7487026  3.307202
-  2.05    4.708583  0.7485609  3.309708
-  2.10    4.712128  0.7484176  3.312242
-  2.15    4.715701  0.7482729  3.314858
-  2.20    4.719341  0.7481242  3.317537
-  2.25    4.723039  0.7479706  3.320286
-  2.30    4.726740  0.7478163  3.323069
-  2.35    4.730460  0.7476607  3.325868
-  2.40    4.734231  0.7475026  3.328720
-  2.45    4.738069  0.7473390  3.331673
-  2.50    4.741908  0.7471747  3.334656
-  2.55    4.745758  0.7470089  3.337643
-  2.60    4.749627  0.7468433  3.340630
-  2.65    4.753554  0.7466733  3.343683
-  2.70    4.757530  0.7464993  3.346808
-  2.75    4.761495  0.7463253  3.349970
-  2.80    4.765469  0.7461500  3.353135
-  2.85    4.769456  0.7459752  3.356357
-  2.90    4.773493  0.7457967  3.359599
-  2.95    4.777582  0.7456139  3.362885
-  3.00    4.781661  0.7454309  3.366147
-  3.05    4.785741  0.7452474  3.369400
-  3.10    4.789816  0.7450647  3.372650
-  3.15    4.793920  0.7448809  3.375876
-  3.20    4.798079  0.7446923  3.379129
-  3.25    4.802268  0.7445010  3.382396
-  3.30    4.806435  0.7443105  3.385656
-  3.35    4.810603  0.7441195  3.388912
-  3.40    4.814760  0.7439297  3.392136
-  3.45    4.818939  0.7437394  3.395334
-  3.50    4.823164  0.7435449  3.398543
-  3.55    4.827425  0.7433471  3.401784
-  3.60    4.831675  0.7431492  3.405011
-  3.65    4.835911  0.7429519  3.408201
-  3.70    4.840140  0.7427547  3.411373
-  3.75    4.844365  0.7425585  3.414501
-  3.80    4.848618  0.7423607  3.417625
-  3.85    4.852915  0.7421585  3.420776
-  3.90    4.857239  0.7419539  3.423951
-  3.95    4.861544  0.7417497  3.427149
-  4.00    4.865834  0.7415465  3.430337
-  4.05    4.870115  0.7413429  3.433516
-  4.10    4.874382  0.7411408  3.436681
-  4.15    4.878667  0.7409383  3.439865
-  4.20    4.882985  0.7407323  3.443068
-  4.25    4.887338  0.7405230  3.446274
-  4.30    4.891696  0.7403127  3.449481
-  4.35    4.896028  0.7401037  3.452682
-  4.40    4.900348  0.7398952  3.455865
-  4.45    4.904652  0.7396873  3.459021
-  4.50    4.908943  0.7394808  3.462155
-  4.55    4.913247  0.7392740  3.465272
-  4.60    4.917579  0.7390643  3.468414
-  4.65    4.921944  0.7388514  3.471580
-  4.70    4.926322  0.7386368  3.474742
-  4.75    4.930675  0.7384232  3.477870
-  4.80    4.935006  0.7382112  3.480974
-  4.85    4.939333  0.7379987  3.484092
-  4.90    4.943630  0.7377883  3.487175
-  4.95    4.947921  0.7375787  3.490254
-  5.00    4.952227  0.7373683  3.493337
+  0.000   4.591424  0.7558789  3.240456
+  0.025   4.591424  0.7558789  3.240456
+  0.050   4.591424  0.7558789  3.240456
+  0.075   4.591424  0.7558789  3.240456
+  0.100   4.591424  0.7558789  3.240456
+  0.125   4.591424  0.7558789  3.240456
+  0.150   4.591424  0.7558789  3.240456
+  0.175   4.591424  0.7558789  3.240456
+  0.200   4.591424  0.7558789  3.240456
+  0.225   4.591424  0.7558789  3.240456
+  0.250   4.591424  0.7558789  3.240456
+  0.275   4.591424  0.7558789  3.240456
+  0.300   4.591424  0.7558789  3.240456
+  0.325   4.591424  0.7558789  3.240456
+  0.350   4.591424  0.7558789  3.240456
+  0.375   4.591424  0.7558789  3.240456
+  0.400   4.591424  0.7558789  3.240456
+  0.425   4.591424  0.7558789  3.240456
+  0.450   4.591424  0.7558789  3.240456
+  0.475   4.591424  0.7558789  3.240456
+  0.500   4.591424  0.7558789  3.240456
+  0.525   4.591424  0.7558789  3.240456
+  0.550   4.591424  0.7558789  3.240456
+  0.575   4.591424  0.7558789  3.240456
+  0.600   4.591424  0.7558789  3.240456
+  0.625   4.591424  0.7558789  3.240456
+  0.650   4.591424  0.7558789  3.240456
+  0.675   4.591754  0.7558700  3.240564
+  0.700   4.593034  0.7558270  3.240966
+  0.725   4.594219  0.7557743  3.241145
+  0.750   4.595335  0.7557289  3.241280
+  0.775   4.596477  0.7556822  3.241479
+  0.800   4.597661  0.7556336  3.241770
+  0.825   4.598871  0.7555829  3.242170
+  0.850   4.600107  0.7555309  3.242642
+  0.875   4.601382  0.7554771  3.243139
+  0.900   4.602683  0.7554213  3.243659
+  0.925   4.604004  0.7553644  3.244240
+  0.950   4.605355  0.7553067  3.244914
+  0.975   4.606742  0.7552464  3.245641
+  1.000   4.608144  0.7551849  3.246464
+  1.025   4.609569  0.7551225  3.247308
+  1.050   4.611029  0.7550584  3.248162
+  1.075   4.612514  0.7549924  3.249046
+  1.100   4.614010  0.7549258  3.249940
+  1.125   4.615521  0.7548592  3.250892
+  1.150   4.617064  0.7547908  3.251857
+  1.175   4.618632  0.7547205  3.252829
+  1.200   4.620208  0.7546495  3.253782
+  1.225   4.621797  0.7545780  3.254780
+  1.250   4.623409  0.7545059  3.255825
+  1.275   4.625053  0.7544316  3.256919
+  1.300   4.626705  0.7543565  3.257997
+  1.325   4.628367  0.7542808  3.259062
+  1.350   4.630037  0.7542054  3.260123
+  1.375   4.631731  0.7541289  3.261207
+  1.400   4.633455  0.7540504  3.262310
+  1.425   4.635185  0.7539712  3.263417
+  1.450   4.636923  0.7538913  3.264517
+  1.475   4.638669  0.7538114  3.265616
+  1.500   4.640433  0.7537312  3.266724
+  1.525   4.642226  0.7536489  3.267834
+  1.550   4.644035  0.7535654  3.268960
+  1.575   4.645843  0.7534819  3.270101
+  1.600   4.647661  0.7533974  3.271256
+  1.625   4.649482  0.7533139  3.272395
+  1.650   4.651322  0.7532296  3.273553
+  1.675   4.653189  0.7531433  3.274736
+  1.700   4.655069  0.7530559  3.275916
+  1.725   4.656946  0.7529687  3.277084
+  1.750   4.658833  0.7528806  3.278271
+  1.775   4.660722  0.7527930  3.279477
+  1.800   4.662626  0.7527051  3.280703
+  1.825   4.664554  0.7526155  3.281969
+  1.850   4.666503  0.7525243  3.283268
+  1.875   4.668453  0.7524328  3.284553
+  1.900   4.670402  0.7523415  3.285821
+  1.925   4.672359  0.7522494  3.287096
+  1.950   4.674318  0.7521579  3.288352
+  1.975   4.676289  0.7520663  3.289613
+  2.000   4.678283  0.7519728  3.290903
+  2.025   4.680298  0.7518778  3.292244
+  2.050   4.682317  0.7517822  3.293602
+  2.075   4.684331  0.7516868  3.294951
+  2.100   4.686353  0.7515906  3.296305
+  2.125   4.688372  0.7514949  3.297661
+  2.150   4.690395  0.7513998  3.299024
+  2.175   4.692434  0.7513038  3.300403
+  2.200   4.694495  0.7512061  3.301784
+  2.225   4.696571  0.7511071  3.303178
+  2.250   4.698650  0.7510077  3.304590
+  2.275   4.700721  0.7509088  3.305990
+  2.300   4.702799  0.7508094  3.307411
+  2.325   4.704874  0.7507101  3.308865
+  2.350   4.706950  0.7506115  3.310328
+  2.375   4.709037  0.7505127  3.311799
+  2.400   4.711142  0.7504125  3.313273
+  2.425   4.713265  0.7503108  3.314749
+  2.450   4.715398  0.7502082  3.316229
+  2.475   4.717528  0.7501055  3.317700
+  2.500   4.719652  0.7500032  3.319175
+  2.525   4.721783  0.7499002  3.320687
+  2.550   4.723910  0.7497975  3.322253
+  2.575   4.726037  0.7496953  3.323829
+  2.600   4.728172  0.7495932  3.325414
+  2.625   4.730321  0.7494900  3.326995
+  2.650   4.732489  0.7493852  3.328578
+  2.675   4.734669  0.7492794  3.330181
+  2.700   4.736852  0.7491732  3.331796
+  2.725   4.739028  0.7490670  3.333410
+  2.750   4.741201  0.7489614  3.335030
+  2.775   4.743378  0.7488550  3.336654
+  2.800   4.745549  0.7487493  3.338275
+  2.825   4.747721  0.7486440  3.339886
+  2.850   4.749898  0.7485388  3.341516
+  2.875   4.752088  0.7484327  3.343150
+  2.900   4.754294  0.7483251  3.344805
+  2.925   4.756514  0.7482164  3.346458
+  2.950   4.758740  0.7481070  3.348105
+  2.975   4.760961  0.7479977  3.349739
+  3.000   4.763176  0.7478887  3.351365
+  3.025   4.765391  0.7477798  3.353009
+  3.050   4.767607  0.7476702  3.354655
+  3.075   4.769815  0.7475616  3.356290
+  3.100   4.772023  0.7474532  3.357925
+  3.125   4.774236  0.7473451  3.359554
+  3.150   4.776460  0.7472361  3.361204
+  3.175   4.778699  0.7471257  3.362875
+  3.200   4.780950  0.7470143  3.364577
+  3.225   4.783210  0.7469021  3.366286
+  3.250   4.785469  0.7467896  3.368017
+  3.275   4.787721  0.7466772  3.369738
+  3.300   4.789966  0.7465654  3.371445
+  3.325   4.792212  0.7464534  3.373148
+  3.350   4.794457  0.7463410  3.374845
+  3.375   4.796691  0.7462298  3.376527
+  3.400   4.798925  0.7461189  3.378206
+  3.425   4.801163  0.7460082  3.379893
+  3.450   4.803410  0.7458967  3.381606
+  3.475   4.805668  0.7457842  3.383339
+  3.500   4.807939  0.7456705  3.385079
+  3.525   4.810220  0.7455559  3.386819
+  3.550   4.812506  0.7454408  3.388554
+  3.575   4.814785  0.7453258  3.390283
+  3.600   4.817058  0.7452110  3.392012
+  3.625   4.819324  0.7450968  3.393728
+  3.650   4.821593  0.7449822  3.395449
+  3.675   4.823858  0.7448675  3.397177
+  3.700   4.826114  0.7447538  3.398890
+  3.725   4.828367  0.7446404  3.400592
+  3.750   4.830623  0.7445272  3.402287
+  3.775   4.832886  0.7444135  3.403979
+  3.800   4.835157  0.7442992  3.405667
+  3.825   4.837440  0.7441836  3.407362
+  3.850   4.839733  0.7440671  3.409063
+  3.875   4.842034  0.7439498  3.410779
+  3.900   4.844337  0.7438321  3.412495
+  3.925   4.846631  0.7437148  3.414202
+  3.950   4.848918  0.7435976  3.415907
+  3.975   4.851199  0.7434811  3.417606
+  4.000   4.853482  0.7433643  3.419310
+  4.025   4.855761  0.7432473  3.421013
+  4.050   4.858030  0.7431310  3.422705
+  4.075   4.860294  0.7430154  3.424384
+  4.100   4.862558  0.7428999  3.426064
+  4.125   4.864825  0.7427847  3.427737
+  4.150   4.867099  0.7426688  3.429416
+  4.175   4.869381  0.7425522  3.431109
+  4.200   4.871673  0.7424343  3.432804
+  4.225   4.873974  0.7423157  3.434502
+  4.250   4.876281  0.7421964  3.436202
+  4.275   4.878591  0.7420766  3.437904
+  4.300   4.880894  0.7419572  3.439605
+  4.325   4.883189  0.7418378  3.441299
+  4.350   4.885478  0.7417192  3.442994
+  4.375   4.887762  0.7416007  3.444682
+  4.400   4.890047  0.7414819  3.446366
+  4.425   4.892327  0.7413631  3.448046
+  4.450   4.894595  0.7412455  3.449709
+  4.475   4.896859  0.7411282  3.451370
+  4.500   4.899123  0.7410111  3.453027
+  4.525   4.901389  0.7408942  3.454676
+  4.550   4.903662  0.7407766  3.456325
+  4.575   4.905940  0.7406586  3.457977
+  4.600   4.908228  0.7405392  3.459643
+  4.625   4.910523  0.7404193  3.461313
+  4.650   4.912826  0.7402985  3.462983
+  4.675   4.915131  0.7401773  3.464652
+  4.700   4.917437  0.7400559  3.466319
+  4.725   4.919732  0.7399349  3.467993
+  4.750   4.922022  0.7398140  3.469659
+  4.775   4.924305  0.7396939  3.471318
+  4.800   4.926583  0.7395740  3.472980
+  4.825   4.928862  0.7394537  3.474639
+  4.850   4.931136  0.7393335  3.476288
+  4.875   4.933398  0.7392141  3.477925
+  4.900   4.935654  0.7390955  3.479562
+  4.925   4.937908  0.7389770  3.481191
+  4.950   4.940162  0.7388587  3.482812
+  4.975   4.942420  0.7387403  3.484437
+  5.000   4.944683  0.7386213  3.486066
 
 Tuning parameter 'alpha' was held constant at a value of 0
 RMSE was used to select the optimal model using the smallest value.
@@ -729,7 +828,7 @@ The final values used for the model were alpha = 0 and lambda = 0.65.</code></pr
 <span><span class="va">pr_ridge</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     RMSE  Rsquared       MAE 
-5.9785023 0.5777472 3.7537707 </code></pre>
+5.8656795 0.5934055 3.6947963 </code></pre>
 </div>
 </div>
 </section><section id="modelo-final-ridge" class="level2"><h2 class="anchored" data-anchor-id="modelo-final-ridge">Modelo Final Ridge</h2>
@@ -751,15 +850,15 @@ The final values used for the model were alpha = 0 and lambda = 0.65.</code></pr
 <pre><code>glmnet 
 
 403 samples
- 12 predictor
+ 13 predictor
 
-Pre-processing: centered (12), scaled (12) 
+Pre-processing: centered (13), scaled (13) 
 Resampling: Cross-Validated (10 fold, repeated 5 times) 
 Summary of sample sizes: 363, 362, 364, 362, 363, 363, ... 
 Resampling results:
 
   RMSE      Rsquared   MAE     
-  4.637618  0.7506012  3.264499
+  4.591424  0.7558789  3.240456
 
 Tuning parameter 'alpha' was held constant at a value of 0
 Tuning
@@ -767,7 +866,7 @@ Tuning
 </div>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mdl_final_ridge</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.978502</code></pre>
+<pre><code>[1] 5.865679</code></pre>
 </div>
 </div>
 </section><section id="lasso" class="level2"><h2 class="anchored" data-anchor-id="lasso">LASSO</h2>
@@ -782,14 +881,14 @@ Tuning
 <span>  preProcess <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"center"</span>, <span class="st">"scale"</span><span class="op">)</span>,</span>
 <span>  tuneGrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
 <span>    .alpha <span class="op">=</span> <span class="fl">1</span>,  <span class="co"># regressão lasso</span></span>
-<span>    .lambda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, length.out <span class="op">=</span> <span class="fl">101</span><span class="op">)</span></span>
+<span>    .lambda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, length.out <span class="op">=</span> <span class="fl">201</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  trControl <span class="op">=</span> <span class="va">train_control</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="va">mdl_lasso</span><span class="op">$</span><span class="va">bestTune</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  alpha lambda
-2     1   0.05</code></pre>
+1     1      0</code></pre>
 </div>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mdl_lasso</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Regressão Lasso - Ajuste de parametro"</span>, x <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -804,7 +903,7 @@ Tuning
 <span><span class="va">pr_lasso</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     RMSE  Rsquared       MAE 
-6.0255455 0.5735621 3.7869316 </code></pre>
+5.7958980 0.6057383 3.7273820 </code></pre>
 </div>
 </div>
 </section><section id="modelo-final-lasso" class="level2"><h2 class="anchored" data-anchor-id="modelo-final-lasso">Modelo Final Lasso</h2>
@@ -826,23 +925,23 @@ Tuning
 <pre><code>glmnet 
 
 403 samples
- 12 predictor
+ 13 predictor
 
-Pre-processing: centered (12), scaled (12) 
+Pre-processing: centered (13), scaled (13) 
 Resampling: Cross-Validated (10 fold, repeated 5 times) 
 Summary of sample sizes: 363, 362, 364, 362, 363, 363, ... 
 Resampling results:
 
-  RMSE      Rsquared   MAE     
-  4.637888  0.7498274  3.268108
+  RMSE      Rsquared  MAE     
+  4.590922  0.755213  3.279609
 
 Tuning parameter 'alpha' was held constant at a value of 1
 Tuning
- parameter 'lambda' was held constant at a value of 0.05</code></pre>
+ parameter 'lambda' was held constant at a value of 0</code></pre>
 </div>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mdl_final_lasso</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6.025546</code></pre>
+<pre><code>[1] 5.795898</code></pre>
 </div>
 </div>
 
