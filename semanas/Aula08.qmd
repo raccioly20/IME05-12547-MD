@@ -5,27 +5,23 @@ date: "`r Sys.Date()`"
 format:
  html:
     code-link: true
+    fig-width: 9
+    fig-height: 7
+    fig-dpi: 300
+knitr:
+  opts_chunk: 
+    out.width: 90%
+    comment: "#>"
 ---
 
 ## KNN
 
 **O KNN é um algoritmo muito simples no qual cada observação é prevista com base em sua "semelhança" com outras observações. Ao contrário da maioria dos métodos, KNN é um algoritmo baseado na memória e não pode ser resumido por um modelo de forma fechada. Isso significa que as amostras de treinamento são necessárias no tempo de execução e as previsões são feitas diretamente das relações amostrais. Consequentemente, os KNNs também são conhecidos como aprendizes preguiçosos**
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width = 9, 
-                      fig.height= 7,  
-                      fig.retina = 3,
-                      message = FALSE, 
-                      warning = FALSE,
-                      dev=c("png"), 
-                      fig.path="imagens/Aula08A/")
-```
-
 ## Carregando Bibliotecas
 
 ```{r bibliotecas, message=FALSE}
 library(tidyverse)
-library(caret)
 library(ISLR)
 data(Default)
 summary(Default)
@@ -68,12 +64,13 @@ credito_n[,3:4] <- scale(credito_n[,3:4])
 ## Treino e Teste
 
 ```{r conjuntos-treino-teste, message=FALSE}
+library(caret)
 set.seed(21)
 y <- credito_n$inadimplente
 indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
 
-conj_treino <- credito_n %>% slice(-indice_teste)
-conj_teste <- credito_n %>% slice(indice_teste)
+conj_treino <- credito_n[-indice_teste, ]
+conj_teste <- credito_n[indice_teste, ]
 
 summary(conj_treino)
 summary(conj_teste)
@@ -144,7 +141,7 @@ t_knn1
 
 ## Avaliando o modelo
 
-**A acurácia deu um valor alto, mas isto não é suficiente para considerarmo que temos um bom modelo. Veja que a sensibilidade está muito baixa e que o ideal é que tenhamos valores altos de sensibilidade e especificidade.**
+**A acurácia deu um valor alto, mas isto não é suficiente para considerarmos que temos um bom modelo. Veja que a sensibilidade está muito baixa e que o ideal é que tenhamos valores altos de sensibilidade e especificidade.**
 
 **Observar que a prevalência é muito baixa o que está afetando os resultados do modelo**
 
@@ -246,29 +243,3 @@ as.numeric(roc_knn2$auc)
 **Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos a sensibilidade e especificidade!**
 
 **Os resultados encontrados apontam k=20 como a melhor opção**
-
-## Outro biblioteca
-
-```{r}
-library(e1071)
-set.seed(1234)
-y_rotulos <- conj_treino$inadimplente
-knn_outra <- tune.knn(conj_treino[,-1], y_rotulos, k = 1:50)
-knn_outra
-summary(knn_outra)
-```
-
-```{r}
-set.seed(1234)
-knn1_t <- knn3(inadimplente ~ balanco + receita + estudante, data = conj_treino, k = 35)
-knn1_t
-y_chapeu_knn1_t <- predict(knn1_t, conj_teste, type = "class")
-# Matriz de confusão para valiar os resultados
-confusionMatrix(y_chapeu_knn1_t, conj_teste$inadimplente, positive="Sim") 
-## ROC
-library(pROC)
-prev_knn1_t <- predict(knn1_t, conj_teste, type = "prob")
-roc_knn1_t <- roc(conj_teste$inadimplente ~ prev_knn1_t[,2], plot = TRUE,
-                  print.auc=FALSE, col="black", legacy.axes=TRUE)
-as.numeric(roc_knn1_t$auc)
-```
