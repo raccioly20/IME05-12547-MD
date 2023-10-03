@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-08-27">
+<meta name="dcterms.date" content="2023-10-03">
 <title>IME05-12547 - Carregando dados, Manipulando e Visualizando</title>
 <style>
 code{white-space: pre-wrap;}
@@ -394,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 27, 2023</p>
+      <p class="date">October 3, 2023</p>
     </div>
   </div>
   
@@ -406,7 +406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="lendo-dados-de-arquivos-xlsx" class="level2"><h2 class="anchored" data-anchor-id="lendo-dados-de-arquivos-xlsx">Lendo dados de arquivos xlsx</h2>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span>
-<span><span class="va">dados_seg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="st">"D:/GitHub/IME05-12547-MD/semanas/indicadoressegurancapublicauf.xlsx"</span>, col_names <span class="op">=</span> <span class="cn">TRUE</span>, sheet <span class="op">=</span> <span class="st">"Ocorrências"</span><span class="op">)</span></span>
+<span><span class="va">dados_seg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="st">"indicadoressegurancapublicauf.xlsx"</span>, col_names <span class="op">=</span> <span class="cn">TRUE</span>, sheet <span class="op">=</span> <span class="st">"Ocorrências"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dados_seg</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
@@ -436,11 +436,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span><span class="op">(</span><span class="va">url</span>, <span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html">write_disk</a></span><span class="op">(</span><span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".xlsx"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response [https://dados.mj.gov.br/dataset/210b9ae2-21fc-4986-89c6-2006eb4db247/resource/feeae05e-faba-406c-8a4a-512aec91a9d1/download/indicadoressegurancapublicauf.xlsx]
-  Date: 2023-08-27 13:58
+  Date: 2023-10-03 18:36
   Status: 200
   Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
   Size: 1.13 MB
-&lt;ON DISK&gt;  C:\Users\ricar\AppData\Local\Temp\RtmpKOWmBh\file21c45f68f90.xlsx</code></pre>
+&lt;ON DISK&gt;  C:\Users\ricar\AppData\Local\Temp\RtmpYRpS9M\file6788a95798d.xlsx</code></pre>
 </div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">segur</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="va">tf</span>, sheet <span class="op">=</span> <span class="st">"Ocorrências"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">segur</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -472,11 +472,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyverse.tidyverse.org">"tidyverse"</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
+✔ dplyr     1.1.3     ✔ readr     2.1.4
 ✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+✔ ggplot2   3.4.3     ✔ tibble    3.2.1
 ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
+✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -669,7 +669,7 @@ Attaching package: 'summarytools'</code></pre>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAGoAAAEKBAMAAAAIjN1KAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wgbDToep4NqjAAAAJhJREFUaN7t1LENgDAMRUFWYIWwAey/Gw1CKeMgJGPO/TX+0luWutdaWwN3qe3YKYoqoOYKECFfUnpIUX9WVXuobBRFRZUe9ir/XhRFvaf0sFf596IoakRVLduc0kOK+rPSw+ffyL8yRVEjqmoPlY2iqKjSw17l34uiqPeUHvYq/14URY2oqmWbUy129+cjt1MUlVTNFaDina8g2+j1EkYQAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTA4LTI3VDEzOjU4OjMwKzAwOjAw2UrYaAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wOC0yN1QxMzo1ODozMCswMDowMKgXYNQAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAGoAAAEKBAMAAAAIjN1KAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfnCgMSJA0Pa9zQAAAAmElEQVRo3u3UsQ2AMAxFQVZghbAB7L8bDUIp4yAkY879Nf7SW5a611pbA3ep7dgpiiqg5goQIV9SekhRf1ZVe6hsFEVFlR72Kv9eFEW9p/SwV/n3oihqRFUt25zSQ4r6s9LD59/IvzJFUSOqag+VjaKoqNLDXuXfi6Ko95Qe9ir/XhRFjaiqZZtTLXb35yO3UxSVVM0VoOKdryDb6PUSRhAAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">20686 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -761,7 +761,7 @@ Attaching package: 'summarytools'</code></pre>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAB4AAADbBAMAAACIOzyWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wgbDToep4NqjAAAAFVJREFUSMdjYKAcKEGBIpSvbAwBo3zsfPTwEoQBMvkw85TQ7DMa5WPlo4fXaPgPrfAfLW8o41Na/oyG/2j4D2U+tcJ/tLwnjj9a346G/0jmo4cXJQAAb/4+L0AD9nIAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMDgtMjdUMTM6NTg6MzArMDA6MDDZSthoAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTA4LTI3VDEzOjU4OjMwKzAwOjAwqBdg1AAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAB4AAADbBAMAAACIOzyWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfnCgMSJA0Pa9zQAAAAVUlEQVRIx2NgoBwoQYEilK9sDAGjfOx89PAShAEy+TDzlNDsMxrlY+Wjh9do+A+t8B8tbyjjU1r+jIb/aPgPZT61wn+0vCeOP1rfjob/SOajhxclAABv/j4vQAP2cgAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">20686 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -848,7 +848,7 @@ Attaching package: 'summarytools'</code></pre>
 <td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAACIAAADEBAMAAAAIdO5uAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wgbDToep4NqjAAAAEtJREFUSMdjYKAeUEIAqIiyMQwYjYpQTQQznAURgASR0fgaja9REWrFzmh8jcbXqMhofA11kdHaamiJUC++0EWUjUZFqC+CGc7UAAAg2EuQo04DUQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0wOC0yN1QxMzo1ODozMCswMDowMNlK2GgAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMDgtMjdUMTM6NTg6MzArMDA6MDCoF2DUAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAACIAAADEBAMAAAAIdO5uAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfnCgMSJA0Pa9zQAAAAS0lEQVRIx2NgoB5QQgCoiLIxDBiNilBNBDOcBRGABJHR+BqNr1ERasXOaHyNxteoyGh8DXWR0dpqaIlQL77QRZSNRkWoL4IZztQAACDYS5CjTgNRAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">20686 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -958,7 +958,7 @@ Attaching package: 'summarytools'</code></pre>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAACUAAAEKBAMAAABnPYFnAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wgbDToep4NqjAAAAGtJREFUWMPtlUEOgCAMBHmC/EDxCf7/bxrKAUmPRclm5jgHIJ2kpBRPMY78sDV3XhXcZOfNPndEOPrq9O2OG+7F/eG8HvTVcfTVcdEt6buWo6+2YxdrO/pqO/rquO/+WmN/vcXAzXPe7CO5AdJJnRR7XCmkAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTA4LTI3VDEzOjU4OjMwKzAwOjAw2UrYaAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wOC0yN1QxMzo1ODozMCswMDowMKgXYNQAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAACUAAAEKBAMAAABnPYFnAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfnCgMSJA6WYo1qAAAAa0lEQVRYw+2VQQ6AIAwEeYL8QPEJ/v9vGsoBSY9FyWbmOAcgnaSkFE8xjvywNXdeFdxk580+d0Q4+ur07Y4b7sX94bwe9NVx9NVx0S3pu5ajr7ZjF2s7+mo7+uq47/5aY3+9xcDNc97sI7kB0kmdFHtcKaQAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">20686 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -980,13 +980,13 @@ Attaching package: 'summarytools'</code></pre>
 </tr>
 </tbody></table></td>
 <td style="text-align: left; vertical-align: middle;">1558 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wgbDToep4NqjAAAAFpJREFUaN7t2bENwCAUQ8G/QlYgG8D+uyUFBbQ4TaR7A5zcu0ontbcrbmL3GB0Gg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8H+guV/6YLl43YsHLdjoTex9kmlkx7vxA/W+fM09gAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0wOC0yN1QxMzo1ODozMCswMDowMNlK2GgAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMDgtMjdUMTM6NTg6MzArMDA6MDCoF2DUAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfnCgMSJA6WYo1qAAAAWklEQVRo3u3ZsQ3AIBRDwb9CViAbwP67JQUFtDhNpHsDnNy7Sie1tytuYvcYHQaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwf6C5X/pguXjdiwct2OhN7H2SaWTHu/ED9b58zT2AAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">20686 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 </tbody>
 </table>
-<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.3.1)<br>2023-08-27</p>
+<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.3.1)<br>2023-10-03</p>
 </div>
 </div>
 </div>

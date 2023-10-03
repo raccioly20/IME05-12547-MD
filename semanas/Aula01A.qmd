@@ -13,7 +13,7 @@ format:
 
 ```{r csv}
 library(readxl)
-dados_seg <- read_xlsx("D:/GitHub/IME05-12547-MD/semanas/indicadoressegurancapublicauf.xlsx", col_names = TRUE, sheet = "Ocorrências")
+dados_seg <- read_xlsx("indicadoressegurancapublicauf.xlsx", col_names = TRUE, sheet = "Ocorrências")
 head(dados_seg)
 str(dados_seg)
 ```
@@ -50,7 +50,6 @@ summary(dados_segRJ)
 library(summarytools)
 dfSummary(dados_seg) |> stview(method = "render")
 ```
-
 
 ```{r manipulando2}
 unique(dados_segRJ$`Tipo Crime`)
