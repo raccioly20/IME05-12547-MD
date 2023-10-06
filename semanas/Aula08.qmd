@@ -64,13 +64,15 @@ credito_n[,3:4] <- scale(credito_n[,3:4])
 ## Treino e Teste
 
 ```{r conjuntos-treino-teste, message=FALSE}
-library(caret)
-set.seed(21)
-y <- credito_n$inadimplente
-indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
+library(tidymodels)
+set.seed(23)
 
-conj_treino <- credito_n[-indice_teste, ]
-conj_teste <- credito_n[indice_teste, ]
+credito_split <- initial_split(credito_n, prop = 0.75, strata = inadimplente)
+
+credito_split
+
+conj_treino <- training(credito_split)
+conj_teste <- testing(credito_split)
 
 summary(conj_treino)
 summary(conj_teste)
@@ -133,8 +135,9 @@ ggplot(data = credito, aes(x=balanco,  y = receita, col = inadimplente)) + geom_
 
 ```{r 1modelo}
 # Vamos usar a regra da raiz quadrada do tamnho da amostra
+library(caret)
 sqrt(nrow(conj_treino)) ## ~90
-set.seed(21)
+set.seed(23)
 t_knn1 <- knn3(inadimplente ~ balanco + receita + estudante, data = conj_treino, k = 90)
 t_knn1
 ```
@@ -179,10 +182,12 @@ as.numeric(roc_knn1$auc)
 **Observe que a otimização de k é feita através de acurácia**
 
 ```{r K1}
-set.seed(21)
+set.seed(23)
 
 # Usando validação cruzada para obter o valor de k através da função train da biblioteca caret e o controle do treino e fazendo um gride de valores para k.
-ctrl <- trainControl(method = "cv")
+ctrl <- trainControl(method = "repeatedcv", 
+                     number = 10,
+                     repeats = 5)
 t_knn2 <- train(inadimplente ~ balanco + receita + estudante,
                 method = "knn", trControl= ctrl, 
                 tuneGrid = data.frame(k = seq(10,200, by=10)),
@@ -203,7 +208,7 @@ confusionMatrix(prev_knn2, conj_teste$inadimplente,  positive="Sim")
 **Ao colocar classProb = TRUE e summaryFunction ao invés da acurácia a otimização passa a ser através o ROC**
 
 ```{r K2}
-set.seed(21)
+set.seed(23)
 # ctrl <- trainControl(method = "cv", classProbs=TRUE, summaryFunction = twoClassSummary)
 ctrl <- trainControl(method = "repeatedcv", 
                      number = 10,
@@ -224,7 +229,6 @@ confusionMatrix(prev_knn3, conj_teste$inadimplente,  positive="Sim")
 ```
 
 **Veja que ao otimizar pela ROC o modelo escolhido tem sensibilidade zero! Isto obviamente não é um bom modelo! Neste caso a opção de otimização do parametro pela acurácia dá melhores resultados.**
-
 
 ## Curva ROC dos 2 melhores modelos k=90 e k=20
 

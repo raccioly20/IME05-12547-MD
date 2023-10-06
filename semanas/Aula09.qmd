@@ -5,6 +5,13 @@ date: "`r Sys.Date()`"
 format:
  html:
     code-link: true
+    fig-width: 9
+    fig-height: 7
+    fig-dpi: 300
+knitr:
+  opts_chunk: 
+    out.width: 90%
+    comment: "#>"
 ---
 
 ## Carregando Bibliotecas
@@ -44,13 +51,15 @@ summary(credito)
 ## Treino e Teste
 
 ```{r conjuntos-treino-teste}
-library(caret)
-set.seed(21)
-y <- credito$inadimplente
-indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
+library(tidymodels)
+set.seed(23)
 
-conj_treino <- credito %>% slice(-indice_teste)
-conj_teste <- credito %>% slice(indice_teste)
+credito_split <- initial_split(credito, prop = 0.75, strata = inadimplente)
+
+credito_split
+
+conj_treino <- training(credito_split)
+conj_teste <- testing(credito_split)
 
 summary(conj_treino)
 summary(conj_teste)
@@ -145,6 +154,7 @@ summary(mod1)$coef
 ## Avaliando o modelo
 
 ```{r conj_teste}
+library(caret)
 p_chapeu <- predict(mod1, newdata = conj_teste, type = "response")
 y_chapeu <- ifelse(p_chapeu > 0.5, "Sim", "Nao") %>% factor(levels = levels(conj_teste$inadimplente))
 confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim") 
@@ -285,9 +295,9 @@ legend("bottomright", legend=c("Mod 1", "Mod2"),
 
 ```{r ROC3}
 # Ajustando KNN 
-set.seed(21)
+set.seed(23)
 ctrl <- trainControl(method = "cv")
-treina_knn <- train(inadimplente ~ scale(balanco) + estudante, method = "knn", trControl= ctrl, tuneGrid = data.frame(k = seq(5,140, by=4)), data = conj_treino)
+treina_knn <- train(inadimplente ~ scale(balanco) + estudante, method = "knn", trControl= ctrl, tuneGrid = data.frame(k = seq(5,140, by=5)), data = conj_treino)
 # treina_knn
 plot(treina_knn)
 prev_knn <- predict(treina_knn, conj_teste,type = "prob")
