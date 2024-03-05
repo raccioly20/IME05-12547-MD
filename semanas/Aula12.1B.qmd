@@ -1,0 +1,185 @@
+---
+title: "Arvores de Classificação - TidyModels"
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+execute: 
+  echo: true
+  warning: false
+  message: false
+format:
+ html:
+    code-link: true
+    fig-width: 9
+    fig-height: 7
+    fig-dpi: 300
+knitr:
+  opts_chunk: 
+    out.width: 90%
+    comment: "#>"
+---
+
+## Carregando Bibliotecas
+
+```{r bibliotecas, message=FALSE}
+library(tidyverse)
+library(tidymodels)
+library(ISLR)
+data(Default)
+```
+
+## Manipulando os dados
+
+```{r inadimplente}
+credito <- tibble(Default)
+summary(credito)
+# renomeando colunas
+credito <- credito %>% 
+                rename( inadimplente = default, estudante = student, balanco = balance,
+                receita = income)
+credito <- credito %>% mutate( inadimplente =  case_when(
+                           inadimplente == "No"  ~ "Nao",
+                           inadimplente == "Yes" ~ "Sim"
+                          )) %>% mutate(inadimplente = factor(inadimplente))
+credito <- credito %>% mutate( estudante =  case_when(
+                           estudante == "No"  ~ 0,
+                           estudante == "Yes" ~ 1
+                          )) 
+
+```
+
+## Treino e Teste
+
+```{r}
+set.seed(23)
+credito_split <- initial_split(credito, 0.8, strata = inadimplente)
+conj_treino <- training(credito_split)
+conj_teste <- testing(credito_split)
+credito_split
+```
+
+## Definindo o Modelo/Receita/Workflow
+
+```{r}
+# Modelo
+modelo_AD <- decision_tree() %>% 
+              set_engine("rpart") %>%
+              set_mode("classification")
+# Receita
+receita_credito <- recipe(inadimplente ~ ., data = conj_treino) %>% 
+  step_normalize(all_predictors())
+
+# Workflow
+credito_wkfl <- workflow() %>% 
+    add_model(modelo_AD) %>%
+    add_recipe(receita_credito) 
+```
+
+## Treinando o modelo
+
+```{r}
+set.seed(23)
+modelo_treinado <- credito_wkfl %>% 
+  fit(data = conj_treino)
+```
+
+## Avaliando o modelo
+
+```{r}
+metricas_credito <- metric_set(accuracy, sensitivity, specificity)
+
+modelo_treinado %>% 
+  predict(conj_teste) %>% 
+  bind_cols(conj_teste) %>% 
+  metricas_credito(truth = inadimplente, estimate = .pred_class)
+```
+
+## Matriz de confusão
+
+```{r}
+modelo_treinado %>% 
+  predict(conj_teste) %>% 
+  bind_cols(conj_teste) %>% 
+  conf_mat(truth = inadimplente, estimate = .pred_class)
+```
+
+## Melhorando o modelo ajustando os parametros
+
+```{r}
+modelo_AD <- decision_tree(cost_complexity = tune(),
+                           tree_depth = tune(),
+                           min_n = tune()) %>%
+              set_engine("rpart") %>%
+              set_mode("classification")
+```
+
+## Definindo a validação cruzada
+
+```{r}
+set.seed(23)
+credito_vldcruz <- vfold_cv(conj_treino, v=5, strata = inadimplente)
+credito_vldcruz
+```
+
+## Definindo o grid de parâmetros
+
+```{r}
+grid_AD <- grid_regular(cost_complexity(), tree_depth(), 
+                        min_n(), levels = 4)
+grid_AD
+```
+
+## Ajustando o modelo
+
+```{r}
+set.seed(23)
+
+credito_rs <- tune_grid(
+  modelo_AD,
+  inadimplente ~ .,
+  resamples = credito_vldcruz,
+  grid = grid_AD,
+  metrics = metric_set(roc_auc, accuracy, kap)
+)
+
+credito_rs
+
+
+```
+
+## Avaliando o modelo
+
+```{r}
+collect_metrics(credito_rs)
+autoplot(credito_rs) + theme_light(base_family = "IBMPlexSans")
+```
+
+## Selecionando o melhor modelo
+
+```{r}
+show_best(credito_rs, "kap")
+select_best(credito_rs, "kap")
+modelo_final <- finalize_model(modelo_AD, select_best(credito_rs, "kap"))
+modelo_final
+```
+
+## Usando o modelo final
+
+```{r}
+ajuste_final <- fit(modelo_final, inadimplente ~ ., conj_treino)
+```
+
+## Avaliando o novo modelo
+
+```{r}
+metricas_credito <- metric_set(accuracy, kap, specificity, sensitivity)
+
+ajuste_final %>% 
+  predict(conj_teste) %>% 
+  bind_cols(conj_teste) %>% 
+  metricas_credito(truth = inadimplente, estimate = .pred_class)
+
+ajuste_final %>% 
+  predict(conj_teste) %>% 
+  bind_cols(conj_teste) %>% 
+  conf_mat(truth = inadimplente, estimate = .pred_class)
+```

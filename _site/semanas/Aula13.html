@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.549">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2023-08-24">
+<meta name="dcterms.date" content="2024-03-05">
 <title>IME05-12547 - Análise de Clusters</title>
 <style>
 code{white-space: pre-wrap;}
@@ -21,7 +21,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -79,7 +79,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -88,13 +94,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 <meta name="twitter:title" content="IME05-12547 - Análise de Clusters">
-<meta name="twitter:description" content="">
+<meta name="twitter:description" content="Mineração de Dados">
 <meta name="twitter:image" content="images/md.png">
 <meta name="twitter:creator" content="@r_accioly">
 <meta name="twitter:card" content="summary_large_image">
@@ -103,24 +110,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula13.html">Análise de Clusters</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula13.html">Análise de Clusters</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/raccioly20" rel="" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/r_accioly" rel="" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+    <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/r_accioly" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -363,7 +370,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
@@ -393,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula13.html">Análise de Clusters</a></li></ol></nav><div class="quarto-title">
 <h1 class="title">Análise de Clusters</h1>
 </div>
 
@@ -411,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 24, 2023</p>
+      <p class="date">March 5, 2024</p>
     </div>
   </div>
   
@@ -419,17 +426,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header><section id="bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
 <p>Este conteúdo foi adaptado de: https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/clustering-analysis.html</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.0     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -450,16 +458,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 75 × 2
        x     y
    &lt;int&gt; &lt;int&gt;
- 1    86   132
- 2   101   115
- 3    64    20
- 4    85   115
- 5    69    15
- 6    55   155
- 7    64    30
- 8    36    72
- 9     5    63
-10    13    69
+ 1    70     4
+ 2    41   150
+ 3    32   149
+ 4    44   143
+ 5   117   115
+ 6    13    69
+ 7    44   156
+ 8    74    96
+ 9    63   139
+10    52   152
 # ℹ 65 more rows</code></pre>
 </div>
 </div>
@@ -468,7 +476,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ruspini</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ruspini</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -506,21 +517,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">km</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">ruspini_norm</span>, centers <span class="op">=</span> <span class="fl">4</span>, nstart <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">km</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>K-means clustering with 4 clusters of sizes 23, 17, 20, 15
+<pre><code>K-means clustering with 4 clusters of sizes 23, 20, 17, 15
 
 Cluster means:
            x          y
 1 -0.3595425  1.1091151
-2  1.4194387  0.4692907
-3 -1.1385941 -0.5559591
+2 -1.1385941 -0.5559591
+3  1.4194387  0.4692907
 4  0.4607268 -1.4912271
 
 Clustering vector:
- [1] 2 2 4 2 4 1 4 3 3 3 3 1 3 1 4 3 4 1 4 1 4 1 2 1 3 4 4 4 1 2 1 4 3 3 4 4 2 1
-[39] 2 1 3 2 2 1 3 2 3 3 1 1 3 1 2 3 3 1 1 2 2 2 2 2 3 3 1 1 2 1 3 3 1 4 1 1 4
+ [1] 4 1 1 1 3 2 1 3 1 1 3 4 1 4 4 1 2 3 4 2 2 3 3 1 3 2 3 4 1 2 4 1 1 1 4 3 2 2
+[39] 3 1 2 2 1 2 4 1 1 4 2 2 1 4 2 2 1 2 1 4 2 2 3 3 3 2 4 4 4 3 1 3 1 3 1 3 2
 
 Within cluster sum of squares by cluster:
-[1] 2.658679 3.641276 2.705477 1.082373
+[1] 2.658679 2.705477 3.641276 1.082373
  (between_SS / total_SS =  93.2 %)
 
 Available components:
@@ -534,25 +545,28 @@ Available components:
 <span><span class="va">ruspini_clusters</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 75 × 3
-          x      y cluster
-      &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  
- 1  1.02     0.821 2      
- 2  1.51     0.472 2      
- 3  0.299   -1.48  4      
- 4  0.987    0.472 2      
- 5  0.463   -1.58  4      
- 6  0.00393  1.29  1      
- 7  0.299   -1.27  4      
- 8 -0.619   -0.411 3      
- 9 -1.64    -0.596 3      
-10 -1.37    -0.473 3      
+         x       y cluster
+     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;  
+ 1  0.496  -1.81   4      
+ 2 -0.455   1.19   1      
+ 3 -0.750   1.17   1      
+ 4 -0.357   1.05   1      
+ 5  2.04    0.472  3      
+ 6 -1.37   -0.473  2      
+ 7 -0.357   1.31   1      
+ 8  0.627   0.0816 3      
+ 9  0.266   0.964  1      
+10 -0.0944  1.23   1      
 # ℹ 65 more rows</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ruspini_clusters</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">cluster</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Adicionando os centroides aos gráficos</p>
@@ -564,13 +578,16 @@ Available components:
   cluster      x      y
   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
 1 1       -0.360  1.11 
-2 2        1.42   0.469
-3 3       -1.14  -0.556
+2 2       -1.14  -0.556
+3 3        1.42   0.469
 4 4        0.461 -1.49 </code></pre>
 </div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ruspini_clusters</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">cluster</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">centroids</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">cluster</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">3</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Vamos usar a biblioteca factoextra para visualizarmos os clusters</p>
@@ -581,7 +598,10 @@ Available components:
 </div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="va">km</span>, data <span class="op">=</span> <span class="va">ruspini_norm</span>, centroids <span class="op">=</span> <span class="cn">TRUE</span>, repel <span class="op">=</span> <span class="cn">TRUE</span>, ellipse.type <span class="op">=</span> <span class="st">"norm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section><section id="k-medoides" class="level3"><h3 class="anchored" data-anchor-id="k-medoides">k-medoides</h3>
@@ -593,107 +613,107 @@ Available components:
 <div class="cell-output cell-output-stdout">
 <pre><code>Medoids:
      ID          x          y
-[1,] 53  1.4464374  0.5538374
-[2,] 21  0.4629124 -1.4583746
-[3,] 12 -0.3566917  1.1698207
-[4,] 33 -1.1762959 -0.5549325
+[1,] 31  0.4629124 -1.4583746
+[2,] 13 -0.3566917  1.1698207
+[3,] 72  1.4464374  0.5538374
+[4,] 17 -1.1762959 -0.5549325
 Clustering vector:
- [1] 1 1 2 1 2 3 2 4 4 4 4 3 4 3 2 4 2 3 2 3 2 3 1 3 4 2 2 2 3 1 3 2 4 4 2 2 1 3
-[39] 1 3 4 1 1 3 4 1 4 4 3 3 4 3 1 4 4 3 3 1 1 1 1 1 4 4 3 3 1 3 4 4 3 2 3 3 2
+ [1] 1 2 2 2 3 4 2 3 2 2 3 1 2 1 1 2 4 3 1 4 4 3 3 2 3 4 3 1 2 4 1 2 2 2 1 3 4 4
+[39] 3 2 4 4 2 4 1 2 2 1 4 4 2 1 4 4 2 4 2 1 4 4 3 3 3 4 1 1 1 3 2 3 2 3 2 3 4
 Objective function:
     build      swap 
 0.4422977 0.3187056 
 
 Numerical information per cluster:
      size  max_diss   av_diss  diameter separation
-[1,]   17 0.9459253 0.3862345 1.4627043   0.767612
-[2,]   15 0.4589783 0.2433250 0.8359025   1.157682
-[3,]   23 0.6558680 0.2993397 1.1591436   0.767612
+[1,]   15 0.4589783 0.2433250 0.8359025   1.157682
+[2,]   23 0.6558680 0.2993397 1.1591436   0.767612
+[3,]   17 0.9459253 0.3862345 1.4627043   0.767612
 [4,]   20 0.5755656 0.3401125 1.1192822   1.157682
 
 Isolated clusters:
  L-clusters: character(0)
- L*-clusters: [1] 2 4
+ L*-clusters: [1] 1 4
 
 Silhouette plot information:
    cluster neighbor sil_width
-2        1        3 0.7898609
-53       1        3 0.7834341
-46       1        3 0.7822308
-30       1        3 0.7790446
-62       1        3 0.7780891
-58       1        3 0.7694930
-60       1        3 0.7624335
-43       1        3 0.7609359
-67       1        3 0.7400337
-61       1        3 0.7392052
-59       1        3 0.7390493
-23       1        3 0.7234199
-4        1        3 0.5894345
-37       1        2 0.5666610
-1        1        3 0.5114355
-42       1        3 0.4358476
-39       1        3 0.3312348
-21       2        4 0.8592059
-5        2        4 0.8553255
-15       2        4 0.8530741
-72       2        4 0.8449473
-3        2        4 0.8361633
-28       2        4 0.8187150
-35       2        4 0.8178795
-75       2        1 0.8087015
-36       2        4 0.8013799
-17       2        4 0.7983516
-19       2        4 0.7918724
-7        2        4 0.7768261
-27       2        4 0.7727269
-32       2        1 0.7425993
-26       2        4 0.7328306
-12       3        4 0.8368407
-65       3        4 0.8305019
-14       3        1 0.8222142
-73       3        4 0.8220686
-22       3        4 0.8158429
-38       3        1 0.8150398
-50       3        4 0.8134280
-68       3        4 0.8064757
-40       3        1 0.7984225
-29       3        4 0.7969057
-56       3        4 0.7841631
-71       3        1 0.7794889
-74       3        1 0.7605512
-18       3        4 0.7591035
-44       3        4 0.7473901
-52       3        1 0.7423529
-49       3        4 0.7402623
-57       3        4 0.7249133
-6        3        1 0.7007372
-31       3        4 0.6739284
-66       3        1 0.5661372
-24       3        1 0.5413082
-20       3        1 0.4673917
-33       4        3 0.8094377
-16       4        2 0.8027447
-10       4        3 0.7782513
-63       4        2 0.7704646
-54       4        2 0.7700388
-55       4        3 0.7597906
-64       4        3 0.7530091
-34       4        3 0.7436695
-41       4        2 0.7412965
-9        4        3 0.7270442
-25       4        2 0.7255183
-11       4        2 0.7226938
-70       4        2 0.7042349
-47       4        3 0.7026960
-48       4        3 0.6966533
-69       4        2 0.6921822
-45       4        2 0.6756339
-51       4        2 0.6463656
-13       4        3 0.6005277
-8        4        2 0.6004543
+31       1        4 0.8592059
+28       1        4 0.8553255
+45       1        4 0.8530741
+12       1        4 0.8449473
+66       1        4 0.8361633
+58       1        4 0.8187150
+52       1        4 0.8178795
+48       1        3 0.8087015
+14       1        4 0.8013799
+1        1        4 0.7983516
+65       1        4 0.7918724
+15       1        4 0.7768261
+19       1        4 0.7727269
+35       1        3 0.7425993
+67       1        4 0.7328306
+13       2        4 0.8368407
+2        2        4 0.8305019
+16       2        3 0.8222142
+4        2        4 0.8220686
+73       2        4 0.8158429
+7        2        3 0.8150398
+69       2        4 0.8134280
+40       2        4 0.8064757
+43       2        3 0.7984225
+55       2        4 0.7969057
+33       2        4 0.7841631
+24       2        3 0.7794889
+10       2        3 0.7605512
+32       2        4 0.7591035
+3        2        4 0.7473901
+34       2        3 0.7423529
+47       2        4 0.7402623
+51       2        4 0.7249133
+57       2        3 0.7007372
+46       2        4 0.6739284
+71       2        3 0.5661372
+29       2        3 0.5413082
+9        2        3 0.4673917
+61       3        2 0.7898609
+72       3        2 0.7834341
+23       3        2 0.7822308
+18       3        2 0.7790446
+11       3        2 0.7780891
+74       3        2 0.7694930
+70       3        2 0.7624335
+39       3        2 0.7609359
+68       3        2 0.7400337
+62       3        2 0.7392052
+25       3        2 0.7390493
+5        3        2 0.7234199
+27       3        2 0.5894345
+36       3        1 0.5666610
+22       3        2 0.5114355
+63       3        2 0.4358476
+8        3        2 0.3312348
+17       4        2 0.8094377
+44       4        1 0.8027447
+6        4        2 0.7782513
+54       4        1 0.7704646
+26       4        1 0.7700388
+20       4        2 0.7597906
+41       4        2 0.7530091
+75       4        2 0.7436695
+53       4        1 0.7412965
+37       4        2 0.7270442
+21       4        1 0.7255183
+49       4        1 0.7226938
+56       4        1 0.7042349
+59       4        2 0.7026960
+64       4        2 0.6966533
+60       4        1 0.6921822
+38       4        1 0.6756339
+30       4        1 0.6463656
+42       4        2 0.6005277
+50       4        1 0.6004543
 Average silhouette width per cluster:
-[1] 0.6812849 0.8073733 0.7454551 0.7211353
+[1] 0.8073733 0.7454551 0.6812849 0.7211353
 Average silhouette width of total data set:
 [1] 0.7368082
 
@@ -709,10 +729,16 @@ Available components:
 </div>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Outra forma de visualização</p>
@@ -722,7 +748,10 @@ Available components:
 <span>             repel <span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>             ggtheme <span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">$</span><span class="va">medoids</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -733,16 +762,16 @@ Available components:
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">1.4464374</td>
-<td style="text-align: right;">0.5538374</td>
-</tr>
-<tr class="even">
 <td style="text-align: right;">0.4629124</td>
 <td style="text-align: right;">-1.4583746</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: right;">-0.3566917</td>
 <td style="text-align: right;">1.1698207</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.4464374</td>
+<td style="text-align: right;">0.5538374</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">-1.1762959</td>
@@ -764,9 +793,9 @@ Attaching package: 'janitor'</code></pre>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/tabyl.html">tabyl</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">$</span><span class="va">clustering</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> kmed$clustering  n   percent
-               1 17 0.2266667
-               2 15 0.2000000
-               3 23 0.3066667
+               1 15 0.2000000
+               2 23 0.3066667
+               3 17 0.2266667
                4 20 0.2666667</code></pre>
 </div>
 </div>
@@ -783,7 +812,10 @@ Attaching package: 'janitor'</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Se usarmos a biblioteca factoextra podemos definir o número de clusters que queremos visualizar.</p>
@@ -796,7 +828,10 @@ of ggplot2 3.3.4.
   Please report the issue at &lt;https://github.com/kassambara/factoextra/issues&gt;.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Podemos extrair as atraibuições de cluster cortando o dendrograma em 4 partes e adicionando a identidade aos dados.</p>
@@ -807,18 +842,18 @@ of ggplot2 3.3.4.
 <span><span class="va">cluster_completo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 75 × 3
-          x      y cluster
-      &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  
- 1  1.02     0.821 1      
- 2  1.51     0.472 1      
- 3  0.299   -1.48  2      
- 4  0.987    0.472 1      
- 5  0.463   -1.58  2      
- 6  0.00393  1.29  3      
- 7  0.299   -1.27  2      
- 8 -0.619   -0.411 4      
- 9 -1.64    -0.596 4      
-10 -1.37    -0.473 4      
+         x       y cluster
+     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;  
+ 1  0.496  -1.81   1      
+ 2 -0.455   1.19   2      
+ 3 -0.750   1.17   2      
+ 4 -0.357   1.05   2      
+ 5  2.04    0.472  3      
+ 6 -1.37   -0.473  4      
+ 7 -0.357   1.31   2      
+ 8  0.627   0.0816 3      
+ 9  0.266   0.964  2      
+10 -0.0944  1.23   2      
 # ℹ 65 more rows</code></pre>
 </div>
 </div>
@@ -830,20 +865,29 @@ of ggplot2 3.3.4.
 <div class="cell">
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">hc_w</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Se usarmos a biblioteca factoextra podemos definir o número de clusters que queremos visualizar.</p>
 <div class="cell">
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc_w</span>, k<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ruspini_norm</span>, cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc_w</span>, k <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section></section><section id="validação-dos-clusters" class="level2"><h2 class="anchored" data-anchor-id="validação-dos-clusters">Validação dos Clusters</h2>
@@ -852,20 +896,26 @@ of ggplot2 3.3.4.
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#library(cluster)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/cluster/man/silhouette.html">silhouette</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">$</span><span class="va">clustering</span>,<span class="va">d</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_silhouette.html">fviz_silhouette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/cluster/man/silhouette.html">silhouette</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">$</span><span class="va">clustering</span>, <span class="va">d</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cluster size ave.sil.width
-1       1   17          0.68
-2       2   15          0.81
-3       3   23          0.75
+1       1   15          0.81
+2       2   23          0.75
+3       3   17          0.68
 4       4   20          0.72</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section></section><section id="numero-ótimo-de-clusters" class="level2"><h2 class="anchored" data-anchor-id="numero-ótimo-de-clusters">Numero ótimo de clusters</h2>
@@ -873,12 +923,18 @@ of ggplot2 3.3.4.
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Usando o silhouette</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_nbclust.html">fviz_nbclust</a></span><span class="op">(</span><span class="va">ruspini_norm</span>, <span class="va">pam</span>, method <span class="op">=</span><span class="st">"silhouette"</span>, k.max <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Metodo do cotovelo</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_nbclust.html">fviz_nbclust</a></span><span class="op">(</span><span class="va">ruspini_norm</span>, <span class="va">kmeans</span>, method <span class="op">=</span><span class="st">"wss"</span>, k.max <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Aula13_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section><section id="section" class="level2"><h2 class="anchored" data-anchor-id="section"></h2>
@@ -925,6 +981,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -993,13 +1076,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1078,10 +1163,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1091,8 +1175,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1105,6 +1198,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1148,6 +1360,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1173,6 +1386,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1232,19 +1471,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="../semanas/Aula12.3.html" class="pagination-link">
+      <a href="../semanas/Aula12.3.html" class="pagination-link  aria-label=" arvore="" de="" classifica="" xgbooost="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Arvore de Classificação XGBooost</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../semanas/Aula14.html" class="pagination-link">
+      <a href="../semanas/Aula14.html" class="pagination-link" aria-label="Análise de Associação">
         <span class="nav-page-text">Análise de Associação</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Baseado em https://sta210-s22.github.io/website/</div>   
+    <div class="nav-footer-left">
+<p>Baseado em https://sta210-s22.github.io/website/</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

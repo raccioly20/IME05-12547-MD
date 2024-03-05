@@ -19,8 +19,6 @@ library("dplyr")
 library("gapminder")
 ```
 
-\newpage
-
 ## Selecionando dados
 
 ```{r criando_subgrupo}
@@ -34,8 +32,6 @@ ggplot(gap_07, aes(x = gdpPercap)) +
   geom_histogram()
 ```
 
-\newpage
-
 ## Criando um histograma usando a regra de Sturges
 
 A regra de Sturges indica `r round(1+3.322*log10(nrow(gap_07)),0)` faixas enquanto que o padrão do ggplot2 é 30.
@@ -45,16 +41,12 @@ ggplot(gap_07, aes(x = gdpPercap)) +
   geom_histogram(bins = round(1+3.322*log10(nrow(gap_07)),0))
 ```
 
-\newpage
-
 ## Criando um gráfico de densidade
 
 ```{r densidade}
 ggplot(gap_07, aes(x = gdpPercap)) +
   geom_density()
 ```
-
-\newpage
 
 ## Criando um box-plot
 
@@ -64,8 +56,6 @@ ggplot(gap_07, aes(x = continent, y = lifeExp)) +
 
 ```
 
-\newpage
-
 ## Criando um box-plot com visão dos dados
 
 ```{r jitter}
@@ -73,8 +63,6 @@ ggplot(gap_07, aes(x = continent, y = lifeExp)) +
   geom_boxplot() +
   geom_jitter(width = 0.5, alpha = 0.2)
 ```
-
-\newpage
 
 ## Matriz de Correlações
 
@@ -87,8 +75,6 @@ corrplot(mat_corr, method = "number")
 corrplot(mat_corr)
 ```
 
-\newpage
-
 ## SPLOM
 
 ```{r splom}
@@ -96,14 +82,10 @@ library(psych)
 pairs.panels(gap_07_s)
 ```
 
-\newpage
-
 ```{r splom2}
 library(GGally)
 ggpairs(gap_07_s)
 ```
-
-\newpage
 
 ## Descrevendo a distribuição
 

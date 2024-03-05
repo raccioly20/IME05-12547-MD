@@ -42,8 +42,6 @@ library("tidyverse")
 ```{r manipulando1}
 glimpse(dados_seg)
 unique(dados_seg$UF)
-dados_segRJ <- dados_seg %>% filter(UF=="Rio de Janeiro")
-summary(dados_segRJ)
 ```
 
 ```{r}
@@ -51,14 +49,24 @@ library(summarytools)
 dfSummary(dados_seg) |> stview(method = "render")
 ```
 
+```{r}
+dados_segRJ <- dados_seg %>% filter(UF=="Rio de Janeiro")
+summary(dados_segRJ)
+```
+
+
 ```{r manipulando2}
 unique(dados_segRJ$`Tipo Crime`)
 dados_segRJ$`Tipo Crime` <- as.factor(dados_segRJ$`Tipo Crime`)
-dados_segRJ %>% filter(`Tipo Crime`=="Homicídio doloso" ) %>% ggplot(aes(x=as.factor(Ano), y=Ocorrências)) + geom_boxplot()
-dados_segRJ %>% filter(`Tipo Crime`=="Roubo de veículo" ) %>% ggplot(aes(x=as.factor(Ano), y=Ocorrências)) + geom_boxplot()
+dados_segRJ %>% filter(`Tipo Crime`=="Homicídio doloso" ) %>% ggplot(aes(x=as.factor(Ano), y=Ocorrências)) + geom_boxplot() +
+  labs(title="Homicídio doloso", x="Ano", y="Ocorrências")
+dados_segRJ %>% filter(`Tipo Crime`=="Roubo de veículo" ) %>% ggplot(aes(x=as.factor(Ano), y=Ocorrências)) + geom_boxplot() +
+  labs(title="Roubo de veículo", x="Ano", y="Ocorrências")
 ```
 
 ```{r manipulando3}
 sintese_RJ <- dados_segRJ %>% group_by(Ano,`Tipo Crime`) %>% summarise(total = sum(Ocorrências))
-sintese_RJ %>% ggplot(aes(x=Ano, y=total, color=`Tipo Crime`)) + geom_point() + geom_line()
+sintese_RJ %>% ggplot(aes(x=Ano, y=total, color=`Tipo Crime`)) + geom_point() + geom_line() +
+  labs(title="# de crimes no RJ", x="Ano", y="Ocorrências")
 ```
+

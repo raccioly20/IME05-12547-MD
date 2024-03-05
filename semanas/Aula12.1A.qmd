@@ -1,0 +1,129 @@
+---
+title: "Arvores de Classificação - XGBoost"
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+format:
+ html:
+    code-link: true
+    fig-width: 9
+    fig-height: 7
+    fig-dpi: 300
+knitr:
+  opts_chunk: 
+    out.width: 90%
+    comment: "#>"
+---
+
+## Carregando Bibliotecas
+
+```{r bibliotecas, message=FALSE}
+library(tidyverse)
+library(xgboost)
+library(e1071)
+library(ISLR)
+data(Default)
+summary(Default)
+str(Default)
+head(Default)
+```
+
+## Manipulando os dados
+
+```{r inadimplente}
+credito <- tibble(Default)
+summary(credito)
+# renomeando colunas
+credito <- credito %>% 
+                rename( inadimplente = default, estudante = student, balanco = balance,
+                receita = income)
+credito <- credito %>% mutate( inadimplente =  case_when(
+                           inadimplente == "No"  ~ "Nao",
+                           inadimplente == "Yes" ~ "Sim"
+                          )) %>% mutate(inadimplente = factor(inadimplente))
+credito <- credito %>% mutate( estudante =  case_when(
+                           estudante == "No"  ~ 0,
+                           estudante == "Yes" ~ 1
+                          )) 
+
+```
+
+## Treino e Teste
+
+```{r conjuntos-treino-teste, message=FALSE}
+library(tidymodels)
+set.seed(23)
+
+credito_split <- initial_validation_split(credito, c(0.6, 0.2), strata = inadimplente)
+
+credito_split
+
+conj_treino <- training(credito_split)
+conj_validacao <- validation(credito_split)
+conj_teste <- testing(credito_split)
+
+X_treino <- data.matrix(conj_treino[,-1])               
+y_treino <- as.integer(conj_treino$inadimplente) - 1
+
+X_valid <- data.matrix(conj_validacao[,-1])
+y_valid <- as.integer(conj_validacao$inadimplente) - 1
+  
+X_teste <- data.matrix(conj_teste[,-1])
+y_teste <- as.integer(conj_teste$inadimplente) - 1
+
+xgboost_treino <- xgb.DMatrix(data=X_treino, label=y_treino)
+xgboost_valid <- xgb.DMatrix(data=X_valid, label=y_valid)
+xgboost_teste <- xgb.DMatrix(data=X_teste, label=y_teste)
+
+```
+
+## Modelo
+
+```{r}
+num_class <-  length(levels(credito$inadimplente))
+params <- list(
+  booster="gbtree",
+  eta=0.001,
+  max_depth=5,
+  gamma=3,
+  subsample=0.75,
+  colsample_bytree=1,
+  objective="multi:softprob",
+  eval_metric="mlogloss",
+  num_class=num_class
+)
+
+xgb.ajuste <- xgb.train(
+  params=params,
+  data=xgboost_treino,
+  nrounds=8000,
+  early_stopping_rounds=10,
+  watchlist=list(val1=xgboost_valid),
+  verbose=0
+)
+# Modelo
+summary(xgb.ajuste)
+```
+
+## Previsões
+
+```{r}
+xgb.prev <- predict(xgb.ajuste,xgboost_teste,reshape=T)
+xgb.prev <- as.data.frame(xgb.prev)
+colnames(xgb.prev) <- levels(credito$inadimplente)
+
+```
+
+## Classificação
+
+```{r}
+library(caret)
+y_chapeu <- ifelse(xgb.prev[, 2] > 0.5, "Sim", "Nao") %>% 
+             factor(levels = levels(conj_teste$inadimplente))
+confusionMatrix(data = y_chapeu, reference = conj_teste$inadimplente,  positive="Sim") 
+```
+
+```{r}
+library(pROC)
+roc_xgboost <- roc(conj_teste$inadimplente ~ xgb.prev[,2], plot = TRUE, print.auc=FALSE, col="green", legacy.axes=TRUE)
+roc_xgboost$auc
+```

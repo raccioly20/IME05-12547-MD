@@ -14,7 +14,12 @@ format:
 ```{r csv}
 library(readr)
 url <- "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos-acervo-de-dados-tecnicos/tabela-pocos.csv"
+
+```
+
 ## O read_delim permite que seja definido o tipo de delimitador dos dados
+
+```{r}
 pocos <- read_delim(url, delim = ";", locale= locale(decimal_mark = ","), col_names = TRUE)
 head(pocos)
 ```
@@ -33,12 +38,41 @@ Vamos primeiro conhecer o que tem na base de dados pocos. A base de dados possui
 
 ```{r conhecendo_pocos}
 class(pocos)  # Tipo de base de dados
-str(pocos) # estrutura da base de dados
 ```
 
 ## Dados de poços
 
-Os dados da tabela poços tem 60 colunas.
+Os dados da tabela poços tem 60 colunas, mas vejam que existem diversas variáveis com dados ausentes "NA".
+
+## Variaveis com dados ausentes
+
+```{r}
+str(pocos) # estrutura da base de dados
+```
+
+## Criando um filtro de dados ausentes
+
+```{r}
+n <-  nrow(pocos)
+
+## Calculando razão de valores ausentes
+val_ausentes_df <- pocos %>% 
+  summarize(across(everything(), ~ sum(is.na(.)))) %>% 
+  pivot_longer(everything(), names_to = "variavel", values_to = "num_val_ausentes") %>% 
+  mutate(razao_val_ausente = num_val_ausentes / n)
+
+## Vendo resultado
+knitr::kable(val_ausentes_df, booktabs = TRUE)
+
+## filtro
+val_ausente_filtro <- val_ausentes_df %>% 
+  filter(razao_val_ausente <= 0.5) %>% 
+  pull(variavel)
+
+# Aplicando o filtro
+poco_filtrado <- pocos %>% 
+  select(all_of(val_ausente_filtro))
+```
 
 Vamos inicialmente selecionar algumas colunas para podermos trabalhar com os dados.
 
@@ -54,13 +88,13 @@ Vamos inicialmente selecionar algumas colunas para podermos trabalhar com os dad
 8)  SITUACAO
 9)  INICIO
 10) TERMINO
-11) PROFUNDIDADE_MEDIDA_M
+11) PROFUNDIDADE_SONDADOR_M
 
 Para selecionar colunas usamos a função `select`
 
 ```{r selecionando}
 ## Vamos selecionar as colunas listadas acima
-pocos_01 <- pocos %>% select(POCO,OPERADOR,ESTADO,BACIA, CAMPO,TERRA_MAR,CATEGORIA,SITUACAO, INICIO, TERMINO, PROFUNDIDADE_MEDIDA_M)
+pocos_01 <- poco_filtrado %>% select(POCO,OPERADOR,ESTADO,BACIA, CAMPO,TERRA_MAR,CATEGORIA,SITUACAO, INICIO, TERMINO, PROFUNDIDADE_SONDADOR_M)
 head(pocos_01)
 summary(pocos_01)
 ```
@@ -75,15 +109,15 @@ dfSummary(pocos_01) |> stview(method = "render")
 
 ## Manipulação de dados
 
-Vamos eliminar as linhas de dados que apresenta dados ausentes "NA" nas colunas TERMINO e PROFUNDIDADE_MEDIDA_M.
+Vamos eliminar as linhas de dados que apresenta dados ausentes "NA" nas colunas TERMINO e PROFUNDIDADE_SONDADOR_M.
 
 ```{r eliminando_linhas}
 sum(is.na(pocos_01))
 sum(is.na(pocos_01$INICIO))
 sum(is.na(pocos_01$TERMINO))
-sum(is.na(pocos_01$PROFUNDIDADE_MEDIDA_M))
+sum(is.na(pocos_01$PROFUNDIDADE_SONDADOR_M))
 pocos_01 <- pocos_01 %>% drop_na(any_of(c("TERMINO",
-                            "PROFUNDIDADE_MEDIDA_M")))
+                            "PROFUNDIDADE_SONDADOR_M")))
 # melhorando a visualização dos dados
 knitr::kable(
   head(pocos_01, 10), booktabs = TRUE,
@@ -200,9 +234,9 @@ Veja que agora temos um histograma mais suave.
 ### Gráfico de Dispersão
 
 ```{r dispersao}
-ggplot(pocos_04, aes(x=PROFUNDIDADE_MEDIDA_M, y=TPERF)) + 
+ggplot(pocos_04, aes(x=PROFUNDIDADE_SONDADOR_M, y=TPERF)) + 
   geom_point()
-cor(pocos_04$PROFUNDIDADE_MEDIDA_M, pocos_04$TPERF)
+cor(pocos_04$PROFUNDIDADE_SONDADOR_M, pocos_04$TPERF)
 ```
 
 Podemos perceber que há uma relação entre o tempo de perfuração e a profundidade do poço.

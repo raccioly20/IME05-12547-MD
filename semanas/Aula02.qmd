@@ -36,7 +36,6 @@ head(gap_07, n=10) %>% knitr::kable(booktabs = TRUE) # primeiros dez paises da b
 tail(gap_07, n=10) %>% knitr::kable(booktabs = TRUE) # últimos 10 países 
 ```
 
-
 ## Manipulando 1
 
 Selecionando dados por país
@@ -54,8 +53,6 @@ Selecionando dados para 2007 excluindo a Oceania
 filter(gapminder, year == 2007 & continent != "Oceania")
 
 ```
-
-
 
 ## Manipulando 3
 
@@ -79,8 +76,6 @@ p1 <- p + geom_point()
 p1
 ```
 
-
-
 ## Visualizando 2
 
 ```{r graf2}
@@ -94,8 +89,6 @@ p2
 p3 <- p + geom_point() + geom_line()
 p3
 ```
-
-
 
 ## Visualizando 4 - Usando o pacote patchwork
 
@@ -124,8 +117,6 @@ gapminder %>% filter(year == 2007) %>%
 
 ```
 
-
-
 ## Mudando orientação dos dados
 
 ```{r pivot1}
@@ -135,7 +126,6 @@ head(propaganda)
 propaganda <- propaganda %>% rename(Jornal = Newspaper, Vendas = Sales)
 propaganda %>% tidyr::pivot_longer(!Vendas, names_to="Midia", values_to="Orcamento")
 ```
-
 
 ```{r pivot2}
 library(readr)

@@ -26,7 +26,7 @@ iris %>% count(Species)
 ```{r 2}
 iris %>% 
   group_by(Species) %>% 
-  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+  summarize(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)))
 ```
 
 ## Vamos ver se temos alguma relação entre as variáveis
