@@ -138,29 +138,20 @@ summary(mod5)$adj.r.squared
 sqrt(mean((conj_teste$Vendas - predict(mod5, conj_teste)) ^ 2))
 ```
 
-## Análise do Modelo - Parte 1
-
-```{r}
-#| fig-width: 10
-#| fig-height: 15
-  
-library(performance)
-check_model(mod5)
-```
-
-## Análise do Modelo - Parte 2
+## Análise Inicial dos Resíduos
 
 ```{r}
 plot(mod5)
 ```
 
-## Análise do Modelo - Parte 3
+## Análise do Modelo - Parte 2
 
 Para o gráfico de resíduos versus valores ajustados, podemos usar um teste chamado teste de Tukey de não aditividade (Tukey, 1949), ele é obtido adicionando os quadrados dos valores ajustados ao modelo e reajustando. O valor p para o teste de Tukey é obtido comparando a estatística de teste para a distribuição padrão-normal. O teste confirma a visível impressão de curvatura no gráfico residual, reforçando ainda mais a conclusão que o modelo não é adequado.
 
 ```{r}
 library(car)
 residualPlots(mod5)
+influencePlot(mod5)
 ```
 
 ## Tentando avaliar transformações

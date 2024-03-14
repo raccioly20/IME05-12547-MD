@@ -86,7 +86,6 @@ conj_treino %>% pivot_longer(!Vendas, names_to="Tipo", values_to="Orçamento" ) 
                  ) 
 ```
 
-\newpage
 
 ## Matriz de dispersão
 
@@ -101,7 +100,6 @@ pairs.panels(conj_treino,
 
 ```
 
-\newpage
 
 ## 1o Mod Regressão
 
@@ -170,23 +168,19 @@ predict(mod1, data.frame(TV=c(50, 150, 250)), interval = "prediction")
 sqrt(mean((conj_teste$Vendas - predict(mod1, conj_teste)) ^ 2)) 
 ```
 
-## Análise do modelo
+## Análise dos resíduos do modelo
 
 ```{r residuos1a, message=FALSE}
 plot(mod1)
 ```
 
-## Verificando normalidade dos resíduos
 
-```{r}
-shapiro.test(summary(mod1)$residuals)
-```
-
-## Análise do modelo 2
+## Análise dos resíduos do modelo - Pacote car
 
 ```{r residuos1b, message=FALSE, fig.height= 7}
-library(performance)
-check_model(mod1)
+residualPlots(mod1, tests=FALSE)
+influencePlot(mod1)
+qqPlot(mod1, main="Gráfico QQ")
 ```
 
 ## 2o Modelo de Regressão
@@ -214,13 +208,14 @@ scatterplot(Vendas ~ Radio, data = conj_treino, smooth=F)
 sqrt(mean((conj_teste$Vendas - predict(mod2, conj_teste)) ^ 2)) 
 ```
 
-## Análise de Resíduos
+## Análise dos resíduos do modelo - Pacote car
 
-```{r residuos2, message=FALSE, fig.height=7}
-check_model(mod2)
+```{r}
+residualPlots(mod2, tests=FALSE)
+influencePlot(mod2)
+qqPlot(mod2, main="Gráfico QQ")
 ```
 
-\newpage
 
 ## 3o Modelo de Regressão
 
@@ -247,8 +242,10 @@ scatterplot(Vendas ~ Jornal, data = conj_treino, smooth=F)
 sqrt(mean((conj_teste$Vendas - predict(mod3, conj_teste)) ^ 2)) 
 ```
 
-## Análise de Resíduos
+## Análise dos resíduos do modelo - Pacote car
 
-```{r residuos3, message=FALSE, fig.height=7}
-check_model(mod3)
+```{r}
+residualPlots(mod3, tests=FALSE)
+influencePlot(mod3)
+qqPlot(mod3, main="Gráfico QQ")
 ```

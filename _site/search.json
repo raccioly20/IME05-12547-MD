@@ -341,6 +341,55 @@
     ]
   },
   {
+    "objectID": "semanas/Aula12.1A.html",
+    "href": "semanas/Aula12.1A.html",
+    "title": "Arvores de Classificação - XGBoost",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(xgboost)\nlibrary(e1071)\nlibrary(ISLR)\ndata(Default)\nsummary(Default)\n\n#&gt;  default    student       balance           income     \n#&gt;  No :9667   No :7056   Min.   :   0.0   Min.   :  772  \n#&gt;  Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  \n#&gt;                        Median : 823.6   Median :34553  \n#&gt;                        Mean   : 835.4   Mean   :33517  \n#&gt;                        3rd Qu.:1166.3   3rd Qu.:43808  \n#&gt;                        Max.   :2654.3   Max.   :73554\n\nstr(Default)\n\n#&gt; 'data.frame':    10000 obs. of  4 variables:\n#&gt;  $ default: Factor w/ 2 levels \"No\",\"Yes\": 1 1 1 1 1 1 1 1 1 1 ...\n#&gt;  $ student: Factor w/ 2 levels \"No\",\"Yes\": 1 2 1 1 1 2 1 2 1 1 ...\n#&gt;  $ balance: num  730 817 1074 529 786 ...\n#&gt;  $ income : num  44362 12106 31767 35704 38463 ...\n\nhead(Default)\n\n#&gt;   default student   balance    income\n#&gt; 1      No      No  729.5265 44361.625\n#&gt; 2      No     Yes  817.1804 12106.135\n#&gt; 3      No      No 1073.5492 31767.139\n#&gt; 4      No      No  529.2506 35704.494\n#&gt; 5      No      No  785.6559 38463.496\n#&gt; 6      No     Yes  919.5885  7491.559"
+  },
+  {
+    "objectID": "semanas/Aula12.1A.html#carregando-bibliotecas",
+    "href": "semanas/Aula12.1A.html#carregando-bibliotecas",
+    "title": "Arvores de Classificação - XGBoost",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(xgboost)\nlibrary(e1071)\nlibrary(ISLR)\ndata(Default)\nsummary(Default)\n\n#&gt;  default    student       balance           income     \n#&gt;  No :9667   No :7056   Min.   :   0.0   Min.   :  772  \n#&gt;  Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  \n#&gt;                        Median : 823.6   Median :34553  \n#&gt;                        Mean   : 835.4   Mean   :33517  \n#&gt;                        3rd Qu.:1166.3   3rd Qu.:43808  \n#&gt;                        Max.   :2654.3   Max.   :73554\n\nstr(Default)\n\n#&gt; 'data.frame':    10000 obs. of  4 variables:\n#&gt;  $ default: Factor w/ 2 levels \"No\",\"Yes\": 1 1 1 1 1 1 1 1 1 1 ...\n#&gt;  $ student: Factor w/ 2 levels \"No\",\"Yes\": 1 2 1 1 1 2 1 2 1 1 ...\n#&gt;  $ balance: num  730 817 1074 529 786 ...\n#&gt;  $ income : num  44362 12106 31767 35704 38463 ...\n\nhead(Default)\n\n#&gt;   default student   balance    income\n#&gt; 1      No      No  729.5265 44361.625\n#&gt; 2      No     Yes  817.1804 12106.135\n#&gt; 3      No      No 1073.5492 31767.139\n#&gt; 4      No      No  529.2506 35704.494\n#&gt; 5      No      No  785.6559 38463.496\n#&gt; 6      No     Yes  919.5885  7491.559"
+  },
+  {
+    "objectID": "semanas/Aula12.1A.html#manipulando-os-dados",
+    "href": "semanas/Aula12.1A.html#manipulando-os-dados",
+    "title": "Arvores de Classificação - XGBoost",
+    "section": "Manipulando os dados",
+    "text": "Manipulando os dados\n\ncredito &lt;- tibble(Default)\nsummary(credito)\n\n#&gt;  default    student       balance           income     \n#&gt;  No :9667   No :7056   Min.   :   0.0   Min.   :  772  \n#&gt;  Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  \n#&gt;                        Median : 823.6   Median :34553  \n#&gt;                        Mean   : 835.4   Mean   :33517  \n#&gt;                        3rd Qu.:1166.3   3rd Qu.:43808  \n#&gt;                        Max.   :2654.3   Max.   :73554\n\n# renomeando colunas\ncredito &lt;- credito %&gt;% \n                rename( inadimplente = default, estudante = student, balanco = balance,\n                receita = income)\ncredito &lt;- credito %&gt;% mutate( inadimplente =  case_when(\n                           inadimplente == \"No\"  ~ \"Nao\",\n                           inadimplente == \"Yes\" ~ \"Sim\"\n                          )) %&gt;% mutate(inadimplente = factor(inadimplente))\ncredito &lt;- credito %&gt;% mutate( estudante =  case_when(\n                           estudante == \"No\"  ~ 0,\n                           estudante == \"Yes\" ~ 1\n                          ))"
+  },
+  {
+    "objectID": "semanas/Aula12.1A.html#treino-e-teste",
+    "href": "semanas/Aula12.1A.html#treino-e-teste",
+    "title": "Arvores de Classificação - XGBoost",
+    "section": "Treino e Teste",
+    "text": "Treino e Teste\n\nlibrary(tidymodels)\nset.seed(23)\n\ncredito_split &lt;- initial_validation_split(credito, c(0.6, 0.2), strata = inadimplente)\n\ncredito_split\n\n#&gt; &lt;Training/Validation/Testing/Total&gt;\n#&gt; &lt;6000/2000/2000/10000&gt;\n\nconj_treino &lt;- training(credito_split)\nconj_validacao &lt;- validation(credito_split)\nconj_teste &lt;- testing(credito_split)\n\nX_treino &lt;- data.matrix(conj_treino[,-1])               \ny_treino &lt;- as.integer(conj_treino$inadimplente) - 1\n\nX_valid &lt;- data.matrix(conj_validacao[,-1])\ny_valid &lt;- as.integer(conj_validacao$inadimplente) - 1\n  \nX_teste &lt;- data.matrix(conj_teste[,-1])\ny_teste &lt;- as.integer(conj_teste$inadimplente) - 1\n\nxgboost_treino &lt;- xgb.DMatrix(data=X_treino, label=y_treino)\nxgboost_valid &lt;- xgb.DMatrix(data=X_valid, label=y_valid)\nxgboost_teste &lt;- xgb.DMatrix(data=X_teste, label=y_teste)"
+  },
+  {
+    "objectID": "semanas/Aula12.1A.html#modelo",
+    "href": "semanas/Aula12.1A.html#modelo",
+    "title": "Arvores de Classificação - XGBoost",
+    "section": "Modelo",
+    "text": "Modelo\n\nnum_class &lt;-  length(levels(credito$inadimplente))\nparams &lt;- list(\n  booster=\"gbtree\",\n  eta=0.001,\n  max_depth=5,\n  gamma=3,\n  subsample=0.75,\n  colsample_bytree=1,\n  objective=\"multi:softprob\",\n  eval_metric=\"mlogloss\",\n  num_class=num_class\n)\n\nxgb.ajuste &lt;- xgb.train(\n  params=params,\n  data=xgboost_treino,\n  nrounds=8000,\n  early_stopping_rounds=10,\n  watchlist=list(val1=xgboost_valid),\n  verbose=0\n)\n# Modelo\nsummary(xgb.ajuste)\n\n#&gt;                 Length   Class              Mode       \n#&gt; handle                 1 xgb.Booster.handle externalptr\n#&gt; raw             23580711 -none-             raw        \n#&gt; best_iteration         1 -none-             numeric    \n#&gt; best_ntreelimit        1 -none-             numeric    \n#&gt; best_score             1 -none-             numeric    \n#&gt; best_msg               1 -none-             character  \n#&gt; niter                  1 -none-             numeric    \n#&gt; evaluation_log         2 data.table         list       \n#&gt; call                   7 -none-             call       \n#&gt; params                10 -none-             list       \n#&gt; callbacks              2 -none-             list       \n#&gt; feature_names          3 -none-             character  \n#&gt; nfeatures              1 -none-             numeric"
+  },
+  {
+    "objectID": "semanas/Aula12.1A.html#previsões",
+    "href": "semanas/Aula12.1A.html#previsões",
+    "title": "Arvores de Classificação - XGBoost",
+    "section": "Previsões",
+    "text": "Previsões\n\nxgb.prev &lt;- predict(xgb.ajuste,xgboost_teste,reshape=T)\nxgb.prev &lt;- as.data.frame(xgb.prev)\ncolnames(xgb.prev) &lt;- levels(credito$inadimplente)"
+  },
+  {
+    "objectID": "semanas/Aula12.1A.html#classificação",
+    "href": "semanas/Aula12.1A.html#classificação",
+    "title": "Arvores de Classificação - XGBoost",
+    "section": "Classificação",
+    "text": "Classificação\n\nlibrary(caret)\n\n#&gt; Carregando pacotes exigidos: lattice\n\n\n#&gt; \n#&gt; Attaching package: 'caret'\n\n\n#&gt; The following objects are masked from 'package:yardstick':\n#&gt; \n#&gt;     precision, recall, sensitivity, specificity\n\n\n#&gt; The following object is masked from 'package:purrr':\n#&gt; \n#&gt;     lift\n\ny_chapeu &lt;- ifelse(xgb.prev[, 2] &gt; 0.5, \"Sim\", \"Nao\") %&gt;% \n             factor(levels = levels(conj_teste$inadimplente))\nconfusionMatrix(data = y_chapeu, reference = conj_teste$inadimplente,  positive=\"Sim\") \n\n#&gt; Confusion Matrix and Statistics\n#&gt; \n#&gt;           Reference\n#&gt; Prediction  Nao  Sim\n#&gt;        Nao 1926   46\n#&gt;        Sim    3   25\n#&gt;                                           \n#&gt;                Accuracy : 0.9755          \n#&gt;                  95% CI : (0.9677, 0.9818)\n#&gt;     No Information Rate : 0.9645          \n#&gt;     P-Value [Acc &gt; NIR] : 0.003226        \n#&gt;                                           \n#&gt;                   Kappa : 0.4949          \n#&gt;                                           \n#&gt;  Mcnemar's Test P-Value : 1.973e-09       \n#&gt;                                           \n#&gt;             Sensitivity : 0.3521          \n#&gt;             Specificity : 0.9984          \n#&gt;          Pos Pred Value : 0.8929          \n#&gt;          Neg Pred Value : 0.9767          \n#&gt;              Prevalence : 0.0355          \n#&gt;          Detection Rate : 0.0125          \n#&gt;    Detection Prevalence : 0.0140          \n#&gt;       Balanced Accuracy : 0.6753          \n#&gt;                                           \n#&gt;        'Positive' Class : Sim             \n#&gt; \n\n\n\nlibrary(pROC)\n\n#&gt; Type 'citation(\"pROC\")' for a citation.\n\n\n#&gt; \n#&gt; Attaching package: 'pROC'\n\n\n#&gt; The following objects are masked from 'package:stats':\n#&gt; \n#&gt;     cov, smooth, var\n\nroc_xgboost &lt;- roc(conj_teste$inadimplente ~ xgb.prev[,2], plot = TRUE, print.auc=FALSE, col=\"green\", legacy.axes=TRUE)\n\n#&gt; Setting levels: control = Nao, case = Sim\n\n\n#&gt; Setting direction: controls &lt; cases\n\n\n\n\n\n\n\nroc_xgboost$auc\n\n#&gt; Area under the curve: 0.9528"
+  },
+  {
     "objectID": "semanas/Aula11.3.html",
     "href": "semanas/Aula11.3.html",
     "title": "Arvores de Regressão - XGBoost",
@@ -1313,7 +1362,7 @@
     "href": "semanas/Aula07.1.html#sumario",
     "title": "Regressão Linear",
     "section": "Sumario",
-    "text": "Sumario\n\nlibrary(summarytools)\n\n\nAttaching package: 'summarytools'\n\n\nThe following object is masked from 'package:tibble':\n\n    view\n\ndfSummary(propaganda) |&gt; stview(method = \"render\")\n\n\nData Frame Summary\npropaganda\nDimensions: 200 x 4\n  Duplicates: 0\n\n\n\n\n\n\n\n\n\n\n\nNo\nVariable\nStats / Values\nFreqs (% of Valid)\nGraph\nValid\nMissing\n\n\n\n1\nTV [numeric]\n\n\nMean (sd) : 147 (85.9)\n\n\nmin ≤ med ≤ max:\n\n\n0.7 ≤ 149.8 ≤ 296.4\n\n\nIQR (CV) : 144.4 (0.6)\n\n\n190 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n2\nRadio [numeric]\n\n\nMean (sd) : 23.3 (14.8)\n\n\nmin ≤ med ≤ max:\n\n\n0 ≤ 22.9 ≤ 49.6\n\n\nIQR (CV) : 26.5 (0.6)\n\n\n167 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n3\nJornal [numeric]\n\n\nMean (sd) : 30.6 (21.8)\n\n\nmin ≤ med ≤ max:\n\n\n0.3 ≤ 25.8 ≤ 114\n\n\nIQR (CV) : 32.4 (0.7)\n\n\n172 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n4\nVendas [numeric]\n\n\nMean (sd) : 14 (5.2)\n\n\nmin ≤ med ≤ max:\n\n\n1.6 ≤ 12.9 ≤ 27\n\n\nIQR (CV) : 7 (0.4)\n\n\n121 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n\nGenerated by summarytools 1.0.1 (R version 4.3.3)2024-03-05",
+    "text": "Sumario\n\nlibrary(summarytools)\n\n\nAttaching package: 'summarytools'\n\n\nThe following object is masked from 'package:tibble':\n\n    view\n\ndfSummary(propaganda) |&gt; stview(method = \"render\")\n\n\nData Frame Summary\npropaganda\nDimensions: 200 x 4\n  Duplicates: 0\n\n\n\n\n\n\n\n\n\n\n\nNo\nVariable\nStats / Values\nFreqs (% of Valid)\nGraph\nValid\nMissing\n\n\n\n1\nTV [numeric]\n\n\nMean (sd) : 147 (85.9)\n\n\nmin ≤ med ≤ max:\n\n\n0.7 ≤ 149.8 ≤ 296.4\n\n\nIQR (CV) : 144.4 (0.6)\n\n\n190 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n2\nRadio [numeric]\n\n\nMean (sd) : 23.3 (14.8)\n\n\nmin ≤ med ≤ max:\n\n\n0 ≤ 22.9 ≤ 49.6\n\n\nIQR (CV) : 26.5 (0.6)\n\n\n167 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n3\nJornal [numeric]\n\n\nMean (sd) : 30.6 (21.8)\n\n\nmin ≤ med ≤ max:\n\n\n0.3 ≤ 25.8 ≤ 114\n\n\nIQR (CV) : 32.4 (0.7)\n\n\n172 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n4\nVendas [numeric]\n\n\nMean (sd) : 14 (5.2)\n\n\nmin ≤ med ≤ max:\n\n\n1.6 ≤ 12.9 ≤ 27\n\n\nIQR (CV) : 7 (0.4)\n\n\n121 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n\nGenerated by summarytools 1.0.1 (R version 4.3.3)2024-03-14",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Simples"
@@ -1463,33 +1512,22 @@
     ]
   },
   {
-    "objectID": "semanas/Aula07.1.html#análise-do-modelo",
-    "href": "semanas/Aula07.1.html#análise-do-modelo",
+    "objectID": "semanas/Aula07.1.html#análise-dos-resíduos-do-modelo",
+    "href": "semanas/Aula07.1.html#análise-dos-resíduos-do-modelo",
     "title": "Regressão Linear",
-    "section": "Análise do modelo",
-    "text": "Análise do modelo\n\nplot(mod1)",
+    "section": "Análise dos resíduos do modelo",
+    "text": "Análise dos resíduos do modelo\n\nplot(mod1)",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Simples"
     ]
   },
   {
-    "objectID": "semanas/Aula07.1.html#verificando-normalidade-dos-resíduos",
-    "href": "semanas/Aula07.1.html#verificando-normalidade-dos-resíduos",
+    "objectID": "semanas/Aula07.1.html#análise-dos-resíduos-do-modelo---pacote-car",
+    "href": "semanas/Aula07.1.html#análise-dos-resíduos-do-modelo---pacote-car",
     "title": "Regressão Linear",
-    "section": "Verificando normalidade dos resíduos",
-    "text": "Verificando normalidade dos resíduos\n\nshapiro.test(summary(mod1)$residuals)\n\n\n    Shapiro-Wilk normality test\n\ndata:  summary(mod1)$residuals\nW = 0.98867, p-value = 0.4293",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Regressão Simples"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.1.html#análise-do-modelo-2",
-    "href": "semanas/Aula07.1.html#análise-do-modelo-2",
-    "title": "Regressão Linear",
-    "section": "Análise do modelo 2",
-    "text": "Análise do modelo 2\n\nlibrary(performance)\ncheck_model(mod1)",
+    "section": "Análise dos resíduos do modelo - Pacote car",
+    "text": "Análise dos resíduos do modelo - Pacote car\n\nresidualPlots(mod1, tests=FALSE)\n\n\n\n\n\n\ninfluencePlot(mod1)\n\n\n\n\n\n\n\n        StudRes        Hat        CookD\n16  -2.50571154 0.03190623 9.899781e-02\n21   0.04056337 0.03289082 2.822013e-05\n30   2.44014958 0.01118043 3.229482e-02\n83  -1.73853104 0.03547025 5.463115e-02\n113  1.91553176 0.03087606 5.714715e-02\n\nqqPlot(mod1, main=\"Gráfico QQ\")\n\n\n\n\n\n\n\n[1] 16 30",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Simples"
@@ -1529,11 +1567,11 @@
     ]
   },
   {
-    "objectID": "semanas/Aula07.1.html#análise-de-resíduos",
-    "href": "semanas/Aula07.1.html#análise-de-resíduos",
+    "objectID": "semanas/Aula07.1.html#análise-dos-resíduos-do-modelo---pacote-car-1",
+    "href": "semanas/Aula07.1.html#análise-dos-resíduos-do-modelo---pacote-car-1",
     "title": "Regressão Linear",
-    "section": "Análise de Resíduos",
-    "text": "Análise de Resíduos\n\ncheck_model(mod2)",
+    "section": "Análise dos resíduos do modelo - Pacote car",
+    "text": "Análise dos resíduos do modelo - Pacote car\n\nresidualPlots(mod2, tests=FALSE)\n\n\n\n\n\n\ninfluencePlot(mod2)\n\n\n\n\n\n\n\n      StudRes        Hat      CookD\n30  0.9226994 0.04115564 0.01829464\n45 -2.7216081 0.02922665 0.10571289\n83 -4.5929056 0.02230940 0.20539809\n91  1.3955953 0.04023076 0.04049271\n\nqqPlot(mod2, main=\"Gráfico QQ\")\n\n\n\n\n\n\n\n[1] 45 83",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Simples"
@@ -1573,11 +1611,11 @@
     ]
   },
   {
-    "objectID": "semanas/Aula07.1.html#análise-de-resíduos-1",
-    "href": "semanas/Aula07.1.html#análise-de-resíduos-1",
+    "objectID": "semanas/Aula07.1.html#análise-dos-resíduos-do-modelo---pacote-car-2",
+    "href": "semanas/Aula07.1.html#análise-dos-resíduos-do-modelo---pacote-car-2",
     "title": "Regressão Linear",
-    "section": "Análise de Resíduos",
-    "text": "Análise de Resíduos\n\ncheck_model(mod3)",
+    "section": "Análise dos resíduos do modelo - Pacote car",
+    "text": "Análise dos resíduos do modelo - Pacote car\n\nresidualPlots(mod3, tests=FALSE)\n\n\n\n\n\n\ninfluencePlot(mod3)\n\n\n\n\n\n\n\n       StudRes        Hat       CookD\n17   2.7662778 0.02148670 0.079496542\n45  -1.9569910 0.08758421 0.179474046\n76  -0.2482202 0.06295386 0.002086425\n83  -2.3217975 0.01781860 0.047130377\n113  2.0389969 0.04794865 0.101942230\n\nqqPlot(mod3, main=\"Gráfico QQ\")\n\n\n\n\n\n\n\n[1] 17 83",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Simples"
@@ -2915,11 +2953,11 @@
     ]
   },
   {
-    "objectID": "semanas/Aula07.2.html#análise-do-modelo---parte-1",
-    "href": "semanas/Aula07.2.html#análise-do-modelo---parte-1",
+    "objectID": "semanas/Aula07.2.html#análise-inicial-dos-resíduos",
+    "href": "semanas/Aula07.2.html#análise-inicial-dos-resíduos",
     "title": "Regressão Linear Múltipla",
-    "section": "Análise do Modelo - Parte 1",
-    "text": "Análise do Modelo - Parte 1\n\nlibrary(performance)\ncheck_model(mod5)",
+    "section": "Análise Inicial dos Resíduos",
+    "text": "Análise Inicial dos Resíduos\n\nplot(mod5)",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Múltipla"
@@ -2930,18 +2968,7 @@
     "href": "semanas/Aula07.2.html#análise-do-modelo---parte-2",
     "title": "Regressão Linear Múltipla",
     "section": "Análise do Modelo - Parte 2",
-    "text": "Análise do Modelo - Parte 2\n\nplot(mod5)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Regressão Múltipla"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.2.html#análise-do-modelo---parte-3",
-    "href": "semanas/Aula07.2.html#análise-do-modelo---parte-3",
-    "title": "Regressão Linear Múltipla",
-    "section": "Análise do Modelo - Parte 3",
-    "text": "Análise do Modelo - Parte 3\nPara o gráfico de resíduos versus valores ajustados, podemos usar um teste chamado teste de Tukey de não aditividade (Tukey, 1949), ele é obtido adicionando os quadrados dos valores ajustados ao modelo e reajustando. O valor p para o teste de Tukey é obtido comparando a estatística de teste para a distribuição padrão-normal. O teste confirma a visível impressão de curvatura no gráfico residual, reforçando ainda mais a conclusão que o modelo não é adequado.\n\nlibrary(car)\nresidualPlots(mod5)\n\n\n\n\n\n\n\n           Test stat Pr(&gt;|Test stat|)    \nTV           -4.8383        4.102e-06 ***\nRadio         1.9290           0.0562 .  \nTukey test    6.4114        1.442e-10 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1",
+    "text": "Análise do Modelo - Parte 2\nPara o gráfico de resíduos versus valores ajustados, podemos usar um teste chamado teste de Tukey de não aditividade (Tukey, 1949), ele é obtido adicionando os quadrados dos valores ajustados ao modelo e reajustando. O valor p para o teste de Tukey é obtido comparando a estatística de teste para a distribuição padrão-normal. O teste confirma a visível impressão de curvatura no gráfico residual, reforçando ainda mais a conclusão que o modelo não é adequado.\n\nlibrary(car)\nresidualPlots(mod5)\n\n\n\n\n\n\n\n           Test stat Pr(&gt;|Test stat|)    \nTV           -4.8383        4.102e-06 ***\nRadio         1.9290           0.0562 .  \nTukey test    6.4114        1.442e-10 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\ninfluencePlot(mod5)\n\n\n\n\n\n\n\n     StudRes        Hat     CookD\n45 -2.512087 0.05650813 0.1204704\n83 -7.289206 0.05466694 0.7066190",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Múltipla"
@@ -4310,6 +4337,118 @@
       "Conteúdo Semanal",
       "Arvore de Classificação"
     ]
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html",
+    "href": "semanas/Aula12.1B.html",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(tidymodels)\nlibrary(ISLR)\ndata(Default)"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#carregando-bibliotecas",
+    "href": "semanas/Aula12.1B.html#carregando-bibliotecas",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(tidymodels)\nlibrary(ISLR)\ndata(Default)"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#manipulando-os-dados",
+    "href": "semanas/Aula12.1B.html#manipulando-os-dados",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Manipulando os dados",
+    "text": "Manipulando os dados\n\ncredito &lt;- tibble(Default)\nsummary(credito)\n\n#&gt;  default    student       balance           income     \n#&gt;  No :9667   No :7056   Min.   :   0.0   Min.   :  772  \n#&gt;  Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  \n#&gt;                        Median : 823.6   Median :34553  \n#&gt;                        Mean   : 835.4   Mean   :33517  \n#&gt;                        3rd Qu.:1166.3   3rd Qu.:43808  \n#&gt;                        Max.   :2654.3   Max.   :73554\n\n# renomeando colunas\ncredito &lt;- credito %&gt;% \n                rename( inadimplente = default, estudante = student, balanco = balance,\n                receita = income)\ncredito &lt;- credito %&gt;% mutate( inadimplente =  case_when(\n                           inadimplente == \"No\"  ~ \"Nao\",\n                           inadimplente == \"Yes\" ~ \"Sim\"\n                          )) %&gt;% mutate(inadimplente = factor(inadimplente))\ncredito &lt;- credito %&gt;% mutate( estudante =  case_when(\n                           estudante == \"No\"  ~ 0,\n                           estudante == \"Yes\" ~ 1\n                          ))"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#treino-e-teste",
+    "href": "semanas/Aula12.1B.html#treino-e-teste",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Treino e Teste",
+    "text": "Treino e Teste\n\nset.seed(23)\ncredito_split &lt;- initial_split(credito, 0.8, strata = inadimplente)\nconj_treino &lt;- training(credito_split)\nconj_teste &lt;- testing(credito_split)\ncredito_split\n\n#&gt; &lt;Training/Testing/Total&gt;\n#&gt; &lt;8000/2000/10000&gt;"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#definindo-o-modeloreceitaworkflow",
+    "href": "semanas/Aula12.1B.html#definindo-o-modeloreceitaworkflow",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Definindo o Modelo/Receita/Workflow",
+    "text": "Definindo o Modelo/Receita/Workflow\n\n# Modelo\nmodelo_AD &lt;- decision_tree() %&gt;% \n              set_engine(\"rpart\") %&gt;%\n              set_mode(\"classification\")\n# Receita\nreceita_credito &lt;- recipe(inadimplente ~ ., data = conj_treino) %&gt;% \n  step_normalize(all_predictors())\n\n# Workflow\ncredito_wkfl &lt;- workflow() %&gt;% \n    add_model(modelo_AD) %&gt;%\n    add_recipe(receita_credito)"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#treinando-o-modelo",
+    "href": "semanas/Aula12.1B.html#treinando-o-modelo",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Treinando o modelo",
+    "text": "Treinando o modelo\n\nset.seed(23)\nmodelo_treinado &lt;- credito_wkfl %&gt;% \n  fit(data = conj_treino)"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#avaliando-o-modelo",
+    "href": "semanas/Aula12.1B.html#avaliando-o-modelo",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Avaliando o modelo",
+    "text": "Avaliando o modelo\n\nmetricas_credito &lt;- metric_set(accuracy, sensitivity, specificity)\n\nmodelo_treinado %&gt;% \n  predict(conj_teste) %&gt;% \n  bind_cols(conj_teste) %&gt;% \n  metricas_credito(truth = inadimplente, estimate = .pred_class)\n\n#&gt; # A tibble: 3 × 3\n#&gt;   .metric     .estimator .estimate\n#&gt;   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;\n#&gt; 1 accuracy    binary         0.974\n#&gt; 2 sensitivity binary         0.996\n#&gt; 3 specificity binary         0.348"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#matriz-de-confusão",
+    "href": "semanas/Aula12.1B.html#matriz-de-confusão",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Matriz de confusão",
+    "text": "Matriz de confusão\n\nmodelo_treinado %&gt;% \n  predict(conj_teste) %&gt;% \n  bind_cols(conj_teste) %&gt;% \n  conf_mat(truth = inadimplente, estimate = .pred_class)\n\n#&gt;           Truth\n#&gt; Prediction  Nao  Sim\n#&gt;        Nao 1924   45\n#&gt;        Sim    7   24"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#melhorando-o-modelo-ajustando-os-parametros",
+    "href": "semanas/Aula12.1B.html#melhorando-o-modelo-ajustando-os-parametros",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Melhorando o modelo ajustando os parametros",
+    "text": "Melhorando o modelo ajustando os parametros\n\nmodelo_AD &lt;- decision_tree(cost_complexity = tune(),\n                           tree_depth = tune(),\n                           min_n = tune()) %&gt;%\n              set_engine(\"rpart\") %&gt;%\n              set_mode(\"classification\")"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#definindo-a-validação-cruzada",
+    "href": "semanas/Aula12.1B.html#definindo-a-validação-cruzada",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Definindo a validação cruzada",
+    "text": "Definindo a validação cruzada\n\nset.seed(23)\ncredito_vldcruz &lt;- vfold_cv(conj_treino, v=5, strata = inadimplente)\ncredito_vldcruz\n\n#&gt; #  5-fold cross-validation using stratification \n#&gt; # A tibble: 5 × 2\n#&gt;   splits              id   \n#&gt;   &lt;list&gt;              &lt;chr&gt;\n#&gt; 1 &lt;split [6400/1600]&gt; Fold1\n#&gt; 2 &lt;split [6400/1600]&gt; Fold2\n#&gt; 3 &lt;split [6400/1600]&gt; Fold3\n#&gt; 4 &lt;split [6400/1600]&gt; Fold4\n#&gt; 5 &lt;split [6400/1600]&gt; Fold5"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#definindo-o-grid-de-parâmetros",
+    "href": "semanas/Aula12.1B.html#definindo-o-grid-de-parâmetros",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Definindo o grid de parâmetros",
+    "text": "Definindo o grid de parâmetros\n\ngrid_AD &lt;- grid_regular(cost_complexity(), tree_depth(), \n                        min_n(), levels = 4)\ngrid_AD\n\n#&gt; # A tibble: 64 × 3\n#&gt;    cost_complexity tree_depth min_n\n#&gt;              &lt;dbl&gt;      &lt;int&gt; &lt;int&gt;\n#&gt;  1    0.0000000001          1     2\n#&gt;  2    0.0000001             1     2\n#&gt;  3    0.0001                1     2\n#&gt;  4    0.1                   1     2\n#&gt;  5    0.0000000001          5     2\n#&gt;  6    0.0000001             5     2\n#&gt;  7    0.0001                5     2\n#&gt;  8    0.1                   5     2\n#&gt;  9    0.0000000001         10     2\n#&gt; 10    0.0000001            10     2\n#&gt; # ℹ 54 more rows"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#ajustando-o-modelo",
+    "href": "semanas/Aula12.1B.html#ajustando-o-modelo",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Ajustando o modelo",
+    "text": "Ajustando o modelo\n\nset.seed(23)\n\ncredito_rs &lt;- tune_grid(\n  modelo_AD,\n  inadimplente ~ .,\n  resamples = credito_vldcruz,\n  grid = grid_AD,\n  metrics = metric_set(roc_auc, accuracy, kap)\n)\n\ncredito_rs\n\n#&gt; # Tuning results\n#&gt; # 5-fold cross-validation using stratification \n#&gt; # A tibble: 5 × 4\n#&gt;   splits              id    .metrics           .notes          \n#&gt;   &lt;list&gt;              &lt;chr&gt; &lt;list&gt;             &lt;list&gt;          \n#&gt; 1 &lt;split [6400/1600]&gt; Fold1 &lt;tibble [192 × 7]&gt; &lt;tibble [0 × 3]&gt;\n#&gt; 2 &lt;split [6400/1600]&gt; Fold2 &lt;tibble [192 × 7]&gt; &lt;tibble [0 × 3]&gt;\n#&gt; 3 &lt;split [6400/1600]&gt; Fold3 &lt;tibble [192 × 7]&gt; &lt;tibble [0 × 3]&gt;\n#&gt; 4 &lt;split [6400/1600]&gt; Fold4 &lt;tibble [192 × 7]&gt; &lt;tibble [0 × 3]&gt;\n#&gt; 5 &lt;split [6400/1600]&gt; Fold5 &lt;tibble [192 × 7]&gt; &lt;tibble [0 × 3]&gt;"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#avaliando-o-modelo-1",
+    "href": "semanas/Aula12.1B.html#avaliando-o-modelo-1",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Avaliando o modelo",
+    "text": "Avaliando o modelo\n\ncollect_metrics(credito_rs)\n\n#&gt; # A tibble: 192 × 9\n#&gt;    cost_complexity tree_depth min_n .metric  .estimator  mean     n std_err\n#&gt;              &lt;dbl&gt;      &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;\n#&gt;  1    0.0000000001          1     2 accuracy binary     0.969     5 0.00192\n#&gt;  2    0.0000000001          1     2 kap      binary     0.358     5 0.0982 \n#&gt;  3    0.0000000001          1     2 roc_auc  binary     0.656     5 0.0434 \n#&gt;  4    0.0000001             1     2 accuracy binary     0.969     5 0.00192\n#&gt;  5    0.0000001             1     2 kap      binary     0.358     5 0.0982 \n#&gt;  6    0.0000001             1     2 roc_auc  binary     0.656     5 0.0434 \n#&gt;  7    0.0001                1     2 accuracy binary     0.969     5 0.00192\n#&gt;  8    0.0001                1     2 kap      binary     0.358     5 0.0982 \n#&gt;  9    0.0001                1     2 roc_auc  binary     0.656     5 0.0434 \n#&gt; 10    0.1                   1     2 accuracy binary     0.966     5 0.00147\n#&gt; # ℹ 182 more rows\n#&gt; # ℹ 1 more variable: .config &lt;chr&gt;\n\nautoplot(credito_rs) + theme_light(base_family = \"IBMPlexSans\")"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#selecionando-o-melhor-modelo",
+    "href": "semanas/Aula12.1B.html#selecionando-o-melhor-modelo",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Selecionando o melhor modelo",
+    "text": "Selecionando o melhor modelo\n\nshow_best(credito_rs, \"kap\")\n\n#&gt; # A tibble: 5 × 9\n#&gt;   cost_complexity tree_depth min_n .metric .estimator  mean     n std_err\n#&gt;             &lt;dbl&gt;      &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;\n#&gt; 1    0.0000000001          5    14 kap     binary     0.375     5  0.0393\n#&gt; 2    0.0000001             5    14 kap     binary     0.375     5  0.0393\n#&gt; 3    0.0001                5    14 kap     binary     0.375     5  0.0393\n#&gt; 4    0.0000000001         10    27 kap     binary     0.359     5  0.0346\n#&gt; 5    0.0000001            10    27 kap     binary     0.359     5  0.0346\n#&gt; # ℹ 1 more variable: .config &lt;chr&gt;\n\nselect_best(credito_rs, \"kap\")\n\n#&gt; # A tibble: 1 × 4\n#&gt;   cost_complexity tree_depth min_n .config              \n#&gt;             &lt;dbl&gt;      &lt;int&gt; &lt;int&gt; &lt;chr&gt;                \n#&gt; 1    0.0000000001          5    14 Preprocessor1_Model21\n\nmodelo_final &lt;- finalize_model(modelo_AD, select_best(credito_rs, \"kap\"))\nmodelo_final\n\n#&gt; Decision Tree Model Specification (classification)\n#&gt; \n#&gt; Main Arguments:\n#&gt;   cost_complexity = 1e-10\n#&gt;   tree_depth = 5\n#&gt;   min_n = 14\n#&gt; \n#&gt; Computational engine: rpart"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#usando-o-modelo-final",
+    "href": "semanas/Aula12.1B.html#usando-o-modelo-final",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Usando o modelo final",
+    "text": "Usando o modelo final\n\najuste_final &lt;- fit(modelo_final, inadimplente ~ ., conj_treino)"
+  },
+  {
+    "objectID": "semanas/Aula12.1B.html#avaliando-o-novo-modelo",
+    "href": "semanas/Aula12.1B.html#avaliando-o-novo-modelo",
+    "title": "Arvores de Classificação - TidyModels",
+    "section": "Avaliando o novo modelo",
+    "text": "Avaliando o novo modelo\n\nmetricas_credito &lt;- metric_set(accuracy, kap, specificity, sensitivity)\n\najuste_final %&gt;% \n  predict(conj_teste) %&gt;% \n  bind_cols(conj_teste) %&gt;% \n  metricas_credito(truth = inadimplente, estimate = .pred_class)\n\n#&gt; # A tibble: 4 × 3\n#&gt;   .metric     .estimator .estimate\n#&gt;   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;\n#&gt; 1 accuracy    binary         0.973\n#&gt; 2 kap         binary         0.496\n#&gt; 3 specificity binary         0.406\n#&gt; 4 sensitivity binary         0.993\n\najuste_final %&gt;% \n  predict(conj_teste) %&gt;% \n  bind_cols(conj_teste) %&gt;% \n  conf_mat(truth = inadimplente, estimate = .pred_class)\n\n#&gt;           Truth\n#&gt; Prediction  Nao  Sim\n#&gt;        Nao 1918   41\n#&gt;        Sim   13   28"
   },
   {
     "objectID": "semanas/Aula12.3.html",
