@@ -86,7 +86,6 @@ conj_treino %>% pivot_longer(!Vendas, names_to="Tipo", values_to="Orçamento" ) 
                  ) 
 ```
 
-
 ## Matriz de dispersão
 
 ```{r splom, message=FALSE}
@@ -99,7 +98,6 @@ pairs.panels(conj_treino,
              )
 
 ```
-
 
 ## 1o Mod Regressão
 
@@ -148,7 +146,6 @@ summary(mod1)$r.squared
 brief(mod1)
 ```
 
-
 ## Intervalo de Confiança
 
 ```{r IC}
@@ -172,7 +169,11 @@ predict(mod1, data.frame(TV=c(50, 150, 250)), interval = "prediction")
 ## Calculando o erro padrão do resíduo com amostra de teste
 
 ```{r avaliando_TV}
+##Erro com conjunto de teste
 sqrt(mean((conj_teste$Vendas - predict(mod1, conj_teste)) ^ 2)) 
+
+## Error com conjunto de treino
+summary(mod1)$sigma
 ```
 
 ## Análise dos resíduos do modelo
@@ -181,14 +182,6 @@ sqrt(mean((conj_teste$Vendas - predict(mod1, conj_teste)) ^ 2))
 plot(mod1)
 ```
 
-
-## Análise dos resíduos do modelo - Pacote car
-
-```{r residuos1b, message=FALSE, fig.height= 7}
-residualPlots(mod1, tests=FALSE)
-influencePlot(mod1)
-qqPlot(mod1, main="Gráfico QQ")
-```
 
 ## 2o Modelo de Regressão
 
@@ -212,15 +205,11 @@ scatterplot(Vendas ~ Radio, data = conj_treino, smooth=F)
 ## Calculando o erro padrão do resíduo com amostra de teste
 
 ```{r avaliando_Radio}
+## Erro com conjunto de teste
 sqrt(mean((conj_teste$Vendas - predict(mod2, conj_teste)) ^ 2)) 
-```
 
-## Análise dos resíduos do modelo - Pacote car
-
-```{r}
-residualPlots(mod2, tests=FALSE)
-influencePlot(mod2)
-qqPlot(mod2, main="Gráfico QQ")
+## Error com conjunto de treino
+summary(mod2)$sigma
 ```
 
 
@@ -246,13 +235,11 @@ scatterplot(Vendas ~ Jornal, data = conj_treino, smooth=F)
 ## Calculando o erro padrão do resíduo com amostra de teste
 
 ```{r avaliando_mod3}
+## Erro com conjunto de teste
 sqrt(mean((conj_teste$Vendas - predict(mod3, conj_teste)) ^ 2)) 
+
+## Error com conjunto de treino
+summary(mod3)$sigma
+
 ```
 
-## Análise dos resíduos do modelo - Pacote car
-
-```{r}
-residualPlots(mod3, tests=FALSE)
-influencePlot(mod3)
-qqPlot(mod3, main="Gráfico QQ")
-```
