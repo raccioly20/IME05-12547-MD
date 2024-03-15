@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-03-15">
-<title>IME05-12547 - Regressão Linear</title>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.4.549" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+<meta name="author" content="Ricardo Accioly" />
+<meta name="dcterms.date" content="2024-03-15" />
+
+<title>IME05-12547 – Regressão Linear</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -55,25 +60,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../semanas/Aula07.2.html" rel="next">
-<link href="../semanas/Aula06A.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<!-- htmldependencies:E3FAD763 -->
+<script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -100,34 +88,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<meta name="twitter:title" content="IME05-12547 - Regressão Linear">
-<meta name="twitter:description" content="Mineração de Dados">
-<meta name="twitter:image" content="images/md.png">
-<meta name="twitter:creator" content="@r_accioly">
-<meta name="twitter:card" content="summary_large_image">
+
+
 </head>
-<body class="nav-sidebar docked">
+
+<body>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn"
+      data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula07.1.html">Regressão Simples</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <h1 class="quarto-secondary-nav-title no-breadcrumbs"></h1>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" 
+        aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+        onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="/index.html" class="sidebar-logo-link">
+      <img src="/images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"/>
+      </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/r_accioly" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+    <a href="https://github.com/raccioly20"  title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/r_accioly"  title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -138,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item sidebar-item-section">
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">Informação da disciplina</span></a>
@@ -146,21 +144,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">
+  <a href="/visao-do-curso.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visão Geral</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
+  <a href="/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cronograma</span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
@@ -169,15 +167,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../about.html" class="sidebar-item-text sidebar-link">
+  <a href="/about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sobre</span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
@@ -186,15 +184,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">
+  <a href="/acesso-rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Acesso</span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
@@ -203,211 +201,184 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 01</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula01A.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula01A.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 01A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula02.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 02</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula03.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula03.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 03</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula04.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula04.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 04</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula05.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula05.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 05</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula06.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula06.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 06</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula06A.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula06A.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 06A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.1.html" class="sidebar-item-text sidebar-link active">
+  <a href="/semanas/Aula07.1.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Regressão Simples</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.2.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula07.2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regressão Múltipla</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.2A.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula07.2A.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Problemas em Regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.3.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula07.3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Seleção de Modelos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.4.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula07.4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Métodos de Encolhimento</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.4A.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula07.4A.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Métodos de Encolhimento</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula08.0.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula08.0.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Classificação 1os passos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula08.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula08.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">KNN</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula09.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula09.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regressão Logística</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula09A.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula09A.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SMOTE</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula10.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula10.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">LDA-QDA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula11.1.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula11.1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arvore de Regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula11.2.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula11.2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arvore de Regressão (GBM)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula11.3.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula11.3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arvore de Regressão (XGBoost)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arvore de Classificação</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arvore de Classificação</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula12.3.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula12.3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arvore de Classificação XGBooost</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula13.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula13.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Clusters</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula14.html" class="sidebar-item-text sidebar-link">
+  <a href="/semanas/Aula14.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Associação</span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" ></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
-   
-  <ul>
-<li><a href="#carregando-bibliotecas" id="toc-carregando-bibliotecas" class="nav-link active" data-scroll-target="#carregando-bibliotecas">Carregando bibliotecas</a></li>
-  <li><a href="#dados-de-propaganda" id="toc-dados-de-propaganda" class="nav-link" data-scroll-target="#dados-de-propaganda">Dados de propaganda</a></li>
-  <li><a href="#renomeando" id="toc-renomeando" class="nav-link" data-scroll-target="#renomeando">Renomeando</a></li>
-  <li><a href="#sumario" id="toc-sumario" class="nav-link" data-scroll-target="#sumario">Sumario</a></li>
-  <li><a href="#linhas-inicias" id="toc-linhas-inicias" class="nav-link" data-scroll-target="#linhas-inicias">Linhas inicias</a></li>
-  <li><a href="#criando-amostra-de-treino-e-teste" id="toc-criando-amostra-de-treino-e-teste" class="nav-link" data-scroll-target="#criando-amostra-de-treino-e-teste">Criando amostra de treino e teste</a></li>
-  <li><a href="#primeira-visualiza%C3%A7%C3%A3o-dos-dados" id="toc-primeira-visualização-dos-dados" class="nav-link" data-scroll-target="#primeira-visualiza%C3%A7%C3%A3o-dos-dados">Primeira visualização dos dados</a></li>
-  <li><a href="#usando-o-ggplot" id="toc-usando-o-ggplot" class="nav-link" data-scroll-target="#usando-o-ggplot">Usando o ggplot</a></li>
-  <li><a href="#matriz-de-dispers%C3%A3o" id="toc-matriz-de-dispersão" class="nav-link" data-scroll-target="#matriz-de-dispers%C3%A3o">Matriz de dispersão</a></li>
-  <li><a href="#o-mod-regress%C3%A3o" id="toc-o-mod-regressão" class="nav-link" data-scroll-target="#o-mod-regress%C3%A3o">1o Mod Regressão</a></li>
-  <li><a href="#outra-forma-de-representa%C3%A7%C3%A3o-do-1o-modelo" id="toc-outra-forma-de-representação-do-1o-modelo" class="nav-link" data-scroll-target="#outra-forma-de-representa%C3%A7%C3%A3o-do-1o-modelo">Outra forma de representação do 1o Modelo</a></li>
-  <li><a href="#outra-forma-de-representa%C3%A7%C3%A3o-do-1o-modelo-1" id="toc-outra-forma-de-representação-do-1o-modelo-1" class="nav-link" data-scroll-target="#outra-forma-de-representa%C3%A7%C3%A3o-do-1o-modelo-1">Outra forma de representação do 1o Modelo</a></li>
-  <li><a href="#extraindo-informa%C3%A7%C3%B5es-do-1o-ajuste" id="toc-extraindo-informações-do-1o-ajuste" class="nav-link" data-scroll-target="#extraindo-informa%C3%A7%C3%B5es-do-1o-ajuste">Extraindo informações do 1o ajuste</a></li>
-  <li><a href="#extraindo-usando-uma-fun%C3%A7%C3%A3o-do-pacote-car" id="toc-extraindo-usando-uma-função-do-pacote-car" class="nav-link" data-scroll-target="#extraindo-usando-uma-fun%C3%A7%C3%A3o-do-pacote-car">Extraindo usando uma função do pacote car</a></li>
-  <li><a href="#intervalo-de-confian%C3%A7a" id="toc-intervalo-de-confiança" class="nav-link" data-scroll-target="#intervalo-de-confian%C3%A7a">Intervalo de Confiança</a></li>
-  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">Anova</a></li>
-  <li><a href="#previs%C3%B5es" id="toc-previsões" class="nav-link" data-scroll-target="#previs%C3%B5es">Previsões</a></li>
-  <li><a href="#calculando-o-erro-padr%C3%A3o-do-res%C3%ADduo-com-amostra-de-teste" id="toc-calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste" class="nav-link" data-scroll-target="#calculando-o-erro-padr%C3%A3o-do-res%C3%ADduo-com-amostra-de-teste">Calculando o erro padrão do resíduo com amostra de teste</a></li>
-  <li><a href="#an%C3%A1lise-dos-res%C3%ADduos-do-modelo" id="toc-análise-dos-resíduos-do-modelo" class="nav-link" data-scroll-target="#an%C3%A1lise-dos-res%C3%ADduos-do-modelo">Análise dos resíduos do modelo</a></li>
-  <li><a href="#an%C3%A1lise-dos-res%C3%ADduos-do-modelo---pacote-car" id="toc-análise-dos-resíduos-do-modelo---pacote-car" class="nav-link" data-scroll-target="#an%C3%A1lise-dos-res%C3%ADduos-do-modelo---pacote-car">Análise dos resíduos do modelo - Pacote car</a></li>
-  <li><a href="#o-modelo-de-regress%C3%A3o" id="toc-o-modelo-de-regressão" class="nav-link" data-scroll-target="#o-modelo-de-regress%C3%A3o">2o Modelo de Regressão</a></li>
-  <li><a href="#outra-forma-de-representa%C3%A7%C3%A3o-do-2o-modelo" id="toc-outra-forma-de-representação-do-2o-modelo" class="nav-link" data-scroll-target="#outra-forma-de-representa%C3%A7%C3%A3o-do-2o-modelo">Outra forma de representação do 2o Modelo</a></li>
-  <li><a href="#calculando-o-erro-padr%C3%A3o-do-res%C3%ADduo-com-amostra-de-teste-1" id="toc-calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1" class="nav-link" data-scroll-target="#calculando-o-erro-padr%C3%A3o-do-res%C3%ADduo-com-amostra-de-teste-1">Calculando o erro padrão do resíduo com amostra de teste</a></li>
-  <li><a href="#an%C3%A1lise-dos-res%C3%ADduos-do-modelo---pacote-car-1" id="toc-análise-dos-resíduos-do-modelo---pacote-car-1" class="nav-link" data-scroll-target="#an%C3%A1lise-dos-res%C3%ADduos-do-modelo---pacote-car-1">Análise dos resíduos do modelo - Pacote car</a></li>
-  <li><a href="#o-modelo-de-regress%C3%A3o-1" id="toc-o-modelo-de-regressão-1" class="nav-link" data-scroll-target="#o-modelo-de-regress%C3%A3o-1">3o Modelo de Regressão</a></li>
-  <li><a href="#outra-forma-de-representa%C3%A7%C3%A3o-do-3o-modelo" id="toc-outra-forma-de-representação-do-3o-modelo" class="nav-link" data-scroll-target="#outra-forma-de-representa%C3%A7%C3%A3o-do-3o-modelo">Outra forma de representação do 3o Modelo</a></li>
-  <li><a href="#calculando-o-erro-padr%C3%A3o-do-res%C3%ADduo-com-amostra-de-teste-2" id="toc-calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2" class="nav-link" data-scroll-target="#calculando-o-erro-padr%C3%A3o-do-res%C3%ADduo-com-amostra-de-teste-2">Calculando o erro padrão do resíduo com amostra de teste</a></li>
-  <li><a href="#an%C3%A1lise-dos-res%C3%ADduos-do-modelo---pacote-car-2" id="toc-análise-dos-resíduos-do-modelo---pacote-car-2" class="nav-link" data-scroll-target="#an%C3%A1lise-dos-res%C3%ADduos-do-modelo---pacote-car-2">Análise dos resíduos do modelo - Pacote car</a></li>
-  </ul></nav>
+        <div id="quarto-toc-target"></div>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula07.1.html">Regressão Simples</a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
 <h1 class="title">Regressão Linear</h1>
 </div>
 
@@ -434,9 +405,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="carregando-bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="carregando-bibliotecas">Carregando bibliotecas</h2>
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#carregando-bibliotecas" id="toc-carregando-bibliotecas">Carregando bibliotecas</a></li>
+  <li><a href="#dados-de-propaganda" id="toc-dados-de-propaganda">Dados de propaganda</a></li>
+  <li><a href="#renomeando" id="toc-renomeando">Renomeando</a></li>
+  <li><a href="#sumario" id="toc-sumario">Sumario</a></li>
+  <li><a href="#linhas-inicias" id="toc-linhas-inicias">Linhas inicias</a></li>
+  <li><a href="#criando-amostra-de-treino-e-teste" id="toc-criando-amostra-de-treino-e-teste">Criando amostra de treino e teste</a></li>
+  <li><a href="#primeira-visualização-dos-dados" id="toc-primeira-visualização-dos-dados">Primeira visualização dos dados</a></li>
+  <li><a href="#usando-o-ggplot" id="toc-usando-o-ggplot">Usando o ggplot</a></li>
+  <li><a href="#matriz-de-dispersão" id="toc-matriz-de-dispersão">Matriz de dispersão</a></li>
+  <li><a href="#o-mod-regressão" id="toc-o-mod-regressão">1o Mod Regressão</a></li>
+  <li><a href="#outra-forma-de-representação-do-1o-modelo" id="toc-outra-forma-de-representação-do-1o-modelo">Outra forma de representação do 1o Modelo</a></li>
+  <li><a href="#outra-forma-de-representação-do-1o-modelo-1" id="toc-outra-forma-de-representação-do-1o-modelo-1">Outra forma de representação do 1o Modelo</a></li>
+  <li><a href="#extraindo-informações-do-1o-ajuste" id="toc-extraindo-informações-do-1o-ajuste">Extraindo informações do 1o ajuste</a></li>
+  <li><a href="#extraindo-usando-uma-função-do-pacote-car" id="toc-extraindo-usando-uma-função-do-pacote-car">Extraindo usando uma função do pacote car</a></li>
+  <li><a href="#intervalo-de-confiança" id="toc-intervalo-de-confiança">Intervalo de Confiança</a></li>
+  <li><a href="#anova" id="toc-anova">Anova</a></li>
+  <li><a href="#previsões" id="toc-previsões">Previsões</a></li>
+  <li><a href="#calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste" id="toc-calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste">Calculando o erro padrão do resíduo com amostra de teste</a></li>
+  <li><a href="#análise-dos-resíduos-do-modelo" id="toc-análise-dos-resíduos-do-modelo">Análise dos resíduos do modelo</a></li>
+  <li><a href="#análise-dos-resíduos-do-modelo---pacote-car" id="toc-análise-dos-resíduos-do-modelo---pacote-car">Análise dos resíduos do modelo - Pacote car</a></li>
+  <li><a href="#o-modelo-de-regressão" id="toc-o-modelo-de-regressão">2o Modelo de Regressão</a></li>
+  <li><a href="#outra-forma-de-representação-do-2o-modelo" id="toc-outra-forma-de-representação-do-2o-modelo">Outra forma de representação do 2o Modelo</a></li>
+  <li><a href="#calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1" id="toc-calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1">Calculando o erro padrão do resíduo com amostra de teste</a></li>
+  <li><a href="#análise-dos-resíduos-do-modelo---pacote-car-1" id="toc-análise-dos-resíduos-do-modelo---pacote-car-1">Análise dos resíduos do modelo - Pacote car</a></li>
+  <li><a href="#o-modelo-de-regressão-1" id="toc-o-modelo-de-regressão-1">3o Modelo de Regressão</a></li>
+  <li><a href="#outra-forma-de-representação-do-3o-modelo" id="toc-outra-forma-de-representação-do-3o-modelo">Outra forma de representação do 3o Modelo</a></li>
+  <li><a href="#calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2" id="toc-calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2">Calculando o erro padrão do resíduo com amostra de teste</a></li>
+  <li><a href="#análise-dos-resíduos-do-modelo---pacote-car-2" id="toc-análise-dos-resíduos-do-modelo---pacote-car-2">Análise dos resíduos do modelo - Pacote car</a></li>
+  </ul>
+</nav>
+<section id="carregando-bibliotecas" class="level2">
+<h2>Carregando bibliotecas</h2>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -450,12 +458,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 </div>
-</section><section id="dados-de-propaganda" class="level2"><h2 class="anchored" data-anchor-id="dados-de-propaganda">Dados de propaganda</h2>
+</section>
+<section id="dados-de-propaganda" class="level2">
+<h2>Dados de propaganda</h2>
 <p>O conjunto de dados contém estatísticas sobre as vendas de um produto em 200 diferentes mercados, juntamente com orçamentos publicitários em cada um desses mercados, para diferentes canais de mídia: TV, rádio e jornal. As vendas estão em milhares de unidades e o orçamento está em milhares de dólares.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span>
-<span><span class="va">propaganda</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"Propaganda.xlsx"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">propaganda</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>propaganda <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Propaganda.xlsx&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(propaganda)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       TV             Radio          Newspaper          Sales      
  Min.   :  0.70   Min.   : 0.000   Min.   :  0.30   Min.   : 1.60  
@@ -466,40 +476,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  Max.   :296.40   Max.   :49.600   Max.   :114.00   Max.   :27.00  </code></pre>
 </div>
 </div>
-</section><section id="renomeando" class="level2"><h2 class="anchored" data-anchor-id="renomeando">Renomeando</h2>
+</section>
+<section id="renomeando" class="level2">
+<h2>Renomeando</h2>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">propaganda</span> <span class="op">&lt;-</span> <span class="va">propaganda</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>Jornal <span class="op">=</span> <span class="va">Newspaper</span>, Vendas <span class="op">=</span> <span class="va">Sales</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>propaganda <span class="ot">&lt;-</span> propaganda <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Jornal =</span> Newspaper, <span class="at">Vendas =</span> Sales)</span></code></pre></div>
 </div>
-</section><section id="sumario" class="level2"><h2 class="anchored" data-anchor-id="sumario">Sumario</h2>
+</section>
+<section id="sumario" class="level2">
+<h2>Sumario</h2>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dcomtois/summarytools">summarytools</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
-Attaching package: 'summarytools'</code></pre>
+Attaching package: &#39;summarytools&#39;</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:tibble':
+<pre><code>The following object is masked from &#39;package:tibble&#39;:
 
     view</code></pre>
 </div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/summarytools/man/dfSummary.html">dfSummary</a></span><span class="op">(</span><span class="va">propaganda</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/summarytools/man/view.html">stview</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"render"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dfSummary</span>(propaganda) <span class="sc">|&gt;</span> <span class="fu">stview</span>(<span class="at">method =</span> <span class="st">&quot;render&quot;</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div class="container st-container">
-<h3 class="anchored">Data Frame Summary</h3>
-<h4 class="anchored">propaganda</h4>
+<h3>Data Frame Summary</h3>
+<h4>propaganda</h4>
 <strong>Dimensions</strong>: 200 x 4
-  <br><strong>Duplicates</strong>: 0
-<br><table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline table-sm small" data-quarto-postprocess="true">
+  <br/><strong>Duplicates</strong>: 0
+<br/>
+
+<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline" style="width:100%;" data-quarto-postprocess="true">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
 </colgroup>
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>No</strong></th>
 <th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Variable</strong></th>
 <th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Stats / Values</strong></th>
@@ -507,12 +524,14 @@ Attaching package: 'summarytools'</code></pre>
 <th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Graph</strong></th>
 <th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Valid</strong></th>
 <th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Missing</strong></th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">1</td>
 <td style="text-align: left;">TV [numeric]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table data-quarto-postprocess="true" class="table table-sm table-striped small"><tbody>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table data-quarto-postprocess="true" style="border-collapse:collapse;border:none;margin:0">
+<tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 147 (85.9)</td>
 </tr>
@@ -525,16 +544,18 @@ Attaching package: 'summarytools'</code></pre>
 <tr class="even" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 144.4 (0.6)</td>
 </tr>
-</tbody></table></td>
+</tbody>
+</table></td>
 <td style="text-align: left; vertical-align: middle;">190 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfoAw8MJxTgBca1AAAAe0lEQVRo3u3VwQ2DMAxA0azQboC7Qdl/N47xJaJ1EAL0/jGxnnKKW1Ol11+9o7ek8xq29mAw2G2w9A3ENPbpt18Y7AxssMdq2GDyslje4jGNrbsjO9jgNTVscAyDwWBPxPL/OY3lERgMBoPBYDAYDAaDwWCwn7A4pKZKG7FOpHhDPzaVAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfoAw8MJxTgBca1AAAAe0lEQVRo3u3VwQ2DMAxA0azQboC7Qdl/N47xJaJ1EAL0/jGxnnKKW1Ol11+9o7ek8xq29mAw2G2w9A3ENPbpt18Y7AxssMdq2GDyslje4jGNrbsjO9jgNTVscAyDwWBPxPL/OY3lERgMBoPBYDAYDAaDwWCwn7A4pKZKG7FOpHhDPzaVAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;" /></td>
 <td style="text-align: center;">200 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2</td>
 <td style="text-align: left;">Radio [numeric]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table data-quarto-postprocess="true" class="table table-sm table-striped small"><tbody>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table data-quarto-postprocess="true" style="border-collapse:collapse;border:none;margin:0">
+<tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 23.3 (14.8)</td>
 </tr>
@@ -547,16 +568,18 @@ Attaching package: 'summarytools'</code></pre>
 <tr class="even" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 26.5 (0.6)</td>
 </tr>
-</tbody></table></td>
+</tbody>
+</table></td>
 <td style="text-align: left; vertical-align: middle;">167 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfoAw8MJxTgBca1AAAAlklEQVRo3u3WQQqAIBCFYa9QN0hvUPe/W5CzmXi40IFM/rdxkx+PEbGUSE9yzbENxbByPQEDAwMDWwXb7ZmIweoXJxjYXFjjZ8hj+j54rFHwhcmeP8PU6DTmRycxVVBjviBYLOYOdRRzBZfHbHQxWBH7wObC7MBjMFsWwvx9GMRaCxgYGBgYGBgYGBgYGNg3WA5JIj25AXeTOH0Om8ZwAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfoAw8MJxTgBca1AAAAlklEQVRo3u3WQQqAIBCFYa9QN0hvUPe/W5CzmXi40IFM/rdxkx+PEbGUSE9yzbENxbByPQEDAwMDWwXb7ZmIweoXJxjYXFjjZ8hj+j54rFHwhcmeP8PU6DTmRycxVVBjviBYLOYOdRRzBZfHbHQxWBH7wObC7MBjMFsWwvx9GMRaCxgYGBgYGBgYGBgYGNg3WA5JIj25AXeTOH0Om8ZwAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;" /></td>
 <td style="text-align: center;">200 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">3</td>
 <td style="text-align: left;">Jornal [numeric]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table data-quarto-postprocess="true" class="table table-sm table-striped small"><tbody>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table data-quarto-postprocess="true" style="border-collapse:collapse;border:none;margin:0">
+<tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 30.6 (21.8)</td>
 </tr>
@@ -569,16 +592,18 @@ Attaching package: 'summarytools'</code></pre>
 <tr class="even" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 32.4 (0.7)</td>
 </tr>
-</tbody></table></td>
+</tbody>
+</table></td>
 <td style="text-align: left; vertical-align: middle;">172 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfoAw8MJxTgBca1AAAAk0lEQVRo3u3XzQ2AIAxAYVbQDYQNcP/djIVDLxgoDdH43oEYTL548K8hkKUoHdtcFUvnHRgYmC+2l+fUCZPDDAb2Cazc+06YrBkMbB1m+cdqYpYvDBgYGBjYMDY4ID9jaez6lmPdU0YPVrbBwMDAwMDAwP6JRdU0prYzGBiYG9YY9myYrG/H9JtpGtMnKxZdCmTpAupJQPFhiFzWAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfoAw8MJxTgBca1AAAAk0lEQVRo3u3XzQ2AIAxAYVbQDYQNcP/djIVDLxgoDdH43oEYTL548K8hkKUoHdtcFUvnHRgYmC+2l+fUCZPDDAb2Cazc+06YrBkMbB1m+cdqYpYvDBgYGBjYMDY4ID9jaez6lmPdU0YPVrbBwMDAwMDAwP6JRdU0prYzGBiYG9YY9myYrG/H9JtpGtMnKxZdCmTpAupJQPFhiFzWAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;" /></td>
 <td style="text-align: center;">200 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">4</td>
 <td style="text-align: left;">Vendas [numeric]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table data-quarto-postprocess="true" class="table table-sm table-striped small"><tbody>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table data-quarto-postprocess="true" style="border-collapse:collapse;border:none;margin:0">
+<tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 14 (5.2)</td>
 </tr>
@@ -591,23 +616,27 @@ Attaching package: 'summarytools'</code></pre>
 <tr class="even" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 7 (0.4)</td>
 </tr>
-</tbody></table></td>
+</tbody>
+</table></td>
 <td style="text-align: left; vertical-align: middle;">121 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfoAw8MJxTgBca1AAAAe0lEQVRo3u3XwQnAIBAF0W3BdBDtIPbfW27hE0JWXAWRmZMHfehJ1ox6St9lKfn9Y6U+XWBgYGBgYGBgYGBgYGA+1jCUtWPVv+Vk7JDnxDE5BQYGBgYG9sbkzznDmKzBwMDAwMA2x3QMDWO6ZXlMXx7Gir9zBywPyainG6aOXgT5g5DFAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfoAw8MJxTgBca1AAAAe0lEQVRo3u3XwQnAIBAF0W3BdBDtIPbfW27hE0JWXAWRmZMHfehJ1ox6St9lKfn9Y6U+XWBgYGBgYGBgYGBgYGA+1jCUtWPVv+Vk7JDnxDE5BQYGBgYG9sbkzznDmKzBwMDAwMA2x3QMDWO6ZXlMXx7Gir9zBywPyainG6aOXgT5g5DFAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;" /></td>
 <td style="text-align: center;">200 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 </tbody>
 </table>
-<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.3.3)<br>2024-03-15</p>
+
+<p>Generated by <a href='https://github.com/dcomtois/summarytools'>summarytools</a> 1.0.1 (<a href='https://www.r-project.org/'>R</a> version 4.3.3)<br/>2024-03-15</p>
 </div>
 </div>
 </div>
-</section><section id="linhas-inicias" class="level2"><h2 class="anchored" data-anchor-id="linhas-inicias">Linhas inicias</h2>
+</section>
+<section id="linhas-inicias" class="level2">
+<h2>Linhas inicias</h2>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">propaganda</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Propaganda"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(propaganda, <span class="dv">10</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;Propaganda&quot;</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div id="eyhspviipj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#eyhspviipj table {
@@ -1049,7 +1078,8 @@ Attaching package: 'summarytools'</code></pre>
   text-indent: 25px;
 }
 </style>
-<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="header gt_heading">
 <th colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border">Propaganda</th>
@@ -1124,20 +1154,23 @@ Attaching package: 'summarytools'</code></pre>
 </tr>
 </tbody>
 </table>
+
 </div>
 </div>
 </div>
-</section><section id="criando-amostra-de-treino-e-teste" class="level2"><h2 class="anchored" data-anchor-id="criando-amostra-de-treino-e-teste">Criando amostra de treino e teste</h2>
+</section>
+<section id="criando-amostra-de-treino-e-teste" class="level2">
+<h2>Criando amostra de treino e teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">propaganda</span><span class="op">$</span><span class="va">Vendas</span></span>
-<span><span class="va">indice_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.40</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">propaganda</span><span class="op">[</span><span class="op">-</span><span class="va">indice_teste</span>, <span class="op">]</span></span>
-<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">propaganda</span><span class="op">[</span><span class="va">indice_teste</span>, <span class="op">]</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> propaganda<span class="sc">$</span>Vendas</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>indice_teste <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(y, <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> <span class="fl">0.40</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> propaganda[<span class="sc">-</span>indice_teste, ]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> propaganda[indice_teste, ]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_treino)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [119 × 4] (S3: tbl_df/tbl/data.frame)
  $ TV    : num [1:119] 230.1 151.5 180.8 199.8 66.1 ...
@@ -1145,7 +1178,7 @@ Attaching package: 'summarytools'</code></pre>
  $ Jornal: num [1:119] 69.2 58.5 58.4 21.2 24.2 65.9 7.2 52.9 18.3 19.1 ...
  $ Vendas: num [1:119] 22.1 18.5 12.9 10.6 8.6 9.2 9.7 22.4 11.3 14.6 ...</code></pre>
 </div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_teste)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [81 × 4] (S3: tbl_df/tbl/data.frame)
  $ TV    : num [1:81] 44.5 17.2 8.7 57.5 120.2 ...
@@ -1153,8 +1186,8 @@ Attaching package: 'summarytools'</code></pre>
  $ Jornal: num [1:81] 45.1 69.3 75 23.5 11.6 1 4 46 114 55.8 ...
  $ Vendas: num [1:81] 10.4 9.3 7.2 11.8 13.2 4.8 17.4 19 12.5 24.4 ...</code></pre>
 </div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">conj_treino</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>   <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Propaganda"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gt<span class="sc">::</span><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))   <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;Propaganda&quot;</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div id="ikcyvpxrcq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ikcyvpxrcq table {
@@ -1596,7 +1629,8 @@ Attaching package: 'summarytools'</code></pre>
   text-indent: 25px;
 }
 </style>
-<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="header gt_heading">
 <th colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border">Propaganda</th>
@@ -1671,23 +1705,29 @@ Attaching package: 'summarytools'</code></pre>
 </tr>
 </tbody>
 </table>
+
 </div>
 </div>
 </div>
-</section><section id="primeira-visualização-dos-dados" class="level2"><h2 class="anchored" data-anchor-id="primeira-visualização-dos-dados">Primeira visualização dos dados</h2>
+</section>
+<section id="primeira-visualização-dos-dados" class="level2">
+<h2>Primeira visualização dos dados</h2>
 <p>Aqui estou usando uma função do pacote caret que de uma maneira simples apresenta a relação entre a variável resposta e suas possíveis variáveis explicativas</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/featurePlot.html">featurePlot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">conj_treino</span><span class="op">[</span> , <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"TV"</span>, <span class="st">"Radio"</span>, <span class="st">"Jornal"</span><span class="op">)</span><span class="op">]</span>, y <span class="op">=</span> <span class="va">conj_treino</span><span class="op">$</span><span class="va">Vendas</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">featurePlot</span>(<span class="at">x =</span> conj_treino[ , <span class="fu">c</span>(<span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Radio&quot;</span>, <span class="st">&quot;Jornal&quot;</span>)], <span class="at">y =</span> conj_treino<span class="sc">$</span>Vendas)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/caret-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/caret-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="usando-o-ggplot" class="level2"><h2 class="anchored" data-anchor-id="usando-o-ggplot">Usando o ggplot</h2>
+</section>
+<section id="usando-o-ggplot" class="level2">
+<h2>Usando o ggplot</h2>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">conj_treino</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))</span></code></pre></div>
 <div class="cell-output-display">
 <div id="wcjxydfocs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#wcjxydfocs table {
@@ -2129,13 +2169,16 @@ Attaching package: 'summarytools'</code></pre>
   text-indent: 25px;
 }
 </style>
-<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead><tr class="header gt_col_headings">
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
 <th id="TV" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">TV</th>
 <th id="Radio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Radio</th>
 <th id="Jornal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Jornal</th>
 <th id="Vendas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Vendas</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_right" headers="TV">230.1</td>
@@ -2199,10 +2242,11 @@ Attaching package: 'summarytools'</code></pre>
 </tr>
 </tbody>
 </table>
+
 </div>
 </div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">c_treino_pivot</span> <span class="op">&lt;-</span> <span class="va">conj_treino</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">Vendas</span>, names_to<span class="op">=</span><span class="st">"Tipo"</span>, values_to<span class="op">=</span><span class="st">"Orçamento"</span> <span class="op">)</span> </span>
-<span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">c_treino_pivot</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>c_treino_pivot <span class="ot">&lt;-</span> conj_treino <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">!</span>Vendas, <span class="at">names_to=</span><span class="st">&quot;Tipo&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;Orçamento&quot;</span> ) </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(c_treino_pivot, <span class="dv">10</span>))</span></code></pre></div>
 <div class="cell-output-display">
 <div id="eqztfiyvbl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#eqztfiyvbl table {
@@ -2644,12 +2688,15 @@ Attaching package: 'summarytools'</code></pre>
   text-indent: 25px;
 }
 </style>
-<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead><tr class="header gt_col_headings">
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
 <th id="Vendas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Vendas</th>
 <th id="Tipo" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Tipo</th>
 <th id="Orçamento" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Orçamento</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_right" headers="Vendas">22.1</td>
@@ -2703,51 +2750,58 @@ Attaching package: 'summarytools'</code></pre>
 </tr>
 </tbody>
 </table>
+
 </div>
 </div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_treino</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">Vendas</span>, names_to<span class="op">=</span><span class="st">"Tipo"</span>, values_to<span class="op">=</span><span class="st">"Orçamento"</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Orçamento</span>, y<span class="op">=</span><span class="va">Vendas</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">Tipo</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Orçamento (1000 US$)"</span>, </span>
-<span>                 y <span class="op">=</span> <span class="st">"Vendas (em 1000 unidades vendidas)"</span>, </span>
-<span>                 title <span class="op">=</span> <span class="st">"Vendas vs Propaganda"</span></span>
-<span>                 <span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">!</span>Vendas, <span class="at">names_to=</span><span class="st">&quot;Tipo&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;Orçamento&quot;</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Orçamento, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">facet_wrap</span>( <span class="sc">~</span> Tipo, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Orçamento (1000 US$)&quot;</span>, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> <span class="st">&quot;Vendas (em 1000 unidades vendidas)&quot;</span>, </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">&quot;Vendas vs Propaganda&quot;</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                 ) </span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/ggplot-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/ggplot-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="matriz-de-dispersão" class="level2"><h2 class="anchored" data-anchor-id="matriz-de-dispersão">Matriz de dispersão</h2>
+</section>
+<section id="matriz-de-dispersão" class="level2">
+<h2>Matriz de dispersão</h2>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/pairs.panels.html">pairs.panels</a></span><span class="op">(</span><span class="va">conj_treino</span>, </span>
-<span>             method <span class="op">=</span> <span class="st">"pearson"</span>, <span class="co"># metodo de correlação</span></span>
-<span>             hist.col <span class="op">=</span> <span class="st">"#00AFBB"</span>,</span>
-<span>             density <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># mostra graficos de densidade</span></span>
-<span>             ellipses <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># mostra elipses de correlação</span></span>
-<span>             <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs.panels</span>(conj_treino, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="co"># metodo de correlação</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">hist.col =</span> <span class="st">&quot;#00AFBB&quot;</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">density =</span> <span class="cn">TRUE</span>,  <span class="co"># mostra graficos de densidade</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">ellipses =</span> <span class="cn">FALSE</span> <span class="co"># mostra elipses de correlação</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>             )</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/splom-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/splom-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="o-mod-regressão" class="level2"><h2 class="anchored" data-anchor-id="o-mod-regressão">1o Mod Regressão</h2>
+</section>
+<section id="o-mod-regressão" class="level2">
+<h2>1o Mod Regressão</h2>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span> <span class="va">Vendas</span> <span class="op">~</span> <span class="va">TV</span>, data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> TV, <span class="at">data =</span> conj_treino)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mod1)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "coefficients"  "residuals"     "effects"       "rank"         
- [5] "fitted.values" "assign"        "qr"            "df.residual"  
- [9] "xlevels"       "call"          "terms"         "model"        </code></pre>
+<pre><code> [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+ [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+ [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;        </code></pre>
 </div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coeflinear</span> <span class="op">&lt;-</span> <span class="va">mod1</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">coefang</span> <span class="op">&lt;-</span> <span class="va">mod1</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod1<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod1<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2762,71 +2816,82 @@ Coefficients:
 (Intercept) 6.929269   0.598642   11.57   &lt;2e-16 ***
 TV          0.046471   0.003471   13.39   &lt;2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
 Residual standard error: 3.167 on 117 degrees of freedom
 Multiple R-squared:  0.605, Adjusted R-squared:  0.6017 
 F-statistic: 179.2 on 1 and 117 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">conj_treino</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">TV</span>, y<span class="op">=</span><span class="va">Vendas</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="va">coefang</span>,intercept <span class="op">=</span> <span class="va">coeflinear</span>, color<span class="op">=</span><span class="st">"blue"</span> <span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept<span class="op">=</span><span class="va">coeflinear</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(conj_treino, <span class="fu">aes</span>(<span class="at">x=</span>TV, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">&quot;blue&quot;</span> ) <span class="sc">+</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/1a_regressão-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/1a_regressão-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="outra-forma-de-representação-do-1o-modelo" class="level2"><h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-1o-modelo">Outra forma de representação do 1o Modelo</h2>
+</section>
+<section id="outra-forma-de-representação-do-1o-modelo" class="level2">
+<h2>Outra forma de representação do 1o Modelo</h2>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/car/man/scatterplot.html">scatterplot</a></span><span class="op">(</span><span class="va">Vendas</span> <span class="op">~</span> <span class="va">TV</span>, data <span class="op">=</span> <span class="va">conj_treino</span>, smooth<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> TV, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/1areg-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/1areg-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="outra-forma-de-representação-do-1o-modelo-1" class="level2"><h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-1o-modelo-1">Outra forma de representação do 1o Modelo</h2>
+</section>
+<section id="outra-forma-de-representação-do-1o-modelo-1" class="level2">
+<h2>Outra forma de representação do 1o Modelo</h2>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jtlandis/ggside">ggside</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggside)</span></code></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Registered S3 method overwritten by 'ggside':
+<pre><code>Registered S3 method overwritten by &#39;ggside&#39;:
   method from   
   +.gg   ggplot2</code></pre>
 </div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">conj_treino</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">TV</span>, y<span class="op">=</span><span class="va">Vendas</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="va">lm</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/ggside/man/geom_xsidehistogram.html">geom_xsidehistogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fl">3.322</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/ggside/man/geom_xsidehistogram.html">geom_ysidehistogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fl">3.322</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(conj_treino, <span class="fu">aes</span>(<span class="at">x=</span>TV, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_xsidehistogram</span>(<span class="at">bins =</span> <span class="fu">round</span>(<span class="dv">1</span><span class="fl">+3.322</span><span class="sc">*</span><span class="fu">log10</span>(<span class="fu">nrow</span>(conj_treino)),<span class="dv">0</span>)) <span class="sc">+</span> </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ysidehistogram</span>(<span class="at">bins =</span> <span class="fu">round</span>(<span class="dv">1</span><span class="fl">+3.322</span><span class="sc">*</span><span class="fu">log10</span>(<span class="fu">nrow</span>(conj_treino)),<span class="dv">0</span>))  </span></code></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+<pre><code>`geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="extraindo-informações-do-1o-ajuste" class="level2"><h2 class="anchored" data-anchor-id="extraindo-informações-do-1o-ajuste">Extraindo informações do 1o ajuste</h2>
+</section>
+<section id="extraindo-informações-do-1o-ajuste" class="level2">
+<h2>Extraindo informações do 1o ajuste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span><span class="op">$</span><span class="va">sigma</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>sigma</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.167319</code></pre>
 </div>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span><span class="op">$</span><span class="va">r.squared</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>r.squared</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.605027</code></pre>
 </div>
 </div>
-</section><section id="extraindo-usando-uma-função-do-pacote-car" class="level2"><h2 class="anchored" data-anchor-id="extraindo-usando-uma-função-do-pacote-car">Extraindo usando uma função do pacote car</h2>
+</section>
+<section id="extraindo-usando-uma-função-do-pacote-car" class="level2">
+<h2>Extraindo usando uma função do pacote car</h2>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/brief.html">brief</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">brief</span>(mod1)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           (Intercept)      TV
 Estimate         6.929 0.04647
@@ -2835,9 +2900,11 @@ Std. Error       0.599 0.00347
  Residual SD = 3.17 on 117 df, R-squared = 0.605 </code></pre>
 </div>
 </div>
-</section><section id="intervalo-de-confiança" class="level2"><h2 class="anchored" data-anchor-id="intervalo-de-confiança">Intervalo de Confiança</h2>
+</section>
+<section id="intervalo-de-confiança" class="level2">
+<h2>Intervalo de Confiança</h2>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2852,22 +2919,24 @@ Coefficients:
 (Intercept) 6.929269   0.598642   11.57   &lt;2e-16 ***
 TV          0.046471   0.003471   13.39   &lt;2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
 Residual standard error: 3.167 on 117 degrees of freedom
 Multiple R-squared:  0.605, Adjusted R-squared:  0.6017 
 F-statistic: 179.2 on 1 and 117 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(mod1)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 2.5 %     97.5 %
 (Intercept) 5.74368904 8.11484821
 TV          0.03959625 0.05334545</code></pre>
 </div>
 </div>
-</section><section id="anova" class="level2"><h2 class="anchored" data-anchor-id="anova">Anova</h2>
+</section>
+<section id="anova" class="level2">
+<h2>Anova</h2>
 <div class="cell">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod1)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -2876,13 +2945,15 @@ Response: Vendas
 TV          1 1798.0 1797.95  179.22 &lt; 2.2e-16 ***
 Residuals 117 1173.7   10.03                      
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 </div>
-</section><section id="previsões" class="level2"><h2 class="anchored" data-anchor-id="previsões">Previsões</h2>
+</section>
+<section id="previsões" class="level2">
+<h2>Previsões</h2>
 <div class="cell">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#?predict</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod1</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>TV<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">150</span>, <span class="fl">250</span><span class="op">)</span><span class="op">)</span>, interval <span class="op">=</span> <span class="st">"prediction"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#?predict</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod1, <span class="fu">data.frame</span>(<span class="at">TV=</span><span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">150</span>, <span class="dv">250</span>)), <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        fit       lwr      upr
 1  9.252811  2.915787 15.58983
@@ -2890,54 +2961,66 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 3 18.546982 12.211175 24.88279</code></pre>
 </div>
 </div>
-</section><section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste" class="level2"><h2 class="anchored" data-anchor-id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste">Calculando o erro padrão do resíduo com amostra de teste</h2>
+</section>
+<section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste" class="level2">
+<h2>Calculando o erro padrão do resíduo com amostra de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">Vendas</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod1</span>, <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod1, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.41382</code></pre>
 </div>
 </div>
-</section><section id="análise-dos-resíduos-do-modelo" class="level2"><h2 class="anchored" data-anchor-id="análise-dos-resíduos-do-modelo">Análise dos resíduos do modelo</h2>
+</section>
+<section id="análise-dos-resíduos-do-modelo" class="level2">
+<h2>Análise dos resíduos do modelo</h2>
 <div class="cell">
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod1)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/residuos1a-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/residuos1a-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/residuos1a-2.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/residuos1a-2.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/residuos1a-3.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/residuos1a-3.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/residuos1a-4.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/residuos1a-4.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="análise-dos-resíduos-do-modelo---pacote-car" class="level2"><h2 class="anchored" data-anchor-id="análise-dos-resíduos-do-modelo---pacote-car">Análise dos resíduos do modelo - Pacote car</h2>
+</section>
+<section id="análise-dos-resíduos-do-modelo---pacote-car" class="level2">
+<h2>Análise dos resíduos do modelo - Pacote car</h2>
 <div class="cell">
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/residualPlots.html">residualPlots</a></span><span class="op">(</span><span class="va">mod1</span>, tests<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(mod1, <span class="at">tests=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/residuos1b-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/residuos1b-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/influencePlot.html">influencePlot</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">influencePlot</span>(mod1)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/residuos1b-2.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/residuos1b-2.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
@@ -2949,10 +3032,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 83  -1.73853104 0.03547025 5.463115e-02
 113  1.91553176 0.03087606 5.714715e-02</code></pre>
 </div>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/qqPlot.html">qqPlot</a></span><span class="op">(</span><span class="va">mod1</span>, main<span class="op">=</span><span class="st">"Gráfico QQ"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(mod1, <span class="at">main=</span><span class="st">&quot;Gráfico QQ&quot;</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/residuos1b-3.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/residuos1b-3.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
@@ -2960,12 +3044,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <pre><code>[1] 16 30</code></pre>
 </div>
 </div>
-</section><section id="o-modelo-de-regressão" class="level2"><h2 class="anchored" data-anchor-id="o-modelo-de-regressão">2o Modelo de Regressão</h2>
+</section>
+<section id="o-modelo-de-regressão" class="level2">
+<h2>2o Modelo de Regressão</h2>
 <div class="cell">
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span> <span class="va">Vendas</span> <span class="op">~</span> <span class="va">Radio</span>, data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span></span>
-<span><span class="va">coeflinear</span> <span class="op">&lt;-</span> <span class="va">mod2</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">coefang</span> <span class="op">&lt;-</span> <span class="va">mod2</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod2<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2980,53 +3066,63 @@ Coefficients:
 (Intercept)  9.22746    0.64377  14.333  &lt; 2e-16 ***
 Radio        0.22144    0.02515   8.806 1.38e-14 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
 Residual standard error: 3.908 on 117 degrees of freedom
 Multiple R-squared:  0.3986,    Adjusted R-squared:  0.3935 
 F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 </div>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">propaganda</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Radio</span>, y<span class="op">=</span><span class="va">Vendas</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="va">coefang</span>,intercept <span class="op">=</span> <span class="va">coeflinear</span>, color<span class="op">=</span><span class="st">"blue"</span> <span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept<span class="op">=</span><span class="va">coeflinear</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Radio, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">&quot;blue&quot;</span> ) <span class="sc">+</span> </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/2modelo-regressão-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/2modelo-regressão-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="outra-forma-de-representação-do-2o-modelo" class="level2"><h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-2o-modelo">Outra forma de representação do 2o Modelo</h2>
+</section>
+<section id="outra-forma-de-representação-do-2o-modelo" class="level2">
+<h2>Outra forma de representação do 2o Modelo</h2>
 <div class="cell">
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/scatterplot.html">scatterplot</a></span><span class="op">(</span><span class="va">Vendas</span> <span class="op">~</span> <span class="va">Radio</span>, data <span class="op">=</span> <span class="va">conj_treino</span>, smooth<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Radio, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/2areg-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/2areg-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1" class="level2"><h2 class="anchored" data-anchor-id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1">Calculando o erro padrão do resíduo com amostra de teste</h2>
+</section>
+<section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-1" class="level2">
+<h2>Calculando o erro padrão do resíduo com amostra de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">Vendas</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod2</span>, <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod2, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.808117</code></pre>
 </div>
 </div>
-</section><section id="análise-dos-resíduos-do-modelo---pacote-car-1" class="level2"><h2 class="anchored" data-anchor-id="análise-dos-resíduos-do-modelo---pacote-car-1">Análise dos resíduos do modelo - Pacote car</h2>
+</section>
+<section id="análise-dos-resíduos-do-modelo---pacote-car-1" class="level2">
+<h2>Análise dos resíduos do modelo - Pacote car</h2>
 <div class="cell">
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/residualPlots.html">residualPlots</a></span><span class="op">(</span><span class="va">mod2</span>, tests<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(mod2, <span class="at">tests=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/influencePlot.html">influencePlot</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">influencePlot</span>(mod2)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
@@ -3037,10 +3133,11 @@ F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 83 -4.5929056 0.02230940 0.20539809
 91  1.3955953 0.04023076 0.04049271</code></pre>
 </div>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/qqPlot.html">qqPlot</a></span><span class="op">(</span><span class="va">mod2</span>, main<span class="op">=</span><span class="st">"Gráfico QQ"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(mod2, <span class="at">main=</span><span class="st">&quot;Gráfico QQ&quot;</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
@@ -3048,12 +3145,14 @@ F-statistic: 77.55 on 1 and 117 DF,  p-value: 1.384e-14</code></pre>
 <pre><code>[1] 45 83</code></pre>
 </div>
 </div>
-</section><section id="o-modelo-de-regressão-1" class="level2"><h2 class="anchored" data-anchor-id="o-modelo-de-regressão-1">3o Modelo de Regressão</h2>
+</section>
+<section id="o-modelo-de-regressão-1" class="level2">
+<h2>3o Modelo de Regressão</h2>
 <div class="cell">
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span> <span class="va">Vendas</span> <span class="op">~</span> <span class="va">Jornal</span>, data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span></span>
-<span><span class="va">coeflinear</span> <span class="op">&lt;-</span> <span class="va">mod3</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">coefang</span> <span class="op">&lt;-</span> <span class="va">mod3</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>coeflinear <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>coefang <span class="ot">&lt;-</span> mod3<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -3068,53 +3167,63 @@ Coefficients:
 (Intercept) 12.08457    0.80845  14.948  &lt; 2e-16 ***
 Jornal       0.06305    0.02290   2.753  0.00685 ** 
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
 Residual standard error: 4.884 on 117 degrees of freedom
 Multiple R-squared:  0.06084,   Adjusted R-squared:  0.05281 
 F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
 </div>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">propaganda</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Jornal</span>, y<span class="op">=</span><span class="va">Vendas</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="va">coefang</span>,intercept <span class="op">=</span> <span class="va">coeflinear</span>, color<span class="op">=</span><span class="st">"blue"</span> <span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept<span class="op">=</span><span class="va">coeflinear</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propaganda, <span class="fu">aes</span>(<span class="at">x=</span>Jornal, <span class="at">y=</span>Vendas)) <span class="sc">+</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> coefang,<span class="at">intercept =</span> coeflinear, <span class="at">color=</span><span class="st">&quot;blue&quot;</span> ) <span class="sc">+</span> </span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>coeflinear, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/3omodelo-regressao-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/3omodelo-regressao-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="outra-forma-de-representação-do-3o-modelo" class="level2"><h2 class="anchored" data-anchor-id="outra-forma-de-representação-do-3o-modelo">Outra forma de representação do 3o Modelo</h2>
+</section>
+<section id="outra-forma-de-representação-do-3o-modelo" class="level2">
+<h2>Outra forma de representação do 3o Modelo</h2>
 <div class="cell">
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/scatterplot.html">scatterplot</a></span><span class="op">(</span><span class="va">Vendas</span> <span class="op">~</span> <span class="va">Jornal</span>, data <span class="op">=</span> <span class="va">conj_treino</span>, smooth<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Vendas <span class="sc">~</span> Jornal, <span class="at">data =</span> conj_treino, <span class="at">smooth=</span>F)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/3areg-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/3areg-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2" class="level2"><h2 class="anchored" data-anchor-id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2">Calculando o erro padrão do resíduo com amostra de teste</h2>
+</section>
+<section id="calculando-o-erro-padrão-do-resíduo-com-amostra-de-teste-2" class="level2">
+<h2>Calculando o erro padrão do resíduo com amostra de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">Vendas</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod3</span>, <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((conj_teste<span class="sc">$</span>Vendas <span class="sc">-</span> <span class="fu">predict</span>(mod3, conj_teste)) <span class="sc">^</span> <span class="dv">2</span>)) </span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.38693</code></pre>
 </div>
 </div>
-</section><section id="análise-dos-resíduos-do-modelo---pacote-car-2" class="level2"><h2 class="anchored" data-anchor-id="análise-dos-resíduos-do-modelo---pacote-car-2">Análise dos resíduos do modelo - Pacote car</h2>
+</section>
+<section id="análise-dos-resíduos-do-modelo---pacote-car-2" class="level2">
+<h2>Análise dos resíduos do modelo - Pacote car</h2>
 <div class="cell">
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/residualPlots.html">residualPlots</a></span><span class="op">(</span><span class="va">mod3</span>, tests<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(mod3, <span class="at">tests=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/influencePlot.html">influencePlot</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">influencePlot</span>(mod3)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
@@ -3126,10 +3235,11 @@ F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
 83  -2.3217975 0.01781860 0.047130377
 113  2.0389969 0.04794865 0.101942230</code></pre>
 </div>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/qqPlot.html">qqPlot</a></span><span class="op">(</span><span class="va">mod3</span>, main<span class="op">=</span><span class="st">"Gráfico QQ"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(mod3, <span class="at">main=</span><span class="st">&quot;Gráfico QQ&quot;</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.1_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid figure-img" width="672"></p>
+<figure>
+<p><img src="Aula07.1_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid" width="672" /></p>
 </figure>
 </div>
 </div>
@@ -3137,9 +3247,19 @@ F-statistic: 7.579 on 1 and 117 DF,  p-value: 0.006847</code></pre>
 <pre><code>[1] 17 83</code></pre>
 </div>
 </div>
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden" data-render-id="quarto-int-sidebar-title">IME05-12547</span> <span class="hidden" data-render-id="quarto-int-navbar-title">IME05-12547</span> <span class="hidden" data-render-id="quarto-int-next">Regressão Múltipla</span> <span class="hidden" data-render-id="quarto-int-prev">Explorando 06A</span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-1">Informação da disciplina</span> <span class="hidden" data-render-id="quarto-int-sidebar:/visao-do-curso.htmlVisão-Geral">Visão Geral</span> <span class="hidden" data-render-id="quarto-int-sidebar:/index.htmlCronograma">Cronograma</span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-2">Sobre</span> <span class="hidden" data-render-id="quarto-int-sidebar:/about.htmlSobre">Sobre</span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-3">RStudio Cloud</span> <span class="hidden" data-render-id="quarto-int-sidebar:/acesso-rstudio.htmlAcesso">Acesso</span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-4">Conteúdo Semanal</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula01.htmlExplorando-01">Explorando 01</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula01A.htmlExplorando-01A">Explorando 01A</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula02.htmlExplorando-02">Explorando 02</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula03.htmlExplorando-03">Explorando 03</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula04.htmlExplorando-04">Explorando 04</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula05.htmlExplorando-05">Explorando 05</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula06.htmlExplorando-06">Explorando 06</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula06A.htmlExplorando-06A">Explorando 06A</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula07.1.htmlRegressão-Simples">Regressão Simples</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula07.2.htmlRegressão-Múltipla">Regressão Múltipla</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula07.2A.htmlProblemas-em-Regressão">Problemas em Regressão</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula07.3.htmlSeleção-de-Modelos">Seleção de Modelos</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula07.4.htmlMétodos-de-Encolhimento">Métodos de Encolhimento</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula07.4A.htmlMétodos-de-Encolhimento">Métodos de Encolhimento</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula08.0.htmlClassificação-1os-passos">Classificação 1os passos</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula08.htmlKNN">KNN</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula09.htmlRegressão-Logística">Regressão Logística</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula09A.htmlSMOTE">SMOTE</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula10.htmlLDA-QDA">LDA-QDA</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula11.1.htmlArvore-de-Regressão">Arvore de Regressão</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula11.2.htmlArvore-de-Regressão-(GBM)">Arvore de Regressão (GBM)</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula11.3.htmlArvore-de-Regressão-(XGBoost)">Arvore de Regressão (XGBoost)</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula12.1.htmlArvore-de-Classificação">Arvore de Classificação</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula12.2.htmlArvore-de-Classificação">Arvore de Classificação</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula12.3.htmlArvore-de-Classificação-XGBooost">Arvore de Classificação XGBooost</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula13.htmlAnálise-de-Clusters">Análise de Clusters</span> <span class="hidden" data-render-id="quarto-int-sidebar:/semanas/Aula14.htmlAnálise-de-Associação">Análise de Associação</span> <span class="hidden" data-render-id="quarto-breadcrumbs-Conteúdo-Semanal">Conteúdo Semanal</span> <span class="hidden" data-render-id="quarto-breadcrumbs-Regressão-Simples">Regressão Simples</span></p>
+<div class="hidden" data-render-id="footer-left">
+<p>Baseado em https://sta210-s22.github.io/website/</p>
+</div>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden" data-render-id="quarto-metatitle">IME05-12547 - Regressão Linear</span> <span class="hidden" data-render-id="quarto-twittercardtitle">IME05-12547 - Regressão Linear</span> <span class="hidden" data-render-id="quarto-ogcardtitle">IME05-12547 - Regressão Linear</span> <span class="hidden" data-render-id="quarto-metasitename">IME05-12547</span> <span class="hidden" data-render-id="quarto-twittercarddesc">Mineração de Dados</span> <span class="hidden" data-render-id="quarto-ogcardddesc">Mineração de Dados</span></p>
+</div>
+</section>
 
-
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</main> <!-- /main -->
+<script id = "quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -3669,22 +3789,25 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="../semanas/Aula06A.html" class="pagination-link  aria-label=" explorando="">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a  href="/semanas/Aula06A.html" class="pagination-link  aria-label="Explorando 06A">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Explorando 06A</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../semanas/Aula07.2.html" class="pagination-link" aria-label="Regressão Múltipla">
+      <a  href="/semanas/Aula07.2.html" class="pagination-link" aria-label="Regressão Múltipla">
         <span class="nav-page-text">Regressão Múltipla</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Baseado em https://sta210-s22.github.io/website/</p>
-</div>   
+      <div class='footer-contents'>Baseado em https://sta210-s22.github.io/website/</div>  
+    </div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
@@ -3694,5 +3817,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 
+</body>
 
-</body></html>
+</html>
