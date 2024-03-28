@@ -1,0 +1,103 @@
+---
+title: "Problemas na Regressão Multipla"
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+format:
+  html:
+    grid: 
+      margin-width: 350px
+    code-link: TRUE
+reference-location: margin
+citation-location: margin
+---
+
+## Carregando bibliotecas
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(caret)
+```
+
+## Dados de pressão sanguinea
+
+-   BP = Pressão sanguínea (em mm Hg)
+
+-   Age = idade (em anos)
+
+-   Weight = peso (em kg)
+
+-   BSA = area superficial do corpo (em m2)
+
+-   Dur = duração da hipertensão (em anos)
+
+-   Pulse = batimentos (batidas por minuto)
+
+-   Stress = índice de stress
+
+```{r}
+pressao_sangue <- read_delim("bloodpress.txt", col_names = TRUE)
+```
+
+## Renomeando
+
+```{r}
+pressao_sangue <- pressao_sangue %>% rename(PS = BP, Idade = Age,
+                                            Peso = Weight, Acorp = BSA,
+                                            Pulso = Pulse)
+```
+
+## Sumario
+
+```{r}
+summary(pressao_sangue)
+```
+
+```{r}
+cor(pressao_sangue[,-1])
+```
+
+Aqui vemos que a presssão sanguinea tem uma correlação forte com o peso e também com a área corporal. O peso e a area corporal tem uma correlação forte. Esta correlação alta pode indicar a existencia de multicolinearidade.
+
+```{r}
+#| message: false
+library(psych)
+pairs.panels(pressao_sangue[,-1])
+```
+
+```{r}
+#| message: false
+dados <- pressao_sangue[,-1]
+mod1 <- lm(PS ~ ., data=dados)
+summary(mod1)
+library(car)
+vif(mod1)
+```
+
+```{r}
+mod2 <- update(mod1,. ~ . -Acorp) 
+summary(mod2)
+vif(mod2)
+```
+
+```{r}
+mod3 <- lm(PS ~ Idade + Peso + Pulso + Stress, data = dados)
+summary(mod3)
+residualPlots(mod3)
+```
+
+## Teste dos resíduos
+
+Teste de normalidade Teste de heterocedasticidade (Bresch-Pagan) Teste de autocorrelação (Durbin-Watson)
+
+```{r}
+#| message: false
+library(lmtest)
+mod3_sum <- summary(mod3)
+# Teste de normalidade
+shapiro.test(mod3_sum$residuals)
+# Teste de hetrocedasticidade
+bptest(mod3)
+# Teste de autocorrelação
+dwtest(mod3)
+```

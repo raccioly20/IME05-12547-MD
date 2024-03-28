@@ -3,8 +3,12 @@ title: "Regressão Linear Múltipla"
 author: "Ricardo Accioly"
 date: "`r Sys.Date()`"
 format:
- html:
-    code-link: true
+  html:
+    grid: 
+      margin-width: 350px
+    code-link: TRUE
+reference-location: margin
+citation-location: margin
 ---
 
 ## Carregando bibliotecas
@@ -78,7 +82,7 @@ conj_treino2 %>% skim()
 conj_teste2 %>% skim()
 ```
 
-Veja que as amostram ficaram com resultados diferentes!
+Veja que as amostram ficaram com resultados diferentes, o que levaria a obtermos modelos diferentes num ajuste de regressão!
 
 ## Regressão Simples
 
@@ -97,6 +101,10 @@ mod4 <- lm( Vendas ~ TV + Radio + Jornal, data = conj_treino)
 summary(mod4)
 ```
 
+Vejam que ao analisarmos a estatística t de Jornal percebemos que não podemos rejeitar a hipótese de que o coeficiente de Jornal possa ser zero.
+
+Vamos refazer o modleo sem Jornal.
+
 ## 2a Regressao Multipla
 
 ```{r}
@@ -104,6 +112,8 @@ mod5 <- lm( Vendas ~ TV + Radio, data = conj_treino)
 summary(mod5)
 
 ```
+
+Agora todas as variáveis tem indicação de significância estatística.
 
 ## Confirmando o teste t com o teste F (ANOVA)
 
@@ -146,6 +156,23 @@ plot(mod5)
 
 ## Análise do Modelo - Parte 2
 
+O pacote easystats tem uma função que faz uma análise mais detalhada do modelo. Os gráficos são mais fáceis de interpretar do que os obtidos com o plot do R base.
+
+```{r}
+#| label: fig-fullwidth
+#| fig-cap: "A full width figure."
+#| fig-width: 11
+#| fig-height: 10
+#| fig-column: page-right
+#| warning: false
+library(easystats)
+check_model(mod5)
+```
+
+## Análise do Modelo - Parte 3
+
+O pacote car apresenta funções mais avançadas para análise de resíduos.
+
 Para o gráfico de resíduos versus valores ajustados, podemos usar um teste chamado teste de Tukey de não aditividade (Tukey, 1949), ele é obtido adicionando os quadrados dos valores ajustados ao modelo e reajustando. O valor p para o teste de Tukey é obtido comparando a estatística de teste para a distribuição padrão-normal. O teste confirma a visível impressão de curvatura no gráfico residual, reforçando ainda mais a conclusão que o modelo não é adequado.
 
 ```{r}
@@ -156,7 +183,10 @@ influencePlot(mod5)
 
 ## Tentando avaliar transformações
 
+Aqui vamos avaliar a necessidade de transformar as variáveis para melhorar o modelo.
+
 ```{r}
+
 summary(p1 <- powerTransform(Vendas ~ TV + Radio, data=conj_treino))
 summary(p2 <- powerTransform(cbind(TV, Radio) ~1 , data=conj_treino))
 boxCox(mod5, lambda = seq(-2, 2, 1/10))

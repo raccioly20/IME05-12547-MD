@@ -1,99 +1,92 @@
 ---
-title: "Problemas na Regressão Multipla"
+title: "Regressão Linear Múltipla"
 author: "Ricardo Accioly"
 date: "`r Sys.Date()`"
 format:
- html:
-    code-link: true
+  html:
+    grid: 
+      margin-width: 350px
+    code-link: TRUE
+reference-location: margin
+citation-location: margin
 ---
 
 ## Carregando bibliotecas
 
 ```{r}
 library(tidyverse)
-library(readxl)
-library(caret)
 ```
 
-## Dados de pressão sanguinea
+## Dados de propaganda
 
--   BP = blood pressure (in mm Hg)
-
--   Age = age (in years)
-
--   Weight = weight (in kg)
-
--   BSA = body surface area (in sq m)
-
--   Dur = duration of hypertension (in years)
-
--   Pulse = basal pulse (in beats per minute)
-
--   Stress = stress index
+O conjunto de dados contém estatísticas sobre as vendas de um produto em 200 diferentes mercados, juntamente com orçamentos publicitários em cada um desses mercados, para diferentes canais de mídia: TV, rádio e jornal. As vendas estão em milhares de unidades e o orçamento está em milhares de dólares.
 
 ```{r}
-pressao_sangue <- read_delim("bloodpress.txt", col_names = TRUE)
+library(readxl)
+propaganda <- read_excel("Propaganda.xlsx")
+summary(propaganda)
 ```
 
 ## Renomeando
 
 ```{r}
-pressao_sangue <- pressao_sangue %>% rename(PS = BP, Idade = Age,
-                                            Peso = Weight, Acorp = BSA,
-                                            Pulso = Pulse)
+propaganda <- propaganda %>% rename(Jornal = Newspaper, Vendas = Sales)
+
 ```
 
-## Sumario
+## Validação cruzada
+
+A validação cruzada é útil para termos uma estimativa do erro fora da amostra. O método de validação cruzada é um procedimento utilizado para estimar a qualidade de um modelo de aprendizado de máquina em dados não vistos. A validação cruzada é um procedimento comum para avaliar a capacidade de generalização de um modelo.
+
 
 ```{r}
-summary(pressao_sangue)
+library(caret)
+set.seed(21)
+modelo <- train( Vendas ~ ., propaganda, method = "lm",
+                 trControl = trainControl(method = "cv", number = 10,
+                                          verboseIter = TRUE))
+# Mostra o modelo
+modelo
+
+# Modelo final
+modelo$finalModel
+
 ```
+
+Veja que a validação cruzada não faz seleção de variáveis.
+
+O modelo final obtido mostra Jornal com um coeficiente negativo!
+
+Esta variável deveria estar fora do modelo.
+
+## Novo modelo
 
 ```{r}
-cor(pressao_sangue[,-1])
+set.seed(21)
+modelo <- train( Vendas ~ TV + Radio, propaganda, method = "lm",
+                 trControl = trainControl(method = "cv", number = 10,
+                                          verboseIter = TRUE))
+# Mostra o modelo
+modelo
+
+# Modelo final
+modelo$finalModel
+
 ```
 
-Aqui vemos que a presssão sanguinea tem uma correlação forte com o peso e também com a área corporal. O peso e a area corporal tem uma correlação forte. Esta correlação alta pode indicar a existencia de multicolinearidade.
 
 ```{r}
-#| message: false
-library(psych)
-pairs.panels(pressao_sangue[,-1])
+set.seed(21)
+y <- propaganda$Vendas
+indice_teste <- createDataPartition(y, times = 1, p = 0.40, list = FALSE)
+conj_treino <- propaganda[-indice_teste, ]
+conj_teste <- propaganda[indice_teste, ]
+
+## Modelo com conjunto de treino
+mod <- lm( Vendas ~ TV + Radio, data = conj_treino)
+summary(mod)
+
+# Erro com conjunto de teste
+sqrt(mean((conj_teste$Vendas - predict(mod, conj_teste)) ^ 2))
 ```
 
-```{r}
-#| message: false
-dados <- pressao_sangue[,-1]
-mod1 <- lm(PS ~ ., data=dados)
-summary(mod1)
-library(car)
-vif(mod1)
-```
-
-```{r}
-mod2 <- update(mod1,. ~ . -Acorp) 
-summary(mod2)
-vif(mod2)
-```
-
-```{r}
-mod3 <- lm(PS ~ Idade + Peso + Pulso + Stress, data = dados)
-summary(mod3)
-residualPlots(mod3)
-```
-
-## Teste dos resíduos
-
-Teste de normalidade Teste de heterocedasticidade (Bresch-Pagan) Teste de autocorrelação (Durbin-Watson)
-
-```{r}
-#| message: false
-library(lmtest)
-mod3_sum <- summary(mod3)
-# Teste de normalidade
-shapiro.test(mod3_sum$residuals)
-# Teste de hetrocedasticidade
-bptest(mod3)
-# Teste de autocorrelação
-dwtest(mod3)
-```
