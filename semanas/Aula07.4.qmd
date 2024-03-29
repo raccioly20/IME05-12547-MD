@@ -12,55 +12,29 @@ format:
 ## Carregando Bibliotecas
 
 ```{r bibliotecas, warning=FALSE, message=FALSE}
-library(MASS)
 library(tidyverse)
 library(glmnet)
-data(Boston)
 ```
 
 ## Carregando os dados
 
-Vamos utilizar neste exemplo os dados contidos na biblioteca MASS. A base de dados Boston tem `r nrow(Boston)` de valores preços medianos de casas na região de Boston com 13 outras variáveis explicativas (potencialmente). Vamos explorar os dados e ajustar modelos com penalização o Ridge e o LASSO e depois vamos comparar com os mínimos quadrados.
+Vendas de casas em Seattle entre 2015 e 2016
 
 ```{r Dados}
-head(Boston)
-summary(Boston)
-```
-
-Observamos acima que todas as variáveis são quantitativas e que não há necessidade de transformações.
-
-## Significado das variáveis
-
-```{r Boston}
-# Boston Database
-# 
-#1) crim - taxa de criminalidade per capita por cidade.
-# 
-#2) zn - proporção de terrenos residenciais para lotes acima de 25,000 sq.ft.
-# 
-#3) indus - proporção de negócios não comerciais por acres e por cidade.
-# 
-#4) chas - variável dummy do Rio Charles(= 1 se próximo do rio; 0 de outra forma).
-# 
-#5) nox - concentração de óxido de nitrogênio (partes por 10 milhões).
-# 
-#6) rm - número médio de quartos por habitação
-# 
-#7) age - proporção da unidade ocupadas pelos proprietários construídas antes 1940.
-# 
-#8) dis - média ponderada das distâncias dos 5 pontos de emprego em Boston.
-# 
-#9) rad - indice de acessibilidade das avenidas radiais.
-# 
-#10) tax - valor cheio da taxa de propriedade por $10,000.
-# 
-#11) ptratio - razão aluno-professor por cidade.
-# 
-#12) black - 1000(Bk−0.63)21000(Bk−0.63)2 proporção de negros por cidade.
-# 
-#13) lstat - percentual de baixo status da população.
-# 
-#14) medv - valor mediano das cas ocupadas pelos proprietário em $1000s. (Var. Resposta)
+vendas_casa <- readRDS("home_sales.rds")
+head(vendas_casa)
+vendas_casa <- vendas_casa %>% rename(preco=selling_price,
+                                      idade=home_age,
+                                      quartos=bedrooms,
+                                      banheiros= bathrooms,
+                                      m2_princ=sqft_living,
+                                      m2_tot=sqft_lot,
+                                      m2_porao=sqft_basement,
+                                      andares=floors
+                                      )
+summary(vendas_casa)
+vendas_casa <- vendas_casa %>% mutate(preco_m=preco/1000) %>% select(-preco)
+summary(vendas_casa)
 ```
 
 ## Conjunto de treino e de teste
@@ -68,27 +42,30 @@ Observamos acima que todas as variáveis são quantitativas e que não há neces
 ```{r treino_teste}
 library(caret)
 set.seed(21)
-y <- Boston$medv
+nrow(vendas_casa)
+y <- vendas_casa$preco_m
 indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
 
-conj_treino <- Boston %>% slice(-indice_teste)
-conj_teste <- Boston %>% slice(indice_teste)
+conj_treino <- vendas_casa[-indice_teste,]
+conj_teste <- vendas_casa[indice_teste,]
 
 str(conj_treino)
 str(conj_teste)
-
+gt::gt(head(conj_treino, 10))
 ```
 
 ## Métodos de Regularização
 
 O pacote glmnet não usa a linguagem de formula, em particular nós devemos passar $x$ como uma matriz e $y$ como um vetor, pois não se usa a sintaxe $y \sim x$. Com isso será necessário ajustar x e y. A função model.matrix() é particularmente útil para criar x; não só produz uma matriz correspondente as variáveis explicativas, **mas também transforma automaticamente quaisquer variáveis qualitativas em variáveis dummy. Esta última propriedade é importante porque o glmnet() só pode tomar insumos numéricos e quantitativos.**
 
-```{r preparando_dados}
-x_treino <- model.matrix(medv ~ . , data = conj_treino)[, -1]
-y_treino <- conj_treino$medv
+**O pacote glmnet também por default padroniza as variáveis, o que é importante para a regressão Ridge e também para o LASSO. Ele posteriormente retorna os coeficientes para a escala inicial.**
 
-x_teste <- model.matrix(medv ~ . , data = conj_teste)[, -1]
-y_teste = conj_teste$medv
+```{r preparando_dados}
+x_treino <- model.matrix(preco_m ~ . , data = conj_treino)[, -1]
+y_treino <- conj_treino$preco_m
+
+x_teste <- model.matrix(preco_m ~ . , data = conj_teste)[, -1]
+y_teste = conj_teste$preco_m
 ```
 
 ## Regressão Ridge

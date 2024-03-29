@@ -148,6 +148,16 @@ summary(mod5)$adj.r.squared
 sqrt(mean((conj_teste$Vendas - predict(mod5, conj_teste)) ^ 2))
 ```
 
+## Comparando valor real vs ajustado
+
+```{r}
+conj_treino$Previsoes <- predict(mod5, data=conj_treino)
+ggplot(conj_treino, aes(x=Previsoes, y=Vendas)) + 
+  geom_point() +
+  geom_abline(color = "darkblue") +
+  ggtitle("Vendas vs. Previsões do modelo linear")
+```
+
 ## Análise Inicial dos Resíduos
 
 ```{r}

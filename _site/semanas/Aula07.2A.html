@@ -5,8 +5,8 @@
 <meta name="generator" content="quarto-1.4.549">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-03-28">
-<title>IME05-12547 - Regressão Linear Múltipla</title>
+<meta name="dcterms.date" content="2024-03-29">
+<title>IME05-12547 - Regressão Linear Múltipla - Validação Cruzada</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<meta name="twitter:title" content="IME05-12547 - Regressão Linear Múltipla">
+<meta name="twitter:title" content="IME05-12547 - Regressão Linear Múltipla - Validação Cruzada">
 <meta name="twitter:description" content="Mineração de Dados">
 <meta name="twitter:image" content="images/md.png">
 <meta name="twitter:creator" content="@r_accioly">
@@ -290,12 +290,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula07.4A.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Métodos de Encolhimento</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../semanas/Aula08.0.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Classificação 1os passos</span></a>
   </div>
@@ -387,11 +381,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#renomeando" id="toc-renomeando" class="nav-link" data-scroll-target="#renomeando">Renomeando</a></li>
   <li><a href="#valida%C3%A7%C3%A3o-cruzada" id="toc-validação-cruzada" class="nav-link" data-scroll-target="#valida%C3%A7%C3%A3o-cruzada">Validação cruzada</a></li>
   <li><a href="#novo-modelo" id="toc-novo-modelo" class="nav-link" data-scroll-target="#novo-modelo">Novo modelo</a></li>
+  <li><a href="#modelo-inicial" id="toc-modelo-inicial" class="nav-link" data-scroll-target="#modelo-inicial">Modelo Inicial</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula07.2A.html">Validação Cruzada</a></li></ol></nav><div class="quarto-title">
-<h1 class="title">Regressão Linear Múltipla</h1>
+<h1 class="title">Regressão Linear Múltipla - Validação Cruzada</h1>
 </div>
 
 
@@ -408,7 +404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 28, 2024</p>
+      <p class="date">March 29, 2024</p>
     </div>
   </div>
   
@@ -590,6 +586,7 @@ Coefficients:
     2.92110      0.04575      0.18799  </code></pre>
 </div>
 </div>
+</section><section id="modelo-inicial" class="level2"><h2 class="anchored" data-anchor-id="modelo-inicial">Modelo Inicial</h2>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">propaganda</span><span class="op">$</span><span class="va">Vendas</span></span>
@@ -627,6 +624,7 @@ F-statistic: 517.5 on 2 and 116 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre><code>[1] 1.846764</code></pre>
 </div>
 </div>
+</section><section id="section" class="level2"><h2 class="anchored" data-anchor-id="section"></h2>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

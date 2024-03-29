@@ -962,290 +962,114 @@
     ]
   },
   {
-    "objectID": "semanas/Aula07.4A.html#carregando-bibliotecas",
-    "href": "semanas/Aula07.4A.html#carregando-bibliotecas",
+    "objectID": "semanas/Aula07.4.html#carregando-bibliotecas",
+    "href": "semanas/Aula07.4.html#carregando-bibliotecas",
     "title": "Regularização de Modelos",
     "section": "Carregando Bibliotecas",
-    "text": "Carregando Bibliotecas\n\nlibrary(MASS)\nlibrary(tidyverse)\nlibrary(glmnet)\ndata(Boston)",
+    "text": "Carregando Bibliotecas\n\nlibrary(tidyverse)\nlibrary(glmnet)",
     "crumbs": [
       "Conteúdo Semanal",
       "Métodos de Encolhimento"
     ]
   },
   {
-    "objectID": "semanas/Aula07.4A.html#carregando-os-dados",
-    "href": "semanas/Aula07.4A.html#carregando-os-dados",
+    "objectID": "semanas/Aula07.4.html#carregando-os-dados",
+    "href": "semanas/Aula07.4.html#carregando-os-dados",
     "title": "Regularização de Modelos",
     "section": "Carregando os dados",
-    "text": "Carregando os dados\nVamos utilizar neste exemplo os dados contidos na biblioteca MASS. A base de dados Boston tem 506 de valores preços medianos de casas na região de Boston com 13 outras variáveis explicativas (potencialmente). Vamos explorar os dados e ajustar modelos com penalização o Ridge e o LASSO e depois vamos comparar com os mínimos quadrados.\n\nhead(Boston)\n\n     crim zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat\n1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90  4.98\n2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90  9.14\n3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83  4.03\n4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63  2.94\n5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90  5.33\n6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12  5.21\n  medv\n1 24.0\n2 21.6\n3 34.7\n4 33.4\n5 36.2\n6 28.7\n\nsummary(Boston)\n\n      crim                zn             indus            chas        \n Min.   : 0.00632   Min.   :  0.00   Min.   : 0.46   Min.   :0.00000  \n 1st Qu.: 0.08205   1st Qu.:  0.00   1st Qu.: 5.19   1st Qu.:0.00000  \n Median : 0.25651   Median :  0.00   Median : 9.69   Median :0.00000  \n Mean   : 3.61352   Mean   : 11.36   Mean   :11.14   Mean   :0.06917  \n 3rd Qu.: 3.67708   3rd Qu.: 12.50   3rd Qu.:18.10   3rd Qu.:0.00000  \n Max.   :88.97620   Max.   :100.00   Max.   :27.74   Max.   :1.00000  \n      nox               rm             age              dis        \n Min.   :0.3850   Min.   :3.561   Min.   :  2.90   Min.   : 1.130  \n 1st Qu.:0.4490   1st Qu.:5.886   1st Qu.: 45.02   1st Qu.: 2.100  \n Median :0.5380   Median :6.208   Median : 77.50   Median : 3.207  \n Mean   :0.5547   Mean   :6.285   Mean   : 68.57   Mean   : 3.795  \n 3rd Qu.:0.6240   3rd Qu.:6.623   3rd Qu.: 94.08   3rd Qu.: 5.188  \n Max.   :0.8710   Max.   :8.780   Max.   :100.00   Max.   :12.127  \n      rad              tax           ptratio          black       \n Min.   : 1.000   Min.   :187.0   Min.   :12.60   Min.   :  0.32  \n 1st Qu.: 4.000   1st Qu.:279.0   1st Qu.:17.40   1st Qu.:375.38  \n Median : 5.000   Median :330.0   Median :19.05   Median :391.44  \n Mean   : 9.549   Mean   :408.2   Mean   :18.46   Mean   :356.67  \n 3rd Qu.:24.000   3rd Qu.:666.0   3rd Qu.:20.20   3rd Qu.:396.23  \n Max.   :24.000   Max.   :711.0   Max.   :22.00   Max.   :396.90  \n     lstat            medv      \n Min.   : 1.73   Min.   : 5.00  \n 1st Qu.: 6.95   1st Qu.:17.02  \n Median :11.36   Median :21.20  \n Mean   :12.65   Mean   :22.53  \n 3rd Qu.:16.95   3rd Qu.:25.00  \n Max.   :37.97   Max.   :50.00  \n\n\nObservamos acima que todas as variáveis são quantitativas e que não há necessidade de transformações.",
+    "text": "Carregando os dados\nVendas de casas em Seattle entre 2015 e 2016\n\nvendas_casa &lt;- readRDS(\"home_sales.rds\")\nhead(vendas_casa)\n\n# A tibble: 6 × 8\n  selling_price home_age bedrooms bathrooms sqft_living sqft_lot sqft_basement\n          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;\n1        487000       10        4      2.5         2540     5001             0\n2        465000       10        3      2.25        1530     1245           480\n3        411000       18        2      2           1130     1148           330\n4        635000        4        3      2.5         3350     4007           800\n5        380000       24        5      2.5         2130     8428             0\n6        495000       21        3      3.5         1650     1577           550\n# ℹ 1 more variable: floors &lt;dbl&gt;\n\nvendas_casa &lt;- vendas_casa %&gt;% rename(preco=selling_price,\n                                      idade=home_age,\n                                      quartos=bedrooms,\n                                      banheiros= bathrooms,\n                                      m2_princ=sqft_living,\n                                      m2_tot=sqft_lot,\n                                      m2_porao=sqft_basement,\n                                      andares=floors\n                                      )\nsummary(vendas_casa)\n\n     preco            idade          quartos        banheiros    \n Min.   :350000   Min.   : 0.00   Min.   :1.000   Min.   :0.750  \n 1st Qu.:410000   1st Qu.:12.00   1st Qu.:3.000   1st Qu.:2.438  \n Median :470000   Median :19.00   Median :3.000   Median :2.500  \n Mean   :479085   Mean   :18.53   Mean   :3.338   Mean   :2.473  \n 3rd Qu.:541625   3rd Qu.:25.00   3rd Qu.:4.000   3rd Qu.:2.500  \n Max.   :650000   Max.   :49.00   Max.   :8.000   Max.   :5.000  \n    m2_princ        m2_tot          m2_porao         andares     \n Min.   : 550   Min.   :   600   Min.   :   0.0   Min.   :1.000  \n 1st Qu.:1640   1st Qu.:  3200   1st Qu.:   0.0   1st Qu.:2.000  \n Median :2060   Median :  5508   Median :   0.0   Median :2.000  \n Mean   :2087   Mean   : 11891   Mean   : 129.7   Mean   :1.865  \n 3rd Qu.:2500   3rd Qu.:  8644   3rd Qu.: 122.5   3rd Qu.:2.000  \n Max.   :3880   Max.   :415126   Max.   :1660.0   Max.   :2.000  \n\nvendas_casa &lt;- vendas_casa %&gt;% mutate(preco_m=preco/1000) %&gt;% select(-preco)\nsummary(vendas_casa)\n\n     idade          quartos        banheiros        m2_princ   \n Min.   : 0.00   Min.   :1.000   Min.   :0.750   Min.   : 550  \n 1st Qu.:12.00   1st Qu.:3.000   1st Qu.:2.438   1st Qu.:1640  \n Median :19.00   Median :3.000   Median :2.500   Median :2060  \n Mean   :18.53   Mean   :3.338   Mean   :2.473   Mean   :2087  \n 3rd Qu.:25.00   3rd Qu.:4.000   3rd Qu.:2.500   3rd Qu.:2500  \n Max.   :49.00   Max.   :8.000   Max.   :5.000   Max.   :3880  \n     m2_tot          m2_porao         andares         preco_m     \n Min.   :   600   Min.   :   0.0   Min.   :1.000   Min.   :350.0  \n 1st Qu.:  3200   1st Qu.:   0.0   1st Qu.:2.000   1st Qu.:410.0  \n Median :  5508   Median :   0.0   Median :2.000   Median :470.0  \n Mean   : 11891   Mean   : 129.7   Mean   :1.865   Mean   :479.1  \n 3rd Qu.:  8644   3rd Qu.: 122.5   3rd Qu.:2.000   3rd Qu.:541.6  \n Max.   :415126   Max.   :1660.0   Max.   :2.000   Max.   :650.0",
     "crumbs": [
       "Conteúdo Semanal",
       "Métodos de Encolhimento"
     ]
   },
   {
-    "objectID": "semanas/Aula07.4A.html#significado-das-variáveis",
-    "href": "semanas/Aula07.4A.html#significado-das-variáveis",
-    "title": "Regularização de Modelos",
-    "section": "Significado das variáveis",
-    "text": "Significado das variáveis\n\n# Boston Database\n# \n#1) crim - taxa de criminalidade per capita por cidade.\n# \n#2) zn - proporção de terrenos residenciais para lotes acima de 25,000 sq.ft.\n# \n#3) indus - proporção de negócios não comerciais por acres e por cidade.\n# \n#4) chas - variável dummy do Rio Charles(= 1 se próximo do rio; 0 de outra forma).\n# \n#5) nox - concentração de óxido de nitrogênio (partes por 10 milhões).\n# \n#6) rm - número médio de quartos por habitação\n# \n#7) age - proporção da unidade ocupadas pelos proprietários construídas antes 1940.\n# \n#8) dis - média ponderada das distâncias dos 5 pontos de emprego em Boston.\n# \n#9) rad - indice de acessibilidade das avenidas radiais.\n# \n#10) tax - valor cheio da taxa de propriedade por $10,000.\n# \n#11) ptratio - razão aluno-professor por cidade.\n# \n#12) black - 1000(Bk−0.63)21000(Bk−0.63)2 proporção de negros por cidade.\n# \n#13) lstat - percentual de baixo status da população.\n# \n#14) medv - valor mediano das cas ocupadas pelos proprietário em $1000s. (Var. Resposta)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4A.html#conjunto-de-treino-e-de-teste",
-    "href": "semanas/Aula07.4A.html#conjunto-de-treino-e-de-teste",
+    "objectID": "semanas/Aula07.4.html#conjunto-de-treino-e-de-teste",
+    "href": "semanas/Aula07.4.html#conjunto-de-treino-e-de-teste",
     "title": "Regularização de Modelos",
     "section": "Conjunto de treino e de teste",
-    "text": "Conjunto de treino e de teste\nObservar que retiramos a variável rad\n\nlibrary(caret)\n\nCarregando pacotes exigidos: lattice\n\n\n\nAttaching package: 'caret'\n\n\nThe following object is masked from 'package:purrr':\n\n    lift\n\nset.seed(21)\ny &lt;- Boston$medv\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\n\nconj_treino &lt;- Boston[-indice_teste, ]\nconj_teste &lt;- Boston[indice_teste, ]\n\nstr(conj_treino)\n\n'data.frame':   403 obs. of  14 variables:\n $ crim   : num  0.00632 0.02731 0.02729 0.03237 0.06905 ...\n $ zn     : num  18 0 0 0 0 0 12.5 12.5 12.5 12.5 ...\n $ indus  : num  2.31 7.07 7.07 2.18 2.18 2.18 7.87 7.87 7.87 7.87 ...\n $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.538 0.469 0.469 0.458 0.458 0.458 0.524 0.524 0.524 0.524 ...\n $ rm     : num  6.58 6.42 7.18 7 7.15 ...\n $ age    : num  65.2 78.9 61.1 45.8 54.2 58.7 66.6 96.1 85.9 94.3 ...\n $ dis    : num  4.09 4.97 4.97 6.06 6.06 ...\n $ rad    : int  1 2 2 3 3 3 5 5 5 5 ...\n $ tax    : num  296 242 242 222 222 222 311 311 311 311 ...\n $ ptratio: num  15.3 17.8 17.8 18.7 18.7 18.7 15.2 15.2 15.2 15.2 ...\n $ black  : num  397 397 393 395 397 ...\n $ lstat  : num  4.98 9.14 4.03 2.94 5.33 ...\n $ medv   : num  24 21.6 34.7 33.4 36.2 28.7 22.9 27.1 18.9 15 ...\n\nstr(conj_teste)\n\n'data.frame':   103 obs. of  14 variables:\n $ crim   : num  0.211 0.63 0.627 1.252 0.852 ...\n $ zn     : num  12.5 0 0 0 0 0 0 75 0 0 ...\n $ indus  : num  7.87 8.14 8.14 8.14 8.14 8.14 8.14 2.95 6.91 6.91 ...\n $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.524 0.538 0.538 0.538 0.538 0.538 0.538 0.428 0.448 0.448 ...\n $ rm     : num  5.63 5.95 5.83 5.57 5.96 ...\n $ age    : num  100 61.8 56.5 98.1 89.2 94.1 96.9 21.8 6.5 95.3 ...\n $ dis    : num  6.08 4.71 4.5 3.8 4.01 ...\n $ rad    : int  5 4 4 4 4 4 4 3 3 3 ...\n $ tax    : num  311 307 307 307 307 307 307 252 233 233 ...\n $ ptratio: num  15.2 21 21 21 21 21 21 18.3 17.9 17.9 ...\n $ black  : num  387 397 396 377 393 ...\n $ lstat  : num  29.93 8.26 8.47 21.02 13.83 ...\n $ medv   : num  16.5 20.4 19.9 13.6 19.6 12.7 13.5 30.8 24.7 14.4 ...",
+    "text": "Conjunto de treino e de teste\n\nlibrary(caret)\n\nCarregando pacotes exigidos: lattice\n\n\n\nAttaching package: 'caret'\n\n\nThe following object is masked from 'package:purrr':\n\n    lift\n\nset.seed(21)\nnrow(vendas_casa)\n\n[1] 1492\n\ny &lt;- vendas_casa$preco_m\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- vendas_casa[-indice_teste,]\nconj_teste &lt;- vendas_casa[indice_teste,]\n\nstr(conj_treino)\n\ntibble [1,192 × 8] (S3: tbl_df/tbl/data.frame)\n $ idade    : num [1:1192] 10 18 4 21 19 24 3 16 20 29 ...\n $ quartos  : num [1:1192] 3 2 3 3 3 2 4 3 3 3 ...\n $ banheiros: num [1:1192] 2.25 2 2.5 3.5 2.25 1 2.5 2.75 2.75 2.5 ...\n $ m2_princ : num [1:1192] 1530 1130 3350 1650 1430 1430 2140 2100 2930 1960 ...\n $ m2_tot   : num [1:1192] 1245 1148 4007 1577 4777 ...\n $ m2_porao : num [1:1192] 480 330 800 550 0 420 0 590 1070 0 ...\n $ andares  : num [1:1192] 2 2 2 2 2 1 2 2 1 2 ...\n $ preco_m  : num [1:1192] 465 411 635 495 355 ...\n\nstr(conj_teste)\n\ntibble [300 × 8] (S3: tbl_df/tbl/data.frame)\n $ idade    : num [1:300] 10 24 19 11 3 28 9 17 9 19 ...\n $ quartos  : num [1:300] 4 5 3 4 4 5 3 3 3 3 ...\n $ banheiros: num [1:300] 2.5 2.5 2 2.5 2.75 3 2.5 3.5 3.5 2.25 ...\n $ m2_princ : num [1:300] 2540 2130 2190 1920 2360 ...\n $ m2_tot   : num [1:300] 5001 8428 19800 9000 15100 ...\n $ m2_porao : num [1:300] 0 0 0 0 0 0 0 770 770 145 ...\n $ andares  : num [1:300] 2 2 1 2 1 2 2 2 2 2 ...\n $ preco_m  : num [1:300] 487 380 465 425 535 ...\n\ngt::gt(head(conj_treino, 10))\n\n\n\n\n\nidade\nquartos\nbanheiros\nm2_princ\nm2_tot\nm2_porao\nandares\npreco_m\n\n\n\n10\n3\n2.25\n1530\n1245\n480\n2\n465.000\n\n\n18\n2\n2.00\n1130\n1148\n330\n2\n411.000\n\n\n4\n3\n2.50\n3350\n4007\n800\n2\n635.000\n\n\n21\n3\n3.50\n1650\n1577\n550\n2\n495.000\n\n\n19\n3\n2.25\n1430\n4777\n0\n2\n355.000\n\n\n24\n2\n1.00\n1430\n365904\n420\n1\n356.000\n\n\n3\n4\n2.50\n2140\n7245\n0\n2\n495.000\n\n\n16\n3\n2.75\n2100\n10362\n590\n2\n525.000\n\n\n20\n3\n2.75\n2930\n5569\n1070\n1\n559.900\n\n\n29\n3\n2.50\n1960\n8469\n0\n2\n552.321",
     "crumbs": [
       "Conteúdo Semanal",
       "Métodos de Encolhimento"
     ]
   },
   {
-    "objectID": "semanas/Aula07.4A.html#métodos-de-regularização-com-o-caret",
-    "href": "semanas/Aula07.4A.html#métodos-de-regularização-com-o-caret",
+    "objectID": "semanas/Aula07.4.html#métodos-de-regularização",
+    "href": "semanas/Aula07.4.html#métodos-de-regularização",
     "title": "Regularização de Modelos",
-    "section": "Métodos de Regularização com o caret",
-    "text": "Métodos de Regularização com o caret\nUsando o caret para selecionar o melhor modelo\n\ntrain_control &lt;- trainControl(\n  method = \"repeatedcv\",\n  number = 10,  # validação cruzada com 10 folds\n  repeats = 5,  # 5 repetições\n  savePredictions = \"final\"  # salva os resultados do modelo final\n)",
+    "section": "Métodos de Regularização",
+    "text": "Métodos de Regularização\nO pacote glmnet não usa a linguagem de formula, em particular nós devemos passar \\(x\\) como uma matriz e \\(y\\) como um vetor, pois não se usa a sintaxe \\(y \\sim x\\). Com isso será necessário ajustar x e y. A função model.matrix() é particularmente útil para criar x; não só produz uma matriz correspondente as variáveis explicativas, mas também transforma automaticamente quaisquer variáveis qualitativas em variáveis dummy. Esta última propriedade é importante porque o glmnet() só pode tomar insumos numéricos e quantitativos.\nO pacote glmnet também por default padroniza as variáveis, o que é importante para a regressão Ridge e também para o LASSO. Ele posteriormente retorna os coeficientes para a escala inicial.\n\nx_treino &lt;- model.matrix(preco_m ~ . , data = conj_treino)[, -1]\ny_treino &lt;- conj_treino$preco_m\n\nx_teste &lt;- model.matrix(preco_m ~ . , data = conj_teste)[, -1]\ny_teste = conj_teste$preco_m",
     "crumbs": [
       "Conteúdo Semanal",
       "Métodos de Encolhimento"
     ]
   },
   {
-    "objectID": "semanas/Aula07.4A.html#cross-validation-no-caret",
-    "href": "semanas/Aula07.4A.html#cross-validation-no-caret",
+    "objectID": "semanas/Aula07.4.html#regressão-ridge",
+    "href": "semanas/Aula07.4.html#regressão-ridge",
     "title": "Regularização de Modelos",
-    "section": "Cross-Validation no caret",
-    "text": "Cross-Validation no caret\nNós podemos usar o k-fold cross validation para identificar o melhor valor de \\(\\lambda\\)\n\nset.seed(21)\nmdl_ridge &lt;- train(\n  medv ~ .,\n  data = conj_treino,\n  method = \"glmnet\",\n  metric = \"RMSE\",  \n  preProcess = c(\"center\", \"scale\"),\n  tuneGrid = expand.grid(\n    .alpha = 0,  # regressão ridge\n    .lambda = seq(0, 5, length.out = 201)\n  ),\n  trControl = train_control\n  )\nmdl_ridge\n\nglmnet \n\n403 samples\n 13 predictor\n\nPre-processing: centered (13), scaled (13) \nResampling: Cross-Validated (10 fold, repeated 5 times) \nSummary of sample sizes: 363, 362, 364, 362, 363, 363, ... \nResampling results across tuning parameters:\n\n  lambda  RMSE      Rsquared   MAE     \n  0.000   4.591424  0.7558789  3.240456\n  0.025   4.591424  0.7558789  3.240456\n  0.050   4.591424  0.7558789  3.240456\n  0.075   4.591424  0.7558789  3.240456\n  0.100   4.591424  0.7558789  3.240456\n  0.125   4.591424  0.7558789  3.240456\n  0.150   4.591424  0.7558789  3.240456\n  0.175   4.591424  0.7558789  3.240456\n  0.200   4.591424  0.7558789  3.240456\n  0.225   4.591424  0.7558789  3.240456\n  0.250   4.591424  0.7558789  3.240456\n  0.275   4.591424  0.7558789  3.240456\n  0.300   4.591424  0.7558789  3.240456\n  0.325   4.591424  0.7558789  3.240456\n  0.350   4.591424  0.7558789  3.240456\n  0.375   4.591424  0.7558789  3.240456\n  0.400   4.591424  0.7558789  3.240456\n  0.425   4.591424  0.7558789  3.240456\n  0.450   4.591424  0.7558789  3.240456\n  0.475   4.591424  0.7558789  3.240456\n  0.500   4.591424  0.7558789  3.240456\n  0.525   4.591424  0.7558789  3.240456\n  0.550   4.591424  0.7558789  3.240456\n  0.575   4.591424  0.7558789  3.240456\n  0.600   4.591424  0.7558789  3.240456\n  0.625   4.591424  0.7558789  3.240456\n  0.650   4.591424  0.7558789  3.240456\n  0.675   4.591754  0.7558700  3.240564\n  0.700   4.593034  0.7558270  3.240966\n  0.725   4.594219  0.7557743  3.241145\n  0.750   4.595335  0.7557289  3.241280\n  0.775   4.596477  0.7556822  3.241479\n  0.800   4.597661  0.7556336  3.241770\n  0.825   4.598871  0.7555829  3.242170\n  0.850   4.600107  0.7555309  3.242642\n  0.875   4.601382  0.7554771  3.243139\n  0.900   4.602683  0.7554213  3.243659\n  0.925   4.604004  0.7553644  3.244240\n  0.950   4.605355  0.7553067  3.244914\n  0.975   4.606742  0.7552464  3.245641\n  1.000   4.608144  0.7551849  3.246464\n  1.025   4.609569  0.7551225  3.247308\n  1.050   4.611029  0.7550584  3.248162\n  1.075   4.612514  0.7549924  3.249046\n  1.100   4.614010  0.7549258  3.249940\n  1.125   4.615521  0.7548592  3.250892\n  1.150   4.617064  0.7547908  3.251857\n  1.175   4.618632  0.7547205  3.252829\n  1.200   4.620208  0.7546495  3.253782\n  1.225   4.621797  0.7545780  3.254780\n  1.250   4.623409  0.7545059  3.255825\n  1.275   4.625053  0.7544316  3.256919\n  1.300   4.626705  0.7543565  3.257997\n  1.325   4.628367  0.7542808  3.259062\n  1.350   4.630037  0.7542054  3.260123\n  1.375   4.631731  0.7541289  3.261207\n  1.400   4.633455  0.7540504  3.262310\n  1.425   4.635185  0.7539712  3.263417\n  1.450   4.636923  0.7538913  3.264517\n  1.475   4.638669  0.7538114  3.265616\n  1.500   4.640433  0.7537312  3.266724\n  1.525   4.642226  0.7536489  3.267834\n  1.550   4.644035  0.7535654  3.268960\n  1.575   4.645843  0.7534819  3.270101\n  1.600   4.647661  0.7533974  3.271256\n  1.625   4.649482  0.7533139  3.272395\n  1.650   4.651322  0.7532296  3.273553\n  1.675   4.653189  0.7531433  3.274736\n  1.700   4.655069  0.7530559  3.275916\n  1.725   4.656946  0.7529687  3.277084\n  1.750   4.658833  0.7528806  3.278271\n  1.775   4.660722  0.7527930  3.279477\n  1.800   4.662626  0.7527051  3.280703\n  1.825   4.664554  0.7526155  3.281969\n  1.850   4.666503  0.7525243  3.283268\n  1.875   4.668453  0.7524328  3.284553\n  1.900   4.670402  0.7523415  3.285821\n  1.925   4.672359  0.7522494  3.287096\n  1.950   4.674318  0.7521579  3.288352\n  1.975   4.676289  0.7520663  3.289613\n  2.000   4.678283  0.7519728  3.290903\n  2.025   4.680298  0.7518778  3.292244\n  2.050   4.682317  0.7517822  3.293602\n  2.075   4.684331  0.7516868  3.294951\n  2.100   4.686353  0.7515906  3.296305\n  2.125   4.688372  0.7514949  3.297661\n  2.150   4.690395  0.7513998  3.299024\n  2.175   4.692434  0.7513038  3.300403\n  2.200   4.694495  0.7512061  3.301784\n  2.225   4.696571  0.7511071  3.303178\n  2.250   4.698650  0.7510077  3.304590\n  2.275   4.700721  0.7509088  3.305990\n  2.300   4.702799  0.7508094  3.307411\n  2.325   4.704874  0.7507101  3.308865\n  2.350   4.706950  0.7506115  3.310328\n  2.375   4.709037  0.7505127  3.311799\n  2.400   4.711142  0.7504125  3.313273\n  2.425   4.713265  0.7503108  3.314749\n  2.450   4.715398  0.7502082  3.316229\n  2.475   4.717528  0.7501055  3.317700\n  2.500   4.719652  0.7500032  3.319175\n  2.525   4.721783  0.7499002  3.320687\n  2.550   4.723910  0.7497975  3.322253\n  2.575   4.726037  0.7496953  3.323829\n  2.600   4.728172  0.7495932  3.325414\n  2.625   4.730321  0.7494900  3.326995\n  2.650   4.732489  0.7493852  3.328578\n  2.675   4.734669  0.7492794  3.330181\n  2.700   4.736852  0.7491732  3.331796\n  2.725   4.739028  0.7490670  3.333410\n  2.750   4.741201  0.7489614  3.335030\n  2.775   4.743378  0.7488550  3.336654\n  2.800   4.745549  0.7487493  3.338275\n  2.825   4.747721  0.7486440  3.339886\n  2.850   4.749898  0.7485388  3.341516\n  2.875   4.752088  0.7484327  3.343150\n  2.900   4.754294  0.7483251  3.344805\n  2.925   4.756514  0.7482164  3.346458\n  2.950   4.758740  0.7481070  3.348105\n  2.975   4.760961  0.7479977  3.349739\n  3.000   4.763176  0.7478887  3.351365\n  3.025   4.765391  0.7477798  3.353009\n  3.050   4.767607  0.7476702  3.354655\n  3.075   4.769815  0.7475616  3.356290\n  3.100   4.772023  0.7474532  3.357925\n  3.125   4.774236  0.7473451  3.359554\n  3.150   4.776460  0.7472361  3.361204\n  3.175   4.778699  0.7471257  3.362875\n  3.200   4.780950  0.7470143  3.364577\n  3.225   4.783210  0.7469021  3.366286\n  3.250   4.785469  0.7467896  3.368017\n  3.275   4.787721  0.7466772  3.369738\n  3.300   4.789966  0.7465654  3.371445\n  3.325   4.792212  0.7464534  3.373148\n  3.350   4.794457  0.7463410  3.374845\n  3.375   4.796691  0.7462298  3.376527\n  3.400   4.798925  0.7461189  3.378206\n  3.425   4.801163  0.7460082  3.379893\n  3.450   4.803410  0.7458967  3.381606\n  3.475   4.805668  0.7457842  3.383339\n  3.500   4.807939  0.7456705  3.385079\n  3.525   4.810220  0.7455559  3.386819\n  3.550   4.812506  0.7454408  3.388554\n  3.575   4.814785  0.7453258  3.390283\n  3.600   4.817058  0.7452110  3.392012\n  3.625   4.819324  0.7450968  3.393728\n  3.650   4.821593  0.7449822  3.395449\n  3.675   4.823858  0.7448675  3.397177\n  3.700   4.826114  0.7447538  3.398890\n  3.725   4.828367  0.7446404  3.400592\n  3.750   4.830623  0.7445272  3.402287\n  3.775   4.832886  0.7444135  3.403979\n  3.800   4.835157  0.7442992  3.405667\n  3.825   4.837440  0.7441836  3.407362\n  3.850   4.839733  0.7440671  3.409063\n  3.875   4.842034  0.7439498  3.410779\n  3.900   4.844337  0.7438321  3.412495\n  3.925   4.846631  0.7437148  3.414202\n  3.950   4.848918  0.7435976  3.415907\n  3.975   4.851199  0.7434811  3.417606\n  4.000   4.853482  0.7433643  3.419310\n  4.025   4.855761  0.7432473  3.421013\n  4.050   4.858030  0.7431310  3.422705\n  4.075   4.860294  0.7430154  3.424384\n  4.100   4.862558  0.7428999  3.426064\n  4.125   4.864825  0.7427847  3.427737\n  4.150   4.867099  0.7426688  3.429416\n  4.175   4.869381  0.7425522  3.431109\n  4.200   4.871673  0.7424343  3.432804\n  4.225   4.873974  0.7423157  3.434502\n  4.250   4.876281  0.7421964  3.436202\n  4.275   4.878591  0.7420766  3.437904\n  4.300   4.880894  0.7419572  3.439605\n  4.325   4.883189  0.7418378  3.441299\n  4.350   4.885478  0.7417192  3.442994\n  4.375   4.887762  0.7416007  3.444682\n  4.400   4.890047  0.7414819  3.446366\n  4.425   4.892327  0.7413631  3.448046\n  4.450   4.894595  0.7412455  3.449709\n  4.475   4.896859  0.7411282  3.451370\n  4.500   4.899123  0.7410111  3.453027\n  4.525   4.901389  0.7408942  3.454676\n  4.550   4.903662  0.7407766  3.456325\n  4.575   4.905940  0.7406586  3.457977\n  4.600   4.908228  0.7405392  3.459643\n  4.625   4.910523  0.7404193  3.461313\n  4.650   4.912826  0.7402985  3.462983\n  4.675   4.915131  0.7401773  3.464652\n  4.700   4.917437  0.7400559  3.466319\n  4.725   4.919732  0.7399349  3.467993\n  4.750   4.922022  0.7398140  3.469659\n  4.775   4.924305  0.7396939  3.471318\n  4.800   4.926583  0.7395740  3.472980\n  4.825   4.928862  0.7394537  3.474639\n  4.850   4.931136  0.7393335  3.476288\n  4.875   4.933398  0.7392141  3.477925\n  4.900   4.935654  0.7390955  3.479562\n  4.925   4.937908  0.7389770  3.481191\n  4.950   4.940162  0.7388587  3.482812\n  4.975   4.942420  0.7387403  3.484437\n  5.000   4.944683  0.7386213  3.486066\n\nTuning parameter 'alpha' was held constant at a value of 0\nRMSE was used to select the optimal model using the smallest value.\nThe final values used for the model were alpha = 0 and lambda = 0.65.\n\nggplot(mdl_ridge) +\n  labs(title = \"Regressão Ridge Ajuste do Parametro\", x = \"lambda\")\n\n\n\n\n\n\nplot(varImp(mdl_ridge))",
+    "section": "Regressão Ridge",
+    "text": "Regressão Ridge\nPrimeiro vamos ajustar um modelo de regressão Ridge. Isso é conseguido chamando glmnet() com alpha=0, se alpha=1 então glmnet() ajusta um lasso.(veja o arquivo de ajuda).\n\n## Estabelecendo um grid de valores para lambda\ngrid &lt;- 10^seq(-2, 10, length = 100)\najusreg.ridge &lt;- glmnet(x_treino, y_treino, alpha=0, lambda = grid)\n\nPor padrão, a função glmnet() executa a regressão ridge automaticamente selecionando a faixa de valores de \\(\\lambda\\). No entanto, aqui nós escolhemos implementar usando uma grade de valores que variam de \\(\\lambda = 10^{-2}\\) a \\(\\lambda = 10^{10}\\), cobrindo toda a gama de cenários do modelo nulo contendo apenas o coeficiente linear até o ajuste dos mínimos quadrados.\nTambém podemos calcular o modelo para um valor particular de \\(\\lambda\\) que não é um dos valores de grade. Observe que, por padrão, a função glmnet() padroniza as variáveis para que elas estejam na mesma escala. Esta padronização é muito importante no caso da regressão Ridge, pois ela é afetada pela mudança de escala das variáveis explicativas.\nAssociado a cada valor de \\(\\lambda\\) existe um vetor de coeficientes de regressão de ridge, que é armazenado em uma matriz que pode ser acessada por ‘coef()’. Neste caso, é uma matriz \\(13 \\times 100\\), com 13 linhas (uma para cada preditor, mais uma para o coeficiente linear) e 100 colunas (uma para cada valor de \\(\\lambda\\)).\n\ndim(coef(ajusreg.ridge))\n\n[1]   8 100\n\nplot(ajusreg.ridge, xvar=\"lambda\", label=TRUE) # Representando os coeficientes\n\n\n\n\n\n\n\nQuando \\(\\lambda\\) é grande o esperado é que os coeficentes sejam pequenos e quando \\(\\lambda\\) é pequeno os coeficientes assumem valores maiores.\n\najusreg.ridge$lambda[1] # Mostra primeiro valor de lambda\n\n[1] 1e+10\n\ncoef(ajusreg.ridge)[,1] # Mostra os coeficientes associados com o primeiro valor\n\n  (Intercept)         idade       quartos     banheiros      m2_princ \n 4.793155e+02 -2.734498e-08  2.861996e-07  5.797974e-07  9.012053e-10 \n       m2_tot      m2_porao       andares \n 3.183259e-12 -3.419035e-11  3.936601e-07 \n\najusreg.ridge$lambda[100] # Mostra centésimo valor de lambda\n\n[1] 0.01\n\ncoef(ajusreg.ridge)[,100] # Mostra os coeficientes associados com o centésimo valor\n\n  (Intercept)         idade       quartos     banheiros      m2_princ \n 2.558886e+02 -9.299049e-01 -4.458647e+01  1.038811e+01  1.439939e-01 \n       m2_tot      m2_porao       andares \n 9.087628e-05 -3.568248e-03  3.371000e+01 \n\n\n\nlibrary(plotmo)\n\nCarregando pacotes exigidos: Formula\n\n\nCarregando pacotes exigidos: plotrix\n\nplot_glmnet(ajusreg.ridge)",
     "crumbs": [
       "Conteúdo Semanal",
       "Métodos de Encolhimento"
     ]
   },
   {
-    "objectID": "semanas/Aula07.4A.html#avaliando-o-modelo-com-o-conjunto-de-teste",
-    "href": "semanas/Aula07.4A.html#avaliando-o-modelo-com-o-conjunto-de-teste",
+    "objectID": "semanas/Aula07.4.html#cross-validation-no-ridge",
+    "href": "semanas/Aula07.4.html#cross-validation-no-ridge",
     "title": "Regularização de Modelos",
-    "section": "Avaliando o modelo com o conjunto de teste",
-    "text": "Avaliando o modelo com o conjunto de teste\nAqui usamos a reamostragem com os dados de teste para avaliar o modelo\n\n# Metricas de desempenho\npr_ridge &lt;- postResample(pred = predict(mdl_ridge, newdata = conj_teste), obs = conj_teste$medv)\npr_ridge\n\n     RMSE  Rsquared       MAE \n5.8656795 0.5934055 3.6947963",
+    "section": "Cross-Validation no Ridge",
+    "text": "Cross-Validation no Ridge\nNós podemos usar o k-fold cross validation para identificar o melhor valor de \\(\\lambda\\)\nA biblioteca glmnet já tem internamente uma função para uso do crosss validation. O default são 10 envelopes de dados nfold=10.\n\nset.seed(21)\nridge_cv &lt;- cv.glmnet(x_treino,y_treino, alpha=0) ## por padrão k=10\nplot(ridge_cv)\n\n\n\n\n\n\nm_lamb &lt;- ridge_cv$lambda.min  # Seleciona o lambda que minimiza o MSE (EQM) de treino\nm_lamb\n\n[1] 6.425292\n\nlog(m_lamb)\n\n[1] 1.860242\n\ncoef(ridge_cv, s=m_lamb)\n\n8 x 1 sparse Matrix of class \"dgCMatrix\"\n                       s1\n(Intercept)  2.642227e+02\nidade       -1.136747e+00\nquartos     -2.993272e+01\nbanheiros    1.272875e+01\nm2_princ     1.185102e-01\nm2_tot       1.373143e-04\nm2_porao    -5.244311e-03\nandares      3.030654e+01",
     "crumbs": [
       "Conteúdo Semanal",
       "Métodos de Encolhimento"
     ]
   },
   {
-    "objectID": "semanas/Aula07.4A.html#modelo-final-ridge",
-    "href": "semanas/Aula07.4A.html#modelo-final-ridge",
-    "title": "Regularização de Modelos",
-    "section": "Modelo Final Ridge",
-    "text": "Modelo Final Ridge\n\nset.seed(21)\nmdl_final_ridge &lt;- train(\n  medv ~ .,\n  data = conj_treino,\n  method = \"glmnet\",\n  metric = \"RMSE\",\n  preProcess = c(\"center\", \"scale\"),\n  tuneGrid = data.frame(\n    .alpha = mdl_ridge$bestTune$alpha,  # hiperparametro otimizado\n    .lambda = mdl_ridge$bestTune$lambda),  # hiperparametro otimizado\n  trControl = train_control\n  )\nmdl_final_ridge\n\nglmnet \n\n403 samples\n 13 predictor\n\nPre-processing: centered (13), scaled (13) \nResampling: Cross-Validated (10 fold, repeated 5 times) \nSummary of sample sizes: 363, 362, 364, 362, 363, 363, ... \nResampling results:\n\n  RMSE      Rsquared   MAE     \n  4.591424  0.7558789  3.240456\n\nTuning parameter 'alpha' was held constant at a value of 0\nTuning\n parameter 'lambda' was held constant at a value of 0.65\n\nsqrt(mean((conj_teste$medv - predict(mdl_final_ridge, newdata = conj_teste)) ^ 2))\n\n[1] 5.865679",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4A.html#lasso",
-    "href": "semanas/Aula07.4A.html#lasso",
-    "title": "Regularização de Modelos",
-    "section": "LASSO",
-    "text": "LASSO",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4A.html#validação-cruzada-no-lasso",
-    "href": "semanas/Aula07.4A.html#validação-cruzada-no-lasso",
-    "title": "Regularização de Modelos",
-    "section": "Validação Cruzada no LASSO",
-    "text": "Validação Cruzada no LASSO\n\nset.seed(21)\nmdl_lasso &lt;- train(\n  medv ~ .,\n  data = conj_treino,\n  method = \"glmnet\",\n  metric = \"RMSE\",\n  preProcess = c(\"center\", \"scale\"),\n  tuneGrid = expand.grid(\n    .alpha = 1,  # regressão lasso\n    .lambda = seq(0, 5, length.out = 201)\n  ),\n  trControl = train_control\n  )\nmdl_lasso$bestTune\n\n  alpha lambda\n1     1      0\n\nggplot(mdl_lasso) +\n  labs(title = \"Regressão Lasso - Ajuste de parametro\", x = \"lambda\")",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4A.html#avaliando-com-conjunto-de-teste",
-    "href": "semanas/Aula07.4A.html#avaliando-com-conjunto-de-teste",
+    "objectID": "semanas/Aula07.4.html#avaliando-com-conjunto-de-teste",
+    "href": "semanas/Aula07.4.html#avaliando-com-conjunto-de-teste",
     "title": "Regularização de Modelos",
     "section": "Avaliando com conjunto de teste",
-    "text": "Avaliando com conjunto de teste\n\n# Metricas de desempenho\npr_lasso &lt;- postResample(pred = predict(mdl_lasso, newdata = conj_teste), obs = conj_teste$medv)\npr_lasso\n\n     RMSE  Rsquared       MAE \n5.7958980 0.6057383 3.7273820",
+    "text": "Avaliando com conjunto de teste\nEm seguida avaliamos seu MSE no conjunto de teste, usando \\(\\lambda\\) = m_lamb. Observe o uso da função ‘predict()’: desta vez temos previsões para um conjunto de teste, com o argumento newx.\n\najusreg.ridge2 &lt;- glmnet(x_treino, y_treino, alpha=0, lambda = m_lamb)\ny_prev &lt;- predict(ajusreg.ridge2, s = m_lamb, newx = x_teste)\n# Metricas de desempenho\nsqrt(mean((y_prev - y_teste)^2))\n\n[1] 42.19339",
     "crumbs": [
       "Conteúdo Semanal",
       "Métodos de Encolhimento"
     ]
   },
   {
-    "objectID": "semanas/Aula07.4A.html#modelo-final-lasso",
-    "href": "semanas/Aula07.4A.html#modelo-final-lasso",
+    "objectID": "semanas/Aula07.4.html#lasso",
+    "href": "semanas/Aula07.4.html#lasso",
     "title": "Regularização de Modelos",
-    "section": "Modelo Final Lasso",
-    "text": "Modelo Final Lasso\n\nset.seed(21)\nmdl_final_lasso &lt;- train(\n  medv ~ .,\n  data = conj_treino,\n  method = \"glmnet\",\n  metric = \"RMSE\",\n  preProcess = c(\"center\", \"scale\"),\n  tuneGrid = data.frame(\n    .alpha = mdl_lasso$bestTune$alpha,  # hiperparametro otimizado\n    .lambda = mdl_lasso$bestTune$lambda),  # hiperparametro otimizado\n  trControl = train_control\n  )\nmdl_final_lasso\n\nglmnet \n\n403 samples\n 13 predictor\n\nPre-processing: centered (13), scaled (13) \nResampling: Cross-Validated (10 fold, repeated 5 times) \nSummary of sample sizes: 363, 362, 364, 362, 363, 363, ... \nResampling results:\n\n  RMSE      Rsquared  MAE     \n  4.590922  0.755213  3.279609\n\nTuning parameter 'alpha' was held constant at a value of 1\nTuning\n parameter 'lambda' was held constant at a value of 0\n\nsqrt(mean((conj_teste$medv - predict(mdl_final_lasso, newdata = conj_teste)) ^ 2))\n\n[1] 5.795898",
+    "section": "LASSO",
+    "text": "LASSO\nPrimeiro ajustamos com todos os dados como no caso do Ridge\n\najusreg.lasso &lt;- glmnet(x_treino,y_treino, alpha = 1)\nplot(ajusreg.lasso, xvar=\"lambda\", label=TRUE) # Representando os coeficientes\n\n\n\n\n\n\nplot_glmnet(ajusreg.lasso)",
     "crumbs": [
       "Conteúdo Semanal",
       "Métodos de Encolhimento"
     ]
   },
   {
-    "objectID": "semanas/Aula07.3A.html",
-    "href": "semanas/Aula07.3A.html",
-    "title": "Seleção de Modelos",
-    "section": "",
-    "text": "Codelibrary(MASS)\nlibrary(tidyverse)\nlibrary(leaps)"
+    "objectID": "semanas/Aula07.4.html#validação-cruzada-no-lasso",
+    "href": "semanas/Aula07.4.html#validação-cruzada-no-lasso",
+    "title": "Regularização de Modelos",
+    "section": "Validação Cruzada no LASSO",
+    "text": "Validação Cruzada no LASSO\n\nlasso_cv &lt;- cv.glmnet(x_treino,y_treino, alpha = 1)\nplot(lasso_cv)\n\n\n\n\n\n\nm_lamb1 &lt;- lasso_cv$lambda.min  # Seleciona o lambda que minimiza o MSE de treino\nm_lamb1\n\n[1] 0.1384287\n\nlog(m_lamb1)\n\n[1] -1.9774\n\ncoef(lasso_cv, s=m_lamb1)\n\n8 x 1 sparse Matrix of class \"dgCMatrix\"\n                       s1\n(Intercept)  2.567612e+02\nidade       -9.248281e-01\nquartos     -4.393777e+01\nbanheiros    9.756224e+00\nm2_princ     1.434165e-01\nm2_tot       8.570819e-05\nm2_porao    -2.919595e-03\nandares      3.350271e+01",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Métodos de Encolhimento"
+    ]
   },
   {
-    "objectID": "semanas/Aula07.3A.html#carregando-bibliotecas",
-    "href": "semanas/Aula07.3A.html#carregando-bibliotecas",
-    "title": "Seleção de Modelos",
-    "section": "",
-    "text": "Codelibrary(MASS)\nlibrary(tidyverse)\nlibrary(leaps)"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#carregando-os-dados",
-    "href": "semanas/Aula07.3A.html#carregando-os-dados",
-    "title": "Seleção de Modelos",
-    "section": "Carregando os dados",
-    "text": "Carregando os dados\n\nCodedata(Boston)\nhead(Boston)\n\n     crim zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat\n1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90  4.98\n2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90  9.14\n3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83  4.03\n4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63  2.94\n5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90  5.33\n6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12  5.21\n  medv\n1 24.0\n2 21.6\n3 34.7\n4 33.4\n5 36.2\n6 28.7\n\nCodesummary(Boston)\n\n      crim                zn             indus            chas        \n Min.   : 0.00632   Min.   :  0.00   Min.   : 0.46   Min.   :0.00000  \n 1st Qu.: 0.08205   1st Qu.:  0.00   1st Qu.: 5.19   1st Qu.:0.00000  \n Median : 0.25651   Median :  0.00   Median : 9.69   Median :0.00000  \n Mean   : 3.61352   Mean   : 11.36   Mean   :11.14   Mean   :0.06917  \n 3rd Qu.: 3.67708   3rd Qu.: 12.50   3rd Qu.:18.10   3rd Qu.:0.00000  \n Max.   :88.97620   Max.   :100.00   Max.   :27.74   Max.   :1.00000  \n      nox               rm             age              dis        \n Min.   :0.3850   Min.   :3.561   Min.   :  2.90   Min.   : 1.130  \n 1st Qu.:0.4490   1st Qu.:5.886   1st Qu.: 45.02   1st Qu.: 2.100  \n Median :0.5380   Median :6.208   Median : 77.50   Median : 3.207  \n Mean   :0.5547   Mean   :6.285   Mean   : 68.57   Mean   : 3.795  \n 3rd Qu.:0.6240   3rd Qu.:6.623   3rd Qu.: 94.08   3rd Qu.: 5.188  \n Max.   :0.8710   Max.   :8.780   Max.   :100.00   Max.   :12.127  \n      rad              tax           ptratio          black       \n Min.   : 1.000   Min.   :187.0   Min.   :12.60   Min.   :  0.32  \n 1st Qu.: 4.000   1st Qu.:279.0   1st Qu.:17.40   1st Qu.:375.38  \n Median : 5.000   Median :330.0   Median :19.05   Median :391.44  \n Mean   : 9.549   Mean   :408.2   Mean   :18.46   Mean   :356.67  \n 3rd Qu.:24.000   3rd Qu.:666.0   3rd Qu.:20.20   3rd Qu.:396.23  \n Max.   :24.000   Max.   :711.0   Max.   :22.00   Max.   :396.90  \n     lstat            medv      \n Min.   : 1.73   Min.   : 5.00  \n 1st Qu.: 6.95   1st Qu.:17.02  \n Median :11.36   Median :21.20  \n Mean   :12.65   Mean   :22.53  \n 3rd Qu.:16.95   3rd Qu.:25.00  \n Max.   :37.97   Max.   :50.00  \n\nCodenrow(Boston)\n\n[1] 506"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#explicação-das-variáveis",
-    "href": "semanas/Aula07.3A.html#explicação-das-variáveis",
-    "title": "Seleção de Modelos",
-    "section": "Explicação das variáveis",
-    "text": "Explicação das variáveis\n\nCode# Boston Database\n# \n# 1) crim - taxa de criminalidade per capita por cidade.\n# \n# 2) zn - proporção de terrenos residenciais para lotes acima de 25,000 sq.ft.\n# \n# 3) indus - proporção de negócios não comerciais por acres e por cidade.\n# \n# 4) chas - variável dummy do Rio Charles (= 1 se próximo do rio; 0 de outra forma).\n# \n# 5) nox - concentração de óxido de nitrogênio (partes por 10 milhões).\n# \n# 6) rm - número médio de cômodos por habitação\n# \n# 7) age - proporção da unidade ocupadas pelos proprietários construídas antes 1940.\n# \n# 8) dis - média ponderada das distâncias dos 5 pontos de emprego em Boston.\n# \n# 9) rad - indice de acessibilidade das avenidas radiais.\n# \n# 10) tax - valor cheio da taxa de propriedade por $10,000.\n# \n# 11) ptratio - razão aluno-professor por cidade.\n# \n# 12) black - 1000(Bk−0.63)21000(Bk−0.63)2 proporção de negros por cidade.\n# \n# 13) lstat - percentual de baixo status da população.\n# \n# 14) medv - valor mediano das casas ocupadas pelos proprietário em $1000s. (Var. Resposta)"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#conjunto-de-teste-e-treino",
-    "href": "semanas/Aula07.3A.html#conjunto-de-teste-e-treino",
-    "title": "Seleção de Modelos",
-    "section": "Conjunto de teste e treino",
-    "text": "Conjunto de teste e treino\n\nCodelibrary(caret)\n\nCarregando pacotes exigidos: lattice\n\n\n\nAttaching package: 'caret'\n\n\nThe following object is masked from 'package:purrr':\n\n    lift\n\nCodeset.seed(21)\ny &lt;- Boston$medv\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- Boston %&gt;% slice(-indice_teste)\n\nWarning: Slicing with a 1-column matrix was deprecated in dplyr 1.1.0.\n\nCodeconj_teste &lt;- Boston %&gt;% slice(indice_teste)\n\nstr(conj_treino)\n\n'data.frame':   403 obs. of  14 variables:\n $ crim   : num  0.00632 0.02731 0.02729 0.03237 0.06905 ...\n $ zn     : num  18 0 0 0 0 0 12.5 12.5 12.5 12.5 ...\n $ indus  : num  2.31 7.07 7.07 2.18 2.18 2.18 7.87 7.87 7.87 7.87 ...\n $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.538 0.469 0.469 0.458 0.458 0.458 0.524 0.524 0.524 0.524 ...\n $ rm     : num  6.58 6.42 7.18 7 7.15 ...\n $ age    : num  65.2 78.9 61.1 45.8 54.2 58.7 66.6 96.1 85.9 94.3 ...\n $ dis    : num  4.09 4.97 4.97 6.06 6.06 ...\n $ rad    : int  1 2 2 3 3 3 5 5 5 5 ...\n $ tax    : num  296 242 242 222 222 222 311 311 311 311 ...\n $ ptratio: num  15.3 17.8 17.8 18.7 18.7 18.7 15.2 15.2 15.2 15.2 ...\n $ black  : num  397 397 393 395 397 ...\n $ lstat  : num  4.98 9.14 4.03 2.94 5.33 ...\n $ medv   : num  24 21.6 34.7 33.4 36.2 28.7 22.9 27.1 18.9 15 ...\n\nCodestr(conj_teste)\n\n'data.frame':   103 obs. of  14 variables:\n $ crim   : num  0.211 0.63 0.627 1.252 0.852 ...\n $ zn     : num  12.5 0 0 0 0 0 0 75 0 0 ...\n $ indus  : num  7.87 8.14 8.14 8.14 8.14 8.14 8.14 2.95 6.91 6.91 ...\n $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.524 0.538 0.538 0.538 0.538 0.538 0.538 0.428 0.448 0.448 ...\n $ rm     : num  5.63 5.95 5.83 5.57 5.96 ...\n $ age    : num  100 61.8 56.5 98.1 89.2 94.1 96.9 21.8 6.5 95.3 ...\n $ dis    : num  6.08 4.71 4.5 3.8 4.01 ...\n $ rad    : int  5 4 4 4 4 4 4 3 3 3 ...\n $ tax    : num  311 307 307 307 307 307 307 252 233 233 ...\n $ ptratio: num  15.2 21 21 21 21 21 21 18.3 17.9 17.9 ...\n $ black  : num  387 397 396 377 393 ...\n $ lstat  : num  29.93 8.26 8.47 21.02 13.83 ...\n $ medv   : num  16.5 20.4 19.9 13.6 19.6 12.7 13.5 30.8 24.7 14.4 ...\n\nCodegt::gt(head(conj_treino, 10))\n\n\n\n\n\ncrim\nzn\nindus\nchas\nnox\nrm\nage\ndis\nrad\ntax\nptratio\nblack\nlstat\nmedv\n\n\n\n0.00632\n18.0\n2.31\n0\n0.538\n6.575\n65.2\n4.0900\n1\n296\n15.3\n396.90\n4.98\n24.0\n\n\n0.02731\n0.0\n7.07\n0\n0.469\n6.421\n78.9\n4.9671\n2\n242\n17.8\n396.90\n9.14\n21.6\n\n\n0.02729\n0.0\n7.07\n0\n0.469\n7.185\n61.1\n4.9671\n2\n242\n17.8\n392.83\n4.03\n34.7\n\n\n0.03237\n0.0\n2.18\n0\n0.458\n6.998\n45.8\n6.0622\n3\n222\n18.7\n394.63\n2.94\n33.4\n\n\n0.06905\n0.0\n2.18\n0\n0.458\n7.147\n54.2\n6.0622\n3\n222\n18.7\n396.90\n5.33\n36.2\n\n\n0.02985\n0.0\n2.18\n0\n0.458\n6.430\n58.7\n6.0622\n3\n222\n18.7\n394.12\n5.21\n28.7\n\n\n0.08829\n12.5\n7.87\n0\n0.524\n6.012\n66.6\n5.5605\n5\n311\n15.2\n395.60\n12.43\n22.9\n\n\n0.14455\n12.5\n7.87\n0\n0.524\n6.172\n96.1\n5.9505\n5\n311\n15.2\n396.90\n19.15\n27.1\n\n\n0.17004\n12.5\n7.87\n0\n0.524\n6.004\n85.9\n6.5921\n5\n311\n15.2\n386.71\n17.10\n18.9\n\n\n0.22489\n12.5\n7.87\n0\n0.524\n6.377\n94.3\n6.3467\n5\n311\n15.2\n392.52\n20.45\n15.0"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#matriz-de-correlação",
-    "href": "semanas/Aula07.3A.html#matriz-de-correlação",
-    "title": "Seleção de Modelos",
-    "section": "Matriz de correlação",
-    "text": "Matriz de correlação\n\nCodelibrary(corrplot)\nmat_corr &lt;- cor(conj_treino)\ncorrplot(mat_corr)"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#matriz-de-dispersão",
-    "href": "semanas/Aula07.3A.html#matriz-de-dispersão",
-    "title": "Seleção de Modelos",
-    "section": "Matriz de dispersão",
-    "text": "Matriz de dispersão\n\nCodelibrary(psych)\n\n\nAttaching package: 'psych'\n\n\nThe following objects are masked from 'package:ggplot2':\n\n    %+%, alpha\n\nCodepairs.panels(conj_treino,\n             method = \"pearson\", # metodo de correlação\n             hist.col = \"#00AFBB\",\n             density = TRUE,  # mostra graficos de densidade\n             ellipses = FALSE # mostra elipses de correlação\n             )"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#métodos-de-seleção-de-modelo",
-    "href": "semanas/Aula07.3A.html#métodos-de-seleção-de-modelo",
-    "title": "Seleção de Modelos",
-    "section": "Métodos de seleção de modelo",
-    "text": "Métodos de seleção de modelo\n\nCode## Best Subset sem definir o número máx de subsets a ser avaliado\najusreg.comp &lt;- regsubsets(medv ~ ., data=conj_treino)\nsummary(ajusreg.comp)\n\nSubset selection object\nCall: regsubsets.formula(medv ~ ., data = conj_treino)\n13 Variables  (and intercept)\n        Forced in Forced out\ncrim        FALSE      FALSE\nzn          FALSE      FALSE\nindus       FALSE      FALSE\nchas        FALSE      FALSE\nnox         FALSE      FALSE\nrm          FALSE      FALSE\nage         FALSE      FALSE\ndis         FALSE      FALSE\nrad         FALSE      FALSE\ntax         FALSE      FALSE\nptratio     FALSE      FALSE\nblack       FALSE      FALSE\nlstat       FALSE      FALSE\n1 subsets of each size up to 8\nSelection Algorithm: exhaustive\n         crim zn  indus chas nox rm  age dis rad tax ptratio black lstat\n1  ( 1 ) \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \" \"  \n2  ( 1 ) \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \"*\"  \n3  ( 1 ) \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \" \"   \"*\"  \n4  ( 1 ) \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \"*\"   \"*\"  \n5  ( 1 ) \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n6  ( 1 ) \" \"  \" \" \" \"   \" \"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n7  ( 1 ) \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n8  ( 1 ) \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \" \" \"*\"     \"*\"   \"*\"  \n\nCode## Não testou todas as combinações possíveis"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#nvmax13",
-    "href": "semanas/Aula07.3A.html#nvmax13",
-    "title": "Seleção de Modelos",
-    "section": "nvmax=13",
-    "text": "nvmax=13\n\nCodeajusreg.comp &lt;- regsubsets(medv ~ ., data=conj_treino, nvmax=13)\nsumario.reg &lt;- summary(ajusreg.comp)\nsumario.reg\n\nSubset selection object\nCall: regsubsets.formula(medv ~ ., data = conj_treino, nvmax = 13)\n13 Variables  (and intercept)\n        Forced in Forced out\ncrim        FALSE      FALSE\nzn          FALSE      FALSE\nindus       FALSE      FALSE\nchas        FALSE      FALSE\nnox         FALSE      FALSE\nrm          FALSE      FALSE\nage         FALSE      FALSE\ndis         FALSE      FALSE\nrad         FALSE      FALSE\ntax         FALSE      FALSE\nptratio     FALSE      FALSE\nblack       FALSE      FALSE\nlstat       FALSE      FALSE\n1 subsets of each size up to 13\nSelection Algorithm: exhaustive\n          crim zn  indus chas nox rm  age dis rad tax ptratio black lstat\n1  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \" \"  \n2  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \"*\"  \n3  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \" \"   \"*\"  \n4  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \"*\"   \"*\"  \n5  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n6  ( 1 )  \" \"  \" \" \" \"   \" \"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n7  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n8  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \" \" \"*\"     \"*\"   \"*\"  \n9  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n10  ( 1 ) \" \"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n11  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n12  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n13  ( 1 ) \"*\"  \"*\" \"*\"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n\nCodenames(sumario.reg)\n\n[1] \"which\"  \"rsq\"    \"rss\"    \"adjr2\"  \"cp\"     \"bic\"    \"outmat\" \"obj\""
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#avaliando-os-modelos",
-    "href": "semanas/Aula07.3A.html#avaliando-os-modelos",
-    "title": "Seleção de Modelos",
-    "section": "Avaliando os modelos",
-    "text": "Avaliando os modelos\n\nCode## Os modelos vão ser escolhidos com base no menor Cp\nplot(sumario.reg$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\nwhich.min(sumario.reg$cp)\n\n[1] 11\n\nCodepoints(11,sumario.reg$cp[11],pch=20,col=\"red\")"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#como-extrair-detalhes-do-ajuste",
-    "href": "semanas/Aula07.3A.html#como-extrair-detalhes-do-ajuste",
-    "title": "Seleção de Modelos",
-    "section": "Como extrair detalhes do ajuste",
-    "text": "Como extrair detalhes do ajuste\n\nCodecoef(ajusreg.comp,11)  \n\n (Intercept)         crim           zn         chas          nox           rm \n 24.11955557  -0.05912124   0.03395127   3.45970324 -17.22861717   5.10891588 \n         dis          rad          tax      ptratio        black        lstat \n -1.27274817   0.25203587  -0.01015538  -0.94732891   0.01296186  -0.39603435"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#forward-stepwise-passo-a-passo-à-frente",
-    "href": "semanas/Aula07.3A.html#forward-stepwise-passo-a-passo-à-frente",
-    "title": "Seleção de Modelos",
-    "section": "Forward Stepwise (passo a passo à frente)",
-    "text": "Forward Stepwise (passo a passo à frente)\n\nCodeajusreg.fwd &lt;- regsubsets(medv ~ . , data=conj_treino,nvmax=13, method=\"forward\")\nsumario.reg.fwd &lt;- summary(ajusreg.fwd)\nsumario.reg.fwd \n\nSubset selection object\nCall: regsubsets.formula(medv ~ ., data = conj_treino, nvmax = 13, \n    method = \"forward\")\n13 Variables  (and intercept)\n        Forced in Forced out\ncrim        FALSE      FALSE\nzn          FALSE      FALSE\nindus       FALSE      FALSE\nchas        FALSE      FALSE\nnox         FALSE      FALSE\nrm          FALSE      FALSE\nage         FALSE      FALSE\ndis         FALSE      FALSE\nrad         FALSE      FALSE\ntax         FALSE      FALSE\nptratio     FALSE      FALSE\nblack       FALSE      FALSE\nlstat       FALSE      FALSE\n1 subsets of each size up to 13\nSelection Algorithm: forward\n          crim zn  indus chas nox rm  age dis rad tax ptratio black lstat\n1  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \" \"  \n2  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \"*\"  \n3  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \" \"   \"*\"  \n4  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \"*\"   \"*\"  \n5  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n6  ( 1 )  \" \"  \" \" \" \"   \" \"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n7  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n8  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \" \" \"*\"     \"*\"   \"*\"  \n9  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n10  ( 1 ) \" \"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n11  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n12  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n13  ( 1 ) \"*\"  \"*\" \"*\"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n\nCodewhich.min(sumario.reg.fwd$cp)\n\n[1] 11\n\nCodeplot(sumario.reg.fwd$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\npoints(11,sumario.reg.fwd$cp[11],pch=20,col=\"red\")"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#como-extrair-detalhes-do-ajuste-1",
-    "href": "semanas/Aula07.3A.html#como-extrair-detalhes-do-ajuste-1",
-    "title": "Seleção de Modelos",
-    "section": "Como extrair detalhes do ajuste",
-    "text": "Como extrair detalhes do ajuste\n\nCodecoef(ajusreg.fwd,11)  \n\n (Intercept)         crim           zn         chas          nox           rm \n 24.11955557  -0.05912124   0.03395127   3.45970324 -17.22861717   5.10891588 \n         dis          rad          tax      ptratio        black        lstat \n -1.27274817   0.25203587  -0.01015538  -0.94732891   0.01296186  -0.39603435"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#backward-stepwise-passo-a-passo-atrás",
-    "href": "semanas/Aula07.3A.html#backward-stepwise-passo-a-passo-atrás",
-    "title": "Seleção de Modelos",
-    "section": "Backward Stepwise (passo a passo atrás)",
-    "text": "Backward Stepwise (passo a passo atrás)\n\nCodeajusreg.bwd &lt;- regsubsets(medv ~ . , data=conj_treino,nvmax=13, method=\"backward\")\nsumario.reg.bwd &lt;- summary(ajusreg.bwd)\nsumario.reg.bwd\n\nSubset selection object\nCall: regsubsets.formula(medv ~ ., data = conj_treino, nvmax = 13, \n    method = \"backward\")\n13 Variables  (and intercept)\n        Forced in Forced out\ncrim        FALSE      FALSE\nzn          FALSE      FALSE\nindus       FALSE      FALSE\nchas        FALSE      FALSE\nnox         FALSE      FALSE\nrm          FALSE      FALSE\nage         FALSE      FALSE\ndis         FALSE      FALSE\nrad         FALSE      FALSE\ntax         FALSE      FALSE\nptratio     FALSE      FALSE\nblack       FALSE      FALSE\nlstat       FALSE      FALSE\n1 subsets of each size up to 13\nSelection Algorithm: backward\n          crim zn  indus chas nox rm  age dis rad tax ptratio black lstat\n1  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \" \"  \n2  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \"*\"  \n3  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \" \"   \"*\"  \n4  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \"*\"   \"*\"  \n5  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n6  ( 1 )  \" \"  \" \" \" \"   \" \"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n7  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n8  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \" \" \"*\"     \"*\"   \"*\"  \n9  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n10  ( 1 ) \" \"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n11  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n12  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n13  ( 1 ) \"*\"  \"*\" \"*\"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n\nCodewhich.min(sumario.reg.bwd$cp)\n\n[1] 11\n\nCodeplot(sumario.reg.bwd$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\npoints(11,sumario.reg.bwd$cp[11],pch=20,col=\"red\")"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#como-extrair-detalhes-do-ajuste-2",
-    "href": "semanas/Aula07.3A.html#como-extrair-detalhes-do-ajuste-2",
-    "title": "Seleção de Modelos",
-    "section": "Como extrair detalhes do ajuste",
-    "text": "Como extrair detalhes do ajuste\n\nCodecoef(ajusreg.bwd,11)  \n\n (Intercept)         crim           zn         chas          nox           rm \n 24.11955557  -0.05912124   0.03395127   3.45970324 -17.22861717   5.10891588 \n         dis          rad          tax      ptratio        black        lstat \n -1.27274817   0.25203587  -0.01015538  -0.94732891   0.01296186  -0.39603435"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#comportamento-dos-erros-de-treino-e-teste",
-    "href": "semanas/Aula07.3A.html#comportamento-dos-erros-de-treino-e-teste",
-    "title": "Seleção de Modelos",
-    "section": "Comportamento dos erros de treino e teste",
-    "text": "Comportamento dos erros de treino e teste\n\nCode## Codigo original de T. Hastie\nreg.fwd &lt;- regsubsets(medv ~ . ,data=conj_treino,nvmax=13, method=\"forward\")\nval.erro &lt;- rep(NA,13)\nx.teste &lt;- model.matrix(medv~.,data=conj_teste)\nfor(i in 1:13){\n  coefi &lt;- coef(reg.fwd,id=i)\n  pred &lt;- x.teste[,names(coefi)]%*%coefi\n  val.erro[i] &lt;- mean((conj_teste$medv - pred)^2)\n}\nplot(sqrt(val.erro),ylab=\"Raiz do EQM\",ylim=c(4,8),pch=19,type=\"b\")\npoints(sqrt(reg.fwd$rss[-1]/403),col=\"blue\",pch=19,type=\"b\")\nlegend(\"topright\",legend=c(\"Treino\",\"Teste\"),col=c(\"blue\",\"black\"),pch=19)"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#testando-outra-estatística-de-seleção-de-modelos---bic",
-    "href": "semanas/Aula07.3A.html#testando-outra-estatística-de-seleção-de-modelos---bic",
-    "title": "Seleção de Modelos",
-    "section": "Testando outra estatística de seleção de modelos - BIC",
-    "text": "Testando outra estatística de seleção de modelos - BIC\n\nCodeajusreg.fwd1 &lt;- regsubsets(medv ~ . , data=conj_treino,nvmax=13, method=\"forward\")\nsumario.reg.fwd1 &lt;- summary(ajusreg.fwd1)\nnames(sumario.reg.fwd1)\n\n[1] \"which\"  \"rsq\"    \"rss\"    \"adjr2\"  \"cp\"     \"bic\"    \"outmat\" \"obj\"   \n\nCodewhich.min(sumario.reg.fwd1$bic)\n\n[1] 7\n\nCodeplot(sumario.reg.fwd1$bic,xlab=\"Número de Variáveis\",ylab=\"BIC\")\npoints(7,sumario.reg.fwd1$bic[7],pch=20,col=\"red\")\n\n\n\n\n\n\nCodecoef(ajusreg.fwd1,7)  \n\n (Intercept)         chas          nox           rm          dis      ptratio \n 18.15699005   3.62527238 -16.32477597   5.61737907  -1.00175093  -0.95906300 \n       black        lstat \n  0.01229926  -0.39019735"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#usando-o-cp-novamente",
-    "href": "semanas/Aula07.3A.html#usando-o-cp-novamente",
-    "title": "Seleção de Modelos",
-    "section": "Usando o Cp novamente",
-    "text": "Usando o Cp novamente\n\nCodewhich.min(sumario.reg.fwd1$cp)\n\n[1] 11\n\nCodeplot(sumario.reg.fwd1$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\npoints(11,sumario.reg.fwd1$cp[11],pch=20,col=\"red\")\n\n\n\n\n\n\nCodecoef(ajusreg.fwd1,11)\n\n (Intercept)         crim           zn         chas          nox           rm \n 24.11955557  -0.05912124   0.03395127   3.45970324 -17.22861717   5.10891588 \n         dis          rad          tax      ptratio        black        lstat \n -1.27274817   0.25203587  -0.01015538  -0.94732891   0.01296186  -0.39603435"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#comparando-os-dois-modelos-com-o-lm",
-    "href": "semanas/Aula07.3A.html#comparando-os-dois-modelos-com-o-lm",
-    "title": "Seleção de Modelos",
-    "section": "Comparando os dois modelos com o lm()",
-    "text": "Comparando os dois modelos com o lm()\n\nCode## Usando o lm para ajustar o modelo com as variáveis selecionadas pelo BIC\nmod_bic &lt;- lm(medv ~ chas + nox + rm + dis + ptratio + black + lstat, data=conj_treino) \nsummary(mod_bic)\n\n\nCall:\nlm(formula = medv ~ chas + nox + rm + dis + ptratio + black + \n    lstat, data = conj_treino)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-18.4971  -2.7789  -0.5478   1.7933  26.9857 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  18.156990   5.385606   3.371 0.000822 ***\nchas          3.625272   1.009714   3.590 0.000372 ***\nnox         -16.324776   3.534591  -4.619 5.24e-06 ***\nrm            5.617379   0.457084  12.290  &lt; 2e-16 ***\ndis          -1.001751   0.180856  -5.539 5.56e-08 ***\nptratio      -0.959063   0.119626  -8.017 1.24e-14 ***\nblack         0.012299   0.002702   4.552 7.07e-06 ***\nlstat        -0.390197   0.053934  -7.235 2.44e-12 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.631 on 395 degrees of freedom\nMultiple R-squared:  0.7512,    Adjusted R-squared:  0.7468 \nF-statistic: 170.4 on 7 and 395 DF,  p-value: &lt; 2.2e-16\n\nCodemod_cp &lt;- lm(medv ~ crim + zn + chas + nox + rm + dis + rad + tax + ptratio + black + lstat, data=conj_treino)\nsummary(mod_cp)\n\n\nCall:\nlm(formula = medv ~ crim + zn + chas + nox + rm + dis + rad + \n    tax + ptratio + black + lstat, data = conj_treino)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-18.1857  -2.8830  -0.5641   1.8709  25.9074 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  24.119556   5.661887   4.260 2.56e-05 ***\ncrim         -0.059121   0.038751  -1.526 0.127902    \nzn            0.033951   0.015207   2.233 0.026139 *  \nchas          3.459703   0.995635   3.475 0.000568 ***\nnox         -17.228617   3.807289  -4.525 8.02e-06 ***\nrm            5.108916   0.466926  10.942  &lt; 2e-16 ***\ndis          -1.272748   0.203301  -6.260 1.01e-09 ***\nrad           0.252036   0.067390   3.740 0.000212 ***\ntax          -0.010155   0.003556  -2.856 0.004525 ** \nptratio      -0.947329   0.141436  -6.698 7.38e-11 ***\nblack         0.012962   0.002822   4.593 5.90e-06 ***\nlstat        -0.396034   0.054069  -7.325 1.38e-12 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.554 on 391 degrees of freedom\nMultiple R-squared:  0.7618,    Adjusted R-squared:  0.7551 \nF-statistic: 113.7 on 11 and 391 DF,  p-value: &lt; 2.2e-16"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#eliminando-a-variável-não-significativa",
-    "href": "semanas/Aula07.3A.html#eliminando-a-variável-não-significativa",
-    "title": "Seleção de Modelos",
-    "section": "Eliminando a variável não significativa",
-    "text": "Eliminando a variável não significativa\n\nCodemod_cp2 &lt;- lm(medv ~ zn + chas + nox + rm + dis + rad + tax + ptratio + black + lstat, data=conj_treino)\nsummary(mod_cp2)\n\n\nCall:\nlm(formula = medv ~ zn + chas + nox + rm + dis + rad + tax + \n    ptratio + black + lstat, data = conj_treino)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-18.1471  -2.7317  -0.5389   1.9772  25.9698 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  22.884672   5.613214   4.077 5.53e-05 ***\nzn            0.031594   0.015154   2.085 0.037726 *  \nchas          3.524816   0.996402   3.538 0.000452 ***\nnox         -16.721605   3.799175  -4.401 1.39e-05 ***\nrm            5.183515   0.465145  11.144  &lt; 2e-16 ***\ndis          -1.231499   0.201836  -6.101 2.52e-09 ***\nrad           0.218320   0.063772   3.423 0.000683 ***\ntax          -0.009827   0.003556  -2.764 0.005984 ** \nptratio      -0.938621   0.141560  -6.631 1.11e-10 ***\nblack         0.013799   0.002773   4.976 9.72e-07 ***\nlstat        -0.406190   0.053749  -7.557 2.94e-13 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.562 on 392 degrees of freedom\nMultiple R-squared:  0.7604,    Adjusted R-squared:  0.7543 \nF-statistic: 124.4 on 10 and 392 DF,  p-value: &lt; 2.2e-16"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#avaliando-colinearidade",
-    "href": "semanas/Aula07.3A.html#avaliando-colinearidade",
-    "title": "Seleção de Modelos",
-    "section": "Avaliando Colinearidade",
-    "text": "Avaliando Colinearidade\nUma investigação minuciosa da multicollinearidade envolverá a análise do valor do \\(R^2\\) que resulta da regressão de cada uma das variáveis explicativas contra todas as outras. A relação entre as variáveis explicativas pode ser julgada examinando uma quantidade chamada fator de inflacionário da variância (FIV) ou Variance Inflation Factor (VIF). Seja \\(Rj~^{2}\\) o quadrado do coeficiente de correlação múltipla que resulta quando a variável explicativa \\(Xj~\\) é ajustada contra todas as outras variáveis explicativas. Então o vif para \\(Xj~\\) é \\(VIFj = 1 / (1-Rj~^{2})\\)\nA regra geral é que vifs superiores a 4 justificam novas investigações, enquanto VIFs superiores a 10 são sinais de multicollinearidade grave que requerem correção.\n\nCodelibrary(car)\nvif(mod_cp2)\n\n      zn     chas      nox       rm      dis      rad      tax  ptratio \n2.128862 1.076888 3.707463 2.032934 3.357506 6.005229 6.999822 1.796214 \n   black    lstat \n1.388299 3.010108 \n\nCode## Vamos eliminar tax e ver o que acontece\nmod_cp3 &lt;- lm(medv ~ zn + chas + nox + rm + dis + rad + ptratio + black + lstat, data=conj_treino)\nsummary(mod_cp3)\n\n\nCall:\nlm(formula = medv ~ zn + chas + nox + rm + dis + rad + ptratio + \n    black + lstat, data = conj_treino)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-18.6480  -2.9158  -0.5013   1.9274  25.8537 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  21.606433   5.641174   3.830 0.000149 ***\nzn            0.021779   0.014856   1.466 0.143439    \nchas          3.623029   1.004143   3.608 0.000348 ***\nnox         -18.864099   3.750520  -5.030 7.48e-07 ***\nrm            5.337321   0.465687  11.461  &lt; 2e-16 ***\ndis          -1.150869   0.201396  -5.714 2.18e-08 ***\nrad           0.079897   0.039806   2.007 0.045417 *  \nptratio      -1.016641   0.139883  -7.268 1.99e-12 ***\nblack         0.014071   0.002794   5.035 7.28e-07 ***\nlstat        -0.411503   0.054166  -7.597 2.24e-13 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.6 on 393 degrees of freedom\nMultiple R-squared:  0.7557,    Adjusted R-squared:  0.7501 \nF-statistic: 135.1 on 9 and 393 DF,  p-value: &lt; 2.2e-16\n\nCodevif(mod_cp3)\n\n      zn     chas      nox       rm      dis      rad  ptratio    black \n2.011936 1.075519 3.553096 2.003832 3.287355 2.300918 1.724780 1.386548 \n   lstat \n3.006257"
-  },
-  {
-    "objectID": "semanas/Aula07.3A.html#testando-os-dois-modelos-com-o-conjunto-de-teste",
-    "href": "semanas/Aula07.3A.html#testando-os-dois-modelos-com-o-conjunto-de-teste",
-    "title": "Seleção de Modelos",
-    "section": "Testando os dois modelos com o conjunto de teste",
-    "text": "Testando os dois modelos com o conjunto de teste\n\nCode# Modelo com base no Cp\nsummary(mod_cp3)$sigma\n\n[1] 4.600016\n\nCodesummary(mod_cp3)$adj.r.squared\n\n[1] 0.7501409\n\nCodesqrt(mean((conj_teste$medv - predict(mod_cp3, conj_teste)) ^ 2))\n\n[1] 5.918251\n\nCode# Modelo com base no BIC\nmod_bic &lt;- lm(medv ~ chas + nox + rm + dis + ptratio + black + lstat, data=conj_treino) \nsummary(mod_bic)$sigma\n\n[1] 4.630994\n\nCodesummary(mod_bic)$adj.r.squared\n\n[1] 0.7467643\n\nCodesqrt(mean((conj_teste$medv - predict(mod_bic, conj_teste)) ^ 2))\n\n[1] 6.023672"
+    "objectID": "semanas/Aula07.4.html#avaliando-com-conjunto-de-teste-1",
+    "href": "semanas/Aula07.4.html#avaliando-com-conjunto-de-teste-1",
+    "title": "Regularização de Modelos",
+    "section": "Avaliando com conjunto de teste",
+    "text": "Avaliando com conjunto de teste\n\najusreg.lasso2 &lt;- glmnet(x_treino, y_treino, alpha=1, lambda = m_lamb1)\ny_prev &lt;- predict(ajusreg.lasso2, s = m_lamb1, newx = x_teste)\n# Metricas de desempenho\nsqrt(mean((y_prev - y_teste)^2))\n\n[1] 41.48019",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Métodos de Encolhimento"
+    ]
   },
   {
     "objectID": "semanas/Aula07.2B.html",
@@ -1479,6 +1303,17 @@
     ]
   },
   {
+    "objectID": "semanas/Aula07.2.html#comparando-valor-real-vs-ajustado",
+    "href": "semanas/Aula07.2.html#comparando-valor-real-vs-ajustado",
+    "title": "Regressão Linear Múltipla",
+    "section": "Comparando valor real vs ajustado",
+    "text": "Comparando valor real vs ajustado\n\nconj_treino$Previsoes &lt;- predict(mod5, data=conj_treino)\nggplot(conj_treino, aes(x=Previsoes, y=Vendas)) + \n  geom_point() +\n  geom_abline(color = \"darkblue\") +\n  ggtitle(\"Vendas vs. Previsões do modelo linear\")",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Regressão Múltipla"
+    ]
+  },
+  {
     "objectID": "semanas/Aula07.2.html#análise-inicial-dos-resíduos",
     "href": "semanas/Aula07.2.html#análise-inicial-dos-resíduos",
     "title": "Regressão Linear Múltipla",
@@ -1538,7 +1373,7 @@
     "href": "semanas/Aula07.2.html#dado-que-parece-outlier-e-é-um-valor-influente",
     "title": "Regressão Linear Múltipla",
     "section": "Dado que parece outlier e é um valor influente",
-    "text": "Dado que parece outlier e é um valor influente\nA função OutlierTest () no pacote do car localiza o maior resíduo studentizado em valor absoluto e calcula o teste t com correção de Bonferroni. O testes de Outlier utiliza uma distribuição t para testar se o maior valor do residuo studentizado do modelo é estatisticamente diferente das outras observações. Um valor p significativo indica um outlier extremo que merece um exame mais aprofundado.\n\noutlierTest(mod5)\n\n    rstudent unadjusted p-value Bonferroni p\n83 -7.289206         4.2486e-11   5.0558e-09\n\nconj_treino[83,]\n\n# A tibble: 1 × 4\n     TV Radio Jornal Vendas\n  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1   0.7  39.6    8.7    1.6",
+    "text": "Dado que parece outlier e é um valor influente\nA função OutlierTest () no pacote do car localiza o maior resíduo studentizado em valor absoluto e calcula o teste t com correção de Bonferroni. O testes de Outlier utiliza uma distribuição t para testar se o maior valor do residuo studentizado do modelo é estatisticamente diferente das outras observações. Um valor p significativo indica um outlier extremo que merece um exame mais aprofundado.\n\noutlierTest(mod5)\n\n    rstudent unadjusted p-value Bonferroni p\n83 -7.289206         4.2486e-11   5.0558e-09\n\nconj_treino[83,]\n\n# A tibble: 1 × 5\n     TV Radio Jornal Vendas Previsoes\n  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;\n1   0.7  39.6    8.7    1.6      11.1",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Múltipla"
@@ -1978,7 +1813,7 @@
     "href": "index.html",
     "title": "IME05-12547/14149 Mineração de Dados",
     "section": "",
-    "text": "Bom dia / Boa tarde / Boa Noite,\nAqui vocês vão encontrar alguns dos exemplos apresentados em aula, com uso do R. O objetivo é mostrar as possibilidades de aplicação do R nesta disciplina.\nOs códigos apresentados em aula serão colocado por aqui também.\n[📖] Explorando 01\n[📖] Explorando 01A\n[📖] Explorando 02\n[📖] Explorando 03\n[📖] Explorando 04\n[📖] Explorando 05\n[📖] Explorando 06\n[📖] Explorando 06A\n[📖] Regressão Simples\n[📖] Regressão Múltipla\n[📖] Validação Cruzada\n[📖] Problemas na Regressão\n[📖] Seleção de Modelos\n[📖] Métodos de Encolhimento\n[📖] Métodos de Encolhimento A\n[📖] Classificação 1os passos\n[📖] KNN\n[📖] Regressão Logística\n[📖] SMOTE\n[📖] LDA e QDA\n[📖] Arvore de Regressão\n[📖] Arvore de Regressão GBM\n[📖] Arvore de Regressão XGBoost\n[📖] Arvore de Classificação\n[📖] Arvore de Classificação\n[📖] Arvore de Classificação XGBoost\n[📖] Análise de Clusters\n[📖] Análise de Associação",
+    "text": "Bom dia / Boa tarde / Boa Noite,\nAqui vocês vão encontrar alguns dos exemplos apresentados em aula, com uso do R. O objetivo é mostrar as possibilidades de aplicação do R nesta disciplina.\nOs códigos apresentados em aula serão colocado por aqui também.\n[📖] Explorando 01\n[📖] Explorando 01A\n[📖] Explorando 02\n[📖] Explorando 03\n[📖] Explorando 04\n[📖] Explorando 05\n[📖] Explorando 06\n[📖] Explorando 06A\n[📖] Regressão Simples\n[📖] Regressão Múltipla\n[📖] Validação Cruzada\n[📖] Problemas na Regressão\n[📖] Seleção de Modelos\n[📖] Métodos de Encolhimento\n[📖] Classificação 1os passos\n[📖] KNN\n[📖] Regressão Logística\n[📖] SMOTE\n[📖] LDA e QDA\n[📖] Arvore de Regressão\n[📖] Arvore de Regressão GBM\n[📖] Arvore de Regressão XGBoost\n[📖] Arvore de Classificação\n[📖] Arvore de Classificação\n[📖] Arvore de Classificação XGBoost\n[📖] Análise de Clusters\n[📖] Análise de Associação",
     "crumbs": [
       "Informação da disciplina",
       "Cronograma"
@@ -2999,7 +2834,7 @@
   {
     "objectID": "semanas/Aula07.2A.html",
     "href": "semanas/Aula07.2A.html",
-    "title": "Regressão Linear Múltipla",
+    "title": "Regressão Linear Múltipla - Validação Cruzada",
     "section": "",
     "text": "library(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.0     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
     "crumbs": [
@@ -3010,7 +2845,7 @@
   {
     "objectID": "semanas/Aula07.2A.html#carregando-bibliotecas",
     "href": "semanas/Aula07.2A.html#carregando-bibliotecas",
-    "title": "Regressão Linear Múltipla",
+    "title": "Regressão Linear Múltipla - Validação Cruzada",
     "section": "",
     "text": "library(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.0     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
     "crumbs": [
@@ -3021,7 +2856,7 @@
   {
     "objectID": "semanas/Aula07.2A.html#dados-de-propaganda",
     "href": "semanas/Aula07.2A.html#dados-de-propaganda",
-    "title": "Regressão Linear Múltipla",
+    "title": "Regressão Linear Múltipla - Validação Cruzada",
     "section": "Dados de propaganda",
     "text": "Dados de propaganda\nO conjunto de dados contém estatísticas sobre as vendas de um produto em 200 diferentes mercados, juntamente com orçamentos publicitários em cada um desses mercados, para diferentes canais de mídia: TV, rádio e jornal. As vendas estão em milhares de unidades e o orçamento está em milhares de dólares.\n\nlibrary(readxl)\npropaganda &lt;- read_excel(\"Propaganda.xlsx\")\nsummary(propaganda)\n\n       TV             Radio          Newspaper          Sales      \n Min.   :  0.70   Min.   : 0.000   Min.   :  0.30   Min.   : 1.60  \n 1st Qu.: 74.38   1st Qu.: 9.975   1st Qu.: 12.75   1st Qu.:10.38  \n Median :149.75   Median :22.900   Median : 25.75   Median :12.90  \n Mean   :147.04   Mean   :23.264   Mean   : 30.55   Mean   :14.02  \n 3rd Qu.:218.82   3rd Qu.:36.525   3rd Qu.: 45.10   3rd Qu.:17.40  \n Max.   :296.40   Max.   :49.600   Max.   :114.00   Max.   :27.00",
     "crumbs": [
@@ -3032,7 +2867,7 @@
   {
     "objectID": "semanas/Aula07.2A.html#renomeando",
     "href": "semanas/Aula07.2A.html#renomeando",
-    "title": "Regressão Linear Múltipla",
+    "title": "Regressão Linear Múltipla - Validação Cruzada",
     "section": "Renomeando",
     "text": "Renomeando\n\npropaganda &lt;- propaganda %&gt;% rename(Jornal = Newspaper, Vendas = Sales)",
     "crumbs": [
@@ -3043,7 +2878,7 @@
   {
     "objectID": "semanas/Aula07.2A.html#validação-cruzada",
     "href": "semanas/Aula07.2A.html#validação-cruzada",
-    "title": "Regressão Linear Múltipla",
+    "title": "Regressão Linear Múltipla - Validação Cruzada",
     "section": "Validação cruzada",
     "text": "Validação cruzada\nA validação cruzada é útil para termos uma estimativa do erro fora da amostra. O método de validação cruzada é um procedimento utilizado para estimar a qualidade de um modelo de aprendizado de máquina em dados não vistos. A validação cruzada é um procedimento comum para avaliar a capacidade de generalização de um modelo.\n\nlibrary(caret)\n\nCarregando pacotes exigidos: lattice\n\n\n\nAttaching package: 'caret'\n\n\nThe following object is masked from 'package:purrr':\n\n    lift\n\nset.seed(21)\nmodelo &lt;- train( Vendas ~ ., propaganda, method = \"lm\",\n                 trControl = trainControl(method = \"cv\", number = 10,\n                                          verboseIter = TRUE))\n\n+ Fold01: intercept=TRUE \n- Fold01: intercept=TRUE \n+ Fold02: intercept=TRUE \n- Fold02: intercept=TRUE \n+ Fold03: intercept=TRUE \n- Fold03: intercept=TRUE \n+ Fold04: intercept=TRUE \n- Fold04: intercept=TRUE \n+ Fold05: intercept=TRUE \n- Fold05: intercept=TRUE \n+ Fold06: intercept=TRUE \n- Fold06: intercept=TRUE \n+ Fold07: intercept=TRUE \n- Fold07: intercept=TRUE \n+ Fold08: intercept=TRUE \n- Fold08: intercept=TRUE \n+ Fold09: intercept=TRUE \n- Fold09: intercept=TRUE \n+ Fold10: intercept=TRUE \n- Fold10: intercept=TRUE \nAggregating results\nFitting final model on full training set\n\n# Mostra o modelo\nmodelo\n\nLinear Regression \n\n200 samples\n  3 predictor\n\nNo pre-processing\nResampling: Cross-Validated (10 fold) \nSummary of sample sizes: 180, 180, 181, 180, 180, 180, ... \nResampling results:\n\n  RMSE      Rsquared   MAE     \n  1.662943  0.9033394  1.286409\n\nTuning parameter 'intercept' was held constant at a value of TRUE\n\n# Modelo final\nmodelo$finalModel\n\n\nCall:\nlm(formula = .outcome ~ ., data = dat)\n\nCoefficients:\n(Intercept)           TV        Radio       Jornal  \n   2.938889     0.045765     0.188530    -0.001037  \n\n\nVeja que a validação cruzada não faz seleção de variáveis.\nO modelo final obtido mostra Jornal com um coeficiente negativo!\nEsta variável deveria estar fora do modelo.",
     "crumbs": [
@@ -3054,9 +2889,20 @@
   {
     "objectID": "semanas/Aula07.2A.html#novo-modelo",
     "href": "semanas/Aula07.2A.html#novo-modelo",
-    "title": "Regressão Linear Múltipla",
+    "title": "Regressão Linear Múltipla - Validação Cruzada",
     "section": "Novo modelo",
-    "text": "Novo modelo\n\nset.seed(21)\nmodelo &lt;- train( Vendas ~ TV + Radio, propaganda, method = \"lm\",\n                 trControl = trainControl(method = \"cv\", number = 10,\n                                          verboseIter = TRUE))\n\n+ Fold01: intercept=TRUE \n- Fold01: intercept=TRUE \n+ Fold02: intercept=TRUE \n- Fold02: intercept=TRUE \n+ Fold03: intercept=TRUE \n- Fold03: intercept=TRUE \n+ Fold04: intercept=TRUE \n- Fold04: intercept=TRUE \n+ Fold05: intercept=TRUE \n- Fold05: intercept=TRUE \n+ Fold06: intercept=TRUE \n- Fold06: intercept=TRUE \n+ Fold07: intercept=TRUE \n- Fold07: intercept=TRUE \n+ Fold08: intercept=TRUE \n- Fold08: intercept=TRUE \n+ Fold09: intercept=TRUE \n- Fold09: intercept=TRUE \n+ Fold10: intercept=TRUE \n- Fold10: intercept=TRUE \nAggregating results\nFitting final model on full training set\n\n# Mostra o modelo\nmodelo\n\nLinear Regression \n\n200 samples\n  2 predictor\n\nNo pre-processing\nResampling: Cross-Validated (10 fold) \nSummary of sample sizes: 180, 180, 181, 180, 180, 180, ... \nResampling results:\n\n  RMSE      Rsquared   MAE     \n  1.649103  0.9051774  1.275233\n\nTuning parameter 'intercept' was held constant at a value of TRUE\n\n# Modelo final\nmodelo$finalModel\n\n\nCall:\nlm(formula = .outcome ~ ., data = dat)\n\nCoefficients:\n(Intercept)           TV        Radio  \n    2.92110      0.04575      0.18799  \n\n\n\nset.seed(21)\ny &lt;- propaganda$Vendas\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.40, list = FALSE)\nconj_treino &lt;- propaganda[-indice_teste, ]\nconj_teste &lt;- propaganda[indice_teste, ]\n\n## Modelo com conjunto de treino\nmod &lt;- lm( Vendas ~ TV + Radio, data = conj_treino)\nsummary(mod)\n\n\nCall:\nlm(formula = Vendas ~ TV + Radio, data = conj_treino)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-9.4585 -0.6886  0.1687  1.0799  2.5529 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 3.441076   0.357985   9.612   &lt;2e-16 ***\nTV          0.042575   0.001774  24.005   &lt;2e-16 ***\nRadio       0.191607   0.010412  18.402   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 1.607 on 116 degrees of freedom\nMultiple R-squared:  0.8992,    Adjusted R-squared:  0.8975 \nF-statistic: 517.5 on 2 and 116 DF,  p-value: &lt; 2.2e-16\n\n# Erro com conjunto de teste\nsqrt(mean((conj_teste$Vendas - predict(mod, conj_teste)) ^ 2))\n\n[1] 1.846764",
+    "text": "Novo modelo\n\nset.seed(21)\nmodelo &lt;- train( Vendas ~ TV + Radio, propaganda, method = \"lm\",\n                 trControl = trainControl(method = \"cv\", number = 10,\n                                          verboseIter = TRUE))\n\n+ Fold01: intercept=TRUE \n- Fold01: intercept=TRUE \n+ Fold02: intercept=TRUE \n- Fold02: intercept=TRUE \n+ Fold03: intercept=TRUE \n- Fold03: intercept=TRUE \n+ Fold04: intercept=TRUE \n- Fold04: intercept=TRUE \n+ Fold05: intercept=TRUE \n- Fold05: intercept=TRUE \n+ Fold06: intercept=TRUE \n- Fold06: intercept=TRUE \n+ Fold07: intercept=TRUE \n- Fold07: intercept=TRUE \n+ Fold08: intercept=TRUE \n- Fold08: intercept=TRUE \n+ Fold09: intercept=TRUE \n- Fold09: intercept=TRUE \n+ Fold10: intercept=TRUE \n- Fold10: intercept=TRUE \nAggregating results\nFitting final model on full training set\n\n# Mostra o modelo\nmodelo\n\nLinear Regression \n\n200 samples\n  2 predictor\n\nNo pre-processing\nResampling: Cross-Validated (10 fold) \nSummary of sample sizes: 180, 180, 181, 180, 180, 180, ... \nResampling results:\n\n  RMSE      Rsquared   MAE     \n  1.649103  0.9051774  1.275233\n\nTuning parameter 'intercept' was held constant at a value of TRUE\n\n# Modelo final\nmodelo$finalModel\n\n\nCall:\nlm(formula = .outcome ~ ., data = dat)\n\nCoefficients:\n(Intercept)           TV        Radio  \n    2.92110      0.04575      0.18799",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Validação Cruzada"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula07.2A.html#modelo-inicial",
+    "href": "semanas/Aula07.2A.html#modelo-inicial",
+    "title": "Regressão Linear Múltipla - Validação Cruzada",
+    "section": "Modelo Inicial",
+    "text": "Modelo Inicial\n\nset.seed(21)\ny &lt;- propaganda$Vendas\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.40, list = FALSE)\nconj_treino &lt;- propaganda[-indice_teste, ]\nconj_teste &lt;- propaganda[indice_teste, ]\n\n## Modelo com conjunto de treino\nmod &lt;- lm( Vendas ~ TV + Radio, data = conj_treino)\nsummary(mod)\n\n\nCall:\nlm(formula = Vendas ~ TV + Radio, data = conj_treino)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-9.4585 -0.6886  0.1687  1.0799  2.5529 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 3.441076   0.357985   9.612   &lt;2e-16 ***\nTV          0.042575   0.001774  24.005   &lt;2e-16 ***\nRadio       0.191607   0.010412  18.402   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 1.607 on 116 degrees of freedom\nMultiple R-squared:  0.8992,    Adjusted R-squared:  0.8975 \nF-statistic: 517.5 on 2 and 116 DF,  p-value: &lt; 2.2e-16\n\n# Erro com conjunto de teste\nsqrt(mean((conj_teste$Vendas - predict(mod, conj_teste)) ^ 2))\n\n[1] 1.846764",
     "crumbs": [
       "Conteúdo Semanal",
       "Validação Cruzada"
@@ -3067,7 +2913,7 @@
     "href": "semanas/Aula07.3.html",
     "title": "Seleção de Modelos",
     "section": "",
-    "text": "library(MASS)\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.0     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n✖ dplyr::select() masks MASS::select()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(leaps)",
+    "text": "library(tidyverse)\nlibrary(leaps)",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3078,7 +2924,7 @@
     "href": "semanas/Aula07.3.html#carregando-bibliotecas",
     "title": "Seleção de Modelos",
     "section": "",
-    "text": "library(MASS)\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.0     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n✖ dplyr::select() masks MASS::select()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(leaps)",
+    "text": "library(tidyverse)\nlibrary(leaps)",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3089,18 +2935,7 @@
     "href": "semanas/Aula07.3.html#carregando-os-dados",
     "title": "Seleção de Modelos",
     "section": "Carregando os dados",
-    "text": "Carregando os dados\n\ndata(Boston)\nhead(Boston)\n\n     crim zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat\n1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90  4.98\n2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90  9.14\n3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83  4.03\n4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63  2.94\n5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90  5.33\n6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12  5.21\n  medv\n1 24.0\n2 21.6\n3 34.7\n4 33.4\n5 36.2\n6 28.7\n\nsummary(Boston)\n\n      crim                zn             indus            chas        \n Min.   : 0.00632   Min.   :  0.00   Min.   : 0.46   Min.   :0.00000  \n 1st Qu.: 0.08205   1st Qu.:  0.00   1st Qu.: 5.19   1st Qu.:0.00000  \n Median : 0.25651   Median :  0.00   Median : 9.69   Median :0.00000  \n Mean   : 3.61352   Mean   : 11.36   Mean   :11.14   Mean   :0.06917  \n 3rd Qu.: 3.67708   3rd Qu.: 12.50   3rd Qu.:18.10   3rd Qu.:0.00000  \n Max.   :88.97620   Max.   :100.00   Max.   :27.74   Max.   :1.00000  \n      nox               rm             age              dis        \n Min.   :0.3850   Min.   :3.561   Min.   :  2.90   Min.   : 1.130  \n 1st Qu.:0.4490   1st Qu.:5.886   1st Qu.: 45.02   1st Qu.: 2.100  \n Median :0.5380   Median :6.208   Median : 77.50   Median : 3.207  \n Mean   :0.5547   Mean   :6.285   Mean   : 68.57   Mean   : 3.795  \n 3rd Qu.:0.6240   3rd Qu.:6.623   3rd Qu.: 94.08   3rd Qu.: 5.188  \n Max.   :0.8710   Max.   :8.780   Max.   :100.00   Max.   :12.127  \n      rad              tax           ptratio          black       \n Min.   : 1.000   Min.   :187.0   Min.   :12.60   Min.   :  0.32  \n 1st Qu.: 4.000   1st Qu.:279.0   1st Qu.:17.40   1st Qu.:375.38  \n Median : 5.000   Median :330.0   Median :19.05   Median :391.44  \n Mean   : 9.549   Mean   :408.2   Mean   :18.46   Mean   :356.67  \n 3rd Qu.:24.000   3rd Qu.:666.0   3rd Qu.:20.20   3rd Qu.:396.23  \n Max.   :24.000   Max.   :711.0   Max.   :22.00   Max.   :396.90  \n     lstat            medv      \n Min.   : 1.73   Min.   : 5.00  \n 1st Qu.: 6.95   1st Qu.:17.02  \n Median :11.36   Median :21.20  \n Mean   :12.65   Mean   :22.53  \n 3rd Qu.:16.95   3rd Qu.:25.00  \n Max.   :37.97   Max.   :50.00  \n\nnrow(Boston)\n\n[1] 506",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Seleção de Modelos"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.3.html#explicação-das-variáveis",
-    "href": "semanas/Aula07.3.html#explicação-das-variáveis",
-    "title": "Seleção de Modelos",
-    "section": "Explicação das variáveis",
-    "text": "Explicação das variáveis\n\n# Boston Database\n# \n# 1) crim - taxa de criminalidade per capita por cidade.\n# \n# 2) zn - proporção de terrenos residenciais para lotes acima de 25,000 sq.ft.\n# \n# 3) indus - proporção de negócios não comerciais por acres e por cidade.\n# \n# 4) chas - variável dummy do Rio Charles (= 1 se próximo do rio; 0 de outra forma).\n# \n# 5) nox - concentração de óxido de nitrogênio (partes por 10 milhões).\n# \n# 6) rm - número médio de cômodos por habitação\n# \n# 7) age - proporção da unidade ocupadas pelos proprietários construídas antes 1940.\n# \n# 8) dis - média ponderada das distâncias dos 5 pontos de emprego em Boston.\n# \n# 9) rad - indice de acessibilidade das avenidas radiais.\n# \n# 10) tax - valor cheio da taxa de propriedade por $10,000.\n# \n# 11) ptratio - razão aluno-professor por cidade.\n# \n# 12) black - 1000(Bk−0.63)21000(Bk−0.63)2 proporção de negros por cidade.\n# \n# 13) lstat - percentual de baixo status da população.\n# \n# 14) medv - valor mediano das casas ocupadas pelos proprietário em $1000s. (Var. Resposta)",
+    "text": "Carregando os dados\nVendas de casas em Seattle entre 2015 e 2016\n\nvendas_casa &lt;- readRDS(\"home_sales.rds\")\nhead(vendas_casa)\n\n# A tibble: 6 × 8\n  selling_price home_age bedrooms bathrooms sqft_living sqft_lot sqft_basement\n          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;\n1        487000       10        4      2.5         2540     5001             0\n2        465000       10        3      2.25        1530     1245           480\n3        411000       18        2      2           1130     1148           330\n4        635000        4        3      2.5         3350     4007           800\n5        380000       24        5      2.5         2130     8428             0\n6        495000       21        3      3.5         1650     1577           550\n# ℹ 1 more variable: floors &lt;dbl&gt;\n\nvendas_casa &lt;- vendas_casa %&gt;% rename(preco=selling_price,\n                                      idade=home_age,\n                                      quartos=bedrooms,\n                                      banheiros= bathrooms,\n                                      m2_princ=sqft_living,\n                                      m2_tot=sqft_lot,\n                                      m2_porao=sqft_basement,\n                                      andares=floors\n                                      )\nsummary(vendas_casa)\n\n     preco            idade          quartos        banheiros    \n Min.   :350000   Min.   : 0.00   Min.   :1.000   Min.   :0.750  \n 1st Qu.:410000   1st Qu.:12.00   1st Qu.:3.000   1st Qu.:2.438  \n Median :470000   Median :19.00   Median :3.000   Median :2.500  \n Mean   :479085   Mean   :18.53   Mean   :3.338   Mean   :2.473  \n 3rd Qu.:541625   3rd Qu.:25.00   3rd Qu.:4.000   3rd Qu.:2.500  \n Max.   :650000   Max.   :49.00   Max.   :8.000   Max.   :5.000  \n    m2_princ        m2_tot          m2_porao         andares     \n Min.   : 550   Min.   :   600   Min.   :   0.0   Min.   :1.000  \n 1st Qu.:1640   1st Qu.:  3200   1st Qu.:   0.0   1st Qu.:2.000  \n Median :2060   Median :  5508   Median :   0.0   Median :2.000  \n Mean   :2087   Mean   : 11891   Mean   : 129.7   Mean   :1.865  \n 3rd Qu.:2500   3rd Qu.:  8644   3rd Qu.: 122.5   3rd Qu.:2.000  \n Max.   :3880   Max.   :415126   Max.   :1660.0   Max.   :2.000  \n\nvendas_casa &lt;- vendas_casa %&gt;% mutate(preco_m=preco/1000) %&gt;% select(-preco)",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3111,7 +2946,7 @@
     "href": "semanas/Aula07.3.html#conjunto-de-teste-e-treino",
     "title": "Seleção de Modelos",
     "section": "Conjunto de teste e treino",
-    "text": "Conjunto de teste e treino\n\nlibrary(caret)\n\nCarregando pacotes exigidos: lattice\n\n\n\nAttaching package: 'caret'\n\n\nThe following object is masked from 'package:purrr':\n\n    lift\n\nset.seed(21)\ny &lt;- Boston$medv\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- Boston[-indice_teste,]\nconj_teste &lt;- Boston[indice_teste, ]\n\nstr(conj_treino)\n\n'data.frame':   403 obs. of  14 variables:\n $ crim   : num  0.00632 0.02731 0.02729 0.03237 0.06905 ...\n $ zn     : num  18 0 0 0 0 0 12.5 12.5 12.5 12.5 ...\n $ indus  : num  2.31 7.07 7.07 2.18 2.18 2.18 7.87 7.87 7.87 7.87 ...\n $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.538 0.469 0.469 0.458 0.458 0.458 0.524 0.524 0.524 0.524 ...\n $ rm     : num  6.58 6.42 7.18 7 7.15 ...\n $ age    : num  65.2 78.9 61.1 45.8 54.2 58.7 66.6 96.1 85.9 94.3 ...\n $ dis    : num  4.09 4.97 4.97 6.06 6.06 ...\n $ rad    : int  1 2 2 3 3 3 5 5 5 5 ...\n $ tax    : num  296 242 242 222 222 222 311 311 311 311 ...\n $ ptratio: num  15.3 17.8 17.8 18.7 18.7 18.7 15.2 15.2 15.2 15.2 ...\n $ black  : num  397 397 393 395 397 ...\n $ lstat  : num  4.98 9.14 4.03 2.94 5.33 ...\n $ medv   : num  24 21.6 34.7 33.4 36.2 28.7 22.9 27.1 18.9 15 ...\n\nstr(conj_teste)\n\n'data.frame':   103 obs. of  14 variables:\n $ crim   : num  0.211 0.63 0.627 1.252 0.852 ...\n $ zn     : num  12.5 0 0 0 0 0 0 75 0 0 ...\n $ indus  : num  7.87 8.14 8.14 8.14 8.14 8.14 8.14 2.95 6.91 6.91 ...\n $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.524 0.538 0.538 0.538 0.538 0.538 0.538 0.428 0.448 0.448 ...\n $ rm     : num  5.63 5.95 5.83 5.57 5.96 ...\n $ age    : num  100 61.8 56.5 98.1 89.2 94.1 96.9 21.8 6.5 95.3 ...\n $ dis    : num  6.08 4.71 4.5 3.8 4.01 ...\n $ rad    : int  5 4 4 4 4 4 4 3 3 3 ...\n $ tax    : num  311 307 307 307 307 307 307 252 233 233 ...\n $ ptratio: num  15.2 21 21 21 21 21 21 18.3 17.9 17.9 ...\n $ black  : num  387 397 396 377 393 ...\n $ lstat  : num  29.93 8.26 8.47 21.02 13.83 ...\n $ medv   : num  16.5 20.4 19.9 13.6 19.6 12.7 13.5 30.8 24.7 14.4 ...\n\ngt::gt(head(conj_treino, 10))\n\n\n\n\n\ncrim\nzn\nindus\nchas\nnox\nrm\nage\ndis\nrad\ntax\nptratio\nblack\nlstat\nmedv\n\n\n\n0.00632\n18.0\n2.31\n0\n0.538\n6.575\n65.2\n4.0900\n1\n296\n15.3\n396.90\n4.98\n24.0\n\n\n0.02731\n0.0\n7.07\n0\n0.469\n6.421\n78.9\n4.9671\n2\n242\n17.8\n396.90\n9.14\n21.6\n\n\n0.02729\n0.0\n7.07\n0\n0.469\n7.185\n61.1\n4.9671\n2\n242\n17.8\n392.83\n4.03\n34.7\n\n\n0.03237\n0.0\n2.18\n0\n0.458\n6.998\n45.8\n6.0622\n3\n222\n18.7\n394.63\n2.94\n33.4\n\n\n0.06905\n0.0\n2.18\n0\n0.458\n7.147\n54.2\n6.0622\n3\n222\n18.7\n396.90\n5.33\n36.2\n\n\n0.02985\n0.0\n2.18\n0\n0.458\n6.430\n58.7\n6.0622\n3\n222\n18.7\n394.12\n5.21\n28.7\n\n\n0.08829\n12.5\n7.87\n0\n0.524\n6.012\n66.6\n5.5605\n5\n311\n15.2\n395.60\n12.43\n22.9\n\n\n0.14455\n12.5\n7.87\n0\n0.524\n6.172\n96.1\n5.9505\n5\n311\n15.2\n396.90\n19.15\n27.1\n\n\n0.17004\n12.5\n7.87\n0\n0.524\n6.004\n85.9\n6.5921\n5\n311\n15.2\n386.71\n17.10\n18.9\n\n\n0.22489\n12.5\n7.87\n0\n0.524\n6.377\n94.3\n6.3467\n5\n311\n15.2\n392.52\n20.45\n15.0",
+    "text": "Conjunto de teste e treino\n\nlibrary(caret)\n\nCarregando pacotes exigidos: lattice\n\n\n\nAttaching package: 'caret'\n\n\nThe following object is masked from 'package:purrr':\n\n    lift\n\nset.seed(21)\nnrow(vendas_casa)\n\n[1] 1492\n\ny &lt;- vendas_casa$preco_m\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- vendas_casa[-indice_teste,]\nconj_teste &lt;- vendas_casa[indice_teste,]\n\nstr(conj_treino)\n\ntibble [1,192 × 8] (S3: tbl_df/tbl/data.frame)\n $ idade    : num [1:1192] 10 18 4 21 19 24 3 16 20 29 ...\n $ quartos  : num [1:1192] 3 2 3 3 3 2 4 3 3 3 ...\n $ banheiros: num [1:1192] 2.25 2 2.5 3.5 2.25 1 2.5 2.75 2.75 2.5 ...\n $ m2_princ : num [1:1192] 1530 1130 3350 1650 1430 1430 2140 2100 2930 1960 ...\n $ m2_tot   : num [1:1192] 1245 1148 4007 1577 4777 ...\n $ m2_porao : num [1:1192] 480 330 800 550 0 420 0 590 1070 0 ...\n $ andares  : num [1:1192] 2 2 2 2 2 1 2 2 1 2 ...\n $ preco_m  : num [1:1192] 465 411 635 495 355 ...\n\nstr(conj_teste)\n\ntibble [300 × 8] (S3: tbl_df/tbl/data.frame)\n $ idade    : num [1:300] 10 24 19 11 3 28 9 17 9 19 ...\n $ quartos  : num [1:300] 4 5 3 4 4 5 3 3 3 3 ...\n $ banheiros: num [1:300] 2.5 2.5 2 2.5 2.75 3 2.5 3.5 3.5 2.25 ...\n $ m2_princ : num [1:300] 2540 2130 2190 1920 2360 ...\n $ m2_tot   : num [1:300] 5001 8428 19800 9000 15100 ...\n $ m2_porao : num [1:300] 0 0 0 0 0 0 0 770 770 145 ...\n $ andares  : num [1:300] 2 2 1 2 1 2 2 2 2 2 ...\n $ preco_m  : num [1:300] 487 380 465 425 535 ...\n\ngt::gt(head(conj_treino, 10))\n\n\n\n\n\nidade\nquartos\nbanheiros\nm2_princ\nm2_tot\nm2_porao\nandares\npreco_m\n\n\n\n10\n3\n2.25\n1530\n1245\n480\n2\n465.000\n\n\n18\n2\n2.00\n1130\n1148\n330\n2\n411.000\n\n\n4\n3\n2.50\n3350\n4007\n800\n2\n635.000\n\n\n21\n3\n3.50\n1650\n1577\n550\n2\n495.000\n\n\n19\n3\n2.25\n1430\n4777\n0\n2\n355.000\n\n\n24\n2\n1.00\n1430\n365904\n420\n1\n356.000\n\n\n3\n4\n2.50\n2140\n7245\n0\n2\n495.000\n\n\n16\n3\n2.75\n2100\n10362\n590\n2\n525.000\n\n\n20\n3\n2.75\n2930\n5569\n1070\n1\n559.900\n\n\n29\n3\n2.50\n1960\n8469\n0\n2\n552.321",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3122,7 +2957,18 @@
     "href": "semanas/Aula07.3.html#matriz-de-correlação",
     "title": "Seleção de Modelos",
     "section": "Matriz de correlação",
-    "text": "Matriz de correlação\n\nlibrary(corrplot)\n\ncorrplot 0.92 loaded\n\nmat_corr &lt;- cor(conj_treino)\ncorrplot(mat_corr)\n\n\n\n\n\n\nmat_corr\n\n               crim          zn      indus        chas        nox         rm\ncrim     1.00000000 -0.20380399  0.4162136 -0.03812772  0.4302551 -0.2714796\nzn      -0.20380399  1.00000000 -0.5157288 -0.06305946 -0.4939129  0.3081860\nindus    0.41621361 -0.51572875  1.0000000  0.10056213  0.7479226 -0.4003754\nchas    -0.03812772 -0.06305946  0.1005621  1.00000000  0.1343054  0.1089458\nnox      0.43025515 -0.49391291  0.7479226  0.13430543  1.0000000 -0.2985734\nrm      -0.27147956  0.30818597 -0.4003754  0.10894581 -0.2985734  1.0000000\nage      0.36909565 -0.54821374  0.6322492  0.12274044  0.7284238 -0.2289946\ndis     -0.39321461  0.63415259 -0.6947256 -0.12528430 -0.7719572  0.2084663\nrad      0.64696715 -0.30489512  0.5896919  0.03172708  0.5972174 -0.1993921\ntax      0.59798322 -0.30187831  0.7241622  0.01282467  0.6523573 -0.2887654\nptratio  0.29566716 -0.40686477  0.4115083 -0.11386661  0.1780921 -0.3499417\nblack   -0.46013904  0.17992670 -0.3620662  0.03803471 -0.3841099  0.1170901\nlstat    0.49320024 -0.40737515  0.6334129 -0.06285083  0.6190130 -0.6451562\nmedv    -0.39920003  0.35760346 -0.5085800  0.19046609 -0.4279134  0.7446525\n               age        dis         rad         tax    ptratio       black\ncrim     0.3690957 -0.3932146  0.64696715  0.59798322  0.2956672 -0.46013904\nzn      -0.5482137  0.6341526 -0.30489512 -0.30187831 -0.4068648  0.17992670\nindus    0.6322492 -0.6947256  0.58969192  0.72416222  0.4115083 -0.36206624\nchas     0.1227404 -0.1252843  0.03172708  0.01282467 -0.1138666  0.03803471\nnox      0.7284238 -0.7719572  0.59721742  0.65235734  0.1780921 -0.38410993\nrm      -0.2289946  0.2084663 -0.19939215 -0.28876544 -0.3499417  0.11709007\nage      1.0000000 -0.7424728  0.45398894  0.50603231  0.2768459 -0.27710759\ndis     -0.7424728  1.0000000 -0.49285054 -0.54411798 -0.2364373  0.30536834\nrad      0.4539889 -0.4928505  1.00000000  0.90461543  0.4605293 -0.48384718\ntax      0.5060323 -0.5441180  0.90461543  1.00000000  0.4696403 -0.46951995\nptratio  0.2768459 -0.2364373  0.46052925  0.46964032  1.0000000 -0.20009421\nblack   -0.2771076  0.3053683 -0.48384718 -0.46951995 -0.2000942  1.00000000\nlstat    0.6081642 -0.5286137  0.50926890  0.57240253  0.3730392 -0.38681452\nmedv    -0.3824431  0.2672528 -0.37979747 -0.47119268 -0.5093652  0.35788326\n              lstat       medv\ncrim     0.49320024 -0.3992000\nzn      -0.40737515  0.3576035\nindus    0.63341291 -0.5085800\nchas    -0.06285083  0.1904661\nnox      0.61901304 -0.4279134\nrm      -0.64515619  0.7446525\nage      0.60816420 -0.3824431\ndis     -0.52861367  0.2672528\nrad      0.50926890 -0.3797975\ntax      0.57240253 -0.4711927\nptratio  0.37303920 -0.5093652\nblack   -0.38681452  0.3578833\nlstat    1.00000000 -0.7333875\nmedv    -0.73338754  1.0000000",
+    "text": "Matriz de correlação\n\nlibrary(corrplot)\nmat_corr &lt;- cor(conj_treino)\ncorrplot(mat_corr)",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Seleção de Modelos"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula07.3.html#matriz-de-dispersão",
+    "href": "semanas/Aula07.3.html#matriz-de-dispersão",
+    "title": "Seleção de Modelos",
+    "section": "Matriz de dispersão",
+    "text": "Matriz de dispersão\n\nlibrary(psych)\n\n\nAttaching package: 'psych'\n\n\nThe following objects are masked from 'package:ggplot2':\n\n    %+%, alpha\n\npairs.panels(conj_treino,\n             method = \"pearson\", # metodo de correlação\n             hist.col = \"#00AFBB\",\n             density = TRUE,  # mostra graficos de densidade\n             ellipses = FALSE # mostra elipses de correlação\n             )",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3133,7 +2979,7 @@
     "href": "semanas/Aula07.3.html#métodos-de-seleção-de-modelo",
     "title": "Seleção de Modelos",
     "section": "Métodos de seleção de modelo",
-    "text": "Métodos de seleção de modelo\n\n## Best Subset sem definir o número máx de subsets a ser avaliado\najusreg.comp &lt;- regsubsets(medv ~ ., data=conj_treino)\nsummary(ajusreg.comp)\n\nSubset selection object\nCall: regsubsets.formula(medv ~ ., data = conj_treino)\n13 Variables  (and intercept)\n        Forced in Forced out\ncrim        FALSE      FALSE\nzn          FALSE      FALSE\nindus       FALSE      FALSE\nchas        FALSE      FALSE\nnox         FALSE      FALSE\nrm          FALSE      FALSE\nage         FALSE      FALSE\ndis         FALSE      FALSE\nrad         FALSE      FALSE\ntax         FALSE      FALSE\nptratio     FALSE      FALSE\nblack       FALSE      FALSE\nlstat       FALSE      FALSE\n1 subsets of each size up to 8\nSelection Algorithm: exhaustive\n         crim zn  indus chas nox rm  age dis rad tax ptratio black lstat\n1  ( 1 ) \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \" \"  \n2  ( 1 ) \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \"*\"  \n3  ( 1 ) \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \" \"   \"*\"  \n4  ( 1 ) \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \"*\"   \"*\"  \n5  ( 1 ) \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n6  ( 1 ) \" \"  \" \" \" \"   \" \"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n7  ( 1 ) \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n8  ( 1 ) \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \" \" \"*\"     \"*\"   \"*\"  \n\n## Não testou todas as combinações possíveis",
+    "text": "Métodos de seleção de modelo\n\n## Best Subset sem definir o número máx de subsets a ser avaliado\najusreg.comp &lt;- regsubsets(preco_m ~ ., data=conj_treino)\nsummary(ajusreg.comp)\n\nSubset selection object\nCall: regsubsets.formula(preco_m ~ ., data = conj_treino)\n7 Variables  (and intercept)\n          Forced in Forced out\nidade         FALSE      FALSE\nquartos       FALSE      FALSE\nbanheiros     FALSE      FALSE\nm2_princ      FALSE      FALSE\nm2_tot        FALSE      FALSE\nm2_porao      FALSE      FALSE\nandares       FALSE      FALSE\n1 subsets of each size up to 7\nSelection Algorithm: exhaustive\n         idade quartos banheiros m2_princ m2_tot m2_porao andares\n1  ( 1 ) \" \"   \" \"     \" \"       \"*\"      \" \"    \" \"      \" \"    \n2  ( 1 ) \" \"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \" \"    \n3  ( 1 ) \" \"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \"*\"    \n4  ( 1 ) \"*\"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \"*\"    \n5  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \" \"    \" \"      \"*\"    \n6  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \"*\"    \" \"      \"*\"    \n7  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \"*\"    \"*\"      \"*\"",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3144,7 +2990,7 @@
     "href": "semanas/Aula07.3.html#nvmax13",
     "title": "Seleção de Modelos",
     "section": "nvmax=13",
-    "text": "nvmax=13\n\najusreg.comp &lt;- regsubsets(medv ~ ., data=conj_treino, nvmax=13)\nsumario.reg &lt;- summary(ajusreg.comp)\nsumario.reg\n\nSubset selection object\nCall: regsubsets.formula(medv ~ ., data = conj_treino, nvmax = 13)\n13 Variables  (and intercept)\n        Forced in Forced out\ncrim        FALSE      FALSE\nzn          FALSE      FALSE\nindus       FALSE      FALSE\nchas        FALSE      FALSE\nnox         FALSE      FALSE\nrm          FALSE      FALSE\nage         FALSE      FALSE\ndis         FALSE      FALSE\nrad         FALSE      FALSE\ntax         FALSE      FALSE\nptratio     FALSE      FALSE\nblack       FALSE      FALSE\nlstat       FALSE      FALSE\n1 subsets of each size up to 13\nSelection Algorithm: exhaustive\n          crim zn  indus chas nox rm  age dis rad tax ptratio black lstat\n1  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \" \"  \n2  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \"*\"  \n3  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \" \"   \"*\"  \n4  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \"*\"   \"*\"  \n5  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n6  ( 1 )  \" \"  \" \" \" \"   \" \"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n7  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n8  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \" \" \"*\"     \"*\"   \"*\"  \n9  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n10  ( 1 ) \" \"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n11  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n12  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n13  ( 1 ) \"*\"  \"*\" \"*\"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n\nnames(sumario.reg)\n\n[1] \"which\"  \"rsq\"    \"rss\"    \"adjr2\"  \"cp\"     \"bic\"    \"outmat\" \"obj\"",
+    "text": "nvmax=13\n\najusreg.comp &lt;- regsubsets(preco_m ~ ., data=conj_treino, nvmax=13)\nsumario.reg &lt;- summary(ajusreg.comp)\nsumario.reg\n\nSubset selection object\nCall: regsubsets.formula(preco_m ~ ., data = conj_treino, nvmax = 13)\n7 Variables  (and intercept)\n          Forced in Forced out\nidade         FALSE      FALSE\nquartos       FALSE      FALSE\nbanheiros     FALSE      FALSE\nm2_princ      FALSE      FALSE\nm2_tot        FALSE      FALSE\nm2_porao      FALSE      FALSE\nandares       FALSE      FALSE\n1 subsets of each size up to 7\nSelection Algorithm: exhaustive\n         idade quartos banheiros m2_princ m2_tot m2_porao andares\n1  ( 1 ) \" \"   \" \"     \" \"       \"*\"      \" \"    \" \"      \" \"    \n2  ( 1 ) \" \"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \" \"    \n3  ( 1 ) \" \"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \"*\"    \n4  ( 1 ) \"*\"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \"*\"    \n5  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \" \"    \" \"      \"*\"    \n6  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \"*\"    \" \"      \"*\"    \n7  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \"*\"    \"*\"      \"*\"    \n\nnames(sumario.reg)\n\n[1] \"which\"  \"rsq\"    \"rss\"    \"adjr2\"  \"cp\"     \"bic\"    \"outmat\" \"obj\"",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3155,7 +3001,7 @@
     "href": "semanas/Aula07.3.html#avaliando-os-modelos",
     "title": "Seleção de Modelos",
     "section": "Avaliando os modelos",
-    "text": "Avaliando os modelos\n\n## Os modelos vão ser escolhidos com base no menor Cp\nplot(sumario.reg$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\nwhich.min(sumario.reg$cp)\n\n[1] 11\n\npoints(11,sumario.reg$cp[11],pch=20,col=\"red\")",
+    "text": "Avaliando os modelos\n\n## Os modelos vão ser escolhidos com base no menor Cp\nplot(sumario.reg$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\nwhich.min(sumario.reg$cp)\n\n[1] 6\n\npoints(6,sumario.reg$cp[6],pch=20,col=\"red\")",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3166,7 +3012,7 @@
     "href": "semanas/Aula07.3.html#como-extrair-detalhes-do-ajuste",
     "title": "Seleção de Modelos",
     "section": "Como extrair detalhes do ajuste",
-    "text": "Como extrair detalhes do ajuste\n\ncoef(ajusreg.comp,11)  \n\n (Intercept)         crim           zn         chas          nox           rm \n 24.11955557  -0.05912124   0.03395127   3.45970324 -17.22861717   5.10891588 \n         dis          rad          tax      ptratio        black        lstat \n -1.27274817   0.25203587  -0.01015538  -0.94732891   0.01296186  -0.39603435",
+    "text": "Como extrair detalhes do ajuste\n\ncoef(ajusreg.comp,6)  \n\n  (Intercept)         idade       quartos     banheiros      m2_princ \n 2.551855e+02 -9.302566e-01 -4.456961e+01  9.461555e+00  1.441541e-01 \n       m2_tot       andares \n 9.183278e-05  3.486187e+01",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3177,7 +3023,7 @@
     "href": "semanas/Aula07.3.html#forward-stepwise-passo-a-passo-à-frente",
     "title": "Seleção de Modelos",
     "section": "Forward Stepwise (passo a passo à frente)",
-    "text": "Forward Stepwise (passo a passo à frente)\n\najusreg.fwd &lt;- regsubsets(medv ~ . , data=conj_treino,nvmax=13, method=\"forward\")\nsumario.reg.fwd &lt;- summary(ajusreg.fwd)\nsumario.reg.fwd \n\nSubset selection object\nCall: regsubsets.formula(medv ~ ., data = conj_treino, nvmax = 13, \n    method = \"forward\")\n13 Variables  (and intercept)\n        Forced in Forced out\ncrim        FALSE      FALSE\nzn          FALSE      FALSE\nindus       FALSE      FALSE\nchas        FALSE      FALSE\nnox         FALSE      FALSE\nrm          FALSE      FALSE\nage         FALSE      FALSE\ndis         FALSE      FALSE\nrad         FALSE      FALSE\ntax         FALSE      FALSE\nptratio     FALSE      FALSE\nblack       FALSE      FALSE\nlstat       FALSE      FALSE\n1 subsets of each size up to 13\nSelection Algorithm: forward\n          crim zn  indus chas nox rm  age dis rad tax ptratio black lstat\n1  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \" \"  \n2  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \"*\"  \n3  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \" \"   \"*\"  \n4  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \"*\"   \"*\"  \n5  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n6  ( 1 )  \" \"  \" \" \" \"   \" \"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n7  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n8  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \" \" \"*\"     \"*\"   \"*\"  \n9  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n10  ( 1 ) \" \"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n11  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n12  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n13  ( 1 ) \"*\"  \"*\" \"*\"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n\nwhich.min(sumario.reg.fwd$cp)\n\n[1] 11\n\nplot(sumario.reg.fwd$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\npoints(11,sumario.reg.fwd$cp[11],pch=20,col=\"red\")",
+    "text": "Forward Stepwise (passo a passo à frente)\n\najusreg.fwd &lt;- regsubsets(preco_m ~ . , data=conj_treino,nvmax=13, method=\"forward\")\nsumario.reg.fwd &lt;- summary(ajusreg.fwd)\nsumario.reg.fwd \n\nSubset selection object\nCall: regsubsets.formula(preco_m ~ ., data = conj_treino, nvmax = 13, \n    method = \"forward\")\n7 Variables  (and intercept)\n          Forced in Forced out\nidade         FALSE      FALSE\nquartos       FALSE      FALSE\nbanheiros     FALSE      FALSE\nm2_princ      FALSE      FALSE\nm2_tot        FALSE      FALSE\nm2_porao      FALSE      FALSE\nandares       FALSE      FALSE\n1 subsets of each size up to 7\nSelection Algorithm: forward\n         idade quartos banheiros m2_princ m2_tot m2_porao andares\n1  ( 1 ) \" \"   \" \"     \" \"       \"*\"      \" \"    \" \"      \" \"    \n2  ( 1 ) \" \"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \" \"    \n3  ( 1 ) \" \"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \"*\"    \n4  ( 1 ) \"*\"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \"*\"    \n5  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \" \"    \" \"      \"*\"    \n6  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \"*\"    \" \"      \"*\"    \n7  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \"*\"    \"*\"      \"*\"    \n\nwhich.min(sumario.reg.fwd$cp)\n\n[1] 6\n\nplot(sumario.reg.fwd$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\npoints(6,sumario.reg.fwd$cp[6],pch=20,col=\"red\")",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3188,7 +3034,7 @@
     "href": "semanas/Aula07.3.html#como-extrair-detalhes-do-ajuste-1",
     "title": "Seleção de Modelos",
     "section": "Como extrair detalhes do ajuste",
-    "text": "Como extrair detalhes do ajuste\n\ncoef(ajusreg.fwd,11)  \n\n (Intercept)         crim           zn         chas          nox           rm \n 24.11955557  -0.05912124   0.03395127   3.45970324 -17.22861717   5.10891588 \n         dis          rad          tax      ptratio        black        lstat \n -1.27274817   0.25203587  -0.01015538  -0.94732891   0.01296186  -0.39603435",
+    "text": "Como extrair detalhes do ajuste\n\ncoef(ajusreg.fwd,6)  \n\n  (Intercept)         idade       quartos     banheiros      m2_princ \n 2.551855e+02 -9.302566e-01 -4.456961e+01  9.461555e+00  1.441541e-01 \n       m2_tot       andares \n 9.183278e-05  3.486187e+01",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3199,7 +3045,7 @@
     "href": "semanas/Aula07.3.html#backward-stepwise-passo-a-passo-atrás",
     "title": "Seleção de Modelos",
     "section": "Backward Stepwise (passo a passo atrás)",
-    "text": "Backward Stepwise (passo a passo atrás)\n\najusreg.bwd &lt;- regsubsets(medv ~ . , data=conj_treino,nvmax=13, method=\"backward\")\nsumario.reg.bwd &lt;- summary(ajusreg.bwd)\nsumario.reg.bwd\n\nSubset selection object\nCall: regsubsets.formula(medv ~ ., data = conj_treino, nvmax = 13, \n    method = \"backward\")\n13 Variables  (and intercept)\n        Forced in Forced out\ncrim        FALSE      FALSE\nzn          FALSE      FALSE\nindus       FALSE      FALSE\nchas        FALSE      FALSE\nnox         FALSE      FALSE\nrm          FALSE      FALSE\nage         FALSE      FALSE\ndis         FALSE      FALSE\nrad         FALSE      FALSE\ntax         FALSE      FALSE\nptratio     FALSE      FALSE\nblack       FALSE      FALSE\nlstat       FALSE      FALSE\n1 subsets of each size up to 13\nSelection Algorithm: backward\n          crim zn  indus chas nox rm  age dis rad tax ptratio black lstat\n1  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \" \"  \n2  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \" \"     \" \"   \"*\"  \n3  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \" \"   \"*\"  \n4  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \" \" \" \" \" \" \"*\"     \"*\"   \"*\"  \n5  ( 1 )  \" \"  \" \" \" \"   \" \"  \" \" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n6  ( 1 )  \" \"  \" \" \" \"   \" \"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n7  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \" \" \" \" \"*\"     \"*\"   \"*\"  \n8  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \" \" \"*\"     \"*\"   \"*\"  \n9  ( 1 )  \" \"  \" \" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n10  ( 1 ) \" \"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n11  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \" \" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n12  ( 1 ) \"*\"  \"*\" \" \"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n13  ( 1 ) \"*\"  \"*\" \"*\"   \"*\"  \"*\" \"*\" \"*\" \"*\" \"*\" \"*\" \"*\"     \"*\"   \"*\"  \n\nwhich.min(sumario.reg.bwd$cp)\n\n[1] 11\n\nplot(sumario.reg.bwd$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\npoints(11,sumario.reg.bwd$cp[11],pch=20,col=\"red\")",
+    "text": "Backward Stepwise (passo a passo atrás)\n\najusreg.bwd &lt;- regsubsets(preco_m ~ . , data=conj_treino,nvmax=13, method=\"backward\")\nsumario.reg.bwd &lt;- summary(ajusreg.bwd)\nsumario.reg.bwd\n\nSubset selection object\nCall: regsubsets.formula(preco_m ~ ., data = conj_treino, nvmax = 13, \n    method = \"backward\")\n7 Variables  (and intercept)\n          Forced in Forced out\nidade         FALSE      FALSE\nquartos       FALSE      FALSE\nbanheiros     FALSE      FALSE\nm2_princ      FALSE      FALSE\nm2_tot        FALSE      FALSE\nm2_porao      FALSE      FALSE\nandares       FALSE      FALSE\n1 subsets of each size up to 7\nSelection Algorithm: backward\n         idade quartos banheiros m2_princ m2_tot m2_porao andares\n1  ( 1 ) \" \"   \" \"     \" \"       \"*\"      \" \"    \" \"      \" \"    \n2  ( 1 ) \" \"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \" \"    \n3  ( 1 ) \" \"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \"*\"    \n4  ( 1 ) \"*\"   \"*\"     \" \"       \"*\"      \" \"    \" \"      \"*\"    \n5  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \" \"    \" \"      \"*\"    \n6  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \"*\"    \" \"      \"*\"    \n7  ( 1 ) \"*\"   \"*\"     \"*\"       \"*\"      \"*\"    \"*\"      \"*\"    \n\nwhich.min(sumario.reg.bwd$cp)\n\n[1] 6\n\nplot(sumario.reg.bwd$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\npoints(6,sumario.reg.bwd$cp[6],pch=20,col=\"red\")",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3210,18 +3056,7 @@
     "href": "semanas/Aula07.3.html#como-extrair-detalhes-do-ajuste-2",
     "title": "Seleção de Modelos",
     "section": "Como extrair detalhes do ajuste",
-    "text": "Como extrair detalhes do ajuste\n\ncoef(ajusreg.bwd,11)  \n\n (Intercept)         crim           zn         chas          nox           rm \n 24.11955557  -0.05912124   0.03395127   3.45970324 -17.22861717   5.10891588 \n         dis          rad          tax      ptratio        black        lstat \n -1.27274817   0.25203587  -0.01015538  -0.94732891   0.01296186  -0.39603435",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Seleção de Modelos"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.3.html#comportamento-dos-erros-de-treino-e-teste",
-    "href": "semanas/Aula07.3.html#comportamento-dos-erros-de-treino-e-teste",
-    "title": "Seleção de Modelos",
-    "section": "Comportamento dos erros de treino e teste",
-    "text": "Comportamento dos erros de treino e teste\n\n## Codigo original de T. Hastie\nreg.fwd &lt;- regsubsets(medv ~ . ,data=conj_treino,nvmax=13, method=\"forward\")\nval.erro &lt;- rep(NA,13)\nx.teste &lt;- model.matrix(medv~.,data=conj_teste)\nfor(i in 1:13){\n  coefi &lt;- coef(reg.fwd,id=i)\n  pred &lt;- x.teste[,names(coefi)]%*%coefi\n  val.erro[i] &lt;- mean((conj_teste$medv - pred)^2)\n}\nplot(sqrt(val.erro),ylab=\"Raiz do EQM\",ylim=c(4,8),pch=19,type=\"b\")\npoints(sqrt(reg.fwd$rss[-1]/403),col=\"blue\",pch=19,type=\"b\")\nlegend(\"topright\",legend=c(\"Treino\",\"Teste\"),col=c(\"blue\",\"black\"),pch=19)",
+    "text": "Como extrair detalhes do ajuste\n\ncoef(ajusreg.bwd,6)  \n\n  (Intercept)         idade       quartos     banheiros      m2_princ \n 2.551855e+02 -9.302566e-01 -4.456961e+01  9.461555e+00  1.441541e-01 \n       m2_tot       andares \n 9.183278e-05  3.486187e+01",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3232,7 +3067,7 @@
     "href": "semanas/Aula07.3.html#testando-outra-estatística-de-seleção-de-modelos---bic",
     "title": "Seleção de Modelos",
     "section": "Testando outra estatística de seleção de modelos - BIC",
-    "text": "Testando outra estatística de seleção de modelos - BIC\n\najusreg.fwd1 &lt;- regsubsets(medv ~ . , data=conj_treino,nvmax=13, method=\"forward\")\nsumario.reg.fwd1 &lt;- summary(ajusreg.fwd1)\nnames(sumario.reg.fwd1)\n\n[1] \"which\"  \"rsq\"    \"rss\"    \"adjr2\"  \"cp\"     \"bic\"    \"outmat\" \"obj\"   \n\nwhich.min(sumario.reg.fwd1$bic)\n\n[1] 7\n\nplot(sumario.reg.fwd1$bic,xlab=\"Número de Variáveis\",ylab=\"BIC\")\npoints(7,sumario.reg.fwd1$bic[7],pch=20,col=\"red\")\n\n\n\n\n\n\ncoef(ajusreg.fwd1,7)  \n\n (Intercept)         chas          nox           rm          dis      ptratio \n 18.15699005   3.62527238 -16.32477597   5.61737907  -1.00175093  -0.95906300 \n       black        lstat \n  0.01229926  -0.39019735",
+    "text": "Testando outra estatística de seleção de modelos - BIC\n\najusreg.fwd1 &lt;- regsubsets(preco_m ~ . , data=conj_treino,nvmax=13, method=\"forward\")\nsumario.reg.fwd1 &lt;- summary(ajusreg.fwd1)\nnames(sumario.reg.fwd1)\n\n[1] \"which\"  \"rsq\"    \"rss\"    \"adjr2\"  \"cp\"     \"bic\"    \"outmat\" \"obj\"   \n\nwhich.min(sumario.reg.fwd1$bic)\n\n[1] 4\n\nplot(sumario.reg.fwd1$bic,xlab=\"Número de Variáveis\",ylab=\"BIC\")\npoints(4,sumario.reg.fwd1$bic[4],pch=20,col=\"red\")\n\n\n\n\n\n\ncoef(ajusreg.fwd1,4)  \n\n(Intercept)       idade     quartos    m2_princ     andares \n269.5362098  -0.9457714 -43.3967857   0.1469077  35.2705008",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3243,7 +3078,7 @@
     "href": "semanas/Aula07.3.html#usando-o-cp-novamente",
     "title": "Seleção de Modelos",
     "section": "Usando o Cp novamente",
-    "text": "Usando o Cp novamente\n\nwhich.min(sumario.reg.fwd1$cp)\n\n[1] 11\n\nplot(sumario.reg.fwd1$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\npoints(11,sumario.reg.fwd1$cp[11],pch=20,col=\"red\")\n\n\n\n\n\n\ncoef(ajusreg.fwd1,11)\n\n (Intercept)         crim           zn         chas          nox           rm \n 24.11955557  -0.05912124   0.03395127   3.45970324 -17.22861717   5.10891588 \n         dis          rad          tax      ptratio        black        lstat \n -1.27274817   0.25203587  -0.01015538  -0.94732891   0.01296186  -0.39603435",
+    "text": "Usando o Cp novamente\n\nwhich.min(sumario.reg.fwd1$cp)\n\n[1] 6\n\nplot(sumario.reg.fwd1$cp,xlab=\"Número de Variáveis\",ylab=\"Cp\")\npoints(6,sumario.reg.fwd1$cp[6],pch=20,col=\"red\")\n\n\n\n\n\n\ncoef(ajusreg.fwd1,6)\n\n  (Intercept)         idade       quartos     banheiros      m2_princ \n 2.551855e+02 -9.302566e-01 -4.456961e+01  9.461555e+00  1.441541e-01 \n       m2_tot       andares \n 9.183278e-05  3.486187e+01",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3254,18 +3089,7 @@
     "href": "semanas/Aula07.3.html#comparando-os-dois-modelos-com-o-lm",
     "title": "Seleção de Modelos",
     "section": "Comparando os dois modelos com o lm()",
-    "text": "Comparando os dois modelos com o lm()\n\n## Usando o lm para ajustar o modelo com as variáveis selecionadas pelo BIC\nmod_bic &lt;- lm(medv ~ chas + nox + rm + dis + ptratio + black + lstat, data=conj_treino) \nsummary(mod_bic)\n\n\nCall:\nlm(formula = medv ~ chas + nox + rm + dis + ptratio + black + \n    lstat, data = conj_treino)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-18.4971  -2.7789  -0.5478   1.7933  26.9857 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  18.156990   5.385606   3.371 0.000822 ***\nchas          3.625272   1.009714   3.590 0.000372 ***\nnox         -16.324776   3.534591  -4.619 5.24e-06 ***\nrm            5.617379   0.457084  12.290  &lt; 2e-16 ***\ndis          -1.001751   0.180856  -5.539 5.56e-08 ***\nptratio      -0.959063   0.119626  -8.017 1.24e-14 ***\nblack         0.012299   0.002702   4.552 7.07e-06 ***\nlstat        -0.390197   0.053934  -7.235 2.44e-12 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.631 on 395 degrees of freedom\nMultiple R-squared:  0.7512,    Adjusted R-squared:  0.7468 \nF-statistic: 170.4 on 7 and 395 DF,  p-value: &lt; 2.2e-16\n\nmod_cp &lt;- lm(medv ~ crim + zn + chas + nox + rm + dis + rad + tax + ptratio + black + lstat, data=conj_treino)\nsummary(mod_cp)\n\n\nCall:\nlm(formula = medv ~ crim + zn + chas + nox + rm + dis + rad + \n    tax + ptratio + black + lstat, data = conj_treino)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-18.1857  -2.8830  -0.5641   1.8709  25.9074 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  24.119556   5.661887   4.260 2.56e-05 ***\ncrim         -0.059121   0.038751  -1.526 0.127902    \nzn            0.033951   0.015207   2.233 0.026139 *  \nchas          3.459703   0.995635   3.475 0.000568 ***\nnox         -17.228617   3.807289  -4.525 8.02e-06 ***\nrm            5.108916   0.466926  10.942  &lt; 2e-16 ***\ndis          -1.272748   0.203301  -6.260 1.01e-09 ***\nrad           0.252036   0.067390   3.740 0.000212 ***\ntax          -0.010155   0.003556  -2.856 0.004525 ** \nptratio      -0.947329   0.141436  -6.698 7.38e-11 ***\nblack         0.012962   0.002822   4.593 5.90e-06 ***\nlstat        -0.396034   0.054069  -7.325 1.38e-12 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.554 on 391 degrees of freedom\nMultiple R-squared:  0.7618,    Adjusted R-squared:  0.7551 \nF-statistic: 113.7 on 11 and 391 DF,  p-value: &lt; 2.2e-16",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Seleção de Modelos"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.3.html#eliminando-a-variável-não-significativa",
-    "href": "semanas/Aula07.3.html#eliminando-a-variável-não-significativa",
-    "title": "Seleção de Modelos",
-    "section": "Eliminando a variável não significativa",
-    "text": "Eliminando a variável não significativa\n\nmod_cp2 &lt;- lm(medv ~ zn + chas + nox + rm + dis + rad + tax + ptratio + black + lstat, data=conj_treino)\nsummary(mod_cp2)\n\n\nCall:\nlm(formula = medv ~ zn + chas + nox + rm + dis + rad + tax + \n    ptratio + black + lstat, data = conj_treino)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-18.1471  -2.7317  -0.5389   1.9772  25.9698 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  22.884672   5.613214   4.077 5.53e-05 ***\nzn            0.031594   0.015154   2.085 0.037726 *  \nchas          3.524816   0.996402   3.538 0.000452 ***\nnox         -16.721605   3.799175  -4.401 1.39e-05 ***\nrm            5.183515   0.465145  11.144  &lt; 2e-16 ***\ndis          -1.231499   0.201836  -6.101 2.52e-09 ***\nrad           0.218320   0.063772   3.423 0.000683 ***\ntax          -0.009827   0.003556  -2.764 0.005984 ** \nptratio      -0.938621   0.141560  -6.631 1.11e-10 ***\nblack         0.013799   0.002773   4.976 9.72e-07 ***\nlstat        -0.406190   0.053749  -7.557 2.94e-13 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.562 on 392 degrees of freedom\nMultiple R-squared:  0.7604,    Adjusted R-squared:  0.7543 \nF-statistic: 124.4 on 10 and 392 DF,  p-value: &lt; 2.2e-16",
+    "text": "Comparando os dois modelos com o lm()\n\n## Usando o lm para ajustar o modelo com as variáveis selecionadas pelo BIC\nmod_bic &lt;- lm(preco_m ~ idade + quartos + m2_princ + andares, data=conj_treino)\nsummary(mod_bic)\n\n\nCall:\nlm(formula = preco_m ~ idade + quartos + m2_princ + andares, \n    data = conj_treino)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-91.569 -31.680  -1.459  34.349  95.522 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 269.536210   8.833668  30.512  &lt; 2e-16 ***\nidade        -0.945771   0.137707  -6.868 1.05e-11 ***\nquartos     -43.396786   2.103100 -20.635  &lt; 2e-16 ***\nm2_princ      0.146908   0.002991  49.120  &lt; 2e-16 ***\nandares      35.270501   3.431146  10.280  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 40.6 on 1187 degrees of freedom\nMultiple R-squared:  0.7515,    Adjusted R-squared:  0.7507 \nF-statistic: 897.4 on 4 and 1187 DF,  p-value: &lt; 2.2e-16\n\nmod_cp &lt;- lm(preco_m ~ idade + quartos + banheiros + m2_princ + m2_tot + andares, data=conj_treino)\nsummary(mod_cp)\n\n\nCall:\nlm(formula = preco_m ~ idade + quartos + banheiros + m2_princ + \n    m2_tot + andares, data = conj_treino)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-90.680 -31.815  -0.952  33.701  94.047 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  2.552e+02  9.834e+00  25.949  &lt; 2e-16 ***\nidade       -9.303e-01  1.373e-01  -6.777 1.93e-11 ***\nquartos     -4.457e+01  2.173e+00 -20.513  &lt; 2e-16 ***\nbanheiros    9.462e+00  3.367e+00   2.810  0.00503 ** \nm2_princ     1.442e-01  3.095e-03  46.574  &lt; 2e-16 ***\nm2_tot       9.183e-05  4.410e-05   2.083  0.03750 *  \nandares      3.486e+01  3.587e+00   9.718  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 40.44 on 1185 degrees of freedom\nMultiple R-squared:  0.7538,    Adjusted R-squared:  0.7525 \nF-statistic: 604.6 on 6 and 1185 DF,  p-value: &lt; 2.2e-16",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3276,7 +3100,7 @@
     "href": "semanas/Aula07.3.html#avaliando-colinearidade",
     "title": "Seleção de Modelos",
     "section": "Avaliando Colinearidade",
-    "text": "Avaliando Colinearidade\nUma investigação minuciosa da multicollinearidade envolverá a análise do valor do \\(R^2\\) que resulta da regressão de cada uma das variáveis explicativas contra todas as outras. A relação entre as variáveis explicativas pode ser julgada examinando uma quantidade chamada fator de inflacionário da variância (FIV) ou Variance Inflation Factor (VIF). Seja \\(Rj~^{2}\\) o quadrado do coeficiente de correlação múltipla que resulta quando a variável explicativa \\(Xj~\\) é ajustada contra todas as outras variáveis explicativas. Então o vif para \\(Xj~\\) é \\(VIFj = 1 / (1-Rj~^{2})\\)\nA regra geral é que vifs superiores a 4 justificam novas investigações, enquanto VIFs superiores a 10 são sinais de multicollinearidade grave que requerem correção.\n\nlibrary(car)\n\nCarregando pacotes exigidos: carData\n\n\n\nAttaching package: 'car'\n\n\nThe following object is masked from 'package:dplyr':\n\n    recode\n\n\nThe following object is masked from 'package:purrr':\n\n    some\n\nvif(mod_cp2)\n\n      zn     chas      nox       rm      dis      rad      tax  ptratio \n2.128862 1.076888 3.707463 2.032934 3.357506 6.005229 6.999822 1.796214 \n   black    lstat \n1.388299 3.010108 \n\n## Vamos eliminar tax e ver o que acontece\nmod_cp3 &lt;- lm(medv ~ zn + chas + nox + rm + dis + rad + ptratio + black + lstat, data=conj_treino)\nsummary(mod_cp3)\n\n\nCall:\nlm(formula = medv ~ zn + chas + nox + rm + dis + rad + ptratio + \n    black + lstat, data = conj_treino)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-18.6480  -2.9158  -0.5013   1.9274  25.8537 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  21.606433   5.641174   3.830 0.000149 ***\nzn            0.021779   0.014856   1.466 0.143439    \nchas          3.623029   1.004143   3.608 0.000348 ***\nnox         -18.864099   3.750520  -5.030 7.48e-07 ***\nrm            5.337321   0.465687  11.461  &lt; 2e-16 ***\ndis          -1.150869   0.201396  -5.714 2.18e-08 ***\nrad           0.079897   0.039806   2.007 0.045417 *  \nptratio      -1.016641   0.139883  -7.268 1.99e-12 ***\nblack         0.014071   0.002794   5.035 7.28e-07 ***\nlstat        -0.411503   0.054166  -7.597 2.24e-13 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.6 on 393 degrees of freedom\nMultiple R-squared:  0.7557,    Adjusted R-squared:  0.7501 \nF-statistic: 135.1 on 9 and 393 DF,  p-value: &lt; 2.2e-16\n\nvif(mod_cp3)\n\n      zn     chas      nox       rm      dis      rad  ptratio    black \n2.011936 1.075519 3.553096 2.003832 3.287355 2.300918 1.724780 1.386548 \n   lstat \n3.006257",
+    "text": "Avaliando Colinearidade\nUma investigação minuciosa da multicollinearidade envolverá a análise do valor do \\(R^2\\) que resulta da regressão de cada uma das variáveis explicativas contra todas as outras. A relação entre as variáveis explicativas pode ser julgada examinando uma quantidade chamada fator de inflacionário da variância (FIV) ou Variance Inflation Factor (VIF). Seja \\(Rj~^{2}\\) o quadrado do coeficiente de correlação múltipla que resulta quando a variável explicativa \\(Xj~\\) é ajustada contra todas as outras variáveis explicativas. Então o vif para \\(Xj~\\) é \\(VIFj = 1 / (1-Rj~^{2})\\)\nA regra geral é que vifs superiores a 4 justificam novas investigações, enquanto VIFs superiores a 10 são sinais de multicollinearidade grave que requerem correção.\n\nlibrary(car)\nvif(mod_bic)\n\n   idade  quartos m2_princ  andares \n1.121531 2.034438 2.171839 1.025749 \n\nvif(mod_cp)\n\n    idade   quartos banheiros  m2_princ    m2_tot   andares \n 1.122951  2.187800  1.496041  2.343757  1.114370  1.129692",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
@@ -3287,131 +3111,21 @@
     "href": "semanas/Aula07.3.html#testando-os-dois-modelos-com-o-conjunto-de-teste",
     "title": "Seleção de Modelos",
     "section": "Testando os dois modelos com o conjunto de teste",
-    "text": "Testando os dois modelos com o conjunto de teste\n\n# Modelo com base no Cp\nsummary(mod_cp3)$sigma\n\n[1] 4.600016\n\nsummary(mod_cp3)$adj.r.squared\n\n[1] 0.7501409\n\nsqrt(mean((conj_teste$medv - predict(mod_cp3, conj_teste)) ^ 2))\n\n[1] 5.918251\n\n# Modelo com base no BIC\nmod_bic &lt;- lm(medv ~ chas + nox + rm + dis + ptratio + black + lstat, data=conj_treino) \nsummary(mod_bic)$sigma\n\n[1] 4.630994\n\nsummary(mod_bic)$adj.r.squared\n\n[1] 0.7467643\n\nsqrt(mean((conj_teste$medv - predict(mod_bic, conj_teste)) ^ 2))\n\n[1] 6.023672",
+    "text": "Testando os dois modelos com o conjunto de teste\n\n# Modelo com base no Cp\nsummary(mod_cp)$sigma\n\n[1] 40.44459\n\nsummary(mod_cp)$adj.r.squared\n\n[1] 0.7525384\n\nsqrt(mean((conj_teste$preco_m - predict(mod_cp, conj_teste)) ^ 2))\n\n[1] 41.50369\n\n# Modelo com base no BIC\nsummary(mod_bic)$sigma\n\n[1] 40.59764\n\nsummary(mod_bic)$adj.r.squared\n\n[1] 0.750662\n\nsqrt(mean((conj_teste$preco_m - predict(mod_bic, conj_teste)) ^ 2))\n\n[1] 41.56818",
     "crumbs": [
       "Conteúdo Semanal",
       "Seleção de Modelos"
     ]
   },
   {
-    "objectID": "semanas/Aula07.4.html#carregando-bibliotecas",
-    "href": "semanas/Aula07.4.html#carregando-bibliotecas",
-    "title": "Regularização de Modelos",
-    "section": "Carregando Bibliotecas",
-    "text": "Carregando Bibliotecas\n\nlibrary(MASS)\nlibrary(tidyverse)\nlibrary(glmnet)\ndata(Boston)",
+    "objectID": "semanas/Aula07.3.html#comparando-valor-real-vs-previsão",
+    "href": "semanas/Aula07.3.html#comparando-valor-real-vs-previsão",
+    "title": "Seleção de Modelos",
+    "section": "Comparando valor real vs previsão",
+    "text": "Comparando valor real vs previsão\n\nconj_treino$Previsoes &lt;- predict(mod_bic, data=conj_treino)\nggplot(conj_treino, aes(x=Previsoes, y=preco_m)) + \n  geom_point() +\n  geom_abline(color = \"darkblue\") +\n  ggtitle(\"Preço da Casa vs. Previsões do modelo linear\")",
     "crumbs": [
       "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#carregando-os-dados",
-    "href": "semanas/Aula07.4.html#carregando-os-dados",
-    "title": "Regularização de Modelos",
-    "section": "Carregando os dados",
-    "text": "Carregando os dados\nVamos utilizar neste exemplo os dados contidos na biblioteca MASS. A base de dados Boston tem 506 de valores preços medianos de casas na região de Boston com 13 outras variáveis explicativas (potencialmente). Vamos explorar os dados e ajustar modelos com penalização o Ridge e o LASSO e depois vamos comparar com os mínimos quadrados.\n\nhead(Boston)\n\n     crim zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat\n1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90  4.98\n2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90  9.14\n3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83  4.03\n4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63  2.94\n5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90  5.33\n6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12  5.21\n  medv\n1 24.0\n2 21.6\n3 34.7\n4 33.4\n5 36.2\n6 28.7\n\nsummary(Boston)\n\n      crim                zn             indus            chas        \n Min.   : 0.00632   Min.   :  0.00   Min.   : 0.46   Min.   :0.00000  \n 1st Qu.: 0.08205   1st Qu.:  0.00   1st Qu.: 5.19   1st Qu.:0.00000  \n Median : 0.25651   Median :  0.00   Median : 9.69   Median :0.00000  \n Mean   : 3.61352   Mean   : 11.36   Mean   :11.14   Mean   :0.06917  \n 3rd Qu.: 3.67708   3rd Qu.: 12.50   3rd Qu.:18.10   3rd Qu.:0.00000  \n Max.   :88.97620   Max.   :100.00   Max.   :27.74   Max.   :1.00000  \n      nox               rm             age              dis        \n Min.   :0.3850   Min.   :3.561   Min.   :  2.90   Min.   : 1.130  \n 1st Qu.:0.4490   1st Qu.:5.886   1st Qu.: 45.02   1st Qu.: 2.100  \n Median :0.5380   Median :6.208   Median : 77.50   Median : 3.207  \n Mean   :0.5547   Mean   :6.285   Mean   : 68.57   Mean   : 3.795  \n 3rd Qu.:0.6240   3rd Qu.:6.623   3rd Qu.: 94.08   3rd Qu.: 5.188  \n Max.   :0.8710   Max.   :8.780   Max.   :100.00   Max.   :12.127  \n      rad              tax           ptratio          black       \n Min.   : 1.000   Min.   :187.0   Min.   :12.60   Min.   :  0.32  \n 1st Qu.: 4.000   1st Qu.:279.0   1st Qu.:17.40   1st Qu.:375.38  \n Median : 5.000   Median :330.0   Median :19.05   Median :391.44  \n Mean   : 9.549   Mean   :408.2   Mean   :18.46   Mean   :356.67  \n 3rd Qu.:24.000   3rd Qu.:666.0   3rd Qu.:20.20   3rd Qu.:396.23  \n Max.   :24.000   Max.   :711.0   Max.   :22.00   Max.   :396.90  \n     lstat            medv      \n Min.   : 1.73   Min.   : 5.00  \n 1st Qu.: 6.95   1st Qu.:17.02  \n Median :11.36   Median :21.20  \n Mean   :12.65   Mean   :22.53  \n 3rd Qu.:16.95   3rd Qu.:25.00  \n Max.   :37.97   Max.   :50.00  \n\n\nObservamos acima que todas as variáveis são quantitativas e que não há necessidade de transformações.",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#significado-das-variáveis",
-    "href": "semanas/Aula07.4.html#significado-das-variáveis",
-    "title": "Regularização de Modelos",
-    "section": "Significado das variáveis",
-    "text": "Significado das variáveis\n\n# Boston Database\n# \n#1) crim - taxa de criminalidade per capita por cidade.\n# \n#2) zn - proporção de terrenos residenciais para lotes acima de 25,000 sq.ft.\n# \n#3) indus - proporção de negócios não comerciais por acres e por cidade.\n# \n#4) chas - variável dummy do Rio Charles(= 1 se próximo do rio; 0 de outra forma).\n# \n#5) nox - concentração de óxido de nitrogênio (partes por 10 milhões).\n# \n#6) rm - número médio de quartos por habitação\n# \n#7) age - proporção da unidade ocupadas pelos proprietários construídas antes 1940.\n# \n#8) dis - média ponderada das distâncias dos 5 pontos de emprego em Boston.\n# \n#9) rad - indice de acessibilidade das avenidas radiais.\n# \n#10) tax - valor cheio da taxa de propriedade por $10,000.\n# \n#11) ptratio - razão aluno-professor por cidade.\n# \n#12) black - 1000(Bk−0.63)21000(Bk−0.63)2 proporção de negros por cidade.\n# \n#13) lstat - percentual de baixo status da população.\n# \n#14) medv - valor mediano das cas ocupadas pelos proprietário em $1000s. (Var. Resposta)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#conjunto-de-treino-e-de-teste",
-    "href": "semanas/Aula07.4.html#conjunto-de-treino-e-de-teste",
-    "title": "Regularização de Modelos",
-    "section": "Conjunto de treino e de teste",
-    "text": "Conjunto de treino e de teste\n\nlibrary(caret)\n\nCarregando pacotes exigidos: lattice\n\n\n\nAttaching package: 'caret'\n\n\nThe following object is masked from 'package:purrr':\n\n    lift\n\nset.seed(21)\ny &lt;- Boston$medv\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- Boston %&gt;% slice(-indice_teste)\n\nWarning: Slicing with a 1-column matrix was deprecated in dplyr 1.1.0.\n\nconj_teste &lt;- Boston %&gt;% slice(indice_teste)\n\nstr(conj_treino)\n\n'data.frame':   403 obs. of  14 variables:\n $ crim   : num  0.00632 0.02731 0.02729 0.03237 0.06905 ...\n $ zn     : num  18 0 0 0 0 0 12.5 12.5 12.5 12.5 ...\n $ indus  : num  2.31 7.07 7.07 2.18 2.18 2.18 7.87 7.87 7.87 7.87 ...\n $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.538 0.469 0.469 0.458 0.458 0.458 0.524 0.524 0.524 0.524 ...\n $ rm     : num  6.58 6.42 7.18 7 7.15 ...\n $ age    : num  65.2 78.9 61.1 45.8 54.2 58.7 66.6 96.1 85.9 94.3 ...\n $ dis    : num  4.09 4.97 4.97 6.06 6.06 ...\n $ rad    : int  1 2 2 3 3 3 5 5 5 5 ...\n $ tax    : num  296 242 242 222 222 222 311 311 311 311 ...\n $ ptratio: num  15.3 17.8 17.8 18.7 18.7 18.7 15.2 15.2 15.2 15.2 ...\n $ black  : num  397 397 393 395 397 ...\n $ lstat  : num  4.98 9.14 4.03 2.94 5.33 ...\n $ medv   : num  24 21.6 34.7 33.4 36.2 28.7 22.9 27.1 18.9 15 ...\n\nstr(conj_teste)\n\n'data.frame':   103 obs. of  14 variables:\n $ crim   : num  0.211 0.63 0.627 1.252 0.852 ...\n $ zn     : num  12.5 0 0 0 0 0 0 75 0 0 ...\n $ indus  : num  7.87 8.14 8.14 8.14 8.14 8.14 8.14 2.95 6.91 6.91 ...\n $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...\n $ nox    : num  0.524 0.538 0.538 0.538 0.538 0.538 0.538 0.428 0.448 0.448 ...\n $ rm     : num  5.63 5.95 5.83 5.57 5.96 ...\n $ age    : num  100 61.8 56.5 98.1 89.2 94.1 96.9 21.8 6.5 95.3 ...\n $ dis    : num  6.08 4.71 4.5 3.8 4.01 ...\n $ rad    : int  5 4 4 4 4 4 4 3 3 3 ...\n $ tax    : num  311 307 307 307 307 307 307 252 233 233 ...\n $ ptratio: num  15.2 21 21 21 21 21 21 18.3 17.9 17.9 ...\n $ black  : num  387 397 396 377 393 ...\n $ lstat  : num  29.93 8.26 8.47 21.02 13.83 ...\n $ medv   : num  16.5 20.4 19.9 13.6 19.6 12.7 13.5 30.8 24.7 14.4 ...",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#métodos-de-regularização",
-    "href": "semanas/Aula07.4.html#métodos-de-regularização",
-    "title": "Regularização de Modelos",
-    "section": "Métodos de Regularização",
-    "text": "Métodos de Regularização\nO pacote glmnet não usa a linguagem de formula, em particular nós devemos passar \\(x\\) como uma matriz e \\(y\\) como um vetor, pois não se usa a sintaxe \\(y \\sim x\\). Com isso será necessário ajustar x e y. A função model.matrix() é particularmente útil para criar x; não só produz uma matriz correspondente as variáveis explicativas, mas também transforma automaticamente quaisquer variáveis qualitativas em variáveis dummy. Esta última propriedade é importante porque o glmnet() só pode tomar insumos numéricos e quantitativos.\n\nx_treino &lt;- model.matrix(medv ~ . , data = conj_treino)[, -1]\ny_treino &lt;- conj_treino$medv\n\nx_teste &lt;- model.matrix(medv ~ . , data = conj_teste)[, -1]\ny_teste = conj_teste$medv",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#regressão-ridge",
-    "href": "semanas/Aula07.4.html#regressão-ridge",
-    "title": "Regularização de Modelos",
-    "section": "Regressão Ridge",
-    "text": "Regressão Ridge\nPrimeiro vamos ajustar um modelo de regressão Ridge. Isso é conseguido chamando glmnet() com alpha=0, se alpha=1 então glmnet() ajusta um lasso.(veja o arquivo de ajuda).\n\n## Estabelecendo um grid de valores para lambda\ngrid &lt;- 10^seq(-2, 10, length = 100)\najusreg.ridge &lt;- glmnet(x_treino, y_treino, alpha=0, lambda = grid)\n\nPor padrão, a função glmnet() executa a regressão ridge automaticamente selecionando a faixa de valores de \\(\\lambda\\). No entanto, aqui nós escolhemos implementar usando uma grade de valores que variam de \\(\\lambda = 10^{-2}\\) a \\(\\lambda = 10^{10}\\), cobrindo toda a gama de cenários do modelo nulo contendo apenas o coeficiente linear até o ajuste dos mínimos quadrados.\nTambém podemos calcular o modelo para um valor particular de \\(\\lambda\\) que não é um dos valores de grade. Observe que, por padrão, a função glmnet() padroniza as variáveis para que elas estejam na mesma escala. Esta padronização é muito importante no caso da regressão Ridge, pois ela é afetada pela mudança de escala das variáveis explicativas.\nAssociado a cada valor de \\(\\lambda\\) existe um vetor de coeficientes de regressão de ridge, que é armazenado em uma matriz que pode ser acessada por ‘coef()’. Neste caso, é uma matriz \\(13 \\times 100\\), com 13 linhas (uma para cada preditor, mais uma para o coeficiente linear) e 100 colunas (uma para cada valor de \\(\\lambda\\)).\n\ndim(coef(ajusreg.ridge))\n\n[1]  14 100\n\nplot(ajusreg.ridge, xvar=\"lambda\", label=TRUE) # Representando os coeficientes\n\n\n\n\n\n\n\nQuando \\(\\lambda\\) é grande o esperado é que os coeficentes sejam pequenos e quando \\(\\lambda\\) é pequeno os coeficientes assumem valores maiores.\n\najusreg.ridge$lambda[1] # Mostra primeiro valor de lambda\n\n[1] 1e+10\n\ncoef(ajusreg.ridge)[,1] # Mostra os coeficientes associados com o primeiro valor\n\n  (Intercept)          crim            zn         indus          chas \n 2.247246e+01 -4.109894e-10  1.380771e-10 -6.245296e-10  6.798952e-09 \n          nox            rm           age           dis           rad \n-3.138930e-08  9.031398e-09 -1.154044e-10  1.094430e-09 -3.674422e-10 \n          tax       ptratio         black         lstat \n-2.354379e-11 -2.000167e-09  3.131126e-11 -8.446650e-10 \n\najusreg.ridge$lambda[100] # Mostra centésimo valor de lambda\n\n[1] 0.01\n\ncoef(ajusreg.ridge)[,100] # Mostra os coeficientes associados com o centésimo valor\n\n  (Intercept)          crim            zn         indus          chas \n 22.759904862  -0.056219660   0.030787704  -0.008666631   3.586521053 \n          nox            rm           age           dis           rad \n-15.478419836   5.269777225  -0.018838697  -1.344328941   0.236682494 \n          tax       ptratio         black         lstat \n -0.009629017  -0.919062486   0.013256877  -0.368967475 \n\n\n\nlibrary(plotmo)\n\nCarregando pacotes exigidos: Formula\n\n\nCarregando pacotes exigidos: plotrix\n\nplot_glmnet(ajusreg.ridge)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#cross-validation-no-ridge",
-    "href": "semanas/Aula07.4.html#cross-validation-no-ridge",
-    "title": "Regularização de Modelos",
-    "section": "Cross-Validation no Ridge",
-    "text": "Cross-Validation no Ridge\nNós podemos usar o k-fold cross validation para identificar o melhor valor de \\(\\lambda\\)\nA biblioteca glmnet já tem internamente uma função para uso do crosss validation. O default são 10 envelopes de dados nfold=10.\n\nset.seed(21)\nridge_cv &lt;- cv.glmnet(x_treino,y_treino, alpha=0) ## por padrão k=10\nplot(ridge_cv)\n\n\n\n\n\n\nm_lamb &lt;- ridge_cv$lambda.min  # Seleciona o lambda que minimiza o MSE (EQM) de treino\nm_lamb\n\n[1] 0.6844251\n\nlog(m_lamb)\n\n[1] -0.3791761\n\ncoef(ridge_cv, s=m_lamb)\n\n14 x 1 sparse Matrix of class \"dgCMatrix\"\n                       s1\n(Intercept)  17.657157531\ncrim         -0.045123105\nzn            0.022084973\nindus        -0.057135170\nchas          3.693730171\nnox         -10.615446064\nrm            5.158120571\nage          -0.016983710\ndis          -1.018076903\nrad           0.124455264\ntax          -0.004785845\nptratio      -0.833820900\nblack         0.012199513\nlstat        -0.351368264",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#avaliando-com-conjunto-de-teste",
-    "href": "semanas/Aula07.4.html#avaliando-com-conjunto-de-teste",
-    "title": "Regularização de Modelos",
-    "section": "Avaliando com conjunto de teste",
-    "text": "Avaliando com conjunto de teste\nEm seguida avaliamos seu MSE no conjunto de teste, usando \\(\\lambda\\) = m_lamb. Observe o uso da função ‘predict()’: desta vez temos previsões para um conjunto de teste, com o argumento newx.\n\najusreg.ridge2 &lt;- glmnet(x_treino, y_treino, alpha=0, lambda = m_lamb)\ny_prev &lt;- predict(ajusreg.ridge2, s = m_lamb, newx = x_teste)\n# Metricas de desempenho\nsqrt(mean((y_prev - y_teste)^2))\n\n[1] 5.866046",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#lasso",
-    "href": "semanas/Aula07.4.html#lasso",
-    "title": "Regularização de Modelos",
-    "section": "LASSO",
-    "text": "LASSO\nPrimeiro ajustamos com todos os dados como no caso do Ridge\n\najusreg.lasso &lt;- glmnet(x_treino,y_treino, alpha = 1)\nplot(ajusreg.lasso, xvar=\"lambda\", label=TRUE) # Representando os coeficientes\n\n\n\n\n\n\nplot_glmnet(ajusreg.lasso)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#validação-cruzada-no-lasso",
-    "href": "semanas/Aula07.4.html#validação-cruzada-no-lasso",
-    "title": "Regularização de Modelos",
-    "section": "Validação Cruzada no LASSO",
-    "text": "Validação Cruzada no LASSO\n\nlasso_cv &lt;- cv.glmnet(x_treino,y_treino, alpha = 1)\nplot(lasso_cv)\n\n\n\n\n\n\nm_lamb1 &lt;- lasso_cv$lambda.min  # Seleciona o lambda que minimiza o MSE de treino\nm_lamb1\n\n[1] 0.007688312\n\nlog(m_lamb1)\n\n[1] -4.868054\n\ncoef(lasso_cv, s=m_lamb1)\n\n14 x 1 sparse Matrix of class \"dgCMatrix\"\n                       s1\n(Intercept)  22.344480900\ncrim         -0.053770703\nzn            0.029746910\nindus        -0.009368146\nchas          3.567282914\nnox         -15.274329592\nrm            5.286463806\nage          -0.018472588\ndis          -1.322216902\nrad           0.226880624\ntax          -0.009200337\nptratio      -0.916730239\nblack         0.013199949\nlstat        -0.369341087",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#avaliando-com-conjunto-de-teste-1",
-    "href": "semanas/Aula07.4.html#avaliando-com-conjunto-de-teste-1",
-    "title": "Regularização de Modelos",
-    "section": "Avaliando com conjunto de teste",
-    "text": "Avaliando com conjunto de teste\n\najusreg.lasso2 &lt;- glmnet(x_treino, y_treino, alpha=1, lambda = m_lamb1)\ny_prev &lt;- predict(ajusreg.lasso2, s = m_lamb1, newx = x_teste)\n# Metricas de desempenho\nsqrt(mean((y_prev - y_teste)^2))\n\n[1] 5.796153",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
+      "Seleção de Modelos"
     ]
   },
   {

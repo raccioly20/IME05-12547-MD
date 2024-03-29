@@ -1,5 +1,5 @@
 ---
-title: "Regressão Linear Múltipla"
+title: "Regressão Linear Múltipla - Validação Cruzada"
 author: "Ricardo Accioly"
 date: "`r Sys.Date()`"
 format:
@@ -38,7 +38,6 @@ propaganda <- propaganda %>% rename(Jornal = Newspaper, Vendas = Sales)
 
 A validação cruzada é útil para termos uma estimativa do erro fora da amostra. O método de validação cruzada é um procedimento utilizado para estimar a qualidade de um modelo de aprendizado de máquina em dados não vistos. A validação cruzada é um procedimento comum para avaliar a capacidade de generalização de um modelo.
 
-
 ```{r}
 library(caret)
 set.seed(21)
@@ -74,6 +73,7 @@ modelo$finalModel
 
 ```
 
+## Modelo Inicial
 
 ```{r}
 set.seed(21)
@@ -90,3 +90,4 @@ summary(mod)
 sqrt(mean((conj_teste$Vendas - predict(mod, conj_teste)) ^ 2))
 ```
 
+## 
