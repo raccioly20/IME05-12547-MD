@@ -132,6 +132,16 @@ y_prev <- predict(ajusreg.ridge2, s = m_lamb, newx = x_teste)
 sqrt(mean((y_prev - y_teste)^2))
 ```
 
+## Comparando real vs previsão no conjunto de teste
+
+```{r}
+v_teste <- data.frame(y_teste, y_prev)
+ggplot(v_teste, aes(x=y_prev, y=y_teste)) +geom_point() +
+  geom_abline(color = "darkblue") +
+  ggtitle("Preço da Casa vs. Previsões do modelo Ridge")
+```
+
+
 ## LASSO
 
 Primeiro ajustamos com todos os dados como no caso do Ridge
@@ -161,3 +171,13 @@ y_prev <- predict(ajusreg.lasso2, s = m_lamb1, newx = x_teste)
 # Metricas de desempenho
 sqrt(mean((y_prev - y_teste)^2))
 ```
+
+## Comparando real vs previsão no conjunto de teste
+
+```{r}
+v_teste <- data.frame(y_teste, y_prev)
+ggplot(v_teste, aes(x=y_prev, y=y_teste)) +geom_point() +
+  geom_abline(color = "darkblue") +
+  ggtitle("Preço da Casa vs. Previsões do modelo Ridge")
+```
+
