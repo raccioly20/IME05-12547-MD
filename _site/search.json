@@ -1039,6 +1039,17 @@
     ]
   },
   {
+    "objectID": "semanas/Aula07.4.html#comparando-real-vs-previsão-no-conjunto-de-teste",
+    "href": "semanas/Aula07.4.html#comparando-real-vs-previsão-no-conjunto-de-teste",
+    "title": "Regularização de Modelos",
+    "section": "Comparando real vs previsão no conjunto de teste",
+    "text": "Comparando real vs previsão no conjunto de teste\n\nv_teste &lt;- data.frame(y_teste, y_prev)\nggplot(v_teste, aes(x=y_prev, y=y_teste)) +geom_point() +\n  geom_abline(color = \"darkblue\") +\n  ggtitle(\"Preço da Casa vs. Previsões do modelo Ridge\")",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Métodos de Encolhimento"
+    ]
+  },
+  {
     "objectID": "semanas/Aula07.4.html#lasso",
     "href": "semanas/Aula07.4.html#lasso",
     "title": "Regularização de Modelos",
@@ -1066,6 +1077,17 @@
     "title": "Regularização de Modelos",
     "section": "Avaliando com conjunto de teste",
     "text": "Avaliando com conjunto de teste\n\najusreg.lasso2 &lt;- glmnet(x_treino, y_treino, alpha=1, lambda = m_lamb1)\ny_prev &lt;- predict(ajusreg.lasso2, s = m_lamb1, newx = x_teste)\n# Metricas de desempenho\nsqrt(mean((y_prev - y_teste)^2))\n\n[1] 41.48019",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Métodos de Encolhimento"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula07.4.html#comparando-real-vs-previsão-no-conjunto-de-teste-1",
+    "href": "semanas/Aula07.4.html#comparando-real-vs-previsão-no-conjunto-de-teste-1",
+    "title": "Regularização de Modelos",
+    "section": "Comparando real vs previsão no conjunto de teste",
+    "text": "Comparando real vs previsão no conjunto de teste\n\nv_teste &lt;- data.frame(y_teste, y_prev)\nggplot(v_teste, aes(x=y_prev, y=y_teste)) +geom_point() +\n  geom_abline(color = \"darkblue\") +\n  ggtitle(\"Preço da Casa vs. Previsões do modelo Ridge\")",
     "crumbs": [
       "Conteúdo Semanal",
       "Métodos de Encolhimento"
@@ -1329,7 +1351,7 @@
     "href": "semanas/Aula07.2.html#análise-do-modelo---parte-2",
     "title": "Regressão Linear Múltipla",
     "section": "Análise do Modelo - Parte 2",
-    "text": "Análise do Modelo - Parte 2\nO pacote easystats tem uma função que faz uma análise mais detalhada do modelo. Os gráficos são mais fáceis de interpretar do que os obtidos com o plot do R base.\n\nlibrary(easystats)\ncheck_model(mod5)\n\n\n\n\n\n\nFigure 1: A full width figure.",
+    "text": "Análise do Modelo - Parte 2\nO pacote easystats tem uma função que faz uma análise mais detalhada do modelo. Os gráficos são mais fáceis de interpretar do que os obtidos com o plot do R base.\n\nlibrary(easystats)\ncheck_model(mod5)",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Múltipla"
@@ -3129,6 +3151,17 @@
     ]
   },
   {
+    "objectID": "semanas/Aula07.3.html#avaliando-os-resíduos",
+    "href": "semanas/Aula07.3.html#avaliando-os-resíduos",
+    "title": "Seleção de Modelos",
+    "section": "Avaliando os resíduos",
+    "text": "Avaliando os resíduos\n\nresidualPlots(mod_bic)\n\n\n\n\n\n\n\n           Test stat Pr(&gt;|Test stat|)\nidade        -0.6066           0.5443\nquartos       0.6446           0.5193\nm2_princ      0.4534           0.6504\nandares       0.9874           0.3236\nTukey test    0.6214           0.5343",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Seleção de Modelos"
+    ]
+  },
+  {
     "objectID": "semanas/Aula08.0.html",
     "href": "semanas/Aula08.0.html",
     "title": "Classificação - Primeiros Passos",
@@ -4404,28 +4437,6 @@
     "crumbs": [
       "Conteúdo Semanal",
       "Análise de Associação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#comparando-real-vs-previsão-no-conjunto-de-teste",
-    "href": "semanas/Aula07.4.html#comparando-real-vs-previsão-no-conjunto-de-teste",
-    "title": "Regularização de Modelos",
-    "section": "Comparando real vs previsão no conjunto de teste",
-    "text": "Comparando real vs previsão no conjunto de teste\n\nv_teste &lt;- data.frame(y_teste, y_prev)\nggplot(v_teste, aes(x=y_prev, y=y_teste)) +geom_point() +\n  geom_abline(color = \"darkblue\") +\n  ggtitle(\"Preço da Casa vs. Previsões do modelo Ridge\")",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula07.4.html#comparando-real-vs-previsão-no-conjunto-de-teste-1",
-    "href": "semanas/Aula07.4.html#comparando-real-vs-previsão-no-conjunto-de-teste-1",
-    "title": "Regularização de Modelos",
-    "section": "Comparando real vs previsão no conjunto de teste",
-    "text": "Comparando real vs previsão no conjunto de teste\n\nv_teste &lt;- data.frame(y_teste, y_prev)\nggplot(v_teste, aes(x=y_prev, y=y_teste)) +geom_point() +\n  geom_abline(color = \"darkblue\") +\n  ggtitle(\"Preço da Casa vs. Previsões do modelo Ridge\")",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Métodos de Encolhimento"
     ]
   }
 ]

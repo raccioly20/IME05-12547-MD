@@ -213,3 +213,10 @@ ggplot(conj_treino, aes(x=Previsoes, y=preco_m)) +
   geom_abline(color = "darkblue") +
   ggtitle("Preço da Casa vs. Previsões do modelo linear")
 ```
+
+## Avaliando os resíduos
+
+```{r}
+#| warning: false
+residualPlots(mod_bic)
+```

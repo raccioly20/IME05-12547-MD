@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.4.549">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-03-29">
+<meta name="dcterms.date" content="2024-04-04">
 <title>IME05-12547 - Seleção de Modelos</title>
 <style>
 code{white-space: pre-wrap;}
@@ -420,6 +420,7 @@ window.Quarto = {
   <li><a href="#avaliando-colinearidade" id="toc-avaliando-colinearidade" class="nav-link" data-scroll-target="#avaliando-colinearidade">Avaliando Colinearidade</a></li>
   <li><a href="#testando-os-dois-modelos-com-o-conjunto-de-teste" id="toc-testando-os-dois-modelos-com-o-conjunto-de-teste" class="nav-link" data-scroll-target="#testando-os-dois-modelos-com-o-conjunto-de-teste">Testando os dois modelos com o conjunto de teste</a></li>
   <li><a href="#comparando-valor-real-vs-previs%C3%A3o" id="toc-comparando-valor-real-vs-previsão" class="nav-link" data-scroll-target="#comparando-valor-real-vs-previs%C3%A3o">Comparando valor real vs previsão</a></li>
+  <li><a href="#avaliando-os-res%C3%ADduos" id="toc-avaliando-os-resíduos" class="nav-link" data-scroll-target="#avaliando-os-res%C3%ADduos">Avaliando os resíduos</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -441,7 +442,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 29, 2024</p>
+      <p class="date">April 4, 2024</p>
     </div>
   </div>
   
@@ -1501,6 +1502,24 @@ F-statistic: 604.6 on 6 and 1185 DF,  p-value: &lt; 2.2e-16</code></pre>
 <figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+</section><section id="avaliando-os-resíduos" class="level2"><h2 class="anchored" data-anchor-id="avaliando-os-resíduos">Avaliando os resíduos</h2>
+<div class="cell">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/residualPlots.html">residualPlots</a></span><span class="op">(</span><span class="va">mod_bic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Test stat Pr(&gt;|Test stat|)
+idade        -0.6066           0.5443
+quartos       0.6446           0.5193
+m2_princ      0.4534           0.6504
+andares       0.9874           0.3236
+Tukey test    0.6214           0.5343</code></pre>
 </div>
 </div>
 
