@@ -22,7 +22,7 @@ knitr:
 
 # Primeiros Passos
 
-Baseado no livro Introduction to Data Science: Data Analysis and Prediction Algorithms with R, Rafael A. Irizarry. (https://rafalab.github.io/dsbook/)
+Baseado no livro Introduction to Data Science: Data Analysis and Prediction Algorithms with R, Rafael A. Irizarry. (<http://rafalab.dfci.harvard.edu/dsbook-part-2/>)
 
 ## Carregando Bibliotecas
 
@@ -230,8 +230,8 @@ bind_rows(chutando, altura_ptdecorte) %>%
      geom_line() +
      geom_point() +
      geom_abline(intercept = 0, slope = 1.) + 
-     labs(x = "Taxa Positiva Falsa (TPF)", 
-          y = "Taxa Positiva Verdadeira(TPV)", 
+     labs(x = "Taxa Positiva Falsa (1 - Especificidade)", 
+          y = "Taxa Positiva Verdadeira (Sensibilidade)", 
           title = "Curva ROC") +
      scale_x_continuous(limits = c(0, 1.0)) + 
      scale_y_continuous(limits = c(0, 1.0))

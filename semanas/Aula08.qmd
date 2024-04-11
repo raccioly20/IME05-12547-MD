@@ -52,32 +52,6 @@ summary(credito)
 
 ```
 
-## Normalização
-
-Antes de iniciarmos é fundamental fazermos a normalização (padronização) dos dados para que o KNN tenha um melhor desempenho.
-
-```{r normalizar}
-credito_n <- credito
-credito_n[,3:4] <- scale(credito_n[,3:4])
-```
-
-## Treino e Teste
-
-```{r conjuntos-treino-teste, message=FALSE}
-library(tidymodels)
-set.seed(23)
-
-credito_split <- initial_split(credito_n, prop = 0.75, strata = inadimplente)
-
-credito_split
-
-conj_treino <- training(credito_split)
-conj_teste <- testing(credito_split)
-
-summary(conj_treino)
-summary(conj_teste)
-```
-
 ## Matriz de dispersão
 
 Vamos agora explorar os dados originais para termos algum visão do comportamento das variáveis explicativas e a variável dependente.
@@ -96,25 +70,27 @@ pairs.panels(credito,
 ## Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)
 
 ```{r box-plot}
-ggplot(credito, aes(x=inadimplente, y=balanco)) +
+library(patchwork)
+p1 <- ggplot(credito, aes(x=inadimplente, y=balanco, color=inadimplente)) +
   geom_boxplot()
-ggplot(credito, aes(x=inadimplente, y=receita)) +
+p2 <- ggplot(credito, aes(x=inadimplente, y=receita, color=inadimplente)) +
   geom_boxplot()
-ggplot(credito, aes(x=as.factor(estudante), y=balanco)) +
+p3 <- ggplot(credito, aes(x=as.factor(estudante), y=balanco, color=as.factor(estudante))) +
   geom_boxplot()
-ggplot(credito, aes(x=as.factor(estudante), y=receita)) +
+p4 <- ggplot(credito, aes(x=as.factor(estudante), y=receita, color=as.factor(estudante))) +
   geom_boxplot()
-
+(p1 + p2) / (p3 + p4)
 
 ```
 
 ## Explorando um pouco mais Balanço e Receita
 
 ```{r histogramas}
-ggplot(credito, aes(x=balanco)) +
-  geom_histogram(bins = round(1+3.322*log10(nrow(conj_treino)),0))
-ggplot(credito, aes(x=receita)) +
-    geom_histogram(bins = round(1+3.322*log10(nrow(conj_treino)),0))
+p5 <- ggplot(credito, aes(x=balanco)) +
+  geom_histogram(bins = round(1+3.322*log10(nrow(credito)),0))
+p6 <- ggplot(credito, aes(x=receita)) +
+    geom_histogram(bins = round(1+3.322*log10(nrow(credito)),0))
+p5 + p6
 ```
 
 ## Balanço vs Receita
@@ -125,11 +101,28 @@ ggplot(data = credito, aes(x=balanco,  y = receita, col = inadimplente)) + geom_
 
 ## KNN
 
-**Vamos usar a função knn da biblioteca caret que tem ótimas funcionalidades. Observem que a saída pode ser as classes ou as probabilidades de pertencer a uma classe**
+Vamos usar a função knn da biblioteca caret que tem ótimas funcionalidades. Observem que a saída pode ser as classes ou as probabilidades de pertencer a uma classe
 
 **Como o KNN usa as distancias entre os pontos ele é afetado pela escala dos dados, portanto, é necessário que os dados sejam normalizados (padronizados) para eliminar este efeito.**
 
-**Quando temos diversas variáveis explicativas em diferentes escalas, em geral, elas devem ser transformadas para ter media zero e desvio padrão 1**
+Quando temos diversas variáveis explicativas em diferentes escalas, em geral, elas devem ser transformadas para ter media zero e desvio padrão 1
+
+## Criando conjuntos de treino e teste e normalizando variáveis
+
+```{r conjuntos-treino-teste, message=FALSE}
+library(caret)
+set.seed(2024)
+y <- credito$inadimplente
+credito_split <- createDataPartition(y, times = 1, p = 0.80, list = FALSE)
+
+conj_treino <- credito[credito_split,]
+conj_treino[,3:4] <- scale(conj_treino[,3:4]) # scale normaliza
+conj_teste <- credito[-credito_split,]
+conj_teste[,3:4] <- scale(conj_teste[, 3:4])
+                           
+summary(conj_treino)
+summary(conj_teste)
+```
 
 ## 1a Modelo
 
@@ -138,6 +131,7 @@ ggplot(data = credito, aes(x=balanco,  y = receita, col = inadimplente)) + geom_
 library(caret)
 sqrt(nrow(conj_treino)) ## ~90
 set.seed(23)
+
 t_knn1 <- knn3(inadimplente ~ balanco + receita + estudante, data = conj_treino, k = 90)
 t_knn1
 ```
@@ -149,7 +143,6 @@ t_knn1
 **Observar que a prevalência é muito baixa o que está afetando os resultados do modelo**
 
 ```{r aval}
-## 
 y_chapeu_knn1 <- predict(t_knn1, conj_teste, type = "class")
 
 # Matriz de confusão para valiar os resultados
@@ -189,8 +182,9 @@ ctrl <- trainControl(method = "repeatedcv",
                      number = 10,
                      repeats = 5)
 t_knn2 <- train(inadimplente ~ balanco + receita + estudante,
-                method = "knn", trControl= ctrl, 
-                tuneGrid = data.frame(k = seq(10,200, by=10)),
+                method = "knn", 
+                trControl= ctrl,
+                tuneGrid = data.frame(k = seq(5,100, by=5)),
                 data = conj_treino)
 ## Resultados do treino
 t_knn2
@@ -201,36 +195,7 @@ prev_knn2 <- predict(t_knn2, conj_teste)
 confusionMatrix(prev_knn2, conj_teste$inadimplente,  positive="Sim")
 ```
 
-## Variando K de outra forma
-
-**Vamos adicionar mais opções no trainControl**
-
-**Ao colocar classProb = TRUE e summaryFunction ao invés da acurácia a otimização passa a ser através o ROC**
-
-```{r K2}
-set.seed(23)
-# ctrl <- trainControl(method = "cv", classProbs=TRUE, summaryFunction = twoClassSummary)
-ctrl <- trainControl(method = "repeatedcv", 
-                     number = 10,
-                     repeats = 5, 
-                     classProbs = TRUE,
-                     summaryFunction = twoClassSummary)
-
-t_knn3 <- train(inadimplente ~ balanco + receita + estudante, 
-                method = "knn", 
-                trControl= ctrl, 
-                tuneGrid = data.frame(k = seq(10,200, by=10)),
-                metric = "ROC",
-                data = conj_treino)
-t_knn3
-plot(t_knn3)
-prev_knn3 <- predict(t_knn3, conj_teste)
-confusionMatrix(prev_knn3, conj_teste$inadimplente,  positive="Sim")
-```
-
-**Veja que ao otimizar pela ROC o modelo escolhido tem sensibilidade zero! Isto obviamente não é um bom modelo! Neste caso a opção de otimização do parametro pela acurácia dá melhores resultados.**
-
-## Curva ROC dos 2 melhores modelos k=90 e k=20
+## Curva ROC dos 2 melhores modelos k=90 e k=25
 
 ```{r ROC2, fig.width=9}
 prev_knn1 <- predict(t_knn1, conj_teste, type = "prob")
@@ -247,4 +212,4 @@ as.numeric(roc_knn2$auc)
 
 **Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos a sensibilidade e especificidade!**
 
-**Os resultados encontrados apontam k=20 como a melhor opção**
+**Os resultados encontrados apontam k=25 como a melhor opção**

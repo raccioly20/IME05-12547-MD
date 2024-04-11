@@ -51,16 +51,14 @@ summary(credito)
 ## Treino e Teste
 
 ```{r conjuntos-treino-teste}
-library(tidymodels)
-set.seed(23)
+library(caret)
+set.seed(2024)
+y <- credito$inadimplente
+credito_split <- createDataPartition(y, times = 1, p = 0.80, list = FALSE)
 
-credito_split <- initial_split(credito, prop = 0.75, strata = inadimplente)
-
-credito_split
-
-conj_treino <- training(credito_split)
-conj_teste <- testing(credito_split)
-
+conj_treino <- credito[credito_split,]
+conj_teste <- credito[-credito_split,]
+                           
 summary(conj_treino)
 summary(conj_teste)
 
@@ -82,14 +80,16 @@ pairs.panels(conj_treino,
 ## Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)
 
 ```{r box-plot}
-ggplot(conj_treino, aes(x=inadimplente, y=balanco)) +
+library(patchwork)
+p1 <- ggplot(credito, aes(x=inadimplente, y=balanco, color=inadimplente)) +
   geom_boxplot()
-ggplot(conj_treino, aes(x=inadimplente, y=receita)) +
+p2 <- ggplot(credito, aes(x=inadimplente, y=receita, color=inadimplente)) +
   geom_boxplot()
-ggplot(conj_treino, aes(x=as.factor(estudante), y=balanco)) +
+p3 <- ggplot(credito, aes(x=as.factor(estudante), y=balanco, color=as.factor(estudante))) +
   geom_boxplot()
-ggplot(conj_treino, aes(x=as.factor(estudante), y=receita)) +
+p4 <- ggplot(credito, aes(x=as.factor(estudante), y=receita, color=as.factor(estudante))) +
   geom_boxplot()
+(p1 + p2) / (p3 + p4)
 
 
 ```
@@ -97,7 +97,7 @@ ggplot(conj_treino, aes(x=as.factor(estudante), y=receita)) +
 ## Balanço vs Receita
 
 ```{r dispersao}
-ggplot(data = conj_treino, aes(x=balanco,  y = receita, col = inadimplente)) +
+ggplot(data = credito, aes(x=balanco,  y = receita, col = inadimplente)) +
   geom_point() 
 ```
 
@@ -105,9 +105,9 @@ ggplot(data = conj_treino, aes(x=balanco,  y = receita, col = inadimplente)) +
 
 ```{r reg-linear}
 ## Primeiro precisa transformar qualitativa em numérica
-inadimpl <- as.numeric(conj_treino$inadimplente) - 1
-modelo_linear <- lm(inadimpl ~ balanco, data = conj_treino)
-plot(inadimpl ~ balanco, data = conj_treino, 
+inadimpl <- as.numeric(credito$inadimplente) - 1
+modelo_linear <- lm(inadimpl ~ balanco, data = credito)
+plot(inadimpl ~ balanco, data = credito, 
      col = "darkorange", pch = "|", ylim = c(-0.2, 1),
      main = "Regressão Linear - Classificação")
 abline(h = 0, lty = 3)
@@ -120,12 +120,12 @@ abline(modelo_linear, lwd = 3, col = "dodgerblue")
 
 ```{r 1avaliacao}
 # proporção de inadimplentes
-conj_treino %>% select(inadimplente, balanco) %>% summarize(prop = mean(inadimplente == "Sim")) 
+credito %>% select(inadimplente, balanco) %>% summarize(prop = mean(inadimplente == "Sim")) 
 # media do balanço dos inadimplentes 
-conj_treino %>% filter(inadimplente == "Sim") %>% summarize(valor= mean(balanco))   
-quantis <- quantile(conj_treino$balanco, probs = c(.1,.25, .50, .75, .9, .95, 0.97, 0.99))
+credito %>% filter(inadimplente == "Sim") %>% summarize(valor= mean(balanco))   
+quantis <- quantile(credito$balanco, probs = c(.1,.25, .50, .75, .9, .95, 0.97, 0.99))
 quantis
-conj_treino %>% 
+credito %>% 
             mutate(grupo_balanco = case_when(
                balanco<=quantis[1] ~ quantis[1],
                balanco>quantis[1] & balanco<=quantis[2] ~ quantis[2],
@@ -154,7 +154,6 @@ summary(mod1)$coef
 ## Avaliando o modelo
 
 ```{r conj_teste}
-library(caret)
 p_chapeu <- predict(mod1, newdata = conj_teste, type = "response")
 y_chapeu <- ifelse(p_chapeu > 0.5, "Sim", "Nao") %>% factor(levels = levels(conj_teste$inadimplente))
 confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim") 
@@ -296,8 +295,10 @@ legend("bottomright", legend=c("Mod 1", "Mod2"),
 ```{r ROC3}
 # Ajustando KNN 
 set.seed(23)
+conj_treino[,3:4] <- scale(conj_treino[,3:4]) # scale normaliza
+conj_teste[,3:4] <- scale(conj_teste[, 3:4])
 ctrl <- trainControl(method = "cv")
-treina_knn <- train(inadimplente ~ scale(balanco) + estudante, method = "knn", trControl= ctrl, tuneGrid = data.frame(k = seq(5,140, by=5)), data = conj_treino)
+treina_knn <- train(inadimplente ~ balanco + estudante, method = "knn", trControl= ctrl, tuneGrid = data.frame(k = seq(5,140, by=5)), data = conj_treino)
 # treina_knn
 plot(treina_knn)
 prev_knn <- predict(treina_knn, conj_teste,type = "prob")
