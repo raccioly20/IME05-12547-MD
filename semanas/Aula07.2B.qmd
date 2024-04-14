@@ -54,6 +54,9 @@ summary(pressao_sangue)
 ```
 
 ```{r}
+library(corrplot)
+mat_corr <- cor(cor(pressao_sangue[,-1]))
+corrplot(mat_corr)
 cor(pressao_sangue[,-1])
 ```
 

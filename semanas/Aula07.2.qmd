@@ -92,6 +92,14 @@ mod2 <- lm( Vendas ~ Radio, data = conj_treino)
 mod3 <- lm( Vendas ~ Jornal, data = conj_treino)
 ```
 
+## Avaliando as correlações
+
+```{r}
+library(corrplot)
+mat_corr <- cor(conj_treino)
+corrplot(mat_corr)
+```
+
 ## 1a Regressão Multipla
 
 ```{r}
