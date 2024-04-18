@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.4.549">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-04-11">
+<meta name="dcterms.date" content="2024-04-18">
 <title>IME05-12547 - KNN</title>
 <style>
 code{white-space: pre-wrap;}
@@ -388,6 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#a-modelo" id="toc-a-modelo" class="nav-link" data-scroll-target="#a-modelo">1a Modelo</a></li>
   <li><a href="#avaliando-o-modelo" id="toc-avaliando-o-modelo" class="nav-link" data-scroll-target="#avaliando-o-modelo">Avaliando o modelo</a></li>
   <li><a href="#curva-roc" id="toc-curva-roc" class="nav-link" data-scroll-target="#curva-roc">Curva ROC</a></li>
+  <li><a href="#area-embaixo-da-curva-roc" id="toc-area-embaixo-da-curva-roc" class="nav-link" data-scroll-target="#area-embaixo-da-curva-roc">Area embaixo da curva ROC</a></li>
   <li><a href="#variando-k" id="toc-variando-k" class="nav-link" data-scroll-target="#variando-k">Variando K</a></li>
   <li><a href="#curva-roc-dos-2-melhores-modelos-k90-e-k25" id="toc-curva-roc-dos-2-melhores-modelos-k90-e-k25" class="nav-link" data-scroll-target="#curva-roc-dos-2-melhores-modelos-k90-e-k25">Curva ROC dos 2 melhores modelos k=90 e k=25</a></li>
   </ul></nav>
@@ -411,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 11, 2024</p>
+      <p class="date">April 18, 2024</p>
     </div>
   </div>
   
@@ -599,9 +600,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section><section id="a-modelo" class="level2"><h2 class="anchored" data-anchor-id="a-modelo">1a Modelo</h2>
+<p>Vamos usar a regra da raiz quadrada do tamanho da amostra para definir o número de vizinhos do KNN.</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Vamos usar a regra da raiz quadrada do tamnho da amostra</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span><span class="op">)</span> <span class="co">## ~90</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 89.44831</code></pre>
@@ -619,12 +620,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section><section id="avaliando-o-modelo" class="level2"><h2 class="anchored" data-anchor-id="avaliando-o-modelo">Avaliando o modelo</h2>
-<p><strong>A acurácia deu um valor alto, mas isto não é suficiente para considerarmos que temos um bom modelo. Veja que a sensibilidade está muito baixa e que o ideal é que tenhamos valores altos de sensibilidade e especificidade.</strong></p>
-<p><strong>Observar que a prevalência é muito baixa o que está afetando os resultados do modelo</strong></p>
+<p><strong>Através da função matriz de confusão do pacote caret conseguimos obter as principais medidas de avaliação de um modelo de classificação.</strong></p>
+<p><strong>Veja que a acurácia deu um valor alto, mas isto não é suficiente para considerarmos que temos um bom modelo. Veja que a sensibilidade está muito baixa e que o ideal é que tenhamos valores altos de sensibilidade e especificidade.</strong></p>
+<p><strong>Observar que a prevalência é muito baixa o que está afetando os resultados do modelo.</strong></p>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y_chapeu_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">t_knn1</span>, <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Matriz de confusão para valiar os resultados</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">y_chapeu_knn1</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span>, positive<span class="op">=</span><span class="st">"Sim"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Confusion Matrix and Statistics
@@ -657,10 +659,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section><section id="curva-roc" class="level2"><h2 class="anchored" data-anchor-id="curva-roc">Curva ROC</h2>
+<p>Para a curva ROC é necessário que obtenhamos as probabilidades e não das classes, vejam nos comandos abaixo como se obtem as probabilidades.</p>
 <div class="cell">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Para a curva ROC preciso das probabilidades e não das classes</span></span>
+<span><span class="co"># </span></span>
 <span><span class="va">p_chapeu_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">t_knn1</span>, <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">p_chapeu_knn1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -683,6 +686,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
+</div>
+</section><section id="area-embaixo-da-curva-roc" class="level2"><h2 class="anchored" data-anchor-id="area-embaixo-da-curva-roc">Area embaixo da curva ROC</h2>
+<div class="cell">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Area abaixo da Curva (AUC)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">roc_knn1</span><span class="op">$</span><span class="va">auc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -691,7 +697,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section><section id="variando-k" class="level2"><h2 class="anchored" data-anchor-id="variando-k">Variando K</h2>
 <p><strong>Anteriormente usamos k=90. Este parametro deve ser ajustado para melhoramos os modelo KNN. Para isto vamos usar a função train da biblioteca caret</strong></p>
-<p><strong>Observe que a otimização de k é feita através de acurácia</strong></p>
+<p><strong>Observe que a otimização de k é feita através de acurácia.</strong></p>
 <div class="cell">
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">23</span><span class="op">)</span></span>
 <span></span>
@@ -703,6 +709,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>                method <span class="op">=</span> <span class="st">"knn"</span>, </span>
 <span>                trControl<span class="op">=</span> <span class="va">ctrl</span>,</span>
 <span>                tuneGrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">100</span>, by<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                metric <span class="op">=</span> <span class="st">"Accuracy"</span>,</span>
 <span>                data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span></span>
 <span><span class="co">## Resultados do treino</span></span>
 <span><span class="va">t_knn2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

@@ -126,8 +126,10 @@ summary(conj_teste)
 
 ## 1a Modelo
 
+Vamos usar a regra da raiz quadrada do tamanho da amostra para definir o número de vizinhos do KNN.
+
 ```{r 1modelo}
-# Vamos usar a regra da raiz quadrada do tamnho da amostra
+
 library(caret)
 sqrt(nrow(conj_treino)) ## ~90
 set.seed(23)
@@ -138,23 +140,27 @@ t_knn1
 
 ## Avaliando o modelo
 
-**A acurácia deu um valor alto, mas isto não é suficiente para considerarmos que temos um bom modelo. Veja que a sensibilidade está muito baixa e que o ideal é que tenhamos valores altos de sensibilidade e especificidade.**
+**Através da função matriz de confusão do pacote caret conseguimos obter as principais medidas de avaliação de um modelo de classificação.**
 
-**Observar que a prevalência é muito baixa o que está afetando os resultados do modelo**
+**Veja que a acurácia deu um valor alto, mas isto não é suficiente para considerarmos que temos um bom modelo. Veja que a sensibilidade está muito baixa e que o ideal é que tenhamos valores altos de sensibilidade e especificidade.**
+
+**Observar que a prevalência é muito baixa o que está afetando os resultados do modelo.**
 
 ```{r aval}
 y_chapeu_knn1 <- predict(t_knn1, conj_teste, type = "class")
 
-# Matriz de confusão para valiar os resultados
+
 confusionMatrix(y_chapeu_knn1, conj_teste$inadimplente, positive="Sim") 
 ```
 
 ## Curva ROC
 
+Para a curva ROC é necessário que obtenhamos as probabilidades e não das classes, vejam nos comandos abaixo como se obtem as probabilidades.
+
 ```{r ROC, fig.width=9, message=FALSE}
 library(pROC)
 
-# Para a curva ROC preciso das probabilidades e não das classes
+# 
 p_chapeu_knn1 <- predict(t_knn1, conj_teste, type = "prob")
 head(p_chapeu_knn1)
 
@@ -164,6 +170,11 @@ roc_knn1 <- roc(conj_teste$inadimplente ~ p_chapeu_knn1[,2], plot = TRUE, print.
 legend("bottomright",legend=c("KNN1"), 
        col=c("black"),lwd=4)
 
+```
+
+## Area embaixo da curva ROC
+
+```{r}
 # Area abaixo da Curva (AUC)
 as.numeric(roc_knn1$auc)
 ```
@@ -172,7 +183,7 @@ as.numeric(roc_knn1$auc)
 
 **Anteriormente usamos k=90. Este parametro deve ser ajustado para melhoramos os modelo KNN. Para isto vamos usar a função train da biblioteca caret**
 
-**Observe que a otimização de k é feita através de acurácia**
+**Observe que a otimização de k é feita através de acurácia.**
 
 ```{r K1}
 set.seed(23)
@@ -185,6 +196,7 @@ t_knn2 <- train(inadimplente ~ balanco + receita + estudante,
                 method = "knn", 
                 trControl= ctrl,
                 tuneGrid = data.frame(k = seq(5,100, by=5)),
+                metric = "Accuracy",
                 data = conj_treino)
 ## Resultados do treino
 t_knn2
