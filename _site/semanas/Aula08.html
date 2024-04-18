@@ -390,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#curva-roc" id="toc-curva-roc" class="nav-link" data-scroll-target="#curva-roc">Curva ROC</a></li>
   <li><a href="#area-embaixo-da-curva-roc" id="toc-area-embaixo-da-curva-roc" class="nav-link" data-scroll-target="#area-embaixo-da-curva-roc">Area embaixo da curva ROC</a></li>
   <li><a href="#variando-k" id="toc-variando-k" class="nav-link" data-scroll-target="#variando-k">Variando K</a></li>
-  <li><a href="#curva-roc-dos-2-melhores-modelos-k90-e-k25" id="toc-curva-roc-dos-2-melhores-modelos-k90-e-k25" class="nav-link" data-scroll-target="#curva-roc-dos-2-melhores-modelos-k90-e-k25">Curva ROC dos 2 melhores modelos k=90 e k=25</a></li>
+  <li><a href="#curva-roc-dos-2-melhores-modelos-k90-e-k15" id="toc-curva-roc-dos-2-melhores-modelos-k90-e-k15" class="nav-link" data-scroll-target="#curva-roc-dos-2-melhores-modelos-k90-e-k15">Curva ROC dos 2 melhores modelos k=90 e k=15</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -699,7 +699,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Anteriormente usamos k=90. Este parametro deve ser ajustado para melhoramos os modelo KNN. Para isto vamos usar a função train da biblioteca caret</strong></p>
 <p><strong>Observe que a otimização de k é feita através de acurácia.</strong></p>
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">23</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Usando validação cruzada para obter o valor de k através da função train da biblioteca caret e o controle do treino e fazendo um gride de valores para k.</span></span>
 <span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"repeatedcv"</span>, </span>
@@ -722,33 +722,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #&gt; 
 #&gt; No pre-processing
 #&gt; Resampling: Cross-Validated (10 fold, repeated 5 times) 
-#&gt; Summary of sample sizes: 7201, 7202, 7202, 7200, 7201, 7201, ... 
+#&gt; Summary of sample sizes: 7200, 7202, 7200, 7202, 7201, 7200, ... 
 #&gt; Resampling results across tuning parameters:
 #&gt; 
 #&gt;   k    Accuracy   Kappa    
-#&gt;     5  0.9687288  0.3765173
-#&gt;    10  0.9712788  0.4168775
-#&gt;    15  0.9715291  0.3850309
-#&gt;    20  0.9716289  0.3721385
-#&gt;    25  0.9717038  0.3589464
-#&gt;    30  0.9715790  0.3548330
-#&gt;    35  0.9715790  0.3491665
-#&gt;    40  0.9714289  0.3406805
-#&gt;    45  0.9716040  0.3406811
-#&gt;    50  0.9713290  0.3246231
-#&gt;    55  0.9710542  0.3128433
-#&gt;    60  0.9710041  0.3001469
-#&gt;    65  0.9706041  0.2807185
-#&gt;    70  0.9704544  0.2692037
-#&gt;    75  0.9701544  0.2485740
-#&gt;    80  0.9697046  0.2246645
-#&gt;    85  0.9694044  0.2037268
-#&gt;    90  0.9689544  0.1678243
-#&gt;    95  0.9686547  0.1429906
-#&gt;   100  0.9684796  0.1203337
+#&gt;     5  0.9687539  0.3713723
+#&gt;    10  0.9710787  0.4074849
+#&gt;    15  0.9719035  0.3949430
+#&gt;    20  0.9714038  0.3650255
+#&gt;    25  0.9716285  0.3568810
+#&gt;    30  0.9716288  0.3532068
+#&gt;    35  0.9715038  0.3445969
+#&gt;    40  0.9715037  0.3418931
+#&gt;    45  0.9714537  0.3369602
+#&gt;    50  0.9715037  0.3314707
+#&gt;    55  0.9711037  0.3129172
+#&gt;    60  0.9707038  0.2893980
+#&gt;    65  0.9705289  0.2761428
+#&gt;    70  0.9704536  0.2663185
+#&gt;    75  0.9699037  0.2364880
+#&gt;    80  0.9696287  0.2176720
+#&gt;    85  0.9693037  0.1946375
+#&gt;    90  0.9688291  0.1614589
+#&gt;    95  0.9685543  0.1362015
+#&gt;   100  0.9680543  0.1070964
 #&gt; 
 #&gt; Accuracy was used to select the optimal model using the largest value.
-#&gt; The final value used for the model was k = 25.</code></pre>
+#&gt; The final value used for the model was k = 15.</code></pre>
 </div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">t_knn2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -765,32 +765,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #&gt; 
 #&gt;           Reference
 #&gt; Prediction  Nao  Sim
-#&gt;        Nao 1928   43
-#&gt;        Sim    5   23
+#&gt;        Nao 1924   41
+#&gt;        Sim    9   25
 #&gt;                                           
-#&gt;                Accuracy : 0.976           
-#&gt;                  95% CI : (0.9683, 0.9822)
+#&gt;                Accuracy : 0.975           
+#&gt;                  95% CI : (0.9672, 0.9814)
 #&gt;     No Information Rate : 0.967           
-#&gt;     P-Value [Acc &gt; NIR] : 0.01143         
+#&gt;     P-Value [Acc &gt; NIR] : 0.02267         
 #&gt;                                           
-#&gt;                   Kappa : 0.4791          
+#&gt;                   Kappa : 0.4885          
 #&gt;                                           
-#&gt;  Mcnemar's Test P-Value : 9.27e-08        
+#&gt;  Mcnemar's Test P-Value : 1.165e-05       
 #&gt;                                           
-#&gt;             Sensitivity : 0.34848         
-#&gt;             Specificity : 0.99741         
-#&gt;          Pos Pred Value : 0.82143         
-#&gt;          Neg Pred Value : 0.97818         
+#&gt;             Sensitivity : 0.37879         
+#&gt;             Specificity : 0.99534         
+#&gt;          Pos Pred Value : 0.73529         
+#&gt;          Neg Pred Value : 0.97913         
 #&gt;              Prevalence : 0.03302         
-#&gt;          Detection Rate : 0.01151         
-#&gt;    Detection Prevalence : 0.01401         
-#&gt;       Balanced Accuracy : 0.67295         
+#&gt;          Detection Rate : 0.01251         
+#&gt;    Detection Prevalence : 0.01701         
+#&gt;       Balanced Accuracy : 0.68707         
 #&gt;                                           
 #&gt;        'Positive' Class : Sim             
 #&gt; </code></pre>
 </div>
 </div>
-</section><section id="curva-roc-dos-2-melhores-modelos-k90-e-k25" class="level2"><h2 class="anchored" data-anchor-id="curva-roc-dos-2-melhores-modelos-k90-e-k25">Curva ROC dos 2 melhores modelos k=90 e k=25</h2>
+</section><section id="curva-roc-dos-2-melhores-modelos-k90-e-k15" class="level2"><h2 class="anchored" data-anchor-id="curva-roc-dos-2-melhores-modelos-k90-e-k15">Curva ROC dos 2 melhores modelos k=90 e k=15</h2>
 <div class="cell">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prev_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">t_knn1</span>, <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
 <span><span class="va">prev_knn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">t_knn2</span>, <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -821,11 +821,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">roc_knn2</span><span class="op">$</span><span class="va">auc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 0.9220281</code></pre>
+<pre><code>#&gt; [1] 0.8927715</code></pre>
 </div>
 </div>
 <p><strong>Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos a sensibilidade e especificidade!</strong></p>
-<p><strong>Os resultados encontrados apontam k=25 como a melhor opção</strong></p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

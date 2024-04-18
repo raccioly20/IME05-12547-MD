@@ -186,7 +186,7 @@ as.numeric(roc_knn1$auc)
 **Observe que a otimização de k é feita através de acurácia.**
 
 ```{r K1}
-set.seed(23)
+set.seed(2024)
 
 # Usando validação cruzada para obter o valor de k através da função train da biblioteca caret e o controle do treino e fazendo um gride de valores para k.
 ctrl <- trainControl(method = "repeatedcv", 
@@ -207,7 +207,7 @@ prev_knn2 <- predict(t_knn2, conj_teste)
 confusionMatrix(prev_knn2, conj_teste$inadimplente,  positive="Sim")
 ```
 
-## Curva ROC dos 2 melhores modelos k=90 e k=25
+## Curva ROC dos 2 melhores modelos k=90 e k=15
 
 ```{r ROC2, fig.width=9}
 prev_knn1 <- predict(t_knn1, conj_teste, type = "prob")
@@ -223,5 +223,3 @@ as.numeric(roc_knn2$auc)
 ```
 
 **Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos a sensibilidade e especificidade!**
-
-**Os resultados encontrados apontam k=25 como a melhor opção**
