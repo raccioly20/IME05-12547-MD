@@ -5,11 +5,19 @@ date: "`r Sys.Date()`"
 format:
  html:
     code-link: true
+    fig-width: 9
+    fig-height: 7
+    fig-dpi: 300
+knitr:
+  opts_chunk: 
+    out.width: 90%
+    comment: "#>"
 ---
 
 ## Carregando Bibliotecas
 
-```{r bibliotecas, message=FALSE}
+```{r}
+#| warning: false
 library(tidyverse)
 library(ISLR)
 data(Default)
@@ -20,7 +28,7 @@ head(Default)
 
 ## Manipulando os dados
 
-```{r inadimplente}
+```{r}
 credito <- tibble(Default)
 summary(credito)
 # renomeando colunas
@@ -43,7 +51,7 @@ summary(credito)
 
 ## Treino e Teste
 
-```{r conjuntos-treino-teste}
+```{r}
 library(caret)
 set.seed(21)
 y <- credito$inadimplente
@@ -59,7 +67,7 @@ summary(conj_teste)
 
 ## SMOTE
 
-```{r SMOTE}
+```{r}
 library(smotefamily)
 set.seed(123)
 teste <- SMOTE(conj_treino[,-1], target = conj_treino$inadimplente, K=5)
@@ -72,7 +80,7 @@ summary(conj_treinoS)
 
 ## 1a Regressão logística
 
-```{r mod1}
+```{r}
 mod1 <- glm(inadimplente ~ balanco + receita + estudante,data=conj_treinoS,family=binomial)
 summary(mod1)
 coef(mod1)
@@ -81,7 +89,7 @@ summary(mod1)$coef
 
 ## Avaliando o modelo novamente
 
-```{r conj_teste2}
+```{r}
 prop.table(table(conj_teste$inadimplente))
 p_chapeu <- predict(mod1, newdata = conj_teste, type = "response")
 y_chapeu <- ifelse(p_chapeu > 0.5, "Sim", "Nao") %>% factor(levels = levels(conj_teste$inadimplente))
@@ -90,7 +98,7 @@ confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim")
 
 ## Curva ROC
 
-```{r ROC, fig.width=9}
+```{r}
 #| warning: false
 library(pROC)
 p_chapeu_log <- predict(mod1, newdata = conj_teste, type = "response")
