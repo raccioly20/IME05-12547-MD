@@ -157,7 +157,9 @@ confusionMatrix(y_chapeu_knn1, conj_teste$inadimplente, positive="Sim")
 
 Para a curva ROC é necessário que obtenhamos as probabilidades e não das classes, vejam nos comandos abaixo como se obtem as probabilidades.
 
-```{r ROC, fig.width=9, message=FALSE}
+```{r ROC}
+#| warning: false
+
 library(pROC)
 
 # 
@@ -209,7 +211,8 @@ confusionMatrix(prev_knn2, conj_teste$inadimplente,  positive="Sim")
 
 ## Curva ROC dos 2 melhores modelos k=90 e k=15
 
-```{r ROC2, fig.width=9}
+```{r ROC2}
+#| warning: false
 prev_knn1 <- predict(t_knn1, conj_teste, type = "prob")
 prev_knn2 <- predict(t_knn2, conj_teste, type = "prob")
 roc_knn1 <- roc(conj_teste$inadimplente ~ prev_knn1[,2], plot = TRUE, print.auc=FALSE, col="black", legacy.axes=TRUE)

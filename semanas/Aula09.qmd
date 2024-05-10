@@ -246,6 +246,7 @@ confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim")
 ## Curva ROC modelo só com balanço
 
 ```{r ROC}
+#| warning: false
 library(pROC)
 p_chapeu_log <- predict(mod1, newdata = conj_teste, type = "response")
 head(p_chapeu_log)
@@ -257,6 +258,7 @@ as.numeric(roc_log$auc)
 ## Curva ROC 2: Modelo com balanço + estudante
 
 ```{r ROC2}
+#| warning: false
 p_chapeu_log <- predict(mod3, newdata = conj_teste, type = "response")
 head(p_chapeu_log)
 roc_log2 <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=FALSE, legacy.axes=TRUE)
@@ -284,6 +286,7 @@ confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim")
 ## Duas ROCs juntas
 
 ```{r ROCs}
+#| warning: false
 plot(roc_log)
 plot(roc_log2, add=TRUE, col="blue")
 legend("bottomright", legend=c("Mod 1", "Mod2"),
@@ -293,6 +296,7 @@ legend("bottomright", legend=c("Mod 1", "Mod2"),
 ## Curva ROC 3 com o KNN
 
 ```{r ROC3}
+#| warning: false
 # Ajustando KNN 
 set.seed(23)
 conj_treino[,3:4] <- scale(conj_treino[,3:4]) # scale normaliza

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.4.554">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Ricardo Accioly">
 <meta name="dcterms.date" content="2024-04-18">
+
 <title>IME05-12547 - Regularização de Modelos</title>
 <style>
 code{white-space: pre-wrap;}
@@ -55,6 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
+
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -73,7 +77,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -99,7 +104,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -125,16 +135,20 @@ window.Quarto = {
   typesetMath
 };
 </script>
+
 <meta name="twitter:title" content="IME05-12547 - Regularização de Modelos">
 <meta name="twitter:description" content="Mineração de Dados">
 <meta name="twitter:image" content="images/md.png">
 <meta name="twitter:creator" content="@r_accioly">
 <meta name="twitter:card" content="summary_large_image">
 </head>
+
 <body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -145,11 +159,16 @@ window.Quarto = {
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
     <a href="https://twitter.com/r_accioly" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
@@ -163,7 +182,7 @@ window.Quarto = {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item sidebar-item-section">
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">Informação da disciplina</span></a>
@@ -171,8 +190,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visão Geral</span></a>
@@ -185,7 +204,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
@@ -194,15 +213,15 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sobre</span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
@@ -211,15 +230,15 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Acesso</span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
@@ -228,8 +247,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 01</span></a>
@@ -392,32 +411,38 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-</li>
+  </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#regulariza%C3%A7%C3%A3o-de-modelos" id="toc-regularização-de-modelos" class="nav-link active" data-scroll-target="#regulariza%C3%A7%C3%A3o-de-modelos">Regularização de modelos</a></li>
+  <li><a href="#regularização-de-modelos" id="toc-regularização-de-modelos" class="nav-link active" data-scroll-target="#regularização-de-modelos">Regularização de modelos</a></li>
   <li><a href="#carregando-bibliotecas" id="toc-carregando-bibliotecas" class="nav-link" data-scroll-target="#carregando-bibliotecas">Carregando Bibliotecas</a></li>
   <li><a href="#carregando-os-dados" id="toc-carregando-os-dados" class="nav-link" data-scroll-target="#carregando-os-dados">Carregando os dados</a></li>
   <li><a href="#conjunto-de-treino-e-de-teste" id="toc-conjunto-de-treino-e-de-teste" class="nav-link" data-scroll-target="#conjunto-de-treino-e-de-teste">Conjunto de treino e de teste</a></li>
-  <li><a href="#m%C3%A9todos-de-regulariza%C3%A7%C3%A3o" id="toc-métodos-de-regularização" class="nav-link" data-scroll-target="#m%C3%A9todos-de-regulariza%C3%A7%C3%A3o">Métodos de Regularização</a></li>
-  <li><a href="#regress%C3%A3o-ridge" id="toc-regressão-ridge" class="nav-link" data-scroll-target="#regress%C3%A3o-ridge">Regressão Ridge</a></li>
+  <li><a href="#métodos-de-regularização" id="toc-métodos-de-regularização" class="nav-link" data-scroll-target="#métodos-de-regularização">Métodos de Regularização</a></li>
+  <li><a href="#regressão-ridge" id="toc-regressão-ridge" class="nav-link" data-scroll-target="#regressão-ridge">Regressão Ridge</a></li>
   <li><a href="#cross-validation-no-ridge" id="toc-cross-validation-no-ridge" class="nav-link" data-scroll-target="#cross-validation-no-ridge">Cross-Validation no Ridge</a></li>
   <li><a href="#avaliando-com-conjunto-de-teste" id="toc-avaliando-com-conjunto-de-teste" class="nav-link" data-scroll-target="#avaliando-com-conjunto-de-teste">Avaliando com conjunto de teste</a></li>
-  <li><a href="#comparando-real-vs-previs%C3%A3o-no-conjunto-de-teste" id="toc-comparando-real-vs-previsão-no-conjunto-de-teste" class="nav-link" data-scroll-target="#comparando-real-vs-previs%C3%A3o-no-conjunto-de-teste">Comparando real vs previsão no conjunto de teste</a></li>
+  <li><a href="#comparando-real-vs-previsão-no-conjunto-de-teste" id="toc-comparando-real-vs-previsão-no-conjunto-de-teste" class="nav-link" data-scroll-target="#comparando-real-vs-previsão-no-conjunto-de-teste">Comparando real vs previsão no conjunto de teste</a></li>
   <li><a href="#lasso" id="toc-lasso" class="nav-link" data-scroll-target="#lasso">LASSO</a></li>
-  <li><a href="#valida%C3%A7%C3%A3o-cruzada-no-lasso" id="toc-validação-cruzada-no-lasso" class="nav-link" data-scroll-target="#valida%C3%A7%C3%A3o-cruzada-no-lasso">Validação Cruzada no LASSO</a></li>
+  <li><a href="#validação-cruzada-no-lasso" id="toc-validação-cruzada-no-lasso" class="nav-link" data-scroll-target="#validação-cruzada-no-lasso">Validação Cruzada no LASSO</a></li>
   <li><a href="#avaliando-com-conjunto-de-teste-1" id="toc-avaliando-com-conjunto-de-teste-1" class="nav-link" data-scroll-target="#avaliando-com-conjunto-de-teste-1">Avaliando com conjunto de teste</a></li>
-  <li><a href="#comparando-real-vs-previs%C3%A3o-no-conjunto-de-teste-1" id="toc-comparando-real-vs-previsão-no-conjunto-de-teste-1" class="nav-link" data-scroll-target="#comparando-real-vs-previs%C3%A3o-no-conjunto-de-teste-1">Comparando real vs previsão no conjunto de teste</a></li>
-  </ul></nav>
+  <li><a href="#comparando-real-vs-previsão-no-conjunto-de-teste-1" id="toc-comparando-real-vs-previsão-no-conjunto-de-teste-1" class="nav-link" data-scroll-target="#comparando-real-vs-previsão-no-conjunto-de-teste-1">Comparando real vs previsão no conjunto de teste</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula07.4.html">Métodos de Encolhimento</a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula07.4.html">Métodos de Encolhimento</a></li></ol></nav>
+<div class="quarto-title">
 <h1 class="title">Regularização de Modelos</h1>
 </div>
 
@@ -444,17 +469,25 @@ window.Quarto = {
   
 
 
-</header><section id="regularização-de-modelos" class="level2"><h2 class="anchored" data-anchor-id="regularização-de-modelos">Regularização de modelos</h2>
-</section><section id="carregando-bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="carregando-bibliotecas">Carregando Bibliotecas</h2>
+</header>
+
+
+<section id="regularização-de-modelos" class="level2">
+<h2 class="anchored" data-anchor-id="regularização-de-modelos">Regularização de modelos</h2>
+</section>
+<section id="carregando-bibliotecas" class="level2">
+<h2 class="anchored" data-anchor-id="carregando-bibliotecas">Carregando Bibliotecas</h2>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://glmnet.stanford.edu">glmnet</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="carregando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="carregando-os-dados">Carregando os dados</h2>
+</section>
+<section id="carregando-os-dados" class="level2">
+<h2 class="anchored" data-anchor-id="carregando-os-dados">Carregando os dados</h2>
 <p>Vendas de casas em Seattle entre 2015 e 2016</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">vendas_casa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"home_sales.rds"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">vendas_casa</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>vendas_casa <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"home_sales.rds"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(vendas_casa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 8
   selling_price home_age bedrooms bathrooms sqft_living sqft_lot sqft_basement
@@ -467,16 +500,16 @@ window.Quarto = {
 6        495000       21        3      3.5         1650     1577           550
 # ℹ 1 more variable: floors &lt;dbl&gt;</code></pre>
 </div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">vendas_casa</span> <span class="op">&lt;-</span> <span class="va">vendas_casa</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>preco<span class="op">=</span><span class="va">selling_price</span>,</span>
-<span>                                      idade<span class="op">=</span><span class="va">home_age</span>,</span>
-<span>                                      quartos<span class="op">=</span><span class="va">bedrooms</span>,</span>
-<span>                                      banheiros<span class="op">=</span> <span class="va">bathrooms</span>,</span>
-<span>                                      m2_princ<span class="op">=</span><span class="va">sqft_living</span>,</span>
-<span>                                      m2_tot<span class="op">=</span><span class="va">sqft_lot</span>,</span>
-<span>                                      m2_porao<span class="op">=</span><span class="va">sqft_basement</span>,</span>
-<span>                                      andares<span class="op">=</span><span class="va">floors</span></span>
-<span>                                      <span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">vendas_casa</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>vendas_casa <span class="ot">&lt;-</span> vendas_casa <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">preco=</span>selling_price,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">idade=</span>home_age,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">quartos=</span>bedrooms,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">banheiros=</span> bathrooms,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">m2_princ=</span>sqft_living,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">m2_tot=</span>sqft_lot,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">m2_porao=</span>sqft_basement,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">andares=</span>floors</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                                      )</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(vendas_casa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     preco            idade          quartos        banheiros    
  Min.   :350000   Min.   : 0.00   Min.   :1.000   Min.   :0.750  
@@ -493,8 +526,8 @@ window.Quarto = {
  3rd Qu.:2500   3rd Qu.:  8644   3rd Qu.: 122.5   3rd Qu.:2.000  
  Max.   :3880   Max.   :415126   Max.   :1660.0   Max.   :2.000  </code></pre>
 </div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">vendas_casa</span> <span class="op">&lt;-</span> <span class="va">vendas_casa</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>preco_m<span class="op">=</span><span class="va">preco</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">preco</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">vendas_casa</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>vendas_casa <span class="ot">&lt;-</span> vendas_casa <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">preco_m=</span>preco<span class="sc">/</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>preco)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(vendas_casa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     idade          quartos        banheiros        m2_princ   
  Min.   : 0.00   Min.   :1.000   Min.   :0.750   Min.   : 550  
@@ -512,9 +545,11 @@ window.Quarto = {
  Max.   :415126   Max.   :1660.0   Max.   :2.000   Max.   :650.0  </code></pre>
 </div>
 </div>
-</section><section id="conjunto-de-treino-e-de-teste" class="level2"><h2 class="anchored" data-anchor-id="conjunto-de-treino-e-de-teste">Conjunto de treino e de teste</h2>
+</section>
+<section id="conjunto-de-treino-e-de-teste" class="level2">
+<h2 class="anchored" data-anchor-id="conjunto-de-treino-e-de-teste">Conjunto de treino e de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Carregando pacotes exigidos: lattice</code></pre>
 </div>
@@ -527,18 +562,18 @@ Attaching package: 'caret'</code></pre>
 
     lift</code></pre>
 </div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">vendas_casa</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(vendas_casa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1492</code></pre>
 </div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">vendas_casa</span><span class="op">$</span><span class="va">preco_m</span></span>
-<span><span class="va">indice_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.2</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">vendas_casa</span><span class="op">[</span><span class="op">-</span><span class="va">indice_teste</span>,<span class="op">]</span></span>
-<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">vendas_casa</span><span class="op">[</span><span class="va">indice_teste</span>,<span class="op">]</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> vendas_casa<span class="sc">$</span>preco_m</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>indice_teste <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(y, <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> vendas_casa[<span class="sc">-</span>indice_teste,]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> vendas_casa[indice_teste,]</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_treino)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [1,192 × 8] (S3: tbl_df/tbl/data.frame)
  $ idade    : num [1:1192] 10 18 4 21 19 24 3 16 20 29 ...
@@ -550,7 +585,7 @@ Attaching package: 'caret'</code></pre>
  $ andares  : num [1:1192] 2 2 2 2 2 1 2 2 1 2 ...
  $ preco_m  : num [1:1192] 465 411 635 495 355 ...</code></pre>
 </div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_teste)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [300 × 8] (S3: tbl_df/tbl/data.frame)
  $ idade    : num [1:300] 10 24 19 11 3 28 9 17 9 19 ...
@@ -562,8 +597,9 @@ Attaching package: 'caret'</code></pre>
  $ andares  : num [1:300] 2 2 1 2 1 2 2 2 2 2 ...
  $ preco_m  : num [1:300] 487 380 465 425 535 ...</code></pre>
 </div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">conj_treino</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>gt<span class="sc">::</span><span class="fu">gt</span>(<span class="fu">head</span>(conj_treino, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div>
 <div id="ajgaokapiz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ajgaokapiz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1004,8 +1040,10 @@ Attaching package: 'caret'</code></pre>
   text-indent: 25px;
 }
 </style>
+
 <table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead><tr class="header gt_col_headings">
+<thead>
+<tr class="header gt_col_headings">
 <th id="idade" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">idade</th>
 <th id="quartos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">quartos</th>
 <th id="banheiros" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">banheiros</th>
@@ -1014,7 +1052,8 @@ Attaching package: 'caret'</code></pre>
 <th id="m2_porao" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">m2_porao</th>
 <th id="andares" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">andares</th>
 <th id="preco_m" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">preco_m</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_right" headers="idade">10</td>
@@ -1118,60 +1157,67 @@ Attaching package: 'caret'</code></pre>
 </tr>
 </tbody>
 </table>
+
 </div>
 </div>
 </div>
-</section><section id="métodos-de-regularização" class="level2"><h2 class="anchored" data-anchor-id="métodos-de-regularização">Métodos de Regularização</h2>
+</div>
+</section>
+<section id="métodos-de-regularização" class="level2">
+<h2 class="anchored" data-anchor-id="métodos-de-regularização">Métodos de Regularização</h2>
 <p>O pacote glmnet não usa a linguagem de formula, em particular nós devemos passar <span class="math inline">\(x\)</span> como uma matriz e <span class="math inline">\(y\)</span> como um vetor, pois não se usa a sintaxe <span class="math inline">\(y \sim x\)</span>. Com isso será necessário ajustar x e y. A função model.matrix() é particularmente útil para criar x; não só produz uma matriz correspondente as variáveis explicativas, <strong>mas também transforma automaticamente quaisquer variáveis qualitativas em variáveis dummy. Esta última propriedade é importante porque o glmnet() só pode tomar insumos numéricos e quantitativos.</strong></p>
 <p><strong>O pacote glmnet também por default padroniza as variáveis, o que é importante para a regressão Ridge e também para o LASSO. Ele posteriormente retorna os coeficientes para a escala inicial.</strong></p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">.</span> , data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">y_treino</span> <span class="op">&lt;-</span> <span class="va">conj_treino</span><span class="op">$</span><span class="va">preco_m</span></span>
-<span></span>
-<span><span class="va">x_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">.</span> , data <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">y_teste</span> <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">preco_m</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x_treino <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(preco_m <span class="sc">~</span> . , <span class="at">data =</span> conj_treino)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>y_treino <span class="ot">&lt;-</span> conj_treino<span class="sc">$</span>preco_m</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>x_teste <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(preco_m <span class="sc">~</span> . , <span class="at">data =</span> conj_teste)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>y_teste <span class="ot">=</span> conj_teste<span class="sc">$</span>preco_m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="regressão-ridge" class="level2"><h2 class="anchored" data-anchor-id="regressão-ridge">Regressão Ridge</h2>
-<p>Primeiro vamos ajustar um modelo de regressão Ridge. Isso é conseguido chamando <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> com <code>alpha=0</code>, se <code>alpha=1</code> então <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> ajusta um lasso.(veja o arquivo de ajuda).</p>
+</section>
+<section id="regressão-ridge" class="level2">
+<h2 class="anchored" data-anchor-id="regressão-ridge">Regressão Ridge</h2>
+<p>Primeiro vamos ajustar um modelo de regressão Ridge. Isso é conseguido chamando <code>glmnet()</code> com <code>alpha=0</code>, se <code>alpha=1</code> então <code>glmnet()</code> ajusta um lasso.(veja o arquivo de ajuda).</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Estabelecendo um grid de valores para lambda</span></span>
-<span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">10</span>, length <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
-<span><span class="va">ajusreg.ridge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span>, lambda <span class="op">=</span> <span class="va">grid</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Estabelecendo um grid de valores para lambda</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">10</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>ajusreg.ridge <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x_treino, y_treino, <span class="at">alpha=</span><span class="dv">0</span>, <span class="at">lambda =</span> grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Por padrão, a função <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> executa a regressão ridge automaticamente selecionando a faixa de valores de <span class="math inline">\(\lambda\)</span>. No entanto, aqui nós escolhemos implementar usando uma grade de valores que variam de <span class="math inline">\(\lambda = 10^{-2}\)</span> a <span class="math inline">\(\lambda = 10^{10}\)</span>, cobrindo toda a gama de cenários do modelo nulo contendo apenas o coeficiente linear até o ajuste dos mínimos quadrados.</p>
-<p>Também podemos calcular o modelo para um valor particular de <span class="math inline">\(\lambda\)</span> que não é um dos valores de grade. Observe que, por padrão, a função <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> padroniza as variáveis para que elas estejam na mesma escala. <strong>Esta padronização é muito importante no caso da regressão Ridge, pois ela é afetada pela mudança de escala das variáveis explicativas.</strong></p>
+<p>Por padrão, a função <code>glmnet()</code> executa a regressão ridge automaticamente selecionando a faixa de valores de <span class="math inline">\(\lambda\)</span>. No entanto, aqui nós escolhemos implementar usando uma grade de valores que variam de <span class="math inline">\(\lambda = 10^{-2}\)</span> a <span class="math inline">\(\lambda = 10^{10}\)</span>, cobrindo toda a gama de cenários do modelo nulo contendo apenas o coeficiente linear até o ajuste dos mínimos quadrados.</p>
+<p>Também podemos calcular o modelo para um valor particular de <span class="math inline">\(\lambda\)</span> que não é um dos valores de grade. Observe que, por padrão, a função <code>glmnet()</code> padroniza as variáveis para que elas estejam na mesma escala. <strong>Esta padronização é muito importante no caso da regressão Ridge, pois ela é afetada pela mudança de escala das variáveis explicativas.</strong></p>
 <p>Associado a cada valor de <span class="math inline">\(\lambda\)</span> existe um vetor de coeficientes de regressão de ridge, que é armazenado em uma matriz que pode ser acessada por ‘coef()’. Neste caso, é uma matriz <span class="math inline">\(13 \times 100\)</span>, com 13 linhas (uma para cada preditor, mais uma para o coeficiente linear) e 100 colunas (uma para cada valor de <span class="math inline">\(\lambda\)</span>).</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(<span class="fu">coef</span>(ajusreg.ridge))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]   8 100</code></pre>
 </div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span>, xvar<span class="op">=</span><span class="st">"lambda"</span>, label<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Representando os coeficientes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ajusreg.ridge, <span class="at">xvar=</span><span class="st">"lambda"</span>, <span class="at">label=</span><span class="cn">TRUE</span>) <span class="co"># Representando os coeficientes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/r1-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="Aula07.4_files/figure-html/r1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Quando <span class="math inline">\(\lambda\)</span> é grande o esperado é que os coeficentes sejam pequenos e quando <span class="math inline">\(\lambda\)</span> é pequeno os coeficientes assumem valores maiores.</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.ridge</span><span class="op">$</span><span class="va">lambda</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="co"># Mostra primeiro valor de lambda</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ajusreg.ridge<span class="sc">$</span>lambda[<span class="dv">1</span>] <span class="co"># Mostra primeiro valor de lambda</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1e+10</code></pre>
 </div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="co"># Mostra os coeficientes associados com o primeiro valor</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.ridge)[,<span class="dv">1</span>] <span class="co"># Mostra os coeficientes associados com o primeiro valor</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  (Intercept)         idade       quartos     banheiros      m2_princ 
  4.793155e+02 -2.734498e-08  2.861996e-07  5.797974e-07  9.012053e-10 
        m2_tot      m2_porao       andares 
  3.183259e-12 -3.419035e-11  3.936601e-07 </code></pre>
 </div>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.ridge</span><span class="op">$</span><span class="va">lambda</span><span class="op">[</span><span class="fl">100</span><span class="op">]</span> <span class="co"># Mostra centésimo valor de lambda</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ajusreg.ridge<span class="sc">$</span>lambda[<span class="dv">100</span>] <span class="co"># Mostra centésimo valor de lambda</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.01</code></pre>
 </div>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span><span class="op">)</span><span class="op">[</span>,<span class="fl">100</span><span class="op">]</span> <span class="co"># Mostra os coeficientes associados com o centésimo valor</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ajusreg.ridge)[,<span class="dv">100</span>] <span class="co"># Mostra os coeficientes associados com o centésimo valor</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  (Intercept)         idade       quartos     banheiros      m2_princ 
  2.558886e+02 -9.299049e-01 -4.458647e+01  1.038811e+01  1.439939e-01 
@@ -1180,44 +1226,48 @@ Attaching package: 'caret'</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.users.sonic.net">plotmo</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotmo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Carregando pacotes exigidos: Formula</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Carregando pacotes exigidos: plotrix</code></pre>
 </div>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/plotmo/man/plot_glmnet.html">plot_glmnet</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_glmnet</span>(ajusreg.ridge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/r3-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="Aula07.4_files/figure-html/r3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="cross-validation-no-ridge" class="level2"><h2 class="anchored" data-anchor-id="cross-validation-no-ridge">Cross-Validation no Ridge</h2>
+</section>
+<section id="cross-validation-no-ridge" class="level2">
+<h2 class="anchored" data-anchor-id="cross-validation-no-ridge">Cross-Validation no Ridge</h2>
 <p>Nós podemos usar o k-fold cross validation para identificar o melhor valor de <span class="math inline">\(\lambda\)</span></p>
 <p>A biblioteca glmnet já tem internamente uma função para uso do crosss validation. O default são 10 envelopes de dados <code>nfold=10</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
-<span><span class="va">ridge_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/cv.glmnet.html">cv.glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span><span class="op">)</span> <span class="co">## por padrão k=10</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ridge_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>ridge_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x_treino,y_treino, <span class="at">alpha=</span><span class="dv">0</span>) <span class="do">## por padrão k=10</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge_cv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/r4-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="Aula07.4_files/figure-html/r4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_lamb</span> <span class="op">&lt;-</span> <span class="va">ridge_cv</span><span class="op">$</span><span class="va">lambda.min</span>  <span class="co"># Seleciona o lambda que minimiza o MSE (EQM) de treino</span></span>
-<span><span class="va">m_lamb</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>m_lamb <span class="ot">&lt;-</span> ridge_cv<span class="sc">$</span>lambda.min  <span class="co"># Seleciona o lambda que minimiza o MSE (EQM) de treino</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>m_lamb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.425292</code></pre>
 </div>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">m_lamb</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(m_lamb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.860242</code></pre>
 </div>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ridge_cv</span>, s<span class="op">=</span><span class="va">m_lamb</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ridge_cv, <span class="at">s=</span>m_lamb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>8 x 1 sparse Matrix of class "dgCMatrix"
                        s1
@@ -1231,69 +1281,81 @@ m2_porao    -5.244311e-03
 andares      3.030654e+01</code></pre>
 </div>
 </div>
-</section><section id="avaliando-com-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="avaliando-com-conjunto-de-teste">Avaliando com conjunto de teste</h2>
+</section>
+<section id="avaliando-com-conjunto-de-teste" class="level2">
+<h2 class="anchored" data-anchor-id="avaliando-com-conjunto-de-teste">Avaliando com conjunto de teste</h2>
 <p>Em seguida avaliamos seu MSE no conjunto de teste, usando <span class="math inline">\(\lambda\)</span> = m_lamb. Observe o uso da função ‘predict()’: desta vez temos previsões para um conjunto de teste, com o argumento <code>newx</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.ridge2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span>, lambda <span class="op">=</span> <span class="va">m_lamb</span><span class="op">)</span></span>
-<span><span class="va">y_prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">ajusreg.ridge2</span>, s <span class="op">=</span> <span class="va">m_lamb</span>, newx <span class="op">=</span> <span class="va">x_teste</span><span class="op">)</span></span>
-<span><span class="co"># Metricas de desempenho</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">y_prev</span> <span class="op">-</span> <span class="va">y_teste</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ajusreg.ridge2 <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x_treino, y_treino, <span class="at">alpha=</span><span class="dv">0</span>, <span class="at">lambda =</span> m_lamb)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>y_prev <span class="ot">&lt;-</span> <span class="fu">predict</span>(ajusreg.ridge2, <span class="at">s =</span> m_lamb, <span class="at">newx =</span> x_teste)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Metricas de desempenho</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((y_prev <span class="sc">-</span> y_teste)<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 42.19339</code></pre>
 </div>
 </div>
-</section><section id="comparando-real-vs-previsão-no-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="comparando-real-vs-previsão-no-conjunto-de-teste">Comparando real vs previsão no conjunto de teste</h2>
+</section>
+<section id="comparando-real-vs-previsão-no-conjunto-de-teste" class="level2">
+<h2 class="anchored" data-anchor-id="comparando-real-vs-previsão-no-conjunto-de-teste">Comparando real vs previsão no conjunto de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">v_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">y_teste</span>, <span class="va">y_prev</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">v_teste</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">y_prev</span>, y<span class="op">=</span><span class="va">y_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Preço da Casa vs. Previsões do modelo Ridge"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>v_teste <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y_teste, y_prev)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(v_teste, <span class="fu">aes</span>(<span class="at">x=</span>y_prev, <span class="at">y=</span>y_teste)) <span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Preço da Casa vs. Previsões do modelo Ridge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="Aula07.4_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="lasso" class="level2"><h2 class="anchored" data-anchor-id="lasso">LASSO</h2>
+</section>
+<section id="lasso" class="level2">
+<h2 class="anchored" data-anchor-id="lasso">LASSO</h2>
 <p>Primeiro ajustamos com todos os dados como no caso do Ridge</p>
 <div class="cell">
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ajusreg.lasso</span>, xvar<span class="op">=</span><span class="st">"lambda"</span>, label<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Representando os coeficientes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ajusreg.lasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x_treino,y_treino, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ajusreg.lasso, <span class="at">xvar=</span><span class="st">"lambda"</span>, <span class="at">label=</span><span class="cn">TRUE</span>) <span class="co"># Representando os coeficientes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/LASSO-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="Aula07.4_files/figure-html/LASSO-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/plotmo/man/plot_glmnet.html">plot_glmnet</a></span><span class="op">(</span><span class="va">ajusreg.lasso</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_glmnet</span>(ajusreg.lasso)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/LASSO-2.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="Aula07.4_files/figure-html/LASSO-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="validação-cruzada-no-lasso" class="level2"><h2 class="anchored" data-anchor-id="validação-cruzada-no-lasso">Validação Cruzada no LASSO</h2>
+</section>
+<section id="validação-cruzada-no-lasso" class="level2">
+<h2 class="anchored" data-anchor-id="validação-cruzada-no-lasso">Validação Cruzada no LASSO</h2>
 <div class="cell">
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasso_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/cv.glmnet.html">cv.glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lasso_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x_treino,y_treino, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_cv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/Lasso2-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="Aula07.4_files/figure-html/Lasso2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_lamb1</span> <span class="op">&lt;-</span> <span class="va">lasso_cv</span><span class="op">$</span><span class="va">lambda.min</span>  <span class="co"># Seleciona o lambda que minimiza o MSE de treino</span></span>
-<span><span class="va">m_lamb1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>m_lamb1 <span class="ot">&lt;-</span> lasso_cv<span class="sc">$</span>lambda.min  <span class="co"># Seleciona o lambda que minimiza o MSE de treino</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>m_lamb1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1384287</code></pre>
 </div>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">m_lamb1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(m_lamb1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.9774</code></pre>
 </div>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lasso_cv</span>, s<span class="op">=</span><span class="va">m_lamb1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lasso_cv, <span class="at">s=</span>m_lamb1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>8 x 1 sparse Matrix of class "dgCMatrix"
                        s1
@@ -1307,32 +1369,40 @@ m2_porao    -2.919595e-03
 andares      3.350271e+01</code></pre>
 </div>
 </div>
-</section><section id="avaliando-com-conjunto-de-teste-1" class="level2"><h2 class="anchored" data-anchor-id="avaliando-com-conjunto-de-teste-1">Avaliando com conjunto de teste</h2>
+</section>
+<section id="avaliando-com-conjunto-de-teste-1" class="level2">
+<h2 class="anchored" data-anchor-id="avaliando-com-conjunto-de-teste-1">Avaliando com conjunto de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">1</span>, lambda <span class="op">=</span> <span class="va">m_lamb1</span><span class="op">)</span></span>
-<span><span class="va">y_prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">ajusreg.lasso2</span>, s <span class="op">=</span> <span class="va">m_lamb1</span>, newx <span class="op">=</span> <span class="va">x_teste</span><span class="op">)</span></span>
-<span><span class="co"># Metricas de desempenho</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">y_prev</span> <span class="op">-</span> <span class="va">y_teste</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>ajusreg.lasso2 <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x_treino, y_treino, <span class="at">alpha=</span><span class="dv">1</span>, <span class="at">lambda =</span> m_lamb1)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>y_prev <span class="ot">&lt;-</span> <span class="fu">predict</span>(ajusreg.lasso2, <span class="at">s =</span> m_lamb1, <span class="at">newx =</span> x_teste)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Metricas de desempenho</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((y_prev <span class="sc">-</span> y_teste)<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 41.48019</code></pre>
 </div>
 </div>
-</section><section id="comparando-real-vs-previsão-no-conjunto-de-teste-1" class="level2"><h2 class="anchored" data-anchor-id="comparando-real-vs-previsão-no-conjunto-de-teste-1">Comparando real vs previsão no conjunto de teste</h2>
+</section>
+<section id="comparando-real-vs-previsão-no-conjunto-de-teste-1" class="level2">
+<h2 class="anchored" data-anchor-id="comparando-real-vs-previsão-no-conjunto-de-teste-1">Comparando real vs previsão no conjunto de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">v_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">y_teste</span>, <span class="va">y_prev</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">v_teste</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">y_prev</span>, y<span class="op">=</span><span class="va">y_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Preço da Casa vs. Previsões do modelo Ridge"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>v_teste <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y_teste, y_prev)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(v_teste, <span class="fu">aes</span>(<span class="at">x=</span>y_prev, <span class="at">y=</span>y_teste)) <span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Preço da Casa vs. Previsões do modelo Ridge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="Aula07.4_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1555,6 +1625,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1589,7 +1677,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1862,8 +1954,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="../semanas/Aula07.3.html" class="pagination-link  aria-label=" sele="" de="" modelos="">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../semanas/Aula07.3.html" class="pagination-link" aria-label="Seleção de Modelos">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Seleção de Modelos</span>
       </a>          
   </div>
@@ -1874,7 +1968,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
 <p>Baseado em https://sta210-s22.github.io/website/</p>
 </div>   
@@ -1886,6 +1981,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
+
 
 
 </body></html>

@@ -91,6 +91,7 @@ confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim")
 ## Curva ROC
 
 ```{r ROC, fig.width=9}
+#| warning: false
 library(pROC)
 p_chapeu_log <- predict(mod1, newdata = conj_teste, type = "response")
 head(p_chapeu_log)
