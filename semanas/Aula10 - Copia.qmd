@@ -47,7 +47,7 @@ summary(credito)
 
 ```{r conjuntos-treino-teste, message=FALSE}
 library(caret)
-set.seed(2024)
+set.seed(21)
 y <- credito$inadimplente
 indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
 
@@ -75,15 +75,52 @@ featurePlot(x = conj_treino[, c("balanco", "receita")],
 
 ```
 
+## Bayes Ingênuo (Naive Bayes)
+
+```{r Bayes}
+params <- conj_treino %>% 
+     group_by(inadimplente) %>% 
+     summarize(media = mean(balanco), desvpad = sd(balanco))
+params
+
+pi <- conj_treino %>% summarize(pi=mean(inadimplente=="Sim")) %>% pull(pi)
+pi
+
+x <- conj_teste$balanco
+
+f0 <- dnorm(x, params$media[1], params$desvpad[1])
+f1 <- dnorm(x, params$media[2], params$desvpad[2])
+
+p_chapeu_bayes <- f1*pi / (f1*pi + f0*(1 - pi))
+y_chapeu_bayes <- ifelse(p_chapeu_bayes > 0.5, "Sim", "Nao")
+
+confusionMatrix(factor(y_chapeu_bayes), conj_teste$inadimplente,  positive="Sim")
+
+```
+
 ## Calcula Erro
 
 ```{r erro_class}
-# Este valor é igual a 1 - Accuracy da matriz de confusão
 calc_erro_class <- function(real, previsto) {
   mean(real != previsto)
 }
+# Este valor é igual a 1 - Accuracy da matriz de confusão
+calc_erro_class(conj_teste$inadimplente, y_chapeu_bayes)
 ```
 
+## Alterando o valor da probabilidade priori
+
+```{r ajustando}
+
+p_chapeu_bayes <- f1*0.15 / (f1*0.15 + f0*(1 - 0.15))
+y_chapeu_bayes <- ifelse(p_chapeu_bayes > 0.5, "Sim", "Nao")
+
+
+confusionMatrix(factor(y_chapeu_bayes), conj_teste$inadimplente,  positive="Sim")
+
+# Este valor é igual a 1 - Accuracy da matriz de confusão
+calc_erro_class(conj_teste$inadimplente, y_chapeu_bayes)
+```
 
 ## LDA
 
