@@ -62,7 +62,7 @@ summary(conj_teste)
 ## Balanço e receita
 
 ```{r balanco-receita}
-featurePlot(x = conj_treino[, c("balanco", "receita")], 
+featurePlot(x = conj_treino[, c("balanco", "receita", "estudante")], 
             y = conj_treino$inadimplente,
             plot = "density", 
             scales = list(x = list(relation = "free"), 
@@ -71,6 +71,23 @@ featurePlot(x = conj_treino[, c("balanco", "receita")],
             pch = "|", 
             layout = c(2, 1), 
             auto.key = list(columns = 2))
+
+
+```
+
+## Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)
+
+```{r box-plot}
+library(patchwork)
+p1 <- ggplot(credito, aes(x=inadimplente, y=balanco, color=inadimplente)) +
+  geom_boxplot()
+p2 <- ggplot(credito, aes(x=inadimplente, y=receita, color=inadimplente)) +
+  geom_boxplot()
+p3 <- ggplot(credito, aes(x=as.factor(estudante), y=balanco, color=as.factor(estudante))) +
+  geom_boxplot()
+p4 <- ggplot(credito, aes(x=as.factor(estudante), y=receita, color=as.factor(estudante))) +
+  geom_boxplot()
+(p1 + p2) / (p3 + p4)
 
 
 ```
@@ -84,13 +101,12 @@ calc_erro_class <- function(real, previsto) {
 }
 ```
 
-
 ## LDA
 
 ```{r LDA}
 library(MASS)
 
-treina_lda <- lda(inadimplente ~ balanco + estudante, data = conj_treino)
+treina_lda <- lda(inadimplente ~ balanco + estudante + receita, data = conj_treino)
 treina_lda
 plot(treina_lda)
 names(predict(treina_lda, conj_treino))
@@ -120,7 +136,7 @@ calc_erro_class(conj_teste$inadimplente, y_chapeu)
 ## QDA
 
 ```{r QDA}
-treina_qda <- qda(inadimplente ~ balanco + estudante, data = conj_treino)
+treina_qda <- qda(inadimplente ~ balanco + estudante + receita, data = conj_treino)
 treina_qda
 y_chapeu <- predict(treina_qda, conj_teste)$class %>% 
              factor(levels = levels(conj_teste$inadimplente))
