@@ -962,7 +962,7 @@
     "href": "semanas/Aula09.html#stepaic",
     "title": "Regressão Logística",
     "section": "StepAIC",
-    "text": "StepAIC\nAo invé de usarmos a estatística de Wald para selecionar as variáveis significativas, podemos usar o AIC (equivalente ao Cp) como usamos na regressão múltipla para selecionar as variáveis explicativas.\n\nlibrary(MASS)\n\n#&gt; \n#&gt; Anexando pacote: 'MASS'\n\n\n#&gt; O seguinte objeto é mascarado por 'package:patchwork':\n#&gt; \n#&gt;     area\n\n\n#&gt; O seguinte objeto é mascarado por 'package:dplyr':\n#&gt; \n#&gt;     select\n\nmod3a &lt;- stepAIC(mod2, trace=FALSE)\nsummary(mod3a)\n\n#&gt; \n#&gt; Call:\n#&gt; glm(formula = inadimplente ~ balanco + estudante, family = binomial, \n#&gt;     data = conj_treino)\n#&gt; \n#&gt; Coefficients:\n#&gt;               Estimate Std. Error z value Pr(&gt;|z|)    \n#&gt; (Intercept) -1.058e+01  4.027e-01 -26.264  &lt; 2e-16 ***\n#&gt; balanco      5.629e-03  2.537e-04  22.190  &lt; 2e-16 ***\n#&gt; estudante   -7.246e-01  1.646e-01  -4.401 1.08e-05 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n#&gt; \n#&gt; (Dispersion parameter for binomial family taken to be 1)\n#&gt; \n#&gt;     Null deviance: 2340.6  on 8000  degrees of freedom\n#&gt; Residual deviance: 1281.6  on 7998  degrees of freedom\n#&gt; AIC: 1287.6\n#&gt; \n#&gt; Number of Fisher Scoring iterations: 8",
+    "text": "StepAIC\nAo invé de usarmos a estatística de Wald para selecionar as variáveis significativas, podemos usar o AIC (equivalente ao Cp) como usamos na regressão múltipla para selecionar as variáveis explicativas.\nA função stepAIC tem um parametro k que define se vamos usar o AIC ou o BIC para fazer a seleção. Quando k=2 temos o AIC e quando k=log(n) temos o BIC.\n\nlibrary(MASS)\n\n#&gt; \n#&gt; Anexando pacote: 'MASS'\n\n\n#&gt; O seguinte objeto é mascarado por 'package:patchwork':\n#&gt; \n#&gt;     area\n\n\n#&gt; O seguinte objeto é mascarado por 'package:dplyr':\n#&gt; \n#&gt;     select\n\nmod3a &lt;- stepAIC(mod2, k=2, trace=FALSE)\nsummary(mod3a)\n\n#&gt; \n#&gt; Call:\n#&gt; glm(formula = inadimplente ~ balanco + estudante, family = binomial, \n#&gt;     data = conj_treino)\n#&gt; \n#&gt; Coefficients:\n#&gt;               Estimate Std. Error z value Pr(&gt;|z|)    \n#&gt; (Intercept) -1.058e+01  4.027e-01 -26.264  &lt; 2e-16 ***\n#&gt; balanco      5.629e-03  2.537e-04  22.190  &lt; 2e-16 ***\n#&gt; estudante   -7.246e-01  1.646e-01  -4.401 1.08e-05 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n#&gt; \n#&gt; (Dispersion parameter for binomial family taken to be 1)\n#&gt; \n#&gt;     Null deviance: 2340.6  on 8000  degrees of freedom\n#&gt; Residual deviance: 1281.6  on 7998  degrees of freedom\n#&gt; AIC: 1287.6\n#&gt; \n#&gt; Number of Fisher Scoring iterations: 8\n\n(k &lt;- log(nrow(conj_treino)))\n\n#&gt; [1] 8.987322\n\nmod3b &lt;- stepAIC(mod2, k=k, trace=FALSE)\nsummary(mod3b)\n\n#&gt; \n#&gt; Call:\n#&gt; glm(formula = inadimplente ~ balanco + estudante, family = binomial, \n#&gt;     data = conj_treino)\n#&gt; \n#&gt; Coefficients:\n#&gt;               Estimate Std. Error z value Pr(&gt;|z|)    \n#&gt; (Intercept) -1.058e+01  4.027e-01 -26.264  &lt; 2e-16 ***\n#&gt; balanco      5.629e-03  2.537e-04  22.190  &lt; 2e-16 ***\n#&gt; estudante   -7.246e-01  1.646e-01  -4.401 1.08e-05 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n#&gt; \n#&gt; (Dispersion parameter for binomial family taken to be 1)\n#&gt; \n#&gt;     Null deviance: 2340.6  on 8000  degrees of freedom\n#&gt; Residual deviance: 1281.6  on 7998  degrees of freedom\n#&gt; AIC: 1287.6\n#&gt; \n#&gt; Number of Fisher Scoring iterations: 8",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Logística"
@@ -3785,6 +3785,17 @@
     ]
   },
   {
+    "objectID": "semanas/Aula10.html#avaliando-o-comportamento-das-variáveis-em-função-do-status-inadimplente-estudante",
+    "href": "semanas/Aula10.html#avaliando-o-comportamento-das-variáveis-em-função-do-status-inadimplente-estudante",
+    "title": "LDA e QDA",
+    "section": "Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)",
+    "text": "Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)\n\nlibrary(patchwork)\np1 &lt;- ggplot(credito, aes(x=inadimplente, y=balanco, color=inadimplente)) +\n  geom_boxplot()\np2 &lt;- ggplot(credito, aes(x=inadimplente, y=receita, color=inadimplente)) +\n  geom_boxplot()\np3 &lt;- ggplot(credito, aes(x=as.factor(estudante), y=balanco, color=as.factor(estudante))) +\n  geom_boxplot()\np4 &lt;- ggplot(credito, aes(x=as.factor(estudante), y=receita, color=as.factor(estudante))) +\n  geom_boxplot()\n(p1 + p2) / (p3 + p4)",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "LDA-QDA"
+    ]
+  },
+  {
     "objectID": "semanas/Aula10.html#calcula-erro",
     "href": "semanas/Aula10.html#calcula-erro",
     "title": "LDA e QDA",
@@ -4499,17 +4510,6 @@
     "crumbs": [
       "Conteúdo Semanal",
       "Análise de Associação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula10.html#avaliando-o-comportamento-das-variáveis-em-função-do-status-inadimplente-estudante",
-    "href": "semanas/Aula10.html#avaliando-o-comportamento-das-variáveis-em-função-do-status-inadimplente-estudante",
-    "title": "LDA e QDA",
-    "section": "Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)",
-    "text": "Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)\n\nlibrary(patchwork)\np1 &lt;- ggplot(credito, aes(x=inadimplente, y=balanco, color=inadimplente)) +\n  geom_boxplot()\np2 &lt;- ggplot(credito, aes(x=inadimplente, y=receita, color=inadimplente)) +\n  geom_boxplot()\np3 &lt;- ggplot(credito, aes(x=as.factor(estudante), y=balanco, color=as.factor(estudante))) +\n  geom_boxplot()\np4 &lt;- ggplot(credito, aes(x=as.factor(estudante), y=receita, color=as.factor(estudante))) +\n  geom_boxplot()\n(p1 + p2) / (p3 + p4)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "LDA-QDA"
     ]
   }
 ]

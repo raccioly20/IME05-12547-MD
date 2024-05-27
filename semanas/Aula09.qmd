@@ -220,11 +220,17 @@ anova(mod2,mod3,test='LR')
 
 Ao invé de usarmos a estatística de Wald para selecionar as variáveis significativas, podemos usar o AIC (**equivalente ao Cp**) como usamos na regressão múltipla para selecionar as variáveis explicativas.
 
+A função **stepAIC** tem um parametro k que define se vamos usar o AIC ou o BIC para fazer a seleção. Quando k=2 temos o AIC e quando k=log(n) temos o BIC.
+
+
 ```{r}
 library(MASS)
-(k <- log(nrow(conj_treino)))
-mod3a <- stepAIC(mod2, trace=FALSE)
+mod3a <- stepAIC(mod2, k=2, trace=FALSE)
 summary(mod3a)
+(k <- log(nrow(conj_treino)))
+mod3b <- stepAIC(mod2, k=k, trace=FALSE)
+summary(mod3b)
+
 ```
 
 ## Avaliando o modelo novamente
