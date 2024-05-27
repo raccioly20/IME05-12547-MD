@@ -222,6 +222,7 @@ Ao invé de usarmos a estatística de Wald para selecionar as variáveis signifi
 
 ```{r}
 library(MASS)
+(k <- log(nrow(conj_treino)))
 mod3a <- stepAIC(mod2, trace=FALSE)
 summary(mod3a)
 ```
