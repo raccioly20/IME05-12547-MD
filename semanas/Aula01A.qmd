@@ -12,7 +12,10 @@ knitr:
   opts_chunk: 
     out.width: 90%
     comment: "#>"
-execute:
+execute: 
+  echo: true
+  warning: false
+  message: false
   freeze: auto
 ---
 
@@ -45,7 +48,6 @@ Vamos carregar as bibliotecas que serão usadas na manipulação e visualizaçã
 O pacote tidyverse carrega diversos pacotes muito uteis na manipulação e visualização de dados
 
 ```{r carregando_bibliotecas}
-#|message: false
 library("tidyverse")
 ```
 
