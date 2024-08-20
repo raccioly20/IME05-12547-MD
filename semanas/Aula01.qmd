@@ -12,6 +12,8 @@ knitr:
   opts_chunk: 
     out.width: 90%
     comment: "#>"
+execute:
+  freeze: auto
 ---
 
 ## Entrada de dados no R
@@ -37,7 +39,8 @@ Vamos carregar as bibliotecas que serão usadas na manipulação e visualizaçã
 
 O pacote tidyverse carrega diversos pacotes muito uteis na manipulação e visualização de dados
 
-```{r carregando_bibliotecas, echo=TRUE, message=TRUE}
+```{r carregando_bibliotecas}
+#| message: false
 library("tidyverse")
 ```
 
@@ -252,10 +255,16 @@ Também é possível se perceber que ainda existem dados com comportamentos estr
 
 Se fossemos construir um modelo certamente terímos que investigar o porque destes comportamentos.
 
-### Alterando nome das colunas
+### Melhorando a descrição das colunas
 
 ```{r renomeando_colunas}
 names(pocos_04)
+pocos_04A <- pocos_04
 names(pocos_04) <- tolower(names(pocos_04))
 names(pocos_04)
+# Outra forma com o pacote janitor
+library(janitor)
+names(pocos_04A)
+pocos_04A <- clean_names(pocos_04A)
+names(pocos_04A)
 ```

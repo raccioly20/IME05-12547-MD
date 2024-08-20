@@ -3,8 +3,18 @@ title: "LDA e QDA"
 author: "Ricardo Accioly"
 date: "`r Sys.Date()`"
 format:
- html:
-    code-link: true
+  html:
+    grid: 
+      margin-width: 350px
+    code-link: TRUE
+reference-location: margin
+citation-location: margin
+knitr:
+  opts_chunk: 
+    out.width: 90%
+    comment: "#>"
+execute:
+  freeze: auto
 ---
 
 ## LDA e QDA
@@ -51,8 +61,8 @@ set.seed(2024)
 y <- credito$inadimplente
 indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
 
-conj_treino <- credito %>% slice(-indice_teste)
-conj_teste <- credito %>% slice(indice_teste)
+conj_treino <- credito[-indice_teste,]
+conj_teste <- credito[indice_teste,]
 
 summary(conj_treino)
 summary(conj_teste)

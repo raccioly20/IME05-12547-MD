@@ -2,16 +2,23 @@
 title: "Regressão Logística"
 author: "Ricardo Accioly"
 date: "`r Sys.Date()`"
+execute: 
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
 format:
  html:
     code-link: true
-    fig-width: 9
-    fig-height: 7
+    fig-height: 10
+    fig-width: 10
+    fig-align: center
     fig-dpi: 300
-knitr:
+knitr: 
   opts_chunk: 
     out.width: 90%
-    comment: "#>"
+    fig.showtext: true
+    collapese: true
 ---
 
 ## Carregando Bibliotecas
@@ -101,22 +108,7 @@ ggplot(data = credito, aes(x=balanco,  y = receita, col = inadimplente)) +
   geom_point() 
 ```
 
-## Regressão Linear?
-
-```{r reg-linear}
-## Primeiro precisa transformar qualitativa em numérica
-inadimpl <- as.numeric(credito$inadimplente) - 1
-modelo_linear <- lm(inadimpl ~ balanco, data = credito)
-plot(inadimpl ~ balanco, data = credito, 
-     col = "darkorange", pch = "|", ylim = c(-0.2, 1),
-     main = "Regressão Linear - Classificação")
-abline(h = 0, lty = 3)
-abline(h = 1, lty = 3)
-abline(h = 0.5, lty = 2)
-abline(modelo_linear, lwd = 3, col = "dodgerblue")
-```
-
-## Outras avaliações
+## Avaliando comportamento
 
 ```{r 1avaliacao}
 # proporção de inadimplentes
@@ -221,7 +213,6 @@ anova(mod2,mod3,test='LR')
 Ao invé de usarmos a estatística de Wald para selecionar as variáveis significativas, podemos usar o AIC (**equivalente ao Cp**) como usamos na regressão múltipla para selecionar as variáveis explicativas.
 
 A função **stepAIC** tem um parametro k que define se vamos usar o AIC ou o BIC para fazer a seleção. Quando k=2 temos o AIC e quando k=log(n) temos o BIC.
-
 
 ```{r}
 library(MASS)
