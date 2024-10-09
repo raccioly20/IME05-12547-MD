@@ -108,6 +108,21 @@ pairs.panels(conj_treino,
 
 ```
 
+## Matriz de Correlações
+
+```{r}
+library(corrplot)
+mat_corr <- cor(conj_treino)
+corrplot(mat_corr, method = "number", col = "black", cl.pos = "n")
+```
+
+## Outra Matriz de Disersão
+
+```{r}
+library(GGally)
+ggpairs(conj_treino)
+```
+
 ## 1o Mod Regressão
 
 ```{r 1a_regressão, message=FALSE}
@@ -185,11 +200,32 @@ sqrt(mean((conj_teste$Vendas - predict(mod1, conj_teste)) ^ 2))
 summary(mod1)$sigma
 ```
 
-## Análise dos resíduos do modelo
+## Análise dos resíduos do 1o modelo
 
 ```{r residuos1a, message=FALSE}
 plot(mod1)
 ```
+
+- Gráfico de Resíduos vs valor ajustado (fitted): Os resíduos estão igualmente espalhados em torno de uma linha horizontal sem padrões distintos? (isso é uma boa indicação de que você não tem relações não lineares)
+- Gráfico de quantis normais (Normal QQ). Os resíduos seguem bem a linha reta ou se desviam severamente?  (isso é uma indicação que os resíduos se distribuem como a normal)
+- Gráfico de Dispersão-Localização. Você está vendo uma linha horizontal com pontos espalhados aleatoriamente ao longo dela? (Isto indica que a variância é constante)  
+- Gráfico de Resíduos vs influência (leverage). A distância de Cook  tem valor alto? ( isto indica que o dado tem influência para os resultados obtidos na regressão)
+
+## Outros testes
+
+Teste de normalidade Teste de heterocedasticidade (Bresch-Pagan) Teste de autocorrelação (Durbin-Watson)
+
+```{r}
+library(lmtest)
+mod1_sum <- summary(mod1)
+# Teste de normalidade
+shapiro.test(mod1_sum$residuals)
+# Teste de hetrocedasticidade
+bptest(mod1)
+# Teste de autocorrelação
+dwtest(mod1)
+```
+
 
 ## 2o Modelo de Regressão
 
@@ -220,6 +256,12 @@ sqrt(mean((conj_teste$Vendas - predict(mod2, conj_teste)) ^ 2))
 summary(mod2)$sigma
 ```
 
+## Análise dos resíduos do 2o modelo
+
+```{r}
+plot(mod2)
+```
+
 ## 3o Modelo de Regressão
 
 ```{r 3omodelo-regressao, fig.height= 5}
@@ -248,4 +290,10 @@ sqrt(mean((conj_teste$Vendas - predict(mod3, conj_teste)) ^ 2))
 ## Error com conjunto de treino
 summary(mod3)$sigma
 
+```
+
+## Análise dos resíduos do 3o modelo
+
+```{r}
+plot(mod3)
 ```
