@@ -47,13 +47,6 @@ summary(propaganda)
 nrow(propaganda)
 ```
 
-## Linhas inicias
-
-```{r}
-library(gt)
-gt(head(propaganda, 10))  %>% 
-  tab_header(title = "Propaganda")
-```
 
 ## Criando amostra de treino e teste
 
@@ -69,23 +62,30 @@ conj_teste <- propaganda[indice_teste, ]
 str(conj_treino)
 str(conj_teste)
 
-library(skimr)
-conj_treino %>% skim()
-conj_teste %>% skim()
+library(gt)
+gt(head(conj_treino, 6))  %>% 
+  tab_header(title = "Conjunto de Treino")
 ```
 
 ## E se eu usar uma outra semente?
 
 ```{r}
-set.seed(23)
+set.seed(1234)
 y2 <- propaganda$Vendas
 indice_teste2 <- createDataPartition(y2, times = 1, p = 0.40, list = FALSE)
 
 conj_treino2 <- propaganda[-indice_teste2, ]
 conj_teste2 <- propaganda[indice_teste2, ]
 
-conj_treino2 %>% skim()
-conj_teste2 %>% skim()
+gt(head(conj_treino2, 6))  %>% 
+  tab_header(title = "2o Conjunto de Treino")
+```
+
+```{r}
+#| message: false
+library(dlookr)
+diagnose_numeric(conj_treino)
+diagnose_numeric(conj_treino2)
 ```
 
 Veja que as amostram ficaram com resultados diferentes, o que levaria a obtermos modelos diferentes num ajuste de regressão!
