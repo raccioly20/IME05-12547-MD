@@ -14,6 +14,7 @@ knitr:
     comment: "#>"
 execute:
   freeze: auto
+  message: false
 ---
 
 ```{r}
@@ -48,6 +49,21 @@ vendas_casa <- vendas_casa %>% rename(preco=selling_price,
                                       )
 summary(vendas_casa)
 vendas_casa <- vendas_casa %>% mutate(preco_m=preco/1000) %>% select(-preco)
+```
+
+## Análise Exploratória
+
+```{r}
+library(summarytools)
+dfSummary(vendas_casa) |> stview(method = "render")
+vendas_casa %>% select(where(is.numeric)) %>% 
+          summarize(
+            across(
+              everything(),
+              ~ var(., na.rm = TRUE))) %>% 
+  pivot_longer(everything(),
+    names_to = "variavel", 
+    values_to = "variancia")
 ```
 
 ## Conjunto de teste e treino

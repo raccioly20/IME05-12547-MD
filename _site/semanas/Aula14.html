@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.54">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Ricardo Accioly">
 <meta name="dcterms.date" content="2024-08-20">
-
 <title>Análise de Associação – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -58,7 +55,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -76,8 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -103,46 +98,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
-
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-
-<script src="../site_libs/plotly-binding-4.10.4/plotly.js"></script>
-
-<script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
-
-<script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
-
-<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-
-<link href="../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
-
-<script src="../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
-
-<link href="../site_libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
-
-<script src="../site_libs/vis-9.1.0/vis-network.min.js"></script>
-
-<script src="../site_libs/visNetwork-binding-2.1.2/visNetwork.js"></script>
-
-
-
+}</script><link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="../site_libs/plotly-binding-4.10.4/plotly.js"></script><script src="../site_libs/typedarray-0.1/typedarray.min.js"></script><script src="../site_libs/jquery-3.5.1/jquery.min.js"></script><link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><link href="../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script><link href="../site_libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="../site_libs/vis-9.1.0/vis-network.min.js"></script><script src="../site_libs/visNetwork-binding-2.1.2/visNetwork.js"></script>
 <meta name="twitter:title" content="Análise de Associação – IME05-12547">
 <meta name="twitter:description" content="Mineração de Dados">
 <meta name="twitter:image" content="images/md.png">
 <meta name="twitter:creator" content="@r_accioly">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-
 <body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -153,16 +123,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
     <a href="https://twitter.com/r_accioly" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
@@ -176,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
+<li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Informação da disciplina</span></a>
@@ -184,8 +149,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visão Geral</span></a>
@@ -198,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
@@ -207,15 +172,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sobre</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
@@ -224,15 +189,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Acesso</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
@@ -241,8 +206,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 01</span></a>
@@ -399,44 +364,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link active" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
+<li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link active" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
   <li><a href="#dados" id="toc-dados" class="nav-link" data-scroll-target="#dados">Dados</a></li>
   <li><a href="#explorando-os-dados" id="toc-explorando-os-dados" class="nav-link" data-scroll-target="#explorando-os-dados">Explorando os dados</a></li>
-  <li><a href="#tranformando-em-transações" id="toc-tranformando-em-transações" class="nav-link" data-scroll-target="#tranformando-em-transações">Tranformando em Transações</a></li>
-  <li><a href="#visualizando-as-transações" id="toc-visualizando-as-transações" class="nav-link" data-scroll-target="#visualizando-as-transações">Visualizando as transações</a>
+  <li><a href="#tranformando-em-transa%C3%A7%C3%B5es" id="toc-tranformando-em-transações" class="nav-link" data-scroll-target="#tranformando-em-transa%C3%A7%C3%B5es">Tranformando em Transações</a></li>
+  <li>
+<a href="#visualizando-as-transa%C3%A7%C3%B5es" id="toc-visualizando-as-transações" class="nav-link" data-scroll-target="#visualizando-as-transa%C3%A7%C3%B5es">Visualizando as transações</a>
   <ul class="collapse">
-  <li><a href="#frequencia-relativa-e-absoluta" id="toc-frequencia-relativa-e-absoluta" class="nav-link" data-scroll-target="#frequencia-relativa-e-absoluta">Frequencia Relativa e Absoluta</a></li>
+<li><a href="#frequencia-relativa-e-absoluta" id="toc-frequencia-relativa-e-absoluta" class="nav-link" data-scroll-target="#frequencia-relativa-e-absoluta">Frequencia Relativa e Absoluta</a></li>
   <li><a href="#mostrando-os-filmes-menos-populares" id="toc-mostrando-os-filmes-menos-populares" class="nav-link" data-scroll-target="#mostrando-os-filmes-menos-populares">Mostrando os filmes menos populares</a></li>
   <li><a href="#extraindo-os-filmes-mais-frequentes" id="toc-extraindo-os-filmes-mais-frequentes" class="nav-link" data-scroll-target="#extraindo-os-filmes-mais-frequentes">Extraindo os filmes mais frequentes</a></li>
-  <li><a href="#avaliando-diferentes-níveis-de-confiança" id="toc-avaliando-diferentes-níveis-de-confiança" class="nav-link" data-scroll-target="#avaliando-diferentes-níveis-de-confiança">Avaliando diferentes níveis de confiança</a></li>
-  <li><a href="#número-de-regras-com-suporte-de-40" id="toc-número-de-regras-com-suporte-de-40" class="nav-link" data-scroll-target="#número-de-regras-com-suporte-de-40">Número de regras com suporte de 40%</a></li>
+  <li><a href="#avaliando-diferentes-n%C3%ADveis-de-confian%C3%A7a" id="toc-avaliando-diferentes-níveis-de-confiança" class="nav-link" data-scroll-target="#avaliando-diferentes-n%C3%ADveis-de-confian%C3%A7a">Avaliando diferentes níveis de confiança</a></li>
+  <li><a href="#n%C3%BAmero-de-regras-com-suporte-de-40" id="toc-número-de-regras-com-suporte-de-40" class="nav-link" data-scroll-target="#n%C3%BAmero-de-regras-com-suporte-de-40">Número de regras com suporte de 40%</a></li>
   <li><a href="#visualizando-os-resultados" id="toc-visualizando-os-resultados" class="nav-link" data-scroll-target="#visualizando-os-resultados">Visualizando os resultados</a></li>
-  </ul></li>
-  <li><a href="#extraindo-regras" id="toc-extraindo-regras" class="nav-link" data-scroll-target="#extraindo-regras">Extraindo regras</a>
-  <ul class="collapse">
-  <li><a href="#visualizado-como-um-gráfico-de-dispersão" id="toc-visualizado-como-um-gráfico-de-dispersão" class="nav-link" data-scroll-target="#visualizado-como-um-gráfico-de-dispersão">Visualizado como um gráfico de dispersão</a></li>
-  <li><a href="#extraindo-regras-com-um-determinando-filme" id="toc-extraindo-regras-com-um-determinando-filme" class="nav-link" data-scroll-target="#extraindo-regras-com-um-determinando-filme">Extraindo regras com um determinando filme</a></li>
-  </ul></li>
-  <li><a href="#extraindo-regras-com-um-filme-na-esquerda" id="toc-extraindo-regras-com-um-filme-na-esquerda" class="nav-link" data-scroll-target="#extraindo-regras-com-um-filme-na-esquerda">Extraindo regras com um filme na esquerda</a></li>
   </ul>
-</nav>
+</li>
+  <li>
+<a href="#extraindo-regras" id="toc-extraindo-regras" class="nav-link" data-scroll-target="#extraindo-regras">Extraindo regras</a>
+  <ul class="collapse">
+<li><a href="#visualizado-como-um-gr%C3%A1fico-de-dispers%C3%A3o" id="toc-visualizado-como-um-gráfico-de-dispersão" class="nav-link" data-scroll-target="#visualizado-como-um-gr%C3%A1fico-de-dispers%C3%A3o">Visualizado como um gráfico de dispersão</a></li>
+  <li><a href="#extraindo-regras-com-um-determinando-filme" id="toc-extraindo-regras-com-um-determinando-filme" class="nav-link" data-scroll-target="#extraindo-regras-com-um-determinando-filme">Extraindo regras com um determinando filme</a></li>
+  </ul>
+</li>
+  <li><a href="#extraindo-regras-com-um-filme-na-esquerda" id="toc-extraindo-regras-com-um-filme-na-esquerda" class="nav-link" data-scroll-target="#extraindo-regras-com-um-filme-na-esquerda">Extraindo regras com um filme na esquerda</a></li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula14.html">Análise de Associação</a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula14.html">Análise de Associação</a></li></ol></nav><div class="quarto-title">
 <h1 class="title">Análise de Associação</h1>
 </div>
 
@@ -463,26 +426,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<p>Este exemplo de Análise de Associação foi baseado no curso do DataCamp “Market Basket Analysis”</p>
+</header><p>Este exemplo de Análise de Associação foi baseado no curso do DataCamp “Market Basket Analysis”</p>
 <p>As bibilotecas usadas são as arules e arulesViz.</p>
-<section id="bibliotecas" class="level2">
-<h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
+<section id="bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arules)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arulesViz)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhahsler/arules">arules</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhahsler/arulesViz">arulesViz</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="dados" class="level2">
-<h2 class="anchored" data-anchor-id="dados">Dados</h2>
+</section><section id="dados" class="level2"><h2 class="anchored" data-anchor-id="dados">Dados</h2>
 <p>O conjunto de dados Movies consiste de</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>filmes <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Movie_subset.xlsx"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(filmes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span>
+<span><span class="va">filmes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"Movie_subset.xlsx"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">filmes</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [19,455 × 5] (S3: tbl_df/tbl/data.frame)
  $ userId : num [1:19455] 1323 1323 1323 1323 1323 ...
@@ -491,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ year   : num [1:19455] 1995 1995 1995 1995 1995 ...
  $ genres : chr [1:19455] "Adventure|Animation|Children|Comedy|Fantasy" "Comedy|Romance" "Comedy" "Action|Adventure|Thriller" ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(filmes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">filmes</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
   userId movieId title                        year genres                       
@@ -504,104 +461,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6   1323      12 Dracula: Dead and Loving It  1995 Comedy|Horror                </code></pre>
 </div>
 </div>
-</section>
-<section id="explorando-os-dados" class="level2">
-<h2 class="anchored" data-anchor-id="explorando-os-dados">Explorando os dados</h2>
+</section><section id="explorando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="explorando-os-dados">Explorando os dados</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(filmes<span class="sc">$</span>title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">filmes</span><span class="op">$</span><span class="va">title</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4508</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(filmes<span class="sc">$</span>userId)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">filmes</span><span class="op">$</span><span class="va">userId</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 100</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>filmes <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(userId) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_filmes =</span> <span class="fu">n_distinct</span>(movieId)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n_filmes)) <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribuição do número de filmes vistos"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">filmes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">userId</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n_filmes <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">movieId</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">n_filmes</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Distribuição do número de filmes vistos"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula14_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula14_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="tranformando-em-transações" class="level2">
-<h2 class="anchored" data-anchor-id="tranformando-em-transações">Tranformando em Transações</h2>
+</section><section id="tranformando-em-transações" class="level2"><h2 class="anchored" data-anchor-id="tranformando-em-transações">Tranformando em Transações</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>lista_de_filmes <span class="ot">&lt;-</span> <span class="fu">split</span>(filmes<span class="sc">$</span>title, filmes<span class="sc">$</span>userId)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>filmes_trx <span class="ot">=</span> <span class="fu">as</span>(lista_de_filmes, <span class="st">"transactions"</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Imagem de parte das transações</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(filmes_trx[<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lista_de_filmes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span><span class="op">(</span><span class="va">filmes</span><span class="op">$</span><span class="va">title</span>, <span class="va">filmes</span><span class="op">$</span><span class="va">userId</span><span class="op">)</span></span>
+<span><span class="va">filmes_trx</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/methods/as.html">as</a></span><span class="op">(</span><span class="va">lista_de_filmes</span>, <span class="st">"transactions"</span><span class="op">)</span></span>
+<span><span class="co">#Imagem de parte das transações</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html">image</a></span><span class="op">(</span><span class="va">filmes_trx</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula14_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula14_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="visualizando-as-transações" class="level2">
-<h2 class="anchored" data-anchor-id="visualizando-as-transações">Visualizando as transações</h2>
+</section><section id="visualizando-as-transações" class="level2"><h2 class="anchored" data-anchor-id="visualizando-as-transações">Visualizando as transações</h2>
 <p>A biblioteca arules tem funções para visualização das transações masi frequentes.</p>
 <p>Elas podem ser vistas na forma de frequencias absolutas ou relativas.</p>
-<section id="frequencia-relativa-e-absoluta" class="level3">
-<h3 class="anchored" data-anchor-id="frequencia-relativa-e-absoluta">Frequencia Relativa e Absoluta</h3>
+<section id="frequencia-relativa-e-absoluta" class="level3"><h3 class="anchored" data-anchor-id="frequencia-relativa-e-absoluta">Frequencia Relativa e Absoluta</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">itemFrequencyPlot</span>(filmes_trx,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">type =</span> <span class="st">"relative"</span>,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">topN =</span> <span class="dv">10</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">horiz =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">main =</span> <span class="st">'Frequencia Relativa'</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">itemFrequencyPlot</span>(filmes_trx,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">type =</span> <span class="st">"absolute"</span>,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">topN =</span> <span class="dv">10</span>,</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">horiz =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">main =</span> <span class="st">'Frequencia Absoluta'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/itemFrequencyPlot.html">itemFrequencyPlot</a></span><span class="op">(</span><span class="va">filmes_trx</span>,</span>
+<span>                  type <span class="op">=</span> <span class="st">"relative"</span>,</span>
+<span>                  topN <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>                  horiz <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                  main <span class="op">=</span> <span class="st">'Frequencia Relativa'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/itemFrequencyPlot.html">itemFrequencyPlot</a></span><span class="op">(</span><span class="va">filmes_trx</span>,</span>
+<span>                  type <span class="op">=</span> <span class="st">"absolute"</span>,</span>
+<span>                  topN <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>                  horiz <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                  main <span class="op">=</span> <span class="st">'Frequencia Absoluta'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula14_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula14_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="mostrando-os-filmes-menos-populares" class="level3">
-<h3 class="anchored" data-anchor-id="mostrando-os-filmes-menos-populares">Mostrando os filmes menos populares</h3>
+</section><section id="mostrando-os-filmes-menos-populares" class="level3"><h3 class="anchored" data-anchor-id="mostrando-os-filmes-menos-populares">Mostrando os filmes menos populares</h3>
 <p>Para mostrar o final da lista de prefrência é necessário utilizarmos funções adicionais.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">30</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">sort</span>(<span class="fu">table</span>(<span class="fu">unlist</span>(<span class="fu">LIST</span>(filmes_trx))))[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>],</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">horiz =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">las =</span> <span class="dv">1</span>,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">'Menos populares'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">30</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/LIST.html">LIST</a></span><span class="op">(</span><span class="va">filmes_trx</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
+<span>        horiz <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        las <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>        main <span class="op">=</span> <span class="st">'Menos populares'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula14_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula14_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="extraindo-os-filmes-mais-frequentes" class="level3">
-<h3 class="anchored" data-anchor-id="extraindo-os-filmes-mais-frequentes">Extraindo os filmes mais frequentes</h3>
+</section><section id="extraindo-os-filmes-mais-frequentes" class="level3"><h3 class="anchored" data-anchor-id="extraindo-os-filmes-mais-frequentes">Extraindo os filmes mais frequentes</h3>
 <p>A função apriori que aplica o algoritmo de mesmo nome permite que obtenhamos a lista de filmes mais frequentes e também as regras criadas a partir da utilização do algoritmo.</p>
 <p>Neste exemplo somente o suporte teve um limite mínimo defindo</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>conj_filmes <span class="ot">&lt;-</span> <span class="fu">apriori</span>(filmes_trx,</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">support =</span> <span class="fl">0.4</span>,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">target =</span> <span class="st">'frequent'</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                    ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_filmes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/arules/man/apriori.html">apriori</a></span><span class="op">(</span><span class="va">filmes_trx</span>,</span>
+<span>                    parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>support <span class="op">=</span> <span class="fl">0.4</span>,</span>
+<span>                               target <span class="op">=</span> <span class="st">'frequent'</span></span>
+<span>                    <span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Apriori
 
@@ -626,7 +568,7 @@ sorting transactions ... done [0.00s].
 writing ... [16 set(s)] done [0.00s].
 creating S4 object  ... done [0.00s].</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(<span class="fu">sort</span>(conj_filmes, <span class="at">by=</span><span class="st">'support'</span>, <span class="at">decreasing =</span> T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/inspect.html">inspect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/sort.html">sort</a></span><span class="op">(</span><span class="va">conj_filmes</span>, by<span class="op">=</span><span class="st">'support'</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    items                       support count
 [1] {Matrix, The}               0.60    60   
@@ -638,11 +580,11 @@ creating S4 object  ... done [0.00s].</code></pre>
 </div>
 <p>Neste exemplo eliminamos os conjuntos com um só elemento e reduzimos o suporte para 30%</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>itemset2 <span class="ot">=</span> <span class="fu">apriori</span>(filmes_trx, <span class="at">parameter =</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">list</span>(<span class="at">support =</span> <span class="fl">0.3</span>,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">minlen =</span> <span class="dv">2</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">target =</span> <span class="st">'frequent'</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                            ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">itemset2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/arules/man/apriori.html">apriori</a></span><span class="op">(</span><span class="va">filmes_trx</span>, parameter <span class="op">=</span> </span>
+<span>                           <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>support <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>                                minlen <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>                                target <span class="op">=</span> <span class="st">'frequent'</span></span>
+<span>                            <span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Apriori
 
@@ -667,8 +609,8 @@ sorting transactions ... done [0.00s].
 writing ... [115 set(s)] done [0.00s].
 creating S4 object  ... done [0.00s].</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(<span class="fu">sort</span>(itemset2, </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">by=</span><span class="st">'support'</span>, <span class="at">decreasing =</span> T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/inspect.html">inspect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/sort.html">sort</a></span><span class="op">(</span><span class="va">itemset2</span>, </span>
+<span>             by<span class="op">=</span><span class="st">'support'</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    items                                                 support count
 [1] {Matrix, The,                                                      
@@ -685,8 +627,8 @@ creating S4 object  ... done [0.00s].</code></pre>
 </div>
 <p>Aqui invertemos a ordem apresentando os 5 menos populares</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(<span class="fu">sort</span>(itemset2, </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">by=</span><span class="st">'support'</span>, <span class="at">decreasing =</span> F)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/inspect.html">inspect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/sort.html">sort</a></span><span class="op">(</span><span class="va">itemset2</span>, </span>
+<span>             by<span class="op">=</span><span class="st">'support'</span>, decreasing <span class="op">=</span> <span class="cn">F</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    items                                            support count
 [1] {Matrix, The, Minority Report}                   0.3     30   
@@ -696,93 +638,82 @@ creating S4 object  ... done [0.00s].</code></pre>
 [5] {Braveheart, Star Wars: Episode IV - A New Hope} 0.3     30   </code></pre>
 </div>
 </div>
-</section>
-<section id="avaliando-diferentes-níveis-de-confiança" class="level3">
-<h3 class="anchored" data-anchor-id="avaliando-diferentes-níveis-de-confiança">Avaliando diferentes níveis de confiança</h3>
+</section><section id="avaliando-diferentes-níveis-de-confiança" class="level3"><h3 class="anchored" data-anchor-id="avaliando-diferentes-níveis-de-confiança">Avaliando diferentes níveis de confiança</h3>
 <p>Usando o suporte de 40% e 30% vamos ver as diferenças nos números de regras, variando o nível de confiança.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>confidenceLevels <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from=</span><span class="fl">0.95</span>, <span class="at">to=</span><span class="fl">0.5</span>, <span class="at">by=</span><span class="sc">-</span><span class="fl">0.05</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>regras_sup04 <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(confidenceLevels)) </span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  regras_sup04[i] <span class="ot">=</span> </span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>(<span class="fu">apriori</span>(filmes_trx,</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">parameter=</span><span class="fu">list</span>(<span class="at">sup=</span><span class="fl">0.40</span>, </span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>                                <span class="at">conf=</span>confidenceLevels[i],</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>                                <span class="at">target=</span><span class="st">"rules"</span>)))</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>regras_sup03 <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(confidenceLevels)) </span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  regras_sup03[i] <span class="ot">=</span> </span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>(<span class="fu">apriori</span>(filmes_trx,</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>                 <span class="at">parameter=</span><span class="fu">list</span>(<span class="at">sup=</span><span class="fl">0.30</span>, </span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>                                <span class="at">conf=</span>confidenceLevels[i],</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>                                <span class="at">target=</span><span class="st">"rules"</span>)))</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">confidenceLevels</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from<span class="op">=</span><span class="fl">0.95</span>, to<span class="op">=</span><span class="fl">0.5</span>, by<span class="op">=</span><span class="op">-</span><span class="fl">0.05</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">regras_sup04</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">confidenceLevels</span><span class="op">)</span><span class="op">)</span> </span>
+<span>  <span class="op">{</span></span>
+<span>  <span class="va">regras_sup04</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/apriori.html">apriori</a></span><span class="op">(</span><span class="va">filmes_trx</span>,</span>
+<span>                 parameter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>sup<span class="op">=</span><span class="fl">0.40</span>, </span>
+<span>                                conf<span class="op">=</span><span class="va">confidenceLevels</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>                                target<span class="op">=</span><span class="st">"rules"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="va">regras_sup03</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">confidenceLevels</span><span class="op">)</span><span class="op">)</span> </span>
+<span>  <span class="op">{</span></span>
+<span>  <span class="va">regras_sup03</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/apriori.html">apriori</a></span><span class="op">(</span><span class="va">filmes_trx</span>,</span>
+<span>                 parameter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>sup<span class="op">=</span><span class="fl">0.30</span>, </span>
+<span>                                conf<span class="op">=</span><span class="va">confidenceLevels</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>                                target<span class="op">=</span><span class="st">"rules"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="número-de-regras-com-suporte-de-40" class="level3">
-<h3 class="anchored" data-anchor-id="número-de-regras-com-suporte-de-40">Número de regras com suporte de 40%</h3>
+</section><section id="número-de-regras-com-suporte-de-40" class="level3"><h3 class="anchored" data-anchor-id="número-de-regras-com-suporte-de-40">Número de regras com suporte de 40%</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(confidenceLevels, regras_sup04, </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">geom=</span><span class="fu">c</span>(<span class="st">"point"</span>, <span class="st">"line"</span>),<span class="at">xlab=</span><span class="st">"Nível de Confiança"</span>,</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylab=</span><span class="st">"Numero de regras achadas"</span>, </span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">main=</span><span class="st">"Apriori com nível de suporte de 40%"</span>) <span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/qplot.html">qplot</a></span><span class="op">(</span><span class="va">confidenceLevels</span>, <span class="va">regras_sup04</span>, </span>
+<span>      geom<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"point"</span>, <span class="st">"line"</span><span class="op">)</span>,xlab<span class="op">=</span><span class="st">"Nível de Confiança"</span>,</span>
+<span>      ylab<span class="op">=</span><span class="st">"Numero de regras achadas"</span>, </span>
+<span>      main<span class="op">=</span><span class="st">"Apriori com nível de suporte de 40%"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula14_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula14_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="visualizando-os-resultados" class="level3">
-<h3 class="anchored" data-anchor-id="visualizando-os-resultados">Visualizando os resultados</h3>
+</section><section id="visualizando-os-resultados" class="level3"><h3 class="anchored" data-anchor-id="visualizando-os-resultados">Visualizando os resultados</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>n_regras <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(regras_sup04, regras_sup03,</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                      confidenceLevels)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 40% e 30%</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>n_regras, <span class="fu">aes</span>(<span class="at">x=</span>confidenceLevels)) <span class="sc">+</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># regras_sup04</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span> regras_sup04, <span class="at">colour=</span><span class="st">"Nível de Suporte de 40%"</span>)) <span class="sc">+</span> </span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>regras_sup04,<span class="at">colour=</span><span class="st">"Nível de Suporte de 40%"</span>)) <span class="sc">+</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># regras_sup03</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>regras_sup03, <span class="at">colour=</span><span class="st">"Nível de Suporte de 30%"</span>)) <span class="sc">+</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>regras_sup03,<span class="at">colour=</span><span class="st">"Nível de Suporte de 30%"</span>)) <span class="sc">+</span> </span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Numero de regras"</span>) <span class="sc">+</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Numero de regras extraídas com o apriori"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_regras</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">regras_sup04</span>, <span class="va">regras_sup03</span>,</span>
+<span>                      <span class="va">confidenceLevels</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 40% e 30%</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">n_regras</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">confidenceLevels</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># regras_sup04</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y<span class="op">=</span> <span class="va">regras_sup04</span>, colour<span class="op">=</span><span class="st">"Nível de Suporte de 40%"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">regras_sup04</span>,colour<span class="op">=</span><span class="st">"Nível de Suporte de 40%"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># regras_sup03</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">regras_sup03</span>, colour<span class="op">=</span><span class="st">"Nível de Suporte de 30%"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">regras_sup03</span>,colour<span class="op">=</span><span class="st">"Nível de Suporte de 30%"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co"># </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Numero de regras"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Numero de regras extraídas com o apriori"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula14_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula14_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="extraindo-regras" class="level2">
-<h2 class="anchored" data-anchor-id="extraindo-regras">Extraindo regras</h2>
+</section></section><section id="extraindo-regras" class="level2"><h2 class="anchored" data-anchor-id="extraindo-regras">Extraindo regras</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>regras_filmes2 <span class="ot">=</span> <span class="fu">apriori</span>(filmes_trx,</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">supp =</span> <span class="fl">0.3</span>,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">conf =</span> <span class="fl">0.9</span>,</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">minlen =</span> <span class="dv">2</span>),</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">appearance =</span> <span class="fu">list</span>(<span class="at">rhs=</span><span class="st">"Matrix, The"</span>),</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">control =</span> <span class="fu">list</span>(<span class="at">verbose=</span>F))</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(regras_filmes2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">regras_filmes2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/arules/man/apriori.html">apriori</a></span><span class="op">(</span><span class="va">filmes_trx</span>,</span>
+<span>                          parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>supp <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>                                           conf <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>                                           minlen <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>                         appearance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>rhs<span class="op">=</span><span class="st">"Matrix, The"</span><span class="op">)</span>,</span>
+<span>                         control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>verbose<span class="op">=</span><span class="cn">F</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/inspect.html">inspect</a></span><span class="op">(</span><span class="va">regras_filmes2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    lhs                                                                          rhs           support confidence coverage     lift count
 [1] {Minority Report}                                                         =&gt; {Matrix, The}    0.30  0.9090909     0.33 1.515152    30
@@ -800,15 +731,14 @@ creating S4 object  ... done [0.00s].</code></pre>
      Star Wars: Episode IV - A New Hope}                                      =&gt; {Matrix, The}    0.31  0.9393939     0.33 1.565657    31</code></pre>
 </div>
 </div>
-<section id="visualizado-como-um-gráfico-de-dispersão" class="level3">
-<h3 class="anchored" data-anchor-id="visualizado-como-um-gráfico-de-dispersão">Visualizado como um gráfico de dispersão</h3>
+<section id="visualizado-como-um-gráfico-de-dispersão" class="level3"><h3 class="anchored" data-anchor-id="visualizado-como-um-gráfico-de-dispersão">Visualizado como um gráfico de dispersão</h3>
 <p>As medidas selecionadas são confiança e interesse (lift)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>regras_filmes <span class="ot">=</span> <span class="fu">apriori</span>(filmes_trx,</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">supp =</span> <span class="fl">0.3</span>,</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">conf =</span> <span class="fl">0.9</span>,</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">minlen =</span> <span class="dv">2</span>, </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">target =</span> <span class="st">"rules"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">regras_filmes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/arules/man/apriori.html">apriori</a></span><span class="op">(</span><span class="va">filmes_trx</span>,</span>
+<span>                          parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>supp <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>                                           conf <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>                                           minlen <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>                                           target <span class="op">=</span> <span class="st">"rules"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Apriori
 
@@ -832,71 +762,68 @@ checking subsets of size 1 2 3 4 done [0.00s].
 writing ... [26 rule(s)] done [0.00s].
 creating S4 object  ... done [0.00s].</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regras_filmes,</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">measure =</span> <span class="fu">c</span>(<span class="st">"confidence"</span>, <span class="st">"lift"</span>),</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">shading =</span> <span class="st">"support"</span>,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">jitter =</span> <span class="dv">1</span>,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">engine =</span><span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">regras_filmes</span>,</span>
+<span>     measure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"confidence"</span>, <span class="st">"lift"</span><span class="op">)</span>,</span>
+<span>     shading <span class="op">=</span> <span class="st">"support"</span>,</span>
+<span>     jitter <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>     engine <span class="op">=</span><span class="st">"html"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-43557a8413f2b0eb93f6" style="width:90%;height:3000px;"></div>
 <script type="application/json" data-for="htmlwidget-43557a8413f2b0eb93f6">{"x":{"visdat":{"6fe46ece78b8":["function () ","plotlyVisDat"]},"cur_data":"6fe46ece78b8","attrs":{"6fe46ece78b8":{"x":[0.94019870343222989,0.99827178078618917,0.99916274756108492,0.93810075600236431,0.93773796832725187,0.93780819031325258,0.91886412618420932,0.92009049386033193,0.94299241542129431,0.94552790249942453,0.9074656467063521,1.0006031512765383,0.99990529110316528,0.93871369515489222,1.000239021920345,0.9214851050813232,0.99936778685501348,1.0010482338265601,0.92174144173347095,0.92178921831993166,0.92177896719826957,0.99961011510596354,0.90985072157007052,0.97343066090840202,0.92074497781756315,0.97097409794822032],"y":[2.5905594167299735,2.6324839243365297,2.2427875315003072,1.5617536446594535,1.5458420737726233,1.5448155792688496,1.935640126329383,1.8408488992690275,2.1632657471924412,1.58714602810012,1.5323153547675272,2.2392310592420657,2.2355151883490358,2.6256143985900069,2.6259478445178228,2.5800963873320923,2.6406149344854475,2.2256509875913353,1.5524898619935925,2.1022672425278439,1.5347585696444819,2.2076779817558276,1.5241568599154718,2.1501185761413546,2.577309014349443,2.5625448751093494],"hoverinfo":"text","text":["[26]<BR> <B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B> <BR><BR>confidence: 0.939 <BR>lift: 2.61 <BR>support: 0.31","[25]<BR> <B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.63 <BR>support: 0.31","[24]<BR> <B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.22 <BR>support: 0.31","[23]<BR> <B>{Back to the Future,<BR>&nbsp;&nbsp;Star Wars: Episode IV - A New Hope}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.939 <BR>lift: 1.57 <BR>support: 0.31","[22]<BR> <B>{Forrest Gump,<BR>&nbsp;&nbsp;Silence of the Lambs, The}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.939 <BR>lift: 1.57 <BR>support: 0.31","[21]<BR> <B>{Back to the Future,<BR>&nbsp;&nbsp;Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark)}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.938 <BR>lift: 1.56 <BR>support: 0.3","[20]<BR> <B>{Fight Club,<BR>&nbsp;&nbsp;Silence of the Lambs, The}<\/B><BR>&nbsp;&nbsp; => <B>{Pulp Fiction}<\/B> <BR><BR>confidence: 0.919 <BR>lift: 1.96 <BR>support: 0.34","[19]<BR> <B>{Fight Club,<BR>&nbsp;&nbsp;Pulp Fiction}<\/B><BR>&nbsp;&nbsp; => <B>{Silence of the Lambs, The}<\/B> <BR><BR>confidence: 0.919 <BR>lift: 1.84 <BR>support: 0.34","[18]<BR> <B>{Matrix, The,<BR>&nbsp;&nbsp;Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Star Wars: Episode IV - A New Hope}<\/B> <BR><BR>confidence: 0.944 <BR>lift: 2.15 <BR>support: 0.34","[17]<BR> <B>{Star Wars: Episode IV - A New Hope,<BR>&nbsp;&nbsp;Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.944 <BR>lift: 1.57 <BR>support: 0.34","[16]<BR> <B>{Jurassic Park,<BR>&nbsp;&nbsp;Silence of the Lambs, The}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.909 <BR>lift: 1.52 <BR>support: 0.3","[15]<BR> <B>{Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.22 <BR>support: 0.33","[14]<BR> <B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.22 <BR>support: 0.31","[13]<BR> <B>{Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B> <BR><BR>confidence: 0.939 <BR>lift: 2.61 <BR>support: 0.31","[12]<BR> <B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.63 <BR>support: 0.31","[11]<BR> <B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B> <BR><BR>confidence: 0.921 <BR>lift: 2.56 <BR>support: 0.35","[10]<BR> <B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.63 <BR>support: 0.35","[9]<BR> <B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.22 <BR>support: 0.35","[8]<BR> <B>{Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.923 <BR>lift: 1.54 <BR>support: 0.36","[7]<BR> <B>{Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Star Wars: Episode IV - A New Hope}<\/B> <BR><BR>confidence: 0.923 <BR>lift: 2.1 <BR>support: 0.36","[6]<BR> <B>{Braveheart}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.921 <BR>lift: 1.54 <BR>support: 0.35","[5]<BR> <B>{Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.22 <BR>support: 0.38","[4]<BR> <B>{Minority Report}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.909 <BR>lift: 1.52 <BR>support: 0.3","[3]<BR> <B>{Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 0.972 <BR>lift: 2.16 <BR>support: 0.35","[2]<BR> <B>{Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B> <BR><BR>confidence: 0.921 <BR>lift: 2.56 <BR>support: 0.35","[1]<BR> <B>{Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B> <BR><BR>confidence: 0.972 <BR>lift: 2.56 <BR>support: 0.35"],"mode":"markers","marker":[],"color":[0.31,0.31,0.31,0.31,0.31,0.29999999999999999,0.34000000000000002,0.34000000000000002,0.34000000000000002,0.34000000000000002,0.29999999999999999,0.33000000000000002,0.31,0.31,0.31,0.34999999999999998,0.34999999999999998,0.34999999999999998,0.35999999999999999,0.35999999999999999,0.34999999999999998,0.38,0.29999999999999999,0.34999999999999998,0.34999999999999998,0.34999999999999998],"colors":["#EEEEEEFF","#EE0000FF"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"confidence"},"yaxis":{"domain":[0,1],"automargin":true,"title":"lift"},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[0.94019870343222989,0.99827178078618917,0.99916274756108492,0.93810075600236431,0.93773796832725187,0.93780819031325258,0.91886412618420932,0.92009049386033193,0.94299241542129431,0.94552790249942453,0.9074656467063521,1.0006031512765383,0.99990529110316528,0.93871369515489222,1.000239021920345,0.9214851050813232,0.99936778685501348,1.0010482338265601,0.92174144173347095,0.92178921831993166,0.92177896719826957,0.99961011510596354,0.90985072157007052,0.97343066090840202,0.92074497781756315,0.97097409794822032],"y":[2.5905594167299735,2.6324839243365297,2.2427875315003072,1.5617536446594535,1.5458420737726233,1.5448155792688496,1.935640126329383,1.8408488992690275,2.1632657471924412,1.58714602810012,1.5323153547675272,2.2392310592420657,2.2355151883490358,2.6256143985900069,2.6259478445178228,2.5800963873320923,2.6406149344854475,2.2256509875913353,1.5524898619935925,2.1022672425278439,1.5347585696444819,2.2076779817558276,1.5241568599154718,2.1501185761413546,2.577309014349443,2.5625448751093494],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"text":["[26]<BR> <B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B> <BR><BR>confidence: 0.939 <BR>lift: 2.61 <BR>support: 0.31","[25]<BR> <B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.63 <BR>support: 0.31","[24]<BR> <B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.22 <BR>support: 0.31","[23]<BR> <B>{Back to the Future,<BR>&nbsp;&nbsp;Star Wars: Episode IV - A New Hope}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.939 <BR>lift: 1.57 <BR>support: 0.31","[22]<BR> <B>{Forrest Gump,<BR>&nbsp;&nbsp;Silence of the Lambs, The}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.939 <BR>lift: 1.57 <BR>support: 0.31","[21]<BR> <B>{Back to the Future,<BR>&nbsp;&nbsp;Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark)}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.938 <BR>lift: 1.56 <BR>support: 0.3","[20]<BR> <B>{Fight Club,<BR>&nbsp;&nbsp;Silence of the Lambs, The}<\/B><BR>&nbsp;&nbsp; => <B>{Pulp Fiction}<\/B> <BR><BR>confidence: 0.919 <BR>lift: 1.96 <BR>support: 0.34","[19]<BR> <B>{Fight Club,<BR>&nbsp;&nbsp;Pulp Fiction}<\/B><BR>&nbsp;&nbsp; => <B>{Silence of the Lambs, The}<\/B> <BR><BR>confidence: 0.919 <BR>lift: 1.84 <BR>support: 0.34","[18]<BR> <B>{Matrix, The,<BR>&nbsp;&nbsp;Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Star Wars: Episode IV - A New Hope}<\/B> <BR><BR>confidence: 0.944 <BR>lift: 2.15 <BR>support: 0.34","[17]<BR> <B>{Star Wars: Episode IV - A New Hope,<BR>&nbsp;&nbsp;Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.944 <BR>lift: 1.57 <BR>support: 0.34","[16]<BR> <B>{Jurassic Park,<BR>&nbsp;&nbsp;Silence of the Lambs, The}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.909 <BR>lift: 1.52 <BR>support: 0.3","[15]<BR> <B>{Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.22 <BR>support: 0.33","[14]<BR> <B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.22 <BR>support: 0.31","[13]<BR> <B>{Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B> <BR><BR>confidence: 0.939 <BR>lift: 2.61 <BR>support: 0.31","[12]<BR> <B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.63 <BR>support: 0.31","[11]<BR> <B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B> <BR><BR>confidence: 0.921 <BR>lift: 2.56 <BR>support: 0.35","[10]<BR> <B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.63 <BR>support: 0.35","[9]<BR> <B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.22 <BR>support: 0.35","[8]<BR> <B>{Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.923 <BR>lift: 1.54 <BR>support: 0.36","[7]<BR> <B>{Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Star Wars: Episode IV - A New Hope}<\/B> <BR><BR>confidence: 0.923 <BR>lift: 2.1 <BR>support: 0.36","[6]<BR> <B>{Braveheart}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.921 <BR>lift: 1.54 <BR>support: 0.35","[5]<BR> <B>{Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 1 <BR>lift: 2.22 <BR>support: 0.38","[4]<BR> <B>{Minority Report}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B> <BR><BR>confidence: 0.909 <BR>lift: 1.52 <BR>support: 0.3","[3]<BR> <B>{Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B> <BR><BR>confidence: 0.972 <BR>lift: 2.16 <BR>support: 0.35","[2]<BR> <B>{Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B> <BR><BR>confidence: 0.921 <BR>lift: 2.56 <BR>support: 0.35","[1]<BR> <B>{Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B> <BR><BR>confidence: 0.972 <BR>lift: 2.56 <BR>support: 0.35"],"mode":"markers","type":"scatter","marker":{"colorbar":{"title":"","ticklen":2},"cmin":0.29999999999999999,"cmax":0.38,"colorscale":[["0","rgba(238,238,238,1)"],["0.0416666666666669","rgba(241,231,228,1)"],["0.0833333333333332","rgba(244,223,218,1)"],["0.125","rgba(247,216,208,1)"],["0.166666666666667","rgba(249,208,198,1)"],["0.208333333333333","rgba(251,201,188,1)"],["0.25","rgba(252,193,178,1)"],["0.291666666666666","rgba(253,186,168,1)"],["0.333333333333333","rgba(254,178,158,1)"],["0.375","rgba(255,170,149,1)"],["0.416666666666667","rgba(255,163,139,1)"],["0.458333333333333","rgba(255,155,130,1)"],["0.5","rgba(255,147,120,1)"],["0.541666666666667","rgba(255,139,111,1)"],["0.583333333333333","rgba(254,131,102,1)"],["0.625","rgba(253,123,92,1)"],["0.666666666666667","rgba(252,114,83,1)"],["0.708333333333334","rgba(251,105,74,1)"],["0.75","rgba(250,96,65,1)"],["0.791666666666667","rgba(248,86,56,1)"],["0.833333333333334","rgba(246,76,46,1)"],["0.875","rgba(245,65,37,1)"],["0.916666666666667","rgba(242,51,26,1)"],["0.958333333333334","rgba(240,34,14,1)"],["1","rgba(238,0,0,1)"]],"showscale":false,"color":[0.31,0.31,0.31,0.31,0.31,0.29999999999999999,0.34000000000000002,0.34000000000000002,0.34000000000000002,0.34000000000000002,0.29999999999999999,0.33000000000000002,0.31,0.31,0.31,0.34999999999999998,0.34999999999999998,0.34999999999999998,0.35999999999999999,0.35999999999999999,0.34999999999999998,0.38,0.29999999999999999,0.34999999999999998,0.34999999999999998,0.34999999999999998],"line":{"colorbar":{"title":"","ticklen":2},"cmin":0.29999999999999999,"cmax":0.38,"colorscale":[["0","rgba(238,238,238,1)"],["0.0416666666666669","rgba(241,231,228,1)"],["0.0833333333333332","rgba(244,223,218,1)"],["0.125","rgba(247,216,208,1)"],["0.166666666666667","rgba(249,208,198,1)"],["0.208333333333333","rgba(251,201,188,1)"],["0.25","rgba(252,193,178,1)"],["0.291666666666666","rgba(253,186,168,1)"],["0.333333333333333","rgba(254,178,158,1)"],["0.375","rgba(255,170,149,1)"],["0.416666666666667","rgba(255,163,139,1)"],["0.458333333333333","rgba(255,155,130,1)"],["0.5","rgba(255,147,120,1)"],["0.541666666666667","rgba(255,139,111,1)"],["0.583333333333333","rgba(254,131,102,1)"],["0.625","rgba(253,123,92,1)"],["0.666666666666667","rgba(252,114,83,1)"],["0.708333333333334","rgba(251,105,74,1)"],["0.75","rgba(250,96,65,1)"],["0.791666666666667","rgba(248,86,56,1)"],["0.833333333333334","rgba(246,76,46,1)"],["0.875","rgba(245,65,37,1)"],["0.916666666666667","rgba(242,51,26,1)"],["0.958333333333334","rgba(240,34,14,1)"],["1","rgba(238,0,0,1)"]],"showscale":false,"color":[0.31,0.31,0.31,0.31,0.31,0.29999999999999999,0.34000000000000002,0.34000000000000002,0.34000000000000002,0.34000000000000002,0.29999999999999999,0.33000000000000002,0.31,0.31,0.31,0.34999999999999998,0.34999999999999998,0.34999999999999998,0.35999999999999999,0.35999999999999999,0.34999999999999998,0.38,0.29999999999999999,0.34999999999999998,0.34999999999999998,0.34999999999999998]}},"xaxis":"x","yaxis":"y","frame":null},{"x":[0.9074656467063521,1.0010482338265601],"y":[1.5241568599154718,2.6406149344854475],"type":"scatter","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"support","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":0.29999999999999999,"cmax":0.38,"colorscale":[["0","rgba(238,238,238,1)"],["0.0416666666666669","rgba(241,231,228,1)"],["0.0833333333333332","rgba(244,223,218,1)"],["0.125","rgba(247,216,208,1)"],["0.166666666666667","rgba(249,208,198,1)"],["0.208333333333333","rgba(251,201,188,1)"],["0.25","rgba(252,193,178,1)"],["0.291666666666666","rgba(253,186,168,1)"],["0.333333333333333","rgba(254,178,158,1)"],["0.375","rgba(255,170,149,1)"],["0.416666666666667","rgba(255,163,139,1)"],["0.458333333333333","rgba(255,155,130,1)"],["0.5","rgba(255,147,120,1)"],["0.541666666666667","rgba(255,139,111,1)"],["0.583333333333333","rgba(254,131,102,1)"],["0.625","rgba(253,123,92,1)"],["0.666666666666667","rgba(252,114,83,1)"],["0.708333333333334","rgba(251,105,74,1)"],["0.75","rgba(250,96,65,1)"],["0.791666666666667","rgba(248,86,56,1)"],["0.833333333333334","rgba(246,76,46,1)"],["0.875","rgba(245,65,37,1)"],["0.916666666666667","rgba(242,51,26,1)"],["0.958333333333334","rgba(240,34,14,1)"],["1","rgba(238,0,0,1)"]],"showscale":true,"color":[0.29999999999999999,0.38],"line":{"color":"rgba(255,127,14,1)"}},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactive matrix-based plot</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regras_filmes, <span class="at">method =</span> <span class="st">"matrix"</span>,</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">shading =</span><span class="st">"confidence"</span>,</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">engine =</span> <span class="st">"html"</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>     )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Interactive matrix-based plot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">regras_filmes</span>, method <span class="op">=</span> <span class="st">"matrix"</span>,</span>
+<span>     shading <span class="op">=</span><span class="st">"confidence"</span>,</span>
+<span>     engine <span class="op">=</span> <span class="st">"html"</span></span>
+<span>     <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-2727a35a71d5bb87baaa" style="width:90%;height:3000px;"></div>
 <script type="application/json" data-for="htmlwidget-2727a35a71d5bb87baaa">{"x":{"visdat":{"6fe449377fd":["function () ","plotlyVisDat"]},"cur_data":"6fe449377fd","attrs":{"6fe449377fd":{"z":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0.91891891891891897,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0.91891891891891897,null,null,null],[null,null,null,null,null,null,null,null,0.94444444444444442,null,0.93939393939393945,0.93939393939393945,null,0.9375,0.92307692307692313,0.92105263157894735,null,null,null,0.90909090909090906,0.90909090909090906],[null,null,null,null,null,null,0.93939393939393945,0.92105263157894735,null,null,null,null,0.93939393939393945,null,null,null,0.92105263157894735,null,null,null,null],[null,null,null,null,null,null,null,null,null,0.94444444444444442,null,null,null,null,0.92307692307692313,null,null,null,null,null,null],[null,1,1,null,1,0.97222222222222221,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[1,null,1,1,null,0.97222222222222221,1,1,null,null,null,null,null,null,null,null,null,null,null,null,null]],"x":["{Lord of the Rings: The Return of the King, The,Lord of the Rings: The Two Towers, The}","{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Return of the King, The}","{Lord of the Rings: The Return of the King, The,Matrix, The}","{Lord of the Rings: The Return of the King, The,Lord of the Rings: The Two Towers, The,Matrix, The}","{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Return of the King, The,Matrix, The}","{Lord of the Rings: The Return of the King, The}","{Lord of the Rings: The Two Towers, The,Matrix, The}","{Lord of the Rings: The Two Towers, The}","{Star Wars: Episode IV - A New Hope,Star Wars: Episode V - The Empire Strikes Back}","{Matrix, The,Star Wars: Episode V - The Empire Strikes Back}","{Forrest Gump,Silence of the Lambs, The}","{Back to the Future,Star Wars: Episode IV - A New Hope}","{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Two Towers, The,Matrix, The}","{Back to the Future,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark)}","{Star Wars: Episode V - The Empire Strikes Back}","{Braveheart}","{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Two Towers, The}","{Fight Club,Pulp Fiction}","{Fight Club,Silence of the Lambs, The}","{Minority Report}","{Jurassic Park,Silence of the Lambs, The}"],"y":["{Pulp Fiction}","{Silence of the Lambs, The}","{Matrix, The}","{Lord of the Rings: The Return of the King, The}","{Star Wars: Episode IV - A New Hope}","{Lord of the Rings: The Two Towers, The}","{Lord of the Rings: The Fellowship of the Ring, The}"],"colorbar":{"title":"confidence"},"hoverinfo":"text","text":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"<B>{Fight Club,Silence of the Lambs, The}<BR>&nbsp;&nbsp; => {Pulp Fiction}<\/B><BR>confidence: 0.919<BR>support: 0.34<BR>confidence: 0.919",null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"<B>{Fight Club,Pulp Fiction}<BR>&nbsp;&nbsp; => {Silence of the Lambs, The}<\/B><BR>confidence: 0.919<BR>support: 0.34<BR>confidence: 0.919",null,null,null],[null,null,null,null,null,null,null,null,"<B>{Star Wars: Episode IV - A New Hope,Star Wars: Episode V - The Empire Strikes Back}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.944<BR>support: 0.34<BR>confidence: 0.944",null,"<B>{Forrest Gump,Silence of the Lambs, The}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.939<BR>support: 0.31<BR>confidence: 0.939","<B>{Back to the Future,Star Wars: Episode IV - A New Hope}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.939<BR>support: 0.31<BR>confidence: 0.939",null,"<B>{Back to the Future,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark)}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.938<BR>support: 0.3<BR>confidence: 0.938","<B>{Star Wars: Episode V - The Empire Strikes Back}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.923<BR>support: 0.36<BR>confidence: 0.923","<B>{Braveheart}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.921<BR>support: 0.35<BR>confidence: 0.921",null,null,null,"<B>{Minority Report}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.909<BR>support: 0.3<BR>confidence: 0.909","<B>{Jurassic Park,Silence of the Lambs, The}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.909<BR>support: 0.3<BR>confidence: 0.909"],[null,null,null,null,null,null,"<B>{Lord of the Rings: The Two Towers, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Return of the King, The}<\/B><BR>confidence: 0.939<BR>support: 0.31<BR>confidence: 0.939","<B>{Lord of the Rings: The Two Towers, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Return of the King, The}<\/B><BR>confidence: 0.921<BR>support: 0.35<BR>confidence: 0.921",null,null,null,null,"<B>{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Two Towers, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Return of the King, The}<\/B><BR>confidence: 0.939<BR>support: 0.31<BR>confidence: 0.939",null,null,null,"<B>{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Two Towers, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Return of the King, The}<\/B><BR>confidence: 0.921<BR>support: 0.35<BR>confidence: 0.921",null,null,null,null],[null,null,null,null,null,null,null,null,null,"<B>{Matrix, The,Star Wars: Episode V - The Empire Strikes Back}<BR>&nbsp;&nbsp; => {Star Wars: Episode IV - A New Hope}<\/B><BR>confidence: 0.944<BR>support: 0.34<BR>confidence: 0.944",null,null,null,null,"<B>{Star Wars: Episode V - The Empire Strikes Back}<BR>&nbsp;&nbsp; => {Star Wars: Episode IV - A New Hope}<\/B><BR>confidence: 0.923<BR>support: 0.36<BR>confidence: 0.923",null,null,null,null,null,null],[null,"<B>{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Return of the King, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Two Towers, The}<\/B><BR>confidence: 1<BR>support: 0.35<BR>confidence: 1","<B>{Lord of the Rings: The Return of the King, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Two Towers, The}<\/B><BR>confidence: 1<BR>support: 0.31<BR>confidence: 1",null,"<B>{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Return of the King, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Two Towers, The}<\/B><BR>confidence: 1<BR>support: 0.31<BR>confidence: 1","<B>{Lord of the Rings: The Return of the King, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Two Towers, The}<\/B><BR>confidence: 0.972<BR>support: 0.35<BR>confidence: 0.972",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["<B>{Lord of the Rings: The Return of the King, The,Lord of the Rings: The Two Towers, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 1<BR>support: 0.35<BR>confidence: 1",null,"<B>{Lord of the Rings: The Return of the King, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 1<BR>support: 0.31<BR>confidence: 1","<B>{Lord of the Rings: The Return of the King, The,Lord of the Rings: The Two Towers, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 1<BR>support: 0.31<BR>confidence: 1",null,"<B>{Lord of the Rings: The Return of the King, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 0.972<BR>support: 0.35<BR>confidence: 0.972","<B>{Lord of the Rings: The Two Towers, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 1<BR>support: 0.33<BR>confidence: 1","<B>{Lord of the Rings: The Two Towers, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 1<BR>support: 0.38<BR>confidence: 1",null,null,null,null,null,null,null,null,null,null,null,null,null]],"colors":["#EEEEEEFF","#EE0000FF"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"heatmap"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"LHS","showticklabels":false,"showgrid":true,"ticks":""},"yaxis":{"domain":[0,1],"automargin":true,"title":"RHS","showticklabels":false,"showgrid":true,"ticks":""},"scene":{"zaxis":{"title":[]}},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"colorbar":{"title":"confidence","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"colorscale":[["0","rgba(238,238,238,1)"],["0.0416666666666666","rgba(241,231,228,1)"],["0.0833333333333332","rgba(244,223,218,1)"],["0.125","rgba(247,216,208,1)"],["0.166666666666666","rgba(249,208,198,1)"],["0.208333333333333","rgba(251,201,188,1)"],["0.25","rgba(252,193,178,1)"],["0.291666666666666","rgba(253,186,168,1)"],["0.333333333333333","rgba(254,178,158,1)"],["0.375","rgba(255,170,149,1)"],["0.416666666666666","rgba(255,163,139,1)"],["0.458333333333333","rgba(255,155,130,1)"],["0.500000000000001","rgba(255,147,120,1)"],["0.541666666666667","rgba(255,139,111,1)"],["0.583333333333334","rgba(254,131,102,1)"],["0.625","rgba(253,123,92,1)"],["0.666666666666667","rgba(252,114,83,1)"],["0.708333333333334","rgba(251,105,74,1)"],["0.75","rgba(250,96,65,1)"],["0.791666666666667","rgba(248,86,56,1)"],["0.833333333333333","rgba(246,76,46,1)"],["0.875","rgba(245,65,37,1)"],["0.916666666666667","rgba(242,51,26,1)"],["0.958333333333333","rgba(240,34,14,1)"],["1","rgba(238,0,0,1)"]],"showscale":true,"z":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0.91891891891891897,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0.91891891891891897,null,null,null],[null,null,null,null,null,null,null,null,0.94444444444444442,null,0.93939393939393945,0.93939393939393945,null,0.9375,0.92307692307692313,0.92105263157894735,null,null,null,0.90909090909090906,0.90909090909090906],[null,null,null,null,null,null,0.93939393939393945,0.92105263157894735,null,null,null,null,0.93939393939393945,null,null,null,0.92105263157894735,null,null,null,null],[null,null,null,null,null,null,null,null,null,0.94444444444444442,null,null,null,null,0.92307692307692313,null,null,null,null,null,null],[null,1,1,null,1,0.97222222222222221,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[1,null,1,1,null,0.97222222222222221,1,1,null,null,null,null,null,null,null,null,null,null,null,null,null]],"x":["{Lord of the Rings: The Return of the King, The,Lord of the Rings: The Two Towers, The}","{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Return of the King, The}","{Lord of the Rings: The Return of the King, The,Matrix, The}","{Lord of the Rings: The Return of the King, The,Lord of the Rings: The Two Towers, The,Matrix, The}","{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Return of the King, The,Matrix, The}","{Lord of the Rings: The Return of the King, The}","{Lord of the Rings: The Two Towers, The,Matrix, The}","{Lord of the Rings: The Two Towers, The}","{Star Wars: Episode IV - A New Hope,Star Wars: Episode V - The Empire Strikes Back}","{Matrix, The,Star Wars: Episode V - The Empire Strikes Back}","{Forrest Gump,Silence of the Lambs, The}","{Back to the Future,Star Wars: Episode IV - A New Hope}","{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Two Towers, The,Matrix, The}","{Back to the Future,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark)}","{Star Wars: Episode V - The Empire Strikes Back}","{Braveheart}","{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Two Towers, The}","{Fight Club,Pulp Fiction}","{Fight Club,Silence of the Lambs, The}","{Minority Report}","{Jurassic Park,Silence of the Lambs, The}"],"y":["{Pulp Fiction}","{Silence of the Lambs, The}","{Matrix, The}","{Lord of the Rings: The Return of the King, The}","{Star Wars: Episode IV - A New Hope}","{Lord of the Rings: The Two Towers, The}","{Lord of the Rings: The Fellowship of the Ring, The}"],"hoverinfo":"text","text":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"<B>{Fight Club,Silence of the Lambs, The}<BR>&nbsp;&nbsp; => {Pulp Fiction}<\/B><BR>confidence: 0.919<BR>support: 0.34<BR>confidence: 0.919",null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"<B>{Fight Club,Pulp Fiction}<BR>&nbsp;&nbsp; => {Silence of the Lambs, The}<\/B><BR>confidence: 0.919<BR>support: 0.34<BR>confidence: 0.919",null,null,null],[null,null,null,null,null,null,null,null,"<B>{Star Wars: Episode IV - A New Hope,Star Wars: Episode V - The Empire Strikes Back}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.944<BR>support: 0.34<BR>confidence: 0.944",null,"<B>{Forrest Gump,Silence of the Lambs, The}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.939<BR>support: 0.31<BR>confidence: 0.939","<B>{Back to the Future,Star Wars: Episode IV - A New Hope}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.939<BR>support: 0.31<BR>confidence: 0.939",null,"<B>{Back to the Future,Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark)}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.938<BR>support: 0.3<BR>confidence: 0.938","<B>{Star Wars: Episode V - The Empire Strikes Back}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.923<BR>support: 0.36<BR>confidence: 0.923","<B>{Braveheart}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.921<BR>support: 0.35<BR>confidence: 0.921",null,null,null,"<B>{Minority Report}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.909<BR>support: 0.3<BR>confidence: 0.909","<B>{Jurassic Park,Silence of the Lambs, The}<BR>&nbsp;&nbsp; => {Matrix, The}<\/B><BR>confidence: 0.909<BR>support: 0.3<BR>confidence: 0.909"],[null,null,null,null,null,null,"<B>{Lord of the Rings: The Two Towers, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Return of the King, The}<\/B><BR>confidence: 0.939<BR>support: 0.31<BR>confidence: 0.939","<B>{Lord of the Rings: The Two Towers, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Return of the King, The}<\/B><BR>confidence: 0.921<BR>support: 0.35<BR>confidence: 0.921",null,null,null,null,"<B>{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Two Towers, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Return of the King, The}<\/B><BR>confidence: 0.939<BR>support: 0.31<BR>confidence: 0.939",null,null,null,"<B>{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Two Towers, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Return of the King, The}<\/B><BR>confidence: 0.921<BR>support: 0.35<BR>confidence: 0.921",null,null,null,null],[null,null,null,null,null,null,null,null,null,"<B>{Matrix, The,Star Wars: Episode V - The Empire Strikes Back}<BR>&nbsp;&nbsp; => {Star Wars: Episode IV - A New Hope}<\/B><BR>confidence: 0.944<BR>support: 0.34<BR>confidence: 0.944",null,null,null,null,"<B>{Star Wars: Episode V - The Empire Strikes Back}<BR>&nbsp;&nbsp; => {Star Wars: Episode IV - A New Hope}<\/B><BR>confidence: 0.923<BR>support: 0.36<BR>confidence: 0.923",null,null,null,null,null,null],[null,"<B>{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Return of the King, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Two Towers, The}<\/B><BR>confidence: 1<BR>support: 0.35<BR>confidence: 1","<B>{Lord of the Rings: The Return of the King, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Two Towers, The}<\/B><BR>confidence: 1<BR>support: 0.31<BR>confidence: 1",null,"<B>{Lord of the Rings: The Fellowship of the Ring, The,Lord of the Rings: The Return of the King, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Two Towers, The}<\/B><BR>confidence: 1<BR>support: 0.31<BR>confidence: 1","<B>{Lord of the Rings: The Return of the King, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Two Towers, The}<\/B><BR>confidence: 0.972<BR>support: 0.35<BR>confidence: 0.972",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["<B>{Lord of the Rings: The Return of the King, The,Lord of the Rings: The Two Towers, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 1<BR>support: 0.35<BR>confidence: 1",null,"<B>{Lord of the Rings: The Return of the King, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 1<BR>support: 0.31<BR>confidence: 1","<B>{Lord of the Rings: The Return of the King, The,Lord of the Rings: The Two Towers, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 1<BR>support: 0.31<BR>confidence: 1",null,"<B>{Lord of the Rings: The Return of the King, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 0.972<BR>support: 0.35<BR>confidence: 0.972","<B>{Lord of the Rings: The Two Towers, The,Matrix, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 1<BR>support: 0.33<BR>confidence: 1","<B>{Lord of the Rings: The Two Towers, The}<BR>&nbsp;&nbsp; => {Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR>confidence: 1<BR>support: 0.38<BR>confidence: 1",null,null,null,null,null,null,null,null,null,null,null,null,null]],"type":"heatmap","xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parallel coordinate plots with confidence as color coding</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regras_filmes, </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">method =</span> <span class="st">"paracoord"</span>, </span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">shading =</span> <span class="st">"confidence"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Parallel coordinate plots with confidence as color coding</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">regras_filmes</span>, </span>
+<span>     method <span class="op">=</span> <span class="st">"paracoord"</span>, </span>
+<span>     shading <span class="op">=</span> <span class="st">"confidence"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula14_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula14_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot movie rules as a graph</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regras_filmes,</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">method =</span> <span class="st">"graph"</span>,</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">engine =</span> <span class="st">"htmlwidget"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Plot movie rules as a graph</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">regras_filmes</span>,</span>
+<span>     method <span class="op">=</span> <span class="st">"graph"</span>,</span>
+<span>     engine <span class="op">=</span> <span class="st">"htmlwidget"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="visNetwork html-widget html-fill-item" id="htmlwidget-6ce7aa559fd27f234753" style="width:90%;height:3000px;"></div>
 <script type="application/json" data-for="htmlwidget-6ce7aa559fd27f234753">{"x":{"nodes":{"id":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41],"label":["Back to the Future","Braveheart","Fight Club","Forrest Gump","Jurassic Park","Lord of the Rings: The Fellowship of the Ring, The","Lord of the Rings: The Return of the King, The","Lord of the Rings: The Two Towers, The","Matrix, The","Minority Report","Pulp Fiction","Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark)","Silence of the Lambs, The","Star Wars: Episode IV - A New Hope","Star Wars: Episode V - The Empire Strikes Back","rule 1","rule 2","rule 3","rule 4","rule 5","rule 6","rule 7","rule 8","rule 9","rule 10","rule 11","rule 12","rule 13","rule 14","rule 15","rule 16","rule 17","rule 18","rule 19","rule 20","rule 21","rule 22","rule 23","rule 24","rule 25","rule 26"],"group":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"value":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,62.87499999999998,62.87499999999998,62.87499999999998,1,100,62.87499999999998,75.24999999999997,75.24999999999997,62.87499999999998,62.87499999999998,62.87499999999998,13.37500000000001,13.37500000000001,13.37500000000001,38.12500000000003,1,50.50000000000004,50.50000000000004,50.50000000000004,50.50000000000004,1,13.37500000000001,13.37500000000001,13.37500000000001,13.37500000000001,13.37500000000001],"color":["#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#EE2E2E","#EE2E2E","#EE8484","#EEDCDC","#EE7575","#EED9D9","#EE9191","#EED9D9","#EE7575","#EE1B1B","#EE2E2E","#EE1B1B","#EE2222","#EE7575","#EE7575","#EEDCDC","#EED4D4","#EE8888","#EEB5B5","#EEA5A5","#EED5D5","#EED5D5","#EED5D5","#EE7575","#EE1B1B","#EE2222"],"title":["Back to the Future","Braveheart","Fight Club","Forrest Gump","Jurassic Park","Lord of the Rings: The Fellowship of the Ring, The","Lord of the Rings: The Return of the King, The","Lord of the Rings: The Two Towers, The","Matrix, The","Minority Report","Pulp Fiction","Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark)","Silence of the Lambs, The","Star Wars: Episode IV - A New Hope","Star Wars: Episode V - The Empire Strikes Back","<B>[1]<\/B><BR><B>{Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B><BR><BR>support = 0.35<BR>confidence = 0.972<BR>coverage = 0.36<BR>lift = 2.56<BR>count = 35<BR>order = 2<BR>id = 1","<B>[2]<\/B><BR><B>{Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B><BR><BR>support = 0.35<BR>confidence = 0.921<BR>coverage = 0.38<BR>lift = 2.56<BR>count = 35<BR>order = 2<BR>id = 2","<B>[3]<\/B><BR><B>{Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.35<BR>confidence = 0.972<BR>coverage = 0.36<BR>lift = 2.16<BR>count = 35<BR>order = 2<BR>id = 3","<B>[4]<\/B><BR><B>{Minority Report}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B><BR><BR>support = 0.3<BR>confidence = 0.909<BR>coverage = 0.33<BR>lift = 1.52<BR>count = 30<BR>order = 2<BR>id = 4","<B>[5]<\/B><BR><B>{Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.38<BR>confidence = 1<BR>coverage = 0.38<BR>lift = 2.22<BR>count = 38<BR>order = 2<BR>id = 5","<B>[6]<\/B><BR><B>{Braveheart}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B><BR><BR>support = 0.35<BR>confidence = 0.921<BR>coverage = 0.38<BR>lift = 1.54<BR>count = 35<BR>order = 2<BR>id = 6","<B>[7]<\/B><BR><B>{Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Star Wars: Episode IV - A New Hope}<\/B><BR><BR>support = 0.36<BR>confidence = 0.923<BR>coverage = 0.39<BR>lift = 2.1<BR>count = 36<BR>order = 2<BR>id = 7","<B>[8]<\/B><BR><B>{Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B><BR><BR>support = 0.36<BR>confidence = 0.923<BR>coverage = 0.39<BR>lift = 1.54<BR>count = 36<BR>order = 2<BR>id = 8","<B>[9]<\/B><BR><B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.35<BR>confidence = 1<BR>coverage = 0.35<BR>lift = 2.22<BR>count = 35<BR>order = 3<BR>id = 9","<B>[10]<\/B><BR><B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B><BR><BR>support = 0.35<BR>confidence = 1<BR>coverage = 0.35<BR>lift = 2.63<BR>count = 35<BR>order = 3<BR>id = 10","<B>[11]<\/B><BR><B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B><BR><BR>support = 0.35<BR>confidence = 0.921<BR>coverage = 0.38<BR>lift = 2.56<BR>count = 35<BR>order = 3<BR>id = 11","<B>[12]<\/B><BR><B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B><BR><BR>support = 0.31<BR>confidence = 1<BR>coverage = 0.31<BR>lift = 2.63<BR>count = 31<BR>order = 3<BR>id = 12","<B>[13]<\/B><BR><B>{Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B><BR><BR>support = 0.31<BR>confidence = 0.939<BR>coverage = 0.33<BR>lift = 2.61<BR>count = 31<BR>order = 3<BR>id = 13","<B>[14]<\/B><BR><B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.31<BR>confidence = 1<BR>coverage = 0.31<BR>lift = 2.22<BR>count = 31<BR>order = 3<BR>id = 14","<B>[15]<\/B><BR><B>{Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.33<BR>confidence = 1<BR>coverage = 0.33<BR>lift = 2.22<BR>count = 33<BR>order = 3<BR>id = 15","<B>[16]<\/B><BR><B>{Jurassic Park,<BR>&nbsp;&nbsp;Silence of the Lambs, The}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B><BR><BR>support = 0.3<BR>confidence = 0.909<BR>coverage = 0.33<BR>lift = 1.52<BR>count = 30<BR>order = 3<BR>id = 16","<B>[17]<\/B><BR><B>{Star Wars: Episode IV - A New Hope,<BR>&nbsp;&nbsp;Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B><BR><BR>support = 0.34<BR>confidence = 0.944<BR>coverage = 0.36<BR>lift = 1.57<BR>count = 34<BR>order = 3<BR>id = 17","<B>[18]<\/B><BR><B>{Matrix, The,<BR>&nbsp;&nbsp;Star Wars: Episode V - The Empire Strikes Back}<\/B><BR>&nbsp;&nbsp; => <B>{Star Wars: Episode IV - A New Hope}<\/B><BR><BR>support = 0.34<BR>confidence = 0.944<BR>coverage = 0.36<BR>lift = 2.15<BR>count = 34<BR>order = 3<BR>id = 18","<B>[19]<\/B><BR><B>{Fight Club,<BR>&nbsp;&nbsp;Pulp Fiction}<\/B><BR>&nbsp;&nbsp; => <B>{Silence of the Lambs, The}<\/B><BR><BR>support = 0.34<BR>confidence = 0.919<BR>coverage = 0.37<BR>lift = 1.84<BR>count = 34<BR>order = 3<BR>id = 19","<B>[20]<\/B><BR><B>{Fight Club,<BR>&nbsp;&nbsp;Silence of the Lambs, The}<\/B><BR>&nbsp;&nbsp; => <B>{Pulp Fiction}<\/B><BR><BR>support = 0.34<BR>confidence = 0.919<BR>coverage = 0.37<BR>lift = 1.96<BR>count = 34<BR>order = 3<BR>id = 20","<B>[21]<\/B><BR><B>{Back to the Future,<BR>&nbsp;&nbsp;Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark)}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B><BR><BR>support = 0.3<BR>confidence = 0.938<BR>coverage = 0.32<BR>lift = 1.56<BR>count = 30<BR>order = 3<BR>id = 21","<B>[22]<\/B><BR><B>{Forrest Gump,<BR>&nbsp;&nbsp;Silence of the Lambs, The}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B><BR><BR>support = 0.31<BR>confidence = 0.939<BR>coverage = 0.33<BR>lift = 1.57<BR>count = 31<BR>order = 3<BR>id = 22","<B>[23]<\/B><BR><B>{Back to the Future,<BR>&nbsp;&nbsp;Star Wars: Episode IV - A New Hope}<\/B><BR>&nbsp;&nbsp; => <B>{Matrix, The}<\/B><BR><BR>support = 0.31<BR>confidence = 0.939<BR>coverage = 0.33<BR>lift = 1.57<BR>count = 31<BR>order = 3<BR>id = 23","<B>[24]<\/B><BR><B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.31<BR>confidence = 1<BR>coverage = 0.31<BR>lift = 2.22<BR>count = 31<BR>order = 4<BR>id = 24","<B>[25]<\/B><BR><B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B><BR><BR>support = 0.31<BR>confidence = 1<BR>coverage = 0.31<BR>lift = 2.63<BR>count = 31<BR>order = 4<BR>id = 25","<B>[26]<\/B><BR><B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Return of the King, The}<\/B><BR><BR>support = 0.31<BR>confidence = 0.939<BR>coverage = 0.33<BR>lift = 2.61<BR>count = 31<BR>order = 4<BR>id = 26"],"shape":["box","box","box","box","box","box","box","box","box","box","box","box","box","box","box","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle"],"x":[-0.3961050861979639,-0.5693680860300138,-0.9193736662514853,-0.2018065859488843,-0.3865048406876078,0.722339549943058,0.7086984144447892,0.7103183238255868,0.1265797583639046,0.2269699878461615,-1,-0.6035804939812317,-0.5270682693275637,-0.1361803517575561,0.008894027232428048,0.8445551459811711,0.9478119315647133,0.8956905432933711,0.1671144277081509,1,-0.2616618236768249,-0.1277863674847718,0.1302854717137907,0.9094531654172655,0.882705317028708,0.8748217490307093,0.4294733949229781,0.4714572946304354,0.4699136898500318,0.4354108096371672,-0.2518543906495074,0.03520915396240021,-0.03108085463977661,-0.8346847257119404,-0.7775041914544552,-0.2962799475322975,-0.1751310389670959,-0.150261566179302,0.5183933612750016,0.5250182174250841,0.5210816403909058],"y":[-0.421112098824021,-0.4713577313892888,1,0.6286287027956121,0.4699459250072748,-0.06389934063800995,-0.1799561765439845,-0.2436984076120886,-0.1535448618418258,0.603320603282105,0.8730016852232965,-0.1781351250919222,0.5504394365762042,-0.7362123358517785,-0.7837483143450523,-0.4509587902303024,-0.3692007741549896,0.08919971174283869,0.2802449994637091,-0.1057908571216741,-0.3161513371814585,-1,-0.5190509129084665,-0.1597752025302739,-0.2546666919378773,-0.04874934455182034,-0.2547082352984832,-0.3362070792159348,0.01108856958288107,-0.1049581733722068,0.2349304741093576,-0.5728242962751015,-0.5325971644400376,0.7658526164829362,0.8413655775052604,-0.1916761865080777,0.3150697050769975,-0.4393208839386755,-0.224416769780281,-0.06906711649646347,-0.1488227250527724]},"edges":{"from":[7,8,7,10,8,2,15,15,7,8,6,7,6,8,7,9,8,9,7,9,8,9,5,13,14,15,9,15,3,11,3,13,1,12,4,13,1,14,7,8,9,6,7,9,6,8,9,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41],"to":[16,17,18,19,20,21,22,23,24,24,25,25,26,26,27,27,28,28,29,29,30,30,31,31,32,32,33,33,34,34,35,35,36,36,37,37,38,38,39,39,39,40,40,40,41,41,41,8,7,6,9,6,9,14,9,6,8,7,8,7,6,6,9,9,14,13,11,9,9,9,6,8,7],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false},"interaction":{"hover":true,"zoomSpeed":1}},"groups":["1","2"],"width":null,"height":null,"idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"square"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);","highlight":{"enabled":true,"hoverNearest":true,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the top 10 rules with highest confidence</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>top10_rules_movies <span class="ot">=</span> <span class="fu">head</span>(<span class="fu">sort</span>(regras_filmes,<span class="at">by=</span><span class="st">"confidence"</span>),<span class="dv">10</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot as an interactive graph the top 10 rules</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(top10_rules_movies,</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">method =</span> <span class="st">"graph"</span>,<span class="at">engine =</span> <span class="st">"htmlwidget"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Retrieve the top 10 rules with highest confidence</span></span>
+<span><span class="va">top10_rules_movies</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/sort.html">sort</a></span><span class="op">(</span><span class="va">regras_filmes</span>,by<span class="op">=</span><span class="st">"confidence"</span><span class="op">)</span>,<span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co"># Plot as an interactive graph the top 10 rules</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">top10_rules_movies</span>,</span>
+<span>     method <span class="op">=</span> <span class="st">"graph"</span>,engine <span class="op">=</span> <span class="st">"htmlwidget"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="visNetwork html-widget html-fill-item" id="htmlwidget-1ce9420a7fab00a7a463" style="width:90%;height:3000px;"></div>
 <script type="application/json" data-for="htmlwidget-1ce9420a7fab00a7a463">{"x":{"nodes":{"id":[1,2,3,4,5,6,7,8,9,10,11,12,13,14],"label":["Lord of the Rings: The Fellowship of the Ring, The","Lord of the Rings: The Return of the King, The","Lord of the Rings: The Two Towers, The","Matrix, The","rule 1","rule 2","rule 3","rule 4","rule 5","rule 6","rule 7","rule 8","rule 9","rule 10"],"group":[1,1,1,1,2,2,2,2,2,2,2,2,2,2],"value":[1,1,1,1,100,57.57142857142853,57.57142857142853,1,1,29.28571428571431,1,1,57.57142857142853,57.57142857142853],"color":["#CBD2FC","#CBD2FC","#CBD2FC","#CBD2FC","#EEC9C9","#EEC9C9","#EE1B1B","#EE1B1B","#EEC9C9","#EEC9C9","#EEC9C9","#EE1B1B","#EE4444","#EEDCDC"],"title":["Lord of the Rings: The Fellowship of the Ring, The","Lord of the Rings: The Return of the King, The","Lord of the Rings: The Two Towers, The","Matrix, The","<B>[1]<\/B><BR><B>{Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.38<BR>confidence = 1<BR>coverage = 0.38<BR>lift = 2.22<BR>count = 38<BR>order = 2<BR>id = 1","<B>[2]<\/B><BR><B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.35<BR>confidence = 1<BR>coverage = 0.35<BR>lift = 2.22<BR>count = 35<BR>order = 3<BR>id = 2","<B>[3]<\/B><BR><B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B><BR><BR>support = 0.35<BR>confidence = 1<BR>coverage = 0.35<BR>lift = 2.63<BR>count = 35<BR>order = 3<BR>id = 3","<B>[4]<\/B><BR><B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B><BR><BR>support = 0.31<BR>confidence = 1<BR>coverage = 0.31<BR>lift = 2.63<BR>count = 31<BR>order = 3<BR>id = 4","<B>[5]<\/B><BR><B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.31<BR>confidence = 1<BR>coverage = 0.31<BR>lift = 2.22<BR>count = 31<BR>order = 3<BR>id = 5","<B>[6]<\/B><BR><B>{Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.33<BR>confidence = 1<BR>coverage = 0.33<BR>lift = 2.22<BR>count = 33<BR>order = 3<BR>id = 6","<B>[7]<\/B><BR><B>{Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Two Towers, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.31<BR>confidence = 1<BR>coverage = 0.31<BR>lift = 2.22<BR>count = 31<BR>order = 4<BR>id = 7","<B>[8]<\/B><BR><B>{Lord of the Rings: The Fellowship of the Ring, The,<BR>&nbsp;&nbsp;Lord of the Rings: The Return of the King, The,<BR>&nbsp;&nbsp;Matrix, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B><BR><BR>support = 0.31<BR>confidence = 1<BR>coverage = 0.31<BR>lift = 2.63<BR>count = 31<BR>order = 4<BR>id = 8","<B>[9]<\/B><BR><B>{Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Two Towers, The}<\/B><BR><BR>support = 0.35<BR>confidence = 0.972<BR>coverage = 0.36<BR>lift = 2.56<BR>count = 35<BR>order = 2<BR>id = 9","<B>[10]<\/B><BR><B>{Lord of the Rings: The Return of the King, The}<\/B><BR>&nbsp;&nbsp; => <B>{Lord of the Rings: The Fellowship of the Ring, The}<\/B><BR><BR>support = 0.35<BR>confidence = 0.972<BR>coverage = 0.36<BR>lift = 2.16<BR>count = 35<BR>order = 2<BR>id = 10"],"shape":["box","box","box","box","circle","circle","circle","circle","circle","circle","circle","circle","circle","circle"],"x":[0.09123657880147973,-0.2620259699927495,0.06246195939776067,1,0.2938744137775215,-0.3807831167367107,-0.5993448534183623,0.3209246908758563,0.6809709082940829,0.9930849958145573,0.2229942662212421,0.5148373923852139,-0.7295393394735411,-1],"y":[0.3194308838732844,-0.2972584602359063,-0.0464175690178511,-0.6083378001705966,1,0.6217218912146318,0.225020645513492,-1,-0.008184749229544819,0.2192570898355344,-0.5742104505045127,-0.3507102939274901,-0.780175408116982,0.1611555297511249]},"edges":{"from":[3,2,3,1,2,2,4,2,4,3,4,2,3,4,1,2,4,2,2,5,6,7,8,9,10,11,12,13,14],"to":[5,6,6,7,7,8,8,9,9,10,10,11,11,11,12,12,12,13,14,1,1,3,3,1,1,1,3,3,1],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false},"interaction":{"hover":true,"zoomSpeed":1}},"groups":["1","2"],"width":null,"height":null,"idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"square"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);","highlight":{"enabled":true,"hoverNearest":true,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section>
-<section id="extraindo-regras-com-um-determinando-filme" class="level3">
-<h3 class="anchored" data-anchor-id="extraindo-regras-com-um-determinando-filme">Extraindo regras com um determinando filme</h3>
+</section><section id="extraindo-regras-com-um-determinando-filme" class="level3"><h3 class="anchored" data-anchor-id="extraindo-regras-com-um-determinando-filme">Extraindo regras com um determinando filme</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract rules with Pulp Fiction on the right side</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>pulpfiction_rules_rhs <span class="ot">=</span> <span class="fu">apriori</span>(filmes_trx, </span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">supp =</span> <span class="fl">0.3</span>,</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">conf =</span> <span class="fl">0.5</span>), </span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">appearance =</span> <span class="fu">list</span>(<span class="at">default =</span> <span class="st">"lhs"</span>,</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">rhs =</span> <span class="st">"Pulp Fiction"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract rules with Pulp Fiction on the right side</span></span>
+<span><span class="va">pulpfiction_rules_rhs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/arules/man/apriori.html">apriori</a></span><span class="op">(</span><span class="va">filmes_trx</span>, </span>
+<span>                           parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>supp <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>                                            conf <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>, </span>
+<span>                       appearance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>default <span class="op">=</span> <span class="st">"lhs"</span>,</span>
+<span>                                         rhs <span class="op">=</span> <span class="st">"Pulp Fiction"</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Apriori
 
@@ -920,8 +847,8 @@ checking subsets of size 1 2 3 4 done [0.00s].
 writing ... [19 rule(s)] done [0.00s].
 creating S4 object  ... done [0.00s].</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the first rules</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(<span class="fu">head</span>(pulpfiction_rules_rhs,<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Inspect the first rules</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/inspect.html">inspect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pulpfiction_rules_rhs</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    lhs                                                     rhs            support confidence coverage     lift count
 [1] {Schindler's List}                                   =&gt; {Pulp Fiction}    0.30  0.6818182     0.44 1.450677    30
@@ -932,8 +859,8 @@ creating S4 object  ... done [0.00s].</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find rules with highest lift</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(<span class="fu">head</span>(<span class="fu">sort</span>(pulpfiction_rules_rhs, <span class="at">by=</span><span class="st">"lift"</span>), <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Find rules with highest lift</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/inspect.html">inspect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/sort.html">sort</a></span><span class="op">(</span><span class="va">pulpfiction_rules_rhs</span>, by<span class="op">=</span><span class="st">"lift"</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     lhs                             rhs            support confidence coverage     lift count
 [1]  {Fight Club,                                                                             
@@ -955,19 +882,16 @@ creating S4 object  ... done [0.00s].</code></pre>
 [10] {Silence of the Lambs, The}  =&gt; {Pulp Fiction}    0.38  0.7600000     0.50 1.617021    38</code></pre>
 </div>
 </div>
-</section>
-</section>
-<section id="extraindo-regras-com-um-filme-na-esquerda" class="level2">
-<h2 class="anchored" data-anchor-id="extraindo-regras-com-um-filme-na-esquerda">Extraindo regras com um filme na esquerda</h2>
+</section></section><section id="extraindo-regras-com-um-filme-na-esquerda" class="level2"><h2 class="anchored" data-anchor-id="extraindo-regras-com-um-filme-na-esquerda">Extraindo regras com um filme na esquerda</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract rules with Pulp Fiction on the left side</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>pulpfiction_rules_lhs <span class="ot">=</span> <span class="fu">apriori</span>(filmes_trx, </span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">supp =</span> <span class="fl">0.3</span>,</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">conf =</span> <span class="fl">0.5</span>, </span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">minlen =</span> <span class="dv">2</span>), </span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">appearance =</span> <span class="fu">list</span>(</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">default =</span> <span class="st">"rhs"</span>,</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>                             <span class="at">lhs =</span> <span class="st">"Pulp Fiction"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extract rules with Pulp Fiction on the left side</span></span>
+<span><span class="va">pulpfiction_rules_lhs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/arules/man/apriori.html">apriori</a></span><span class="op">(</span><span class="va">filmes_trx</span>, </span>
+<span>                           parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>supp <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>                                            conf <span class="op">=</span> <span class="fl">0.5</span>, </span>
+<span>                                            minlen <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, </span>
+<span>                           appearance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>                             default <span class="op">=</span> <span class="st">"rhs"</span>,</span>
+<span>                             lhs <span class="op">=</span> <span class="st">"Pulp Fiction"</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Apriori
 
@@ -991,8 +915,8 @@ checking subsets of size 1 2 done [0.00s].
 writing ... [12 rule(s)] done [0.00s].
 creating S4 object  ... done [0.00s].</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the first rules</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(<span class="fu">head</span>(pulpfiction_rules_lhs))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Inspect the first rules</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/arules/man/inspect.html">inspect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pulpfiction_rules_lhs</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    lhs               rhs                                                  support confidence coverage     lift count
 [1] {Pulp Fiction} =&gt; {Schindler's List}                                      0.30  0.6382979     0.47 1.450677    30
@@ -1005,10 +929,7 @@ creating S4 object  ... done [0.00s].</code></pre>
 </div>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1571,9 +1492,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../semanas/Aula13.html" class="pagination-link" aria-label="Análise de Clusters">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Análise de Clusters</span>
       </a>          
@@ -1582,8 +1501,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>Baseado em https://sta210-s22.github.io/website/</p>
 </div>   
@@ -1595,8 +1513,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

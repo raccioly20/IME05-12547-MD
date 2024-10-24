@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.5.54">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-08-20">
+<meta name="dcterms.date" content="2024-10-24">
 <title>Regularização de Modelos – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -429,7 +429,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 20, 2024</p>
+      <p class="date">October 24, 2024</p>
     </div>
   </div>
   
@@ -1126,14 +1126,14 @@ window.Quarto = {
 <span><span class="va">y_teste</span> <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">preco_m</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="regressão-ridge" class="level2"><h2 class="anchored" data-anchor-id="regressão-ridge">Regressão Ridge</h2>
-<p>Primeiro vamos ajustar um modelo de regressão Ridge. Isso é conseguido chamando <code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html">glmnet()</a></code> com <code>alpha=0</code>, se <code>alpha=1</code> então <code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html">glmnet()</a></code> ajusta um lasso.(veja o arquivo de ajuda).</p>
+<p>Primeiro vamos ajustar um modelo de regressão Ridge. Isso é conseguido chamando <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> com <code>alpha=0</code>, se <code>alpha=1</code> então <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> ajusta um lasso.(veja o arquivo de ajuda).</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Estabelecendo um grid de valores para lambda</span></span>
 <span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">10</span>, length <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
-<span><span class="va">ajusreg.ridge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span>, lambda <span class="op">=</span> <span class="va">grid</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">ajusreg.ridge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span>, lambda <span class="op">=</span> <span class="va">grid</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Por padrão, a função <code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html">glmnet()</a></code> executa a regressão ridge automaticamente selecionando a faixa de valores de <span class="math inline">\(\lambda\)</span>. No entanto, aqui nós escolhemos implementar usando uma grade de valores que variam de <span class="math inline">\(\lambda = 10^{-2}\)</span> a <span class="math inline">\(\lambda = 10^{10}\)</span>, cobrindo toda a gama de cenários do modelo nulo contendo apenas o coeficiente linear até o ajuste dos mínimos quadrados.</p>
-<p>Também podemos calcular o modelo para um valor particular de <span class="math inline">\(\lambda\)</span> que não é um dos valores de grade. Observe que, por padrão, a função <code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html">glmnet()</a></code> padroniza as variáveis para que elas estejam na mesma escala. <strong>Esta padronização é muito importante no caso da regressão Ridge, pois ela é afetada pela mudança de escala das variáveis explicativas.</strong></p>
+<p>Por padrão, a função <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> executa a regressão ridge automaticamente selecionando a faixa de valores de <span class="math inline">\(\lambda\)</span>. No entanto, aqui nós escolhemos implementar usando uma grade de valores que variam de <span class="math inline">\(\lambda = 10^{-2}\)</span> a <span class="math inline">\(\lambda = 10^{10}\)</span>, cobrindo toda a gama de cenários do modelo nulo contendo apenas o coeficiente linear até o ajuste dos mínimos quadrados.</p>
+<p>Também podemos calcular o modelo para um valor particular de <span class="math inline">\(\lambda\)</span> que não é um dos valores de grade. Observe que, por padrão, a função <code><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet()</a></code> padroniza as variáveis para que elas estejam na mesma escala. <strong>Esta padronização é muito importante no caso da regressão Ridge, pois ela é afetada pela mudança de escala das variáveis explicativas.</strong></p>
 <p>Associado a cada valor de <span class="math inline">\(\lambda\)</span> existe um vetor de coeficientes de regressão de ridge, que é armazenado em uma matriz que pode ser acessada por ‘coef()’. Neste caso, é uma matriz <span class="math inline">\(13 \times 100\)</span>, com 13 linhas (uma para cada preditor, mais uma para o coeficiente linear) e 100 colunas (uma para cada valor de <span class="math inline">\(\lambda\)</span>).</p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1194,7 +1194,7 @@ window.Quarto = {
 <p>A biblioteca glmnet já tem internamente uma função para uso do crosss validation. O default são 10 envelopes de dados <code>nfold=10</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
-<span><span class="va">ridge_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/glmnet/man/cv.glmnet.html">cv.glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span><span class="op">)</span> <span class="co">## por padrão k=10</span></span>
+<span><span class="va">ridge_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/cv.glmnet.html">cv.glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span><span class="op">)</span> <span class="co">## por padrão k=10</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ridge_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -1228,7 +1228,7 @@ window.Quarto = {
 </section><section id="avaliando-com-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="avaliando-com-conjunto-de-teste">Avaliando com conjunto de teste</h2>
 <p>Em seguida avaliamos seu MSE no conjunto de teste, usando <span class="math inline">\(\lambda\)</span> = m_lamb. Observe o uso da função ‘predict()’: desta vez temos previsões para um conjunto de teste, com o argumento <code>newx</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.ridge2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span>, lambda <span class="op">=</span> <span class="va">m_lamb</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.ridge2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">0</span>, lambda <span class="op">=</span> <span class="va">m_lamb</span><span class="op">)</span></span>
 <span><span class="va">y_prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">ajusreg.ridge2</span>, s <span class="op">=</span> <span class="va">m_lamb</span>, newx <span class="op">=</span> <span class="va">x_teste</span><span class="op">)</span></span>
 <span><span class="co"># Metricas de desempenho</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">y_prev</span> <span class="op">-</span> <span class="va">y_teste</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1252,7 +1252,7 @@ window.Quarto = {
 </section><section id="lasso" class="level2"><h2 class="anchored" data-anchor-id="lasso">LASSO</h2>
 <p>Primeiro ajustamos com todos os dados como no caso do Ridge</p>
 <div class="cell">
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ajusreg.lasso</span>, xvar<span class="op">=</span><span class="st">"lambda"</span>, label<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Representando os coeficientes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -1270,7 +1270,7 @@ window.Quarto = {
 </div>
 </section><section id="validação-cruzada-no-lasso" class="level2"><h2 class="anchored" data-anchor-id="validação-cruzada-no-lasso">Validação Cruzada no LASSO</h2>
 <div class="cell">
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasso_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/glmnet/man/cv.glmnet.html">cv.glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasso_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/cv.glmnet.html">cv.glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lasso_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -1303,7 +1303,7 @@ window.Quarto = {
 </div>
 </section><section id="avaliando-com-conjunto-de-teste-1" class="level2"><h2 class="anchored" data-anchor-id="avaliando-com-conjunto-de-teste-1">Avaliando com conjunto de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">1</span>, lambda <span class="op">=</span> <span class="va">m_lamb1</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">1</span>, lambda <span class="op">=</span> <span class="va">m_lamb1</span><span class="op">)</span></span>
 <span><span class="va">y_prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">ajusreg.lasso2</span>, s <span class="op">=</span> <span class="va">m_lamb1</span>, newx <span class="op">=</span> <span class="va">x_teste</span><span class="op">)</span></span>
 <span><span class="co"># Metricas de desempenho</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">y_prev</span> <span class="op">-</span> <span class="va">y_teste</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
