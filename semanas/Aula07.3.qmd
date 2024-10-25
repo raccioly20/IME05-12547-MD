@@ -15,14 +15,8 @@ knitr:
 execute:
   freeze: auto
   message: false
+  warning: false
 ---
-
-```{r}
-#| label: setup
-#| echo: false
-#| message: false
-#| warning: false
-```
 
 ## Carregando Bibliotecas
 
@@ -203,6 +197,8 @@ mod_cp <- lm(preco_m ~ idade + quartos + banheiros + m2_princ + m2_tot + andares
 summary(mod_cp)
 ```
 
+Em termos de ajuste praticamente não há diferença nos resultados, sendo que o modelo obtido usando o BIC é bem mais enxuto. A parcimoniosidade é sempre bem vinda, mas é necessário ver como ficam os resultados com o conjunto de testes.
+
 ## Avaliando Colinearidade
 
 Uma investigação minuciosa da multicollinearidade envolverá a análise do valor do $R^2$ que resulta da regressão de cada uma das variáveis explicativas contra todas as outras. A relação entre as variáveis explicativas pode ser julgada examinando uma quantidade chamada fator de inflacionário da variância (FIV) ou Variance Inflation Factor (VIF). Seja $Rj~^{2}$ o quadrado do coeficiente de correlação múltipla que resulta quando a variável explicativa $Xj~$ é ajustada contra todas as outras variáveis explicativas. Então o vif para $Xj~$ é $VIFj = 1 / (1-Rj~^{2})$
@@ -215,33 +211,52 @@ vif(mod_bic)
 vif(mod_cp)
 ```
 
+
 ## Testando os dois modelos com o conjunto de teste
 
 ```{r C_teste}
 # Modelo com base no Cp
 summary(mod_cp)$sigma
 summary(mod_cp)$adj.r.squared
+## Erro com conjunto de teste
 sqrt(mean((conj_teste$preco_m - predict(mod_cp, conj_teste)) ^ 2))
 
 # Modelo com base no BIC
 summary(mod_bic)$sigma
 summary(mod_bic)$adj.r.squared
+## Erro com conjunto de teste
 sqrt(mean((conj_teste$preco_m - predict(mod_bic, conj_teste)) ^ 2))
 ```
 
-## Comparando valor real vs previsão
+Aqui vemos que as diferença de resultados entre os dois modelos é muito pequena, mas o modelo com base no BIC é mais parcimonioso, então vamos usá-lo para fazer a previsão. 
+
+
+## Comparando valor real vs previsão (conjunto de treino)
 
 ```{r}
-conj_treino$Previsoes <- predict(mod_bic, data=conj_treino)
+conj_treino$Previsoes <- predict(mod_bic, conj_treino)
 ggplot(conj_treino, aes(x=Previsoes, y=preco_m)) + 
   geom_point() +
   geom_abline(color = "darkblue") +
   ggtitle("Preço da Casa vs. Previsões do modelo linear")
 ```
 
+
+## Comparando valor real vs previsão (conjunto de teste)
+
+```{r}
+conj_teste$Previsoes <- predict(mod_bic, conj_teste)
+ggplot(conj_teste, aes(x=Previsoes, y=preco_m)) + 
+  geom_point() +
+  geom_abline(color = "darkblue") +
+  ggtitle("Preço da Casa vs. Previsões do modelo linear")
+```
+
+
 ## Avaliando os resíduos
 
 ```{r}
 #| warning: false
 residualPlots(mod_bic)
+influencePlot(mod_bic)
 ```
