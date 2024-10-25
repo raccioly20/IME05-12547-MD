@@ -151,6 +151,14 @@ ggplot(v_teste, aes(x=y_prev, y=y_teste)) +geom_point() +
   ggtitle("Preço da Casa vs. Previsões do modelo Ridge")
 ```
 
+## Sintetizando o ajuste
+
+```{r}
+library(broom)
+tidy(ridge_cv)
+glance(ridge_cv)
+```
+
 ## LASSO
 
 Primeiro ajustamos com todos os dados como no caso do Ridge

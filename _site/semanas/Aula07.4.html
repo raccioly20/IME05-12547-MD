@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.5.54">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-10-24">
+<meta name="dcterms.date" content="2024-10-25">
 <title>Regularização de Modelos – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -404,6 +404,7 @@ window.Quarto = {
   <li><a href="#cross-validation-no-ridge" id="toc-cross-validation-no-ridge" class="nav-link" data-scroll-target="#cross-validation-no-ridge">Cross-Validation no Ridge</a></li>
   <li><a href="#avaliando-com-conjunto-de-teste" id="toc-avaliando-com-conjunto-de-teste" class="nav-link" data-scroll-target="#avaliando-com-conjunto-de-teste">Avaliando com conjunto de teste</a></li>
   <li><a href="#comparando-real-vs-previs%C3%A3o-no-conjunto-de-teste" id="toc-comparando-real-vs-previsão-no-conjunto-de-teste" class="nav-link" data-scroll-target="#comparando-real-vs-previs%C3%A3o-no-conjunto-de-teste">Comparando real vs previsão no conjunto de teste</a></li>
+  <li><a href="#sintetizando-o-ajuste" id="toc-sintetizando-o-ajuste" class="nav-link" data-scroll-target="#sintetizando-o-ajuste">Sintetizando o ajuste</a></li>
   <li><a href="#lasso" id="toc-lasso" class="nav-link" data-scroll-target="#lasso">LASSO</a></li>
   <li><a href="#valida%C3%A7%C3%A3o-cruzada-no-lasso" id="toc-validação-cruzada-no-lasso" class="nav-link" data-scroll-target="#valida%C3%A7%C3%A3o-cruzada-no-lasso">Validação Cruzada no LASSO</a></li>
   <li><a href="#avaliando-com-conjunto-de-teste-1" id="toc-avaliando-com-conjunto-de-teste-1" class="nav-link" data-scroll-target="#avaliando-com-conjunto-de-teste-1">Avaliando com conjunto de teste</a></li>
@@ -429,7 +430,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 24, 2024</p>
+      <p class="date">October 25, 2024</p>
     </div>
   </div>
   
@@ -1249,10 +1250,38 @@ window.Quarto = {
 </div>
 </div>
 </div>
+</section><section id="sintetizando-o-ajuste" class="level2"><h2 class="anchored" data-anchor-id="sintetizando-o-ajuste">Sintetizando o ajuste</h2>
+<div class="cell">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://broom.tidymodels.org/">broom</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ridge_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 100 × 6
+#&gt;    lambda estimate std.error conf.low conf.high nzero
+#&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;
+#&gt;  1 64253.    6610.      135.    6475.     6745.     7
+#&gt;  2 58545.    6591.      134.    6457.     6726.     7
+#&gt;  3 53344.    6589.      134.    6455.     6723.     7
+#&gt;  4 48605.    6587.      134.    6453.     6721.     7
+#&gt;  5 44287.    6585.      134.    6450.     6719.     7
+#&gt;  6 40353.    6582.      134.    6448.     6716.     7
+#&gt;  7 36768.    6579.      134.    6445.     6713.     7
+#&gt;  8 33502.    6576.      134.    6442.     6710.     7
+#&gt;  9 30525.    6573.      134.    6439.     6707.     7
+#&gt; 10 27814.    6569.      134.    6436.     6703.     7
+#&gt; # ℹ 90 more rows</code></pre>
+</div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">(</span><span class="va">ridge_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 1 × 3
+#&gt;   lambda.min lambda.1se  nobs
+#&gt;        &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+#&gt; 1       6.43       8.49  1192</code></pre>
+</div>
+</div>
 </section><section id="lasso" class="level2"><h2 class="anchored" data-anchor-id="lasso">LASSO</h2>
 <p>Primeiro ajustamos com todos os dados como no caso do Ridge</p>
 <div class="cell">
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ajusreg.lasso</span>, xvar<span class="op">=</span><span class="st">"lambda"</span>, label<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Representando os coeficientes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -1260,7 +1289,7 @@ window.Quarto = {
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/plotmo/man/plot_glmnet.html">plot_glmnet</a></span><span class="op">(</span><span class="va">ajusreg.lasso</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/plotmo/man/plot_glmnet.html">plot_glmnet</a></span><span class="op">(</span><span class="va">ajusreg.lasso</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="Aula07.4_files/figure-html/LASSO-2.png" class="img-fluid figure-img" style="width:90.0%"></p>
@@ -1270,7 +1299,7 @@ window.Quarto = {
 </div>
 </section><section id="validação-cruzada-no-lasso" class="level2"><h2 class="anchored" data-anchor-id="validação-cruzada-no-lasso">Validação Cruzada no LASSO</h2>
 <div class="cell">
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasso_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/cv.glmnet.html">cv.glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasso_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/cv.glmnet.html">cv.glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>,<span class="va">y_treino</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lasso_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -1278,16 +1307,16 @@ window.Quarto = {
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_lamb1</span> <span class="op">&lt;-</span> <span class="va">lasso_cv</span><span class="op">$</span><span class="va">lambda.min</span>  <span class="co"># Seleciona o lambda que minimiza o MSE de treino</span></span>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_lamb1</span> <span class="op">&lt;-</span> <span class="va">lasso_cv</span><span class="op">$</span><span class="va">lambda.min</span>  <span class="co"># Seleciona o lambda que minimiza o MSE de treino</span></span>
 <span><span class="va">m_lamb1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 0.1384287</code></pre>
 </div>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">m_lamb1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">m_lamb1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] -1.9774</code></pre>
 </div>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lasso_cv</span>, s<span class="op">=</span><span class="va">m_lamb1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lasso_cv</span>, s<span class="op">=</span><span class="va">m_lamb1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 8 x 1 sparse Matrix of class "dgCMatrix"
 #&gt;                        s1
@@ -1303,7 +1332,7 @@ window.Quarto = {
 </div>
 </section><section id="avaliando-com-conjunto-de-teste-1" class="level2"><h2 class="anchored" data-anchor-id="avaliando-com-conjunto-de-teste-1">Avaliando com conjunto de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">1</span>, lambda <span class="op">=</span> <span class="va">m_lamb1</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.lasso2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glmnet.stanford.edu/reference/glmnet.html">glmnet</a></span><span class="op">(</span><span class="va">x_treino</span>, <span class="va">y_treino</span>, alpha<span class="op">=</span><span class="fl">1</span>, lambda <span class="op">=</span> <span class="va">m_lamb1</span><span class="op">)</span></span>
 <span><span class="va">y_prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">ajusreg.lasso2</span>, s <span class="op">=</span> <span class="va">m_lamb1</span>, newx <span class="op">=</span> <span class="va">x_teste</span><span class="op">)</span></span>
 <span><span class="co"># Metricas de desempenho</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">y_prev</span> <span class="op">-</span> <span class="va">y_teste</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1313,13 +1342,13 @@ window.Quarto = {
 </div>
 </section><section id="comparando-real-vs-previsão-no-conjunto-de-teste-1" class="level2"><h2 class="anchored" data-anchor-id="comparando-real-vs-previsão-no-conjunto-de-teste-1">Comparando real vs previsão no conjunto de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">v_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">y_teste</span>, <span class="va">y_prev</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">v_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">y_teste</span>, <span class="va">y_prev</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">v_teste</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">y_prev</span>, y<span class="op">=</span><span class="va">y_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Preço da Casa vs. Previsões do modelo Ridge"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
