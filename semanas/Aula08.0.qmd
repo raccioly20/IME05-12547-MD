@@ -258,31 +258,26 @@ map_df(pontodecorte, function(x){
      scale_y_continuous(limits = c(0, 1.0))
 ```
 
-## Curva Precisão-Recall
+## Bayes Ingênuo (Naive Bayes)
 
-```{r precisao-recall, fig.width=8}
-chutando <- map_df(probs, function(p){
-            y_chapeu <- sample(c("Masculino", "Feminino"), length(indice_teste), 
-            replace = TRUE, prob=c(p, 1-p)) %>% 
-            factor(levels = c("Masculino", "Feminino"))
-     list(metodo = "Chutando",
-           recall = sensitivity(y_chapeu, conj_teste$sexo),
-           precisao = posPredValue(y_chapeu, conj_teste$sexo))
-})
-altura_ptdecorte <- map_df(pontodecorte, function(x){
-     y_chapeu <- ifelse(conj_teste$altura > x, "Masculino", "Feminino") %>% 
-          factor(levels = c("Masculino", "Feminino"))
-      list(metodo = "Corte por Altura",
-           recall = sensitivity(y_chapeu, conj_teste$sexo),
-           precisao = posPredValue(y_chapeu, conj_teste$sexo))
-})
-bind_rows(chutando, altura_ptdecorte) %>%
-     ggplot(aes(recall, precisao, color = metodo)) +
-     geom_line() +
-     geom_point() +
-     labs(x = "Recall ou Taxa Positiva Verdeira (TPV)", 
-          y = "Precisão ou Valor Preditivo Positivo (VPP)", 
-          title = "Curva Precisão - Recall") +
-     scale_x_continuous(limits = c(0, 1.0)) + 
-     scale_y_continuous(limits = c(0, 1.0))
+```{r Bayes}
+params <- conj_treino %>% 
+     group_by(sexo) %>% 
+     summarize(media = mean(altura), desvpad = sd(altura))
+params
+
+pi <- conj_treino %>% summarize(pi=mean(sexo=="Feminino")) %>% pull(pi)
+pi
+
+x <- conj_teste$altura
+
+f1 <- dnorm(x, params$media[1], params$desvpad[1])
+f0 <- dnorm(x, params$media[2], params$desvpad[2])
+
+p_chapeu_bayes <- f1*pi / (f1*pi + f0*(1 - pi))
+y_chapeu_bayes <- ifelse(p_chapeu_bayes > 0.5, "Feminino", "Masculino")
+
+confusionMatrix(factor(y_chapeu_bayes), conj_teste$sexo,  positive="Feminino")
+
 ```
+

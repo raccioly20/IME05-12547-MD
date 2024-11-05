@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.5.54">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-08-20">
+<meta name="dcterms.date" content="2024-11-05">
 <title>Classificação - Primeiros Passos – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -390,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#testando-probabilidades" id="toc-testando-probabilidades" class="nav-link" data-scroll-target="#testando-probabilidades">Testando probabilidades</a></li>
   <li><a href="#comparando-os-dois-m%C3%A9todos" id="toc-comparando-os-dois-métodos" class="nav-link" data-scroll-target="#comparando-os-dois-m%C3%A9todos">Comparando os dois métodos</a></li>
   <li><a href="#pontos-da-curva-roc" id="toc-pontos-da-curva-roc" class="nav-link" data-scroll-target="#pontos-da-curva-roc">Pontos da curva ROC</a></li>
-  <li><a href="#curva-precis%C3%A3o-recall" id="toc-curva-precisão-recall" class="nav-link" data-scroll-target="#curva-precis%C3%A3o-recall">Curva Precisão-Recall</a></li>
+  <li><a href="#bayes-ing%C3%AAnuo-naive-bayes" id="toc-bayes-ingênuo-naive-bayes" class="nav-link" data-scroll-target="#bayes-ing%C3%AAnuo-naive-bayes">Bayes Ingênuo (Naive Bayes)</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -414,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 20, 2024</p>
+      <p class="date">November 5, 2024</p>
     </div>
   </div>
   
@@ -862,37 +862,61 @@ Prediction  Feminino Masculino
 </div>
 </div>
 </div>
-</section><section id="curva-precisão-recall" class="level2"><h2 class="anchored" data-anchor-id="curva-precisão-recall">Curva Precisão-Recall</h2>
+</section><section id="bayes-ingênuo-naive-bayes" class="level2"><h2 class="anchored" data-anchor-id="bayes-ingênuo-naive-bayes">Bayes Ingênuo (Naive Bayes)</h2>
 <div class="cell">
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chutando</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html">map_df</a></span><span class="op">(</span><span class="va">probs</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">{</span></span>
-<span>            <span class="va">y_chapeu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Masculino"</span>, <span class="st">"Feminino"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">indice_teste</span><span class="op">)</span>, </span>
-<span>            replace <span class="op">=</span> <span class="cn">TRUE</span>, prob<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span><span class="op">-</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>            <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Masculino"</span>, <span class="st">"Feminino"</span><span class="op">)</span><span class="op">)</span></span>
-<span>     <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>metodo <span class="op">=</span> <span class="st">"Chutando"</span>,</span>
-<span>           recall <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/sensitivity.html">sensitivity</a></span><span class="op">(</span><span class="va">y_chapeu</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span>,</span>
-<span>           precisao <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/sensitivity.html">posPredValue</a></span><span class="op">(</span><span class="va">y_chapeu</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="va">altura_ptdecorte</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html">map_df</a></span><span class="op">(</span><span class="va">pontodecorte</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
-<span>     <span class="va">y_chapeu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">altura</span> <span class="op">&gt;</span> <span class="va">x</span>, <span class="st">"Masculino"</span>, <span class="st">"Feminino"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Masculino"</span>, <span class="st">"Feminino"</span><span class="op">)</span><span class="op">)</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>metodo <span class="op">=</span> <span class="st">"Corte por Altura"</span>,</span>
-<span>           recall <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/sensitivity.html">sensitivity</a></span><span class="op">(</span><span class="va">y_chapeu</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span>,</span>
-<span>           precisao <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/sensitivity.html">posPredValue</a></span><span class="op">(</span><span class="va">y_chapeu</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">chutando</span>, <span class="va">altura_ptdecorte</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">recall</span>, <span class="va">precisao</span>, color <span class="op">=</span> <span class="va">metodo</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Recall ou Taxa Positiva Verdeira (TPV)"</span>, </span>
-<span>          y <span class="op">=</span> <span class="st">"Precisão ou Valor Preditivo Positivo (VPP)"</span>, </span>
-<span>          title <span class="op">=</span> <span class="st">"Curva Precisão - Recall"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.0</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="Aula08.0_files/figure-html/precisao-recall-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
-</figure>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">params</span> <span class="op">&lt;-</span> <span class="va">conj_treino</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sexo</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>media <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">altura</span><span class="op">)</span>, desvpad <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">altura</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">params</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  sexo      media desvpad
+  &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 Feminino   1.65  0.0947
+2 Masculino  1.76  0.0925</code></pre>
 </div>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pi</span> <span class="op">&lt;-</span> <span class="va">conj_treino</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>pi<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">sexo</span><span class="op">==</span><span class="st">"Feminino"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">pi</span><span class="op">)</span></span>
+<span><span class="va">pi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2264601</code></pre>
+</div>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">altura</span></span>
+<span></span>
+<span><span class="va">f1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">params</span><span class="op">$</span><span class="va">media</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">params</span><span class="op">$</span><span class="va">desvpad</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">f0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">params</span><span class="op">$</span><span class="va">media</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">params</span><span class="op">$</span><span class="va">desvpad</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p_chapeu_bayes</span> <span class="op">&lt;-</span> <span class="va">f1</span><span class="op">*</span><span class="va">pi</span> <span class="op">/</span> <span class="op">(</span><span class="va">f1</span><span class="op">*</span><span class="va">pi</span> <span class="op">+</span> <span class="va">f0</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">pi</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">y_chapeu_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">p_chapeu_bayes</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">"Feminino"</span>, <span class="st">"Masculino"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">y_chapeu_bayes</span><span class="op">)</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span>,  positive<span class="op">=</span><span class="st">"Feminino"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix and Statistics
+
+           Reference
+Prediction  Feminino Masculino
+  Feminino        20         7
+  Masculino       28       156
+                                          
+               Accuracy : 0.8341          
+                 95% CI : (0.7769, 0.8817)
+    No Information Rate : 0.7725          
+    P-Value [Acc &gt; NIR] : 0.0174801       
+                                          
+                  Kappa : 0.4419          
+                                          
+ Mcnemar's Test P-Value : 0.0007232       
+                                          
+            Sensitivity : 0.41667         
+            Specificity : 0.95706         
+         Pos Pred Value : 0.74074         
+         Neg Pred Value : 0.84783         
+             Prevalence : 0.22749         
+         Detection Rate : 0.09479         
+   Detection Prevalence : 0.12796         
+      Balanced Accuracy : 0.68686         
+                                          
+       'Positive' Class : Feminino        
+                                          </code></pre>
 </div>
 </div>
 
