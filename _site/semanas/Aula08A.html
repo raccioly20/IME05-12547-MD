@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.54">
+<meta name="generator" content="quarto-1.6.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-08-20">
-<title>Arvores de Classificação - XGBoost – IME05-12547</title>
+<meta name="dcterms.date" content="2024-12-04">
+<title>KNN com Tidymodels – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,12 +66,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-43df0d6f53b733b42d37fa7808e17715.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-f2b36bfd0a0dfc186f360be2aabbf479.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c9bc31b259fcb9b72d216fbf0e60a537.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -98,7 +98,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<meta name="twitter:title" content="Arvores de Classificação - XGBoost – IME05-12547">
+<meta name="twitter:title" content="KNN com Tidymodels – IME05-12547">
+<meta name="twitter:description" content="Mineração de Dados">
 <meta name="twitter:image" content="images/md.png">
 <meta name="twitter:creator" content="@r_accioly">
 <meta name="twitter:card" content="summary_large_image">
@@ -110,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Arvores de Classificação - XGBoost</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">KNN com Tidymodels</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -367,17 +368,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#carregando-bibliotecas" id="toc-carregando-bibliotecas" class="nav-link active" data-scroll-target="#carregando-bibliotecas">Carregando Bibliotecas</a></li>
+<li><a href="#knn" id="toc-knn" class="nav-link active" data-scroll-target="#knn">KNN</a></li>
+  <li><a href="#carregando-bibliotecas" id="toc-carregando-bibliotecas" class="nav-link" data-scroll-target="#carregando-bibliotecas">Carregando Bibliotecas</a></li>
   <li><a href="#manipulando-os-dados" id="toc-manipulando-os-dados" class="nav-link" data-scroll-target="#manipulando-os-dados">Manipulando os dados</a></li>
-  <li><a href="#treino-e-teste" id="toc-treino-e-teste" class="nav-link" data-scroll-target="#treino-e-teste">Treino e Teste</a></li>
-  <li><a href="#modelo" id="toc-modelo" class="nav-link" data-scroll-target="#modelo">Modelo</a></li>
-  <li><a href="#previs%C3%B5es" id="toc-previsões" class="nav-link" data-scroll-target="#previs%C3%B5es">Previsões</a></li>
-  <li><a href="#classifica%C3%A7%C3%A3o" id="toc-classificação" class="nav-link" data-scroll-target="#classifica%C3%A7%C3%A3o">Classificação</a></li>
+  <li><a href="#knn-1" id="toc-knn-1" class="nav-link" data-scroll-target="#knn-1">KNN</a></li>
+  <li><a href="#criando-conjuntos-de-treino-e-teste" id="toc-criando-conjuntos-de-treino-e-teste" class="nav-link" data-scroll-target="#criando-conjuntos-de-treino-e-teste">Criando conjuntos de treino e teste</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Arvores de Classificação - XGBoost</h1>
+<h1 class="title">KNN com Tidymodels</h1>
 </div>
 
 
@@ -394,7 +395,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 20, 2024</p>
+      <p class="date">December 4, 2024</p>
     </div>
   </div>
   
@@ -403,40 +404,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="carregando-bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="carregando-bibliotecas">Carregando Bibliotecas</h2>
+</header><section id="knn" class="level2"><h2 class="anchored" data-anchor-id="knn">KNN</h2>
+<p><strong>Vamos ver como seria utilizar o KNN a partir do tidymodels</strong></p>
+</section><section id="carregando-bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="carregando-bibliotecas">Carregando Bibliotecas</h2>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dmlc/xgboost">xgboost</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">e1071</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.statlearning.com">ISLR</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> default    student       balance           income     
- No :9667   No :7056   Min.   :   0.0   Min.   :  772  
- Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  
-                       Median : 823.6   Median :34553  
-                       Mean   : 835.4   Mean   :33517  
-                       3rd Qu.:1166.3   3rd Qu.:43808  
-                       Max.   :2654.3   Max.   :73554  </code></pre>
+<pre><code>#&gt;  default    student       balance           income     
+#&gt;  No :9667   No :7056   Min.   :   0.0   Min.   :  772  
+#&gt;  Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  
+#&gt;                        Median : 823.6   Median :34553  
+#&gt;                        Mean   : 835.4   Mean   :33517  
+#&gt;                        3rd Qu.:1166.3   3rd Qu.:43808  
+#&gt;                        Max.   :2654.3   Max.   :73554</code></pre>
 </div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   10000 obs. of  4 variables:
- $ default: Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
- $ student: Factor w/ 2 levels "No","Yes": 1 2 1 1 1 2 1 2 1 1 ...
- $ balance: num  730 817 1074 529 786 ...
- $ income : num  44362 12106 31767 35704 38463 ...</code></pre>
+<pre><code>#&gt; 'data.frame':    10000 obs. of  4 variables:
+#&gt;  $ default: Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ student: Factor w/ 2 levels "No","Yes": 1 2 1 1 1 2 1 2 1 1 ...
+#&gt;  $ balance: num  730 817 1074 529 786 ...
+#&gt;  $ income : num  44362 12106 31767 35704 38463 ...</code></pre>
 </div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  default student   balance    income
-1      No      No  729.5265 44361.625
-2      No     Yes  817.1804 12106.135
-3      No      No 1073.5492 31767.139
-4      No      No  529.2506 35704.494
-5      No      No  785.6559 38463.496
-6      No     Yes  919.5885  7491.559</code></pre>
+<pre><code>#&gt;   default student   balance    income
+#&gt; 1      No      No  729.5265 44361.625
+#&gt; 2      No     Yes  817.1804 12106.135
+#&gt; 3      No      No 1073.5492 31767.139
+#&gt; 4      No      No  529.2506 35704.494
+#&gt; 5      No      No  785.6559 38463.496
+#&gt; 6      No     Yes  919.5885  7491.559</code></pre>
 </div>
 </div>
 </section><section id="manipulando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="manipulando-os-dados">Manipulando os dados</h2>
@@ -444,13 +445,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> default    student       balance           income     
- No :9667   No :7056   Min.   :   0.0   Min.   :  772  
- Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  
-                       Median : 823.6   Median :34553  
-                       Mean   : 835.4   Mean   :33517  
-                       3rd Qu.:1166.3   3rd Qu.:43808  
-                       Max.   :2654.3   Max.   :73554  </code></pre>
+<pre><code>#&gt;  default    student       balance           income     
+#&gt;  No :9667   No :7056   Min.   :   0.0   Min.   :  772  
+#&gt;  Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  
+#&gt;                        Median : 823.6   Median :34553  
+#&gt;                        Mean   : 835.4   Mean   :33517  
+#&gt;                        3rd Qu.:1166.3   3rd Qu.:43808  
+#&gt;                        Max.   :2654.3   Max.   :73554</code></pre>
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># renomeando colunas</span></span>
 <span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -463,134 +464,154 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span> estudante <span class="op">=</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
 <span>                           <span class="va">estudante</span> <span class="op">==</span> <span class="st">"No"</span>  <span class="op">~</span> <span class="fl">0</span>,</span>
 <span>                           <span class="va">estudante</span> <span class="op">==</span> <span class="st">"Yes"</span> <span class="op">~</span> <span class="fl">1</span></span>
-<span>                          <span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section><section id="treino-e-teste" class="level2"><h2 class="anchored" data-anchor-id="treino-e-teste">Treino e Teste</h2>
-<div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">23</span><span class="op">)</span></span>
+<span>                          <span class="op">)</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">credito_split</span> <span class="op">&lt;-</span> <span class="fu">initial_validation_split</span><span class="op">(</span><span class="va">credito</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.6</span>, <span class="fl">0.2</span><span class="op">)</span>, strata <span class="op">=</span> <span class="va">inadimplente</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">credito_split</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;Training/Validation/Testing/Total&gt;
-&lt;6000/2000/2000/10000&gt;</code></pre>
+<pre><code>#&gt; tibble [10,000 × 4] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ inadimplente: Factor w/ 2 levels "Nao","Sim": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ estudante   : num [1:10000] 0 1 0 0 0 1 0 1 0 0 ...
+#&gt;  $ balanco     : num [1:10000] 730 817 1074 529 786 ...
+#&gt;  $ receita     : num [1:10000] 44362 12106 31767 35704 38463 ...</code></pre>
 </div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="fu">training</span><span class="op">(</span><span class="va">credito_split</span><span class="op">)</span></span>
-<span><span class="va">conj_validacao</span> <span class="op">&lt;-</span> <span class="fu">validation</span><span class="op">(</span><span class="va">credito_split</span><span class="op">)</span></span>
-<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="fu">testing</span><span class="op">(</span><span class="va">credito_split</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">X_treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html">data.matrix</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>               </span>
-<span><span class="va">y_treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span>
-<span></span>
-<span><span class="va">X_valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html">data.matrix</a></span><span class="op">(</span><span class="va">conj_validacao</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="va">y_valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">conj_validacao</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span>
-<span>  </span>
-<span><span class="va">X_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html">data.matrix</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="va">y_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span>
-<span></span>
-<span><span class="va">xgboost_treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.DMatrix.html">xgb.DMatrix</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">X_treino</span>, label<span class="op">=</span><span class="va">y_treino</span><span class="op">)</span></span>
-<span><span class="va">xgboost_valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.DMatrix.html">xgb.DMatrix</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">X_valid</span>, label<span class="op">=</span><span class="va">y_valid</span><span class="op">)</span></span>
-<span><span class="va">xgboost_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.DMatrix.html">xgb.DMatrix</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">X_teste</span>, label<span class="op">=</span><span class="va">y_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section><section id="modelo" class="level2"><h2 class="anchored" data-anchor-id="modelo">Modelo</h2>
-<div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">num_class</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">credito</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>  booster<span class="op">=</span><span class="st">"gbtree"</span>,</span>
-<span>  eta<span class="op">=</span><span class="fl">0.001</span>,</span>
-<span>  max_depth<span class="op">=</span><span class="fl">5</span>,</span>
-<span>  gamma<span class="op">=</span><span class="fl">3</span>,</span>
-<span>  subsample<span class="op">=</span><span class="fl">0.75</span>,</span>
-<span>  colsample_bytree<span class="op">=</span><span class="fl">1</span>,</span>
-<span>  objective<span class="op">=</span><span class="st">"multi:softprob"</span>,</span>
-<span>  eval_metric<span class="op">=</span><span class="st">"mlogloss"</span>,</span>
-<span>  num_class<span class="op">=</span><span class="va">num_class</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">xgb.ajuste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.train.html">xgb.train</a></span><span class="op">(</span></span>
-<span>  params<span class="op">=</span><span class="va">params</span>,</span>
-<span>  data<span class="op">=</span><span class="va">xgboost_treino</span>,</span>
-<span>  nrounds<span class="op">=</span><span class="fl">8000</span>,</span>
-<span>  early_stopping_rounds<span class="op">=</span><span class="fl">10</span>,</span>
-<span>  watchlist<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>val1<span class="op">=</span><span class="va">xgboost_valid</span><span class="op">)</span>,</span>
-<span>  verbose<span class="op">=</span><span class="fl">0</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co"># Modelo</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">xgb.ajuste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                Length   Class              Mode       
-handle                 1 xgb.Booster.handle externalptr
-raw             23580711 -none-             raw        
-best_iteration         1 -none-             numeric    
-best_ntreelimit        1 -none-             numeric    
-best_score             1 -none-             numeric    
-best_msg               1 -none-             character  
-niter                  1 -none-             numeric    
-evaluation_log         2 data.table         list       
-call                   7 -none-             call       
-params                10 -none-             list       
-callbacks              2 -none-             list       
-feature_names          3 -none-             character  
-nfeatures              1 -none-             numeric    </code></pre>
+<pre><code>#&gt;  inadimplente   estudante         balanco          receita     
+#&gt;  Nao:9667     Min.   :0.0000   Min.   :   0.0   Min.   :  772  
+#&gt;  Sim: 333     1st Qu.:0.0000   1st Qu.: 481.7   1st Qu.:21340  
+#&gt;               Median :0.0000   Median : 823.6   Median :34553  
+#&gt;               Mean   :0.2944   Mean   : 835.4   Mean   :33517  
+#&gt;               3rd Qu.:1.0000   3rd Qu.:1166.3   3rd Qu.:43808  
+#&gt;               Max.   :1.0000   Max.   :2654.3   Max.   :73554</code></pre>
 </div>
 </div>
-</section><section id="previsões" class="level2"><h2 class="anchored" data-anchor-id="previsões">Previsões</h2>
+</section><section id="knn-1" class="level2"><h2 class="anchored" data-anchor-id="knn-1">KNN</h2>
+<p><strong>O KNN é um algoritmo de classificação que se baseia na distância entre os pontos.</strong> <strong>Como o KNN usa as distancias entre os pontos ele é afetado pela escala dos dados, portanto, é necessário que os dados sejam normalizados (padronizados) para eliminar este efeito.</strong></p>
+<p>Quando temos diversas variáveis explicativas em diferentes escalas, em geral, elas devem ser transformadas para ter media zero e desvio padrão 1</p>
+</section><section id="criando-conjuntos-de-treino-e-teste" class="level2"><h2 class="anchored" data-anchor-id="criando-conjuntos-de-treino-e-teste">Criando conjuntos de treino e teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">xgb.prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">xgb.ajuste</span>,<span class="va">xgboost_teste</span>,reshape<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
-<span><span class="va">xgb.prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">xgb.prev</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">xgb.prev</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">credito</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">)</span></span>
+<span><span class="va">credito_split</span> <span class="op">&lt;-</span> <span class="fu">initial_split</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.80</span>, strata <span class="op">=</span> <span class="va">inadimplente</span>, data <span class="op">=</span> <span class="va">credito</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="fu">training</span><span class="op">(</span><span class="va">credito_split</span><span class="op">)</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="fu">testing</span><span class="op">(</span><span class="va">credito_split</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="classificação" class="level2"><h2 class="anchored" data-anchor-id="classificação">Classificação</h2>
+</section><section id="section" class="level2"><h2 class="anchored" data-anchor-id="section"></h2>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
-<span><span class="va">y_chapeu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">xgb.prev</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">"Sim"</span>, <span class="st">"Nao"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>             <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">y_chapeu</span>, reference <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span>,  positive<span class="op">=</span><span class="st">"Sim"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Validação Cruzada</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">)</span></span>
+<span><span class="va">df_cv</span> <span class="op">&lt;-</span> <span class="fu">vfold_cv</span><span class="op">(</span><span class="va">conj_treino</span>, v <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">df_cv</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Confusion Matrix and Statistics
-
-          Reference
-Prediction  Nao  Sim
-       Nao 1926   46
-       Sim    3   25
-                                          
-               Accuracy : 0.9755          
-                 95% CI : (0.9677, 0.9818)
-    No Information Rate : 0.9645          
-    P-Value [Acc &gt; NIR] : 0.003226        
-                                          
-                  Kappa : 0.4949          
-                                          
- Mcnemar's Test P-Value : 1.973e-09       
-                                          
-            Sensitivity : 0.3521          
-            Specificity : 0.9984          
-         Pos Pred Value : 0.8929          
-         Neg Pred Value : 0.9767          
-             Prevalence : 0.0355          
-         Detection Rate : 0.0125          
-   Detection Prevalence : 0.0140          
-      Balanced Accuracy : 0.6753          
-                                          
-       'Positive' Class : Sim             
-                                          </code></pre>
+<pre><code>#&gt; #  5-fold cross-validation 
+#&gt; # A tibble: 5 × 2
+#&gt;   splits              id   
+#&gt;   &lt;list&gt;              &lt;chr&gt;
+#&gt; 1 &lt;split [6400/1600]&gt; Fold1
+#&gt; 2 &lt;split [6400/1600]&gt; Fold2
+#&gt; 3 &lt;split [6400/1600]&gt; Fold3
+#&gt; 4 &lt;split [6400/1600]&gt; Fold4
+#&gt; 5 &lt;split [6400/1600]&gt; Fold5</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
-<span><span class="va">roc_xgboost</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">xgb.prev</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, print.auc<span class="op">=</span><span class="cn">FALSE</span>, col<span class="op">=</span><span class="st">"green"</span>, legacy.axes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="Aula12.1A_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
-</figure>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_knn</span> <span class="op">&lt;-</span> <span class="fu">nearest_neighbor</span><span class="op">(</span>neighbors <span class="op">=</span> <span class="fu">tune</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>            <span class="fu">set_engine</span><span class="op">(</span><span class="st">"kknn"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>            <span class="fu">set_mode</span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">roc_xgboost</span><span class="op">$</span><span class="va">auc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_knn_recipe</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">estudante</span> <span class="op">+</span> <span class="va">balanco</span> <span class="op">+</span> <span class="va">receita</span>, data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="fu">step_normalize</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">mod_knn_recipe</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">prep</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">mod_knn_recipe</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">prep</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">bake</span><span class="op">(</span>new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Area under the curve: 0.9528</code></pre>
+<pre><code>#&gt; # A tibble: 8,000 × 4
+#&gt;    estudante balanco receita inadimplente
+#&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;       
+#&gt;  1    -0.649 -0.219    0.819 Nao         
+#&gt;  2    -0.649  0.491   -0.127 Nao         
+#&gt;  3    -0.649 -0.631    0.169 Nao         
+#&gt;  4    -0.649 -0.103    0.376 Nao         
+#&gt;  5     1.54   0.173   -1.95  Nao         
+#&gt;  6    -0.649 -0.0207  -0.642 Nao         
+#&gt;  7     1.54  -0.0554  -1.19  Nao         
+#&gt;  8    -0.649 -1.72    -0.314 Nao         
+#&gt;  9     1.54  -1.72    -0.870 Nao         
+#&gt; 10     1.54   0.794   -1.52  Nao         
+#&gt; # ℹ 7,990 more rows</code></pre>
 </div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_knn_workflow</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">mod_knn_recipe</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">mod_knn</span><span class="op">)</span></span>
+<span><span class="va">mod_knn_workflow</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; ══ Workflow ════════════════════════════════════════════════════════════════════
+#&gt; Preprocessor: Recipe
+#&gt; Model: nearest_neighbor()
+#&gt; 
+#&gt; ── Preprocessor ────────────────────────────────────────────────────────────────
+#&gt; 1 Recipe Step
+#&gt; 
+#&gt; • step_normalize()
+#&gt; 
+#&gt; ── Model ───────────────────────────────────────────────────────────────────────
+#&gt; K-Nearest Neighbor Model Specification (classification)
+#&gt; 
+#&gt; Main Arguments:
+#&gt;   neighbors = tune()
+#&gt; 
+#&gt; Computational engine: kknn</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">knn_tune_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>neighbors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">25</span>, <span class="fl">45</span>, <span class="fl">60</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">120</span>, <span class="fl">140</span>, <span class="fl">180</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu">control_resamples</span><span class="op">(</span>save_pred <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">mod_knn_tune</span> <span class="op">&lt;-</span> <span class="va">mod_knn_workflow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">tune_grid</span><span class="op">(</span>resamples <span class="op">=</span> <span class="va">df_cv</span>, </span>
+<span>               grid <span class="op">=</span> <span class="va">knn_tune_grid</span>, </span>
+<span>               control <span class="op">=</span> <span class="va">ctrl</span><span class="op">)</span></span>
+<span><span class="va">mod_knn_tune</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # Tuning results
+#&gt; # 5-fold cross-validation 
+#&gt; # A tibble: 5 × 5
+#&gt;   splits              id    .metrics          .notes           .predictions
+#&gt;   &lt;list&gt;              &lt;chr&gt; &lt;list&gt;            &lt;list&gt;           &lt;list&gt;      
+#&gt; 1 &lt;split [6400/1600]&gt; Fold1 &lt;tibble [33 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+#&gt; 2 &lt;split [6400/1600]&gt; Fold2 &lt;tibble [33 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+#&gt; 3 &lt;split [6400/1600]&gt; Fold3 &lt;tibble [33 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+#&gt; 4 &lt;split [6400/1600]&gt; Fold4 &lt;tibble [33 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+#&gt; 5 &lt;split [6400/1600]&gt; Fold5 &lt;tibble [33 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_knn_tune</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">collect_metrics</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 33 × 7
+#&gt;    neighbors .metric     .estimator   mean     n std_err .config              
+#&gt;        &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+#&gt;  1        10 accuracy    binary     0.970      5 0.00250 Preprocessor1_Model01
+#&gt;  2        10 brier_class binary     0.0244     5 0.00155 Preprocessor1_Model01
+#&gt;  3        10 roc_auc     binary     0.849      5 0.0123  Preprocessor1_Model01
+#&gt;  4        15 accuracy    binary     0.972      5 0.00212 Preprocessor1_Model02
+#&gt;  5        15 brier_class binary     0.0232     5 0.00148 Preprocessor1_Model02
+#&gt;  6        15 roc_auc     binary     0.866      5 0.0117  Preprocessor1_Model02
+#&gt;  7        25 accuracy    binary     0.974      5 0.00192 Preprocessor1_Model03
+#&gt;  8        25 brier_class binary     0.0223     5 0.00138 Preprocessor1_Model03
+#&gt;  9        25 roc_auc     binary     0.899      5 0.0126  Preprocessor1_Model03
+#&gt; 10        45 accuracy    binary     0.974      5 0.00166 Preprocessor1_Model04
+#&gt; # ℹ 23 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">melhor_k</span> <span class="op">&lt;-</span> <span class="va">mod_knn_tune</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">select_best</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">mod_knn_final</span> <span class="op">&lt;-</span> <span class="va">mod_knn_workflow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">finalize_workflow</span><span class="op">(</span><span class="va">melhor_k</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">resultados_knn</span> <span class="op">&lt;-</span> <span class="va">mod_knn_final</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">fit</span><span class="op">(</span>data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span>new_data <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html">bind_cols</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">metrics</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">inadimplente</span>, estimate <span class="op">=</span> <span class="va">.pred_class</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -820,8 +841,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -932,7 +951,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

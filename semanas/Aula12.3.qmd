@@ -75,19 +75,6 @@ y_teste <- credito %>% slice(indice_teste) %>% select(inadimplente)
 y_teste <- as.integer(unlist(y_teste))-1
 ```
 
-```{r}
-library(vtreat)
-vars <- c("balanco","receita","estudante")
-planotrat <- designTreatmentsZ(x_conj_treino, vars, verbose=FALSE)
-novasvars <- planotrat$scoreFrame %>%
-filter(code %in% c("clean", "lev")) %>% magrittr::use_series(varName)
-conj_treino.trat <- prepare(planotrat, x_conj_treino, varRestriction = novasvars)
-str(conj_treino.trat)
-conj_teste.trat <- prepare(planotrat, x_conj_teste, varRestriction = novasvars)
-str(conj_teste.trat)
-
-```
-
 ## Treinando
 
 ```{r}
@@ -107,7 +94,7 @@ params = list(
 )
 
 set.seed(21)
-cv <- xgb.cv(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino), params=params, 
+cv <- xgb.cv(data = as.matrix(x_conj_treino), label = as.matrix(y_treino), params=params, 
              nrounds = 10000, nfold = 5, early_stopping_rounds=10, 
              nthreads=1, verbose=FALSE)
 # cv
@@ -121,20 +108,28 @@ elog %>%
 ## Modelo Final
 
 ```{r final}
-modelo_xgb <- xgboost(data = as.matrix(conj_treino.trat), label = as.matrix(y_treino),
+modelo_xgb <- xgboost(data = as.matrix(x_conj_treino), label = as.matrix(y_treino),
              params=params, nrounds = nrounds, verbose = FALSE)
+```
+
+## Importancia das variáveis
+
+```{r}
+importancia <- xgb.importance(model = modelo_xgb)
+importancia
+xgb.plot.importance(importancia)
 ```
 
 ## Previsões
 
 ```{r}
-conj_teste.trat$prev <- predict(modelo_xgb, as.matrix(conj_teste.trat), reshape=T)
+x_conj_teste$prev <- predict(modelo_xgb, as.matrix(x_conj_teste), reshape=T)
 
 ```
 
 ## Avaliando
 
 ```{r}
-xgb.ychapeu <- as.factor(ifelse(conj_teste.trat$prev[,1] > 0.5,0,1))
+xgb.ychapeu <- as.factor(ifelse(x_conj_teste$prev[,1] > 0.5,0,1))
 confusionMatrix(xgb.ychapeu,as.factor(y_teste), positive="1")
 ```

@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.54">
+<meta name="generator" content="quarto-1.6.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-08-20">
+<meta name="dcterms.date" content="2024-12-04">
 <title>Análise de Clusters – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -68,12 +68,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-43df0d6f53b733b42d37fa7808e17715.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-f2b36bfd0a0dfc186f360be2aabbf479.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c9bc31b259fcb9b72d216fbf0e60a537.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -412,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 20, 2024</p>
+      <p class="date">December 4, 2024</p>
     </div>
   </div>
   
@@ -440,16 +440,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 75 × 2
        x     y
    &lt;int&gt; &lt;int&gt;
- 1    69    15
- 2    49   152
- 3    36    72
- 4    13    49
- 5    66    18
- 6    54   124
- 7    85    96
- 8    27    55
- 9    35   153
-10    64    20
+ 1    41   150
+ 2    76    27
+ 3    31    60
+ 4    66    18
+ 5    27    72
+ 6    70     4
+ 7    60   136
+ 8    28    60
+ 9    61    25
+10    83    21
 # ℹ 65 more rows</code></pre>
 </div>
 </div>
@@ -499,21 +499,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">km</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">ruspini_norm</span>, centers <span class="op">=</span> <span class="fl">4</span>, nstart <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">km</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>K-means clustering with 4 clusters of sizes 15, 23, 17, 20
+<pre><code>K-means clustering with 4 clusters of sizes 23, 15, 20, 17
 
 Cluster means:
            x          y
-1  0.4607268 -1.4912271
-2 -0.3595425  1.1091151
-3  1.4194387  0.4692907
-4 -1.1385941 -0.5559591
+1 -0.3595425  1.1091151
+2  0.4607268 -1.4912271
+3 -1.1385941 -0.5559591
+4  1.4194387  0.4692907
 
 Clustering vector:
- [1] 1 2 4 4 1 2 3 4 2 1 3 1 2 1 2 3 3 2 2 2 3 4 1 1 3 3 1 4 4 4 2 1 3 4 1 3 2 2
-[39] 3 2 2 2 4 4 2 4 1 4 1 1 2 4 3 2 4 3 3 3 3 4 1 4 2 2 3 4 2 2 2 4 1 4 2 3 4
+ [1] 1 2 3 2 3 2 1 3 2 2 1 4 1 2 3 1 4 4 2 4 1 4 3 1 3 4 3 3 3 2 2 4 4 4 4 1 4 3
+[39] 1 1 1 4 4 3 4 2 1 3 1 4 3 4 1 1 2 1 3 1 1 1 2 2 1 4 3 3 3 1 1 3 1 2 3 2 3
 
 Within cluster sum of squares by cluster:
-[1] 1.082373 2.658679 3.641276 2.705477
+[1] 2.658679 1.082373 2.705477 3.641276
  (between_SS / total_SS =  93.2 %)
 
 Available components:
@@ -527,18 +527,18 @@ Available components:
 <span><span class="va">ruspini_clusters</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 75 × 3
-         x       y cluster
-     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;  
- 1  0.463  -1.58   1      
- 2 -0.193   1.23   2      
- 3 -0.619  -0.411  4      
- 4 -1.37   -0.883  4      
- 5  0.365  -1.52   1      
- 6 -0.0289  0.657  2      
- 7  0.987   0.0816 3      
- 8 -0.914  -0.760  4      
- 9 -0.652   1.25   2      
-10  0.299  -1.48   1      
+        x      y cluster
+    &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  
+ 1 -0.455  1.19  1      
+ 2  0.692 -1.34  2      
+ 3 -0.783 -0.658 3      
+ 4  0.365 -1.52  2      
+ 5 -0.914 -0.411 3      
+ 6  0.496 -1.81  2      
+ 7  0.168  0.903 1      
+ 8 -0.881 -0.658 3      
+ 9  0.201 -1.38  2      
+10  0.922 -1.46  2      
 # ℹ 65 more rows</code></pre>
 </div>
 </div>
@@ -559,10 +559,10 @@ Available components:
 <pre><code># A tibble: 4 × 3
   cluster      x      y
   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-1 1        0.461 -1.49 
-2 2       -0.360  1.11 
-3 3        1.42   0.469
-4 4       -1.14  -0.556</code></pre>
+1 1       -0.360  1.11 
+2 2        0.461 -1.49 
+3 3       -1.14  -0.556
+4 4        1.42   0.469</code></pre>
 </div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ruspini_clusters</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">cluster</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">centroids</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">cluster</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">3</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -592,107 +592,107 @@ Available components:
 <div class="cell-output cell-output-stdout">
 <pre><code>Medoids:
      ID          x          y
-[1,] 35  0.4629124 -1.4583746
-[2,] 20 -0.3566917  1.1698207
-[3,] 43 -1.1762959 -0.5549325
-[4,] 53  1.4464374  0.5538374
+[1,] 24 -0.3566917  1.1698207
+[2,] 19  0.4629124 -1.4583746
+[3,] 67 -1.1762959 -0.5549325
+[4,] 12  1.4464374  0.5538374
 Clustering vector:
- [1] 1 2 3 3 1 2 4 3 2 1 4 1 2 1 2 4 4 2 2 2 4 3 1 1 4 4 1 3 3 3 2 1 4 3 1 4 2 2
-[39] 4 2 2 2 3 3 2 3 1 3 1 1 2 3 4 2 3 4 4 4 4 3 1 3 2 2 4 3 2 2 2 3 1 3 2 4 3
+ [1] 1 2 3 2 3 2 1 3 2 2 1 4 1 2 3 1 4 4 2 4 1 4 3 1 3 4 3 3 3 2 2 4 4 4 4 1 4 3
+[39] 1 1 1 4 4 3 4 2 1 3 1 4 3 4 1 1 2 1 3 1 1 1 2 2 1 4 3 3 3 1 1 3 1 2 3 2 3
 Objective function:
     build      swap 
 0.4422977 0.3187056 
 
 Numerical information per cluster:
      size  max_diss   av_diss  diameter separation
-[1,]   15 0.4589783 0.2433250 0.8359025   1.157682
-[2,]   23 0.6558680 0.2993397 1.1591436   0.767612
+[1,]   23 0.6558680 0.2993397 1.1591436   0.767612
+[2,]   15 0.4589783 0.2433250 0.8359025   1.157682
 [3,]   20 0.5755656 0.3401125 1.1192822   1.157682
 [4,]   17 0.9459253 0.3862345 1.4627043   0.767612
 
 Isolated clusters:
  L-clusters: character(0)
- L*-clusters: [1] 1 3
+ L*-clusters: [1] 2 3
 
 Silhouette plot information:
    cluster neighbor sil_width
-35       1        3 0.8592059
-1        1        3 0.8553255
-5        1        3 0.8530741
-27       1        3 0.8449473
-10       1        3 0.8361633
-12       1        3 0.8187150
-23       1        3 0.8178795
-14       1        4 0.8087015
-32       1        3 0.8013799
-71       1        3 0.7983516
-49       1        3 0.7918724
-50       1        3 0.7768261
-47       1        3 0.7727269
-24       1        4 0.7425993
-61       1        3 0.7328306
-20       2        3 0.8368407
-40       2        3 0.8305019
-63       2        4 0.8222142
-68       2        3 0.8220686
-73       2        3 0.8158429
-13       2        4 0.8150398
-64       2        3 0.8134280
-15       2        3 0.8064757
-2        2        4 0.7984225
-45       2        3 0.7969057
-9        2        3 0.7841631
-18       2        4 0.7794889
-42       2        4 0.7605512
-41       2        3 0.7591035
-54       2        3 0.7473901
-37       2        4 0.7423529
-51       2        3 0.7402623
-38       2        3 0.7249133
-19       2        4 0.7007372
-67       2        3 0.6739284
-6        2        4 0.5661372
-31       2        4 0.5413082
-69       2        4 0.4673917
-43       3        2 0.8094377
-30       3        1 0.8027447
-60       3        2 0.7782513
-48       3        1 0.7704646
-70       3        1 0.7700388
-22       3        2 0.7597906
-75       3        2 0.7530091
-44       3        2 0.7436695
-34       3        1 0.7412965
-46       3        2 0.7270442
-4        3        1 0.7255183
-8        3        1 0.7226938
-72       3        1 0.7042349
-62       3        2 0.7026960
-52       3        2 0.6966533
-66       3        1 0.6921822
-55       3        1 0.6756339
-29       3        1 0.6463656
-28       3        2 0.6005277
-3        3        1 0.6004543
-36       4        2 0.7898609
-53       4        2 0.7834341
-33       4        2 0.7822308
-39       4        2 0.7790446
-11       4        2 0.7780891
-56       4        2 0.7694930
-25       4        2 0.7624335
-65       4        2 0.7609359
-17       4        2 0.7400337
-57       4        2 0.7392052
-26       4        2 0.7390493
-21       4        2 0.7234199
-58       4        2 0.5894345
-7        4        1 0.5666610
-74       4        2 0.5114355
-59       4        2 0.4358476
-16       4        2 0.3312348
+24       1        3 0.8368407
+1        1        3 0.8305019
+49       1        4 0.8222142
+69       1        3 0.8220686
+21       1        3 0.8158429
+39       1        4 0.8150398
+56       1        3 0.8134280
+11       1        3 0.8064757
+58       1        4 0.7984225
+53       1        3 0.7969057
+47       1        3 0.7841631
+59       1        4 0.7794889
+40       1        4 0.7605512
+36       1        3 0.7591035
+13       1        3 0.7473901
+16       1        4 0.7423529
+63       1        3 0.7402623
+68       1        3 0.7249133
+41       1        4 0.7007372
+71       1        3 0.6739284
+54       1        4 0.5661372
+7        1        4 0.5413082
+60       1        4 0.4673917
+19       2        3 0.8592059
+74       2        3 0.8553255
+4        2        3 0.8530741
+46       2        3 0.8449473
+72       2        3 0.8361633
+14       2        3 0.8187150
+62       2        3 0.8178795
+2        2        4 0.8087015
+31       2        3 0.8013799
+6        2        3 0.7983516
+55       2        3 0.7918724
+61       2        3 0.7768261
+9        2        3 0.7727269
+10       2        4 0.7425993
+30       2        3 0.7328306
+67       3        1 0.8094377
+57       3        2 0.8027447
+66       3        1 0.7782513
+44       3        2 0.7704646
+28       3        2 0.7700388
+27       3        1 0.7597906
+29       3        1 0.7530091
+5        3        1 0.7436695
+8        3        2 0.7412965
+23       3        1 0.7270442
+73       3        2 0.7255183
+70       3        2 0.7226938
+25       3        2 0.7042349
+38       3        1 0.7026960
+48       3        1 0.6966533
+3        3        2 0.6921822
+15       3        2 0.6756339
+65       3        2 0.6463656
+75       3        1 0.6005277
+51       3        2 0.6004543
+18       4        1 0.7898609
+12       4        1 0.7834341
+43       4        1 0.7822308
+42       4        1 0.7790446
+34       4        1 0.7780891
+45       4        1 0.7694930
+33       4        1 0.7624335
+50       4        1 0.7609359
+22       4        1 0.7400337
+35       4        1 0.7392052
+64       4        1 0.7390493
+26       4        1 0.7234199
+52       4        1 0.5894345
+17       4        2 0.5666610
+32       4        1 0.5114355
+37       4        1 0.4358476
+20       4        1 0.3312348
 Average silhouette width per cluster:
-[1] 0.8073733 0.7454551 0.7211353 0.6812849
+[1] 0.7454551 0.8073733 0.7211353 0.6812849
 Average silhouette width of total data set:
 [1] 0.7368082
 
@@ -741,12 +741,12 @@ Available components:
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.4629124</td>
-<td style="text-align: right;">-1.4583746</td>
-</tr>
-<tr class="even">
 <td style="text-align: right;">-0.3566917</td>
 <td style="text-align: right;">1.1698207</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.4629124</td>
+<td style="text-align: right;">-1.4583746</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">-1.1762959</td>
@@ -763,8 +763,8 @@ Available components:
 <span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/tabyl.html">tabyl</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">$</span><span class="va">clustering</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> kmed$clustering  n   percent
-               1 15 0.2000000
-               2 23 0.3066667
+               1 23 0.3066667
+               2 15 0.2000000
                3 20 0.2666667
                4 17 0.2266667</code></pre>
 </div>
@@ -774,11 +774,11 @@ Available components:
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">ruspini_norm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A função hclust() implementa o HCA, ou seja, o cluster hierarquico aglomerativo. Vamos começar usando o método completo.</p>
+<p>A função hclust() implementa o HCA, ou seja, o cluster hierarquico aglomerativo. Vamos começar usando o método da média.</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"complete"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"average"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>O HCA retorna um dendrograma e não uma definiçaõ de clusters.</p>
+<p>O HCA retorna um dendrograma e não uma definição de clusters.</p>
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -790,7 +790,7 @@ Available components:
 </div>
 <p>Se usarmos a biblioteca factoextra podemos definir o número de clusters que queremos visualizar.</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc</span>, k<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc</span>, k<span class="op">=</span><span class="fl">4</span>, horiz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
@@ -798,7 +798,7 @@ Available components:
 </div>
 </div>
 </div>
-<p>Podemos extrair as atraibuições de cluster cortando o dendrograma em 4 partes e adicionando a identidade aos dados.</p>
+<p>Podemos extrair as atribuições de cluster cortando o dendrograma em 4 partes e adicionando a identidade aos dados.</p>
 <div class="cell">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">clusters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc</span>, k <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">cluster_completo</span> <span class="op">&lt;-</span> <span class="va">ruspini_norm</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -806,18 +806,18 @@ Available components:
 <span><span class="va">cluster_completo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 75 × 3
-         x       y cluster
-     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;  
- 1  0.463  -1.58   1      
- 2 -0.193   1.23   2      
- 3 -0.619  -0.411  3      
- 4 -1.37   -0.883  3      
- 5  0.365  -1.52   1      
- 6 -0.0289  0.657  2      
- 7  0.987   0.0816 4      
- 8 -0.914  -0.760  3      
- 9 -0.652   1.25   2      
-10  0.299  -1.48   1      
+        x      y cluster
+    &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;  
+ 1 -0.455  1.19  1      
+ 2  0.692 -1.34  2      
+ 3 -0.783 -0.658 3      
+ 4  0.365 -1.52  2      
+ 5 -0.914 -0.411 3      
+ 6  0.496 -1.81  2      
+ 7  0.168  0.903 1      
+ 8 -0.881 -0.658 3      
+ 9  0.201 -1.38  2      
+10  0.922 -1.46  2      
 # ℹ 65 more rows</code></pre>
 </div>
 </div>
@@ -825,7 +825,7 @@ Available components:
 <div class="cell">
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hc_w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">d</span>, method <span class="op">=</span> <span class="st">"ward.D"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>O HCA retorna um dendrograma e não uma definiçaõ de clusters.</p>
+<p>O HCA retorna um dendrograma e não uma definição de clusters.</p>
 <div class="cell">
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">hc_w</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -837,7 +837,7 @@ Available components:
 </div>
 <p>Se usarmos a biblioteca factoextra podemos definir o número de clusters que queremos visualizar.</p>
 <div class="cell">
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc_w</span>, k<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_dend.html">fviz_dend</a></span><span class="op">(</span><span class="va">hc_w</span>, k<span class="op">=</span><span class="fl">4</span>, horiz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="Aula13_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
@@ -870,8 +870,8 @@ Available components:
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_silhouette.html">fviz_silhouette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/cluster/man/silhouette.html">silhouette</a></span><span class="op">(</span><span class="va">kmed</span><span class="op">$</span><span class="va">clustering</span>, <span class="va">d</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cluster size ave.sil.width
-1       1   15          0.81
-2       2   23          0.75
+1       1   23          0.75
+2       2   15          0.81
 3       3   20          0.72
 4       4   17          0.68</code></pre>
 </div>
@@ -1130,8 +1130,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1242,7 +1240,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

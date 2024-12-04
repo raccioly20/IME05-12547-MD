@@ -133,13 +133,13 @@ O agrupamento hierárquico começa com uma matriz de distância ´dist()´ e tem
 d <- dist(ruspini_norm)
 ```
 
-A função hclust() implementa o HCA, ou seja, o cluster hierarquico aglomerativo. Vamos começar usando o método completo.
+A função hclust() implementa o HCA, ou seja, o cluster hierarquico aglomerativo. Vamos começar usando o método da média.
 
 ```{r}
-hc <- hclust(d, method = "complete")
+hc <- hclust(d, method = "average")
 ```
 
-O HCA retorna um dendrograma e não uma definiçaõ de clusters.
+O HCA retorna um dendrograma e não uma definição de clusters.
 
 ```{r}
 plot(hc)
@@ -148,10 +148,10 @@ plot(hc)
 Se usarmos a biblioteca factoextra podemos definir o número de clusters que queremos visualizar.
 
 ```{r}
-fviz_dend(hc, k=4)
+fviz_dend(hc, k=4, horiz=TRUE)
 ```
 
-Podemos extrair as atraibuições de cluster cortando o dendrograma em 4 partes e adicionando a identidade aos dados.
+Podemos extrair as atribuições de cluster cortando o dendrograma em 4 partes e adicionando a identidade aos dados.
 
 ```{r}
 clusters <- cutree(hc, k = 4)
@@ -166,7 +166,7 @@ Podemos usar o método de Ward para obter o cluster.
 hc_w <- hclust(d, method = "ward.D")
 ```
 
-O HCA retorna um dendrograma e não uma definiçaõ de clusters.
+O HCA retorna um dendrograma e não uma definição de clusters.
 
 ```{r}
 plot(hc_w)
@@ -175,7 +175,7 @@ plot(hc_w)
 Se usarmos a biblioteca factoextra podemos definir o número de clusters que queremos visualizar.
 
 ```{r}
-fviz_dend(hc_w, k=4)
+fviz_dend(hc_w, k=4, horiz=TRUE)
 ```
 
 ```{r}

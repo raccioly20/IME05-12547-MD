@@ -1,0 +1,132 @@
+---
+title: "KNN com Tidymodels"
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+format:
+ html:
+    code-link: true
+    fig-width: 9
+    fig-height: 7
+    fig-dpi: 300
+knitr:
+  opts_chunk: 
+    out.width: 90%
+    comment: "#>"
+execute: 
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+---
+
+## KNN
+
+**Vamos ver como seria utilizar o KNN a partir do tidymodels**
+
+## Carregando Bibliotecas
+
+```{r bibliotecas, message=FALSE}
+library(tidyverse)
+library(ISLR)
+data(Default)
+summary(Default)
+str(Default)
+head(Default)
+```
+
+## Manipulando os dados
+
+```{r inadimplente}
+credito <- tibble(Default)
+summary(credito)
+# renomeando colunas
+credito <- credito %>% 
+                rename( inadimplente = default, estudante = student, balanco = balance,
+                receita = income)
+credito <- credito %>% mutate( inadimplente =  case_when(
+                           inadimplente == "No"  ~ "Nao",
+                           inadimplente == "Yes" ~ "Sim"
+                          )) %>% mutate(inadimplente = factor(inadimplente))
+credito <- credito %>% mutate( estudante =  case_when(
+                           estudante == "No"  ~ 0,
+                           estudante == "Yes" ~ 1
+                          )) 
+
+str(credito)
+summary(credito)
+
+```
+
+## KNN
+
+**O KNN é um algoritmo de classificação que se baseia na distância entre os pontos.**
+**Como o KNN usa as distancias entre os pontos ele é afetado pela escala dos dados, portanto, é necessário que os dados sejam normalizados (padronizados) para eliminar este efeito.**
+
+Quando temos diversas variáveis explicativas em diferentes escalas, em geral, elas devem ser transformadas para ter media zero e desvio padrão 1
+
+## Criando conjuntos de treino e teste
+
+```{r conjuntos-treino-teste, message=FALSE}
+library(tidymodels)
+set.seed(2024)
+credito_split <- initial_split(prop = 0.80, strata = inadimplente, data = credito)
+
+conj_treino <- training(credito_split)
+conj_teste <- testing(credito_split)
+```
+
+##
+
+```{r}
+## Validação Cruzada
+set.seed(2024)
+df_cv <- vfold_cv(conj_treino, v = 5)
+df_cv
+```
+
+
+```{r}
+mod_knn <- nearest_neighbor(neighbors = tune()) %>% 
+            set_engine("kknn") %>%
+            set_mode("classification")
+```
+
+```{r}
+mod_knn_recipe <- recipe(inadimplente ~ estudante + balanco + receita, data = conj_treino) %>%  step_normalize(all_predictors())
+mod_knn_recipe %>% prep()
+mod_knn_recipe %>% prep() %>% bake(new_data = NULL)
+```
+
+
+```{r}
+mod_knn_workflow <- workflow() %>% 
+  add_recipe(mod_knn_recipe) %>% 
+  add_model(mod_knn)
+mod_knn_workflow
+```
+
+```{r}
+knn_tune_grid <- tibble(neighbors = c(10, 15, 25, 45, 60, 80, 100, 120, 140, 180, 200))
+ctrl <- control_resamples(save_pred = TRUE)
+mod_knn_tune <- mod_knn_workflow %>% tune_grid(resamples = df_cv, 
+               grid = knn_tune_grid, 
+               control = ctrl)
+mod_knn_tune
+```
+
+```{r}
+mod_knn_tune %>% collect_metrics()
+```
+
+```{r}
+melhor_k <- mod_knn_tune %>% select_best()
+mod_knn_final <- mod_knn_workflow %>% finalize_workflow(melhor_k)
+```
+
+```{r}
+resultados_knn <- mod_knn_final %>% fit(data = conj_treino) %>% 
+  predict(new_data = conj_teste) %>% bind_cols(conj_teste) %>% 
+  metrics(truth = inadimplente, estimate = .pred_class)
+```
+
+

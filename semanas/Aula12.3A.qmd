@@ -1,0 +1,195 @@
+---
+title: "Arvores de Classificação - XGboost no Tidymodels"
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+execute: 
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+format:
+ html:
+    code-link: true
+    fig-height: 10
+    fig-width: 10
+    fig-align: center
+    fig-dpi: 300
+knitr: 
+  opts_chunk: 
+    out.width: 90%
+    fig.showtext: true
+    collapese: true
+---
+
+## Bibliotecas
+
+```{r bibliotecas , message=FALSE}
+library(tidyverse)
+library(ISLR)
+```
+
+## Dados
+
+```{r}
+data(Default)
+summary(Default)
+str(Default)
+head(Default)
+```
+
+## Manipulando os dados
+
+```{r}
+credito <- tibble(Default)
+summary(credito)
+# renomeando colunas
+credito <- credito %>% 
+                rename( inadimplente = default, estudante = student, balanco = balance,
+                receita = income)
+credito <- credito %>% mutate( inadimplente =  case_when(
+                           inadimplente == "No"  ~ "Nao",
+                           inadimplente == "Yes" ~ "Sim"
+                          )) %>% mutate(inadimplente = factor(inadimplente))
+credito <- credito %>% mutate( estudante =  case_when(
+                           estudante == "No"  ~ 0,
+                           estudante == "Yes" ~ 1
+                          )) 
+
+str(credito)
+summary(credito)
+```
+
+## Treino e Teste
+
+```{r}
+library(tidymodels)
+set.seed(2024)
+
+dados_split <- initial_split(credito, strata = inadimplente)
+conj_treino <- training(dados_split)
+conj_teste <- testing(dados_split)
+
+```
+
+## Treinando
+
+```{r}
+## 1a tentativa Xgboost
+xgb_spec <- boost_tree(
+  trees = 1000,
+  tree_depth = tune(), min_n = tune(),
+  loss_reduction = tune(),         ## first three: model complexity
+  sample_size = tune(), mtry = tune(),         ## randomness
+  learn_rate = tune()                          ## step size
+) %>%
+  set_engine("xgboost") %>%
+  set_mode("classification")
+
+xgb_spec
+```
+
+```{r}
+xgb_grid <- grid_latin_hypercube(
+  tree_depth(),
+  min_n(),
+  loss_reduction(),
+  sample_size = sample_prop(),
+  finalize(mtry(), conj_treino),
+  learn_rate(),
+  size = 30
+)
+
+xgb_grid
+```
+
+```{r}
+xgb_wf <- workflow() %>%
+  add_formula(inadimplente ~ .) %>%
+  add_model(xgb_spec)
+
+xgb_wf
+```
+
+## 
+
+```{r}
+set.seed(2024)
+vb_folds <- vfold_cv(conj_treino, v = 5, strata = inadimplente)
+vb_folds
+```
+
+```{r}
+doParallel::registerDoParallel()
+
+set.seed(2024)
+xgb_res <- tune_grid(
+  xgb_wf,
+  resamples = vb_folds,
+  grid = xgb_grid,
+  control = control_grid(save_pred = TRUE)
+)
+
+xgb_res
+```
+
+```{r}
+xgb_res %>% collect_metrics()
+```
+
+```{r}
+xgb_res %>%
+  collect_metrics() %>%
+  filter(.metric == "roc_auc") %>%
+  select(mean, mtry:sample_size) %>%
+  pivot_longer(mtry:sample_size,
+               values_to = "value",
+               names_to = "parameter"
+  ) %>%
+  ggplot(aes(value, mean, color = parameter)) +
+  geom_point(alpha = 0.8, show.legend = FALSE) +
+  facet_wrap(~parameter, scales = "free_x") +
+  labs(x = NULL, y = "AUC")
+```
+
+```{r}
+melhor_auc <- select_best(xgb_res)
+```
+
+```{r}
+final_xgb <- finalize_workflow(
+  xgb_wf,
+  melhor_auc
+)
+
+final_xgb
+```
+
+```{r}
+library(vip)
+
+final_xgb %>%
+  fit(data = conj_treino) %>%
+  pull_workflow_fit() %>%
+  vip(geom = "point")
+```
+
+```{r}
+final_res <- last_fit(final_xgb, dados_split)
+
+collect_metrics(final_res)
+```
+
+```{r}
+final_res %>%
+  collect_predictions() %>%
+  roc_curve(truth=inadimplente, .pred_Sim, event_level = "second") %>%
+  autoplot()
+```
+
+```{r}
+mat_conf <- final_res %>%
+  collect_predictions() %>%
+  conf_mat(truth = inadimplente, estimate = .pred_class, event_level = "second")
+summary(mat_conf)
+```
+
