@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.37">
-
+<meta name="generator" content="quarto-1.6.42">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Ricardo Accioly">
 <meta name="dcterms.date" content="2024-08-20">
-
 <title>Arvores de Classificação - Única e GBM – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -58,7 +55,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -72,13 +68,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-43df0d6f53b733b42d37fa7808e17715.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f2b36bfd0a0dfc186f360be2aabbf479.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-c9bc31b259fcb9b72d216fbf0e60a537.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-7ae42e3a2e78170bdbc875189b276612.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-51e27b74fbd13efd78a07743a708c48e.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -105,21 +100,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-
-
-<meta name="twitter:title" content="Arvores de Classificação - Única e GBM – IME05-12547">
-<meta name="twitter:description" content="Mineração de Dados">
-<meta name="twitter:image" content="images/md.png">
-<meta name="twitter:creator" content="@r_accioly">
-<meta name="twitter:card" content="summary_large_image">
 </head>
-
 <body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -130,19 +115,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
-      <div class="sidebar-tools-main tools-wide">
+      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <div class="sidebar-tools-main">
     <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/r_accioly" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -153,7 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
+<li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Informação da disciplina</span></a>
@@ -161,8 +140,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visão Geral</span></a>
@@ -175,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
@@ -184,15 +163,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sobre</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
@@ -201,15 +180,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Acesso</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
@@ -218,8 +197,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explorando 01</span></a>
@@ -376,47 +355,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#carregando-bibliotecas" id="toc-carregando-bibliotecas" class="nav-link active" data-scroll-target="#carregando-bibliotecas">Carregando Bibliotecas</a></li>
+<li><a href="#carregando-bibliotecas" id="toc-carregando-bibliotecas" class="nav-link active" data-scroll-target="#carregando-bibliotecas">Carregando Bibliotecas</a></li>
   <li><a href="#manipulando-os-dados" id="toc-manipulando-os-dados" class="nav-link" data-scroll-target="#manipulando-os-dados">Manipulando os dados</a></li>
   <li><a href="#treino-e-teste" id="toc-treino-e-teste" class="nav-link" data-scroll-target="#treino-e-teste">Treino e Teste</a></li>
-  <li><a href="#arvore-de-classificação" id="toc-arvore-de-classificação" class="nav-link" data-scroll-target="#arvore-de-classificação">Arvore de Classificação</a></li>
+  <li><a href="#arvore-de-classifica%C3%A7%C3%A3o" id="toc-arvore-de-classificação" class="nav-link" data-scroll-target="#arvore-de-classifica%C3%A7%C3%A3o">Arvore de Classificação</a></li>
   <li><a href="#regras" id="toc-regras" class="nav-link" data-scroll-target="#regras">Regras</a></li>
-  <li><a href="#desenhando-a-árvore-de-uma-forma-mais-clara" id="toc-desenhando-a-árvore-de-uma-forma-mais-clara" class="nav-link" data-scroll-target="#desenhando-a-árvore-de-uma-forma-mais-clara">Desenhando a Árvore de uma forma mais clara</a></li>
-  <li><a href="#previsões" id="toc-previsões" class="nav-link" data-scroll-target="#previsões">Previsões</a></li>
-  <li><a href="#arvore-de-classificação-no-caret" id="toc-arvore-de-classificação-no-caret" class="nav-link" data-scroll-target="#arvore-de-classificação-no-caret">Arvore de Classificação no caret</a></li>
-  <li><a href="#uma-forma-melhor-de-ver-a-árvore" id="toc-uma-forma-melhor-de-ver-a-árvore" class="nav-link" data-scroll-target="#uma-forma-melhor-de-ver-a-árvore">Uma forma melhor de ver a Árvore</a></li>
-  <li><a href="#previsões-1" id="toc-previsões-1" class="nav-link" data-scroll-target="#previsões-1">Previsões</a></li>
+  <li><a href="#desenhando-a-%C3%A1rvore-de-uma-forma-mais-clara" id="toc-desenhando-a-árvore-de-uma-forma-mais-clara" class="nav-link" data-scroll-target="#desenhando-a-%C3%A1rvore-de-uma-forma-mais-clara">Desenhando a Árvore de uma forma mais clara</a></li>
+  <li><a href="#previs%C3%B5es" id="toc-previsões" class="nav-link" data-scroll-target="#previs%C3%B5es">Previsões</a></li>
+  <li><a href="#arvore-de-classifica%C3%A7%C3%A3o-no-caret" id="toc-arvore-de-classificação-no-caret" class="nav-link" data-scroll-target="#arvore-de-classifica%C3%A7%C3%A3o-no-caret">Arvore de Classificação no caret</a></li>
+  <li><a href="#uma-forma-melhor-de-ver-a-%C3%A1rvore" id="toc-uma-forma-melhor-de-ver-a-árvore" class="nav-link" data-scroll-target="#uma-forma-melhor-de-ver-a-%C3%A1rvore">Uma forma melhor de ver a Árvore</a></li>
+  <li><a href="#previs%C3%B5es-1" id="toc-previsões-1" class="nav-link" data-scroll-target="#previs%C3%B5es-1">Previsões</a></li>
   <li><a href="#verificando-a-consistencia-dos-resultados" id="toc-verificando-a-consistencia-dos-resultados" class="nav-link" data-scroll-target="#verificando-a-consistencia-dos-resultados">Verificando a consistencia dos resultados</a></li>
   <li><a href="#obtendo-a-arvore" id="toc-obtendo-a-arvore" class="nav-link" data-scroll-target="#obtendo-a-arvore">Obtendo a arvore</a></li>
-  <li><a href="#desenhando-a-árvore-de-uma-forma-mais-clara-1" id="toc-desenhando-a-árvore-de-uma-forma-mais-clara-1" class="nav-link" data-scroll-target="#desenhando-a-árvore-de-uma-forma-mais-clara-1">Desenhando a Árvore de uma forma mais clara</a></li>
-  <li><a href="#gbm" id="toc-gbm" class="nav-link" data-scroll-target="#gbm">GBM</a>
+  <li><a href="#desenhando-a-%C3%A1rvore-de-uma-forma-mais-clara-1" id="toc-desenhando-a-árvore-de-uma-forma-mais-clara-1" class="nav-link" data-scroll-target="#desenhando-a-%C3%A1rvore-de-uma-forma-mais-clara-1">Desenhando a Árvore de uma forma mais clara</a></li>
+  <li>
+<a href="#gbm" id="toc-gbm" class="nav-link" data-scroll-target="#gbm">GBM</a>
   <ul class="collapse">
-  <li><a href="#criando-um-grid-para-avaliar-os-parametros" id="toc-criando-um-grid-para-avaliar-os-parametros" class="nav-link" data-scroll-target="#criando-um-grid-para-avaliar-os-parametros">Criando um grid para avaliar os parametros</a></li>
-  </ul></li>
+<li><a href="#criando-um-grid-para-avaliar-os-parametros" id="toc-criando-um-grid-para-avaliar-os-parametros" class="nav-link" data-scroll-target="#criando-um-grid-para-avaliar-os-parametros">Criando um grid para avaliar os parametros</a></li>
+  </ul>
+</li>
   <li><a href="#avaliando-o-grid-de-parametros" id="toc-avaliando-o-grid-de-parametros" class="nav-link" data-scroll-target="#avaliando-o-grid-de-parametros">Avaliando o grid de parametros</a></li>
   <li><a href="#modelo-final" id="toc-modelo-final" class="nav-link" data-scroll-target="#modelo-final">Modelo final</a></li>
-  <li><a href="#importância-das-variáveis" id="toc-importância-das-variáveis" class="nav-link" data-scroll-target="#importância-das-variáveis">Importância das Variáveis</a></li>
-  <li><a href="#previsão" id="toc-previsão" class="nav-link" data-scroll-target="#previsão">Previsão</a></li>
+  <li><a href="#import%C3%A2ncia-das-vari%C3%A1veis" id="toc-importância-das-variáveis" class="nav-link" data-scroll-target="#import%C3%A2ncia-das-vari%C3%A1veis">Importância das Variáveis</a></li>
+  <li><a href="#previs%C3%A3o" id="toc-previsão" class="nav-link" data-scroll-target="#previs%C3%A3o">Previsão</a></li>
   <li><a href="#curva-roc" id="toc-curva-roc" class="nav-link" data-scroll-target="#curva-roc">Curva ROC</a></li>
-  </ul>
-</nav>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula12.1.html">Arvore de Classificação</a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula12.1.html">Arvore de Classificação</a></li></ol></nav><div class="quarto-title">
 <h1 class="title">Arvores de Classificação - Única e GBM</h1>
 </div>
 
@@ -443,16 +418,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<section id="carregando-bibliotecas" class="level2">
-<h2 class="anchored" data-anchor-id="carregando-bibliotecas">Carregando Bibliotecas</h2>
+</header><section id="carregando-bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="carregando-bibliotecas">Carregando Bibliotecas</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Default)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Default)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.statlearning.com">ISLR</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> default    student       balance           income     
  No :9667   No :7056   Min.   :   0.0   Min.   :  772  
@@ -462,7 +433,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                        3rd Qu.:1166.3   3rd Qu.:43808  
                        Max.   :2654.3   Max.   :73554  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Default)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   10000 obs. of  4 variables:
  $ default: Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
@@ -470,7 +441,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ balance: num  730 817 1074 529 786 ...
  $ income : num  44362 12106 31767 35704 38463 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Default)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  default student   balance    income
 1      No      No  729.5265 44361.625
@@ -481,12 +452,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6      No     Yes  919.5885  7491.559</code></pre>
 </div>
 </div>
-</section>
-<section id="manipulando-os-dados" class="level2">
-<h2 class="anchored" data-anchor-id="manipulando-os-dados">Manipulando os dados</h2>
+</section><section id="manipulando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="manipulando-os-dados">Manipulando os dados</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>credito <span class="ot">&lt;-</span> <span class="fu">tibble</span>(Default)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(credito)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> default    student       balance           income     
  No :9667   No :7056   Min.   :   0.0   Min.   :  772  
@@ -496,20 +465,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                        3rd Qu.:1166.3   3rd Qu.:43808  
                        Max.   :2654.3   Max.   :73554  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># renomeando colunas</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>credito <span class="ot">&lt;-</span> credito <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">rename</span>( <span class="at">inadimplente =</span> default, <span class="at">estudante =</span> student, <span class="at">balanco =</span> balance,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">receita =</span> income)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>credito <span class="ot">&lt;-</span> credito <span class="sc">%&gt;%</span> <span class="fu">mutate</span>( <span class="at">inadimplente =</span>  <span class="fu">case_when</span>(</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                           inadimplente <span class="sc">==</span> <span class="st">"No"</span>  <span class="sc">~</span> <span class="st">"Nao"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                           inadimplente <span class="sc">==</span> <span class="st">"Yes"</span> <span class="sc">~</span> <span class="st">"Sim"</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                          )) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">inadimplente =</span> <span class="fu">factor</span>(inadimplente))</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>credito <span class="ot">&lt;-</span> credito <span class="sc">%&gt;%</span> <span class="fu">mutate</span>( <span class="at">estudante =</span>  <span class="fu">case_when</span>(</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                           estudante <span class="sc">==</span> <span class="st">"No"</span>  <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                           estudante <span class="sc">==</span> <span class="st">"Yes"</span> <span class="sc">~</span> <span class="dv">1</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                          )) </span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(credito)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># renomeando colunas</span></span>
+<span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>                <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span> inadimplente <span class="op">=</span> <span class="va">default</span>, estudante <span class="op">=</span> <span class="va">student</span>, balanco <span class="op">=</span> <span class="va">balance</span>,</span>
+<span>                receita <span class="op">=</span> <span class="va">income</span><span class="op">)</span></span>
+<span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span> inadimplente <span class="op">=</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>                           <span class="va">inadimplente</span> <span class="op">==</span> <span class="st">"No"</span>  <span class="op">~</span> <span class="st">"Nao"</span>,</span>
+<span>                           <span class="va">inadimplente</span> <span class="op">==</span> <span class="st">"Yes"</span> <span class="op">~</span> <span class="st">"Sim"</span></span>
+<span>                          <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>inadimplente <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span> estudante <span class="op">=</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>                           <span class="va">estudante</span> <span class="op">==</span> <span class="st">"No"</span>  <span class="op">~</span> <span class="fl">0</span>,</span>
+<span>                           <span class="va">estudante</span> <span class="op">==</span> <span class="st">"Yes"</span> <span class="op">~</span> <span class="fl">1</span></span>
+<span>                          <span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [10,000 × 4] (S3: tbl_df/tbl/data.frame)
  $ inadimplente: Factor w/ 2 levels "Nao","Sim": 1 1 1 1 1 1 1 1 1 1 ...
@@ -517,7 +486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ balanco     : num [1:10000] 730 817 1074 529 786 ...
  $ receita     : num [1:10000] 44362 12106 31767 35704 38463 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(credito)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> inadimplente   estudante         balanco          receita     
  Nao:9667     Min.   :0.0000   Min.   :   0.0   Min.   :  772  
@@ -528,19 +497,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
               Max.   :1.0000   Max.   :2654.3   Max.   :73554  </code></pre>
 </div>
 </div>
-</section>
-<section id="treino-e-teste" class="level2">
-<h2 class="anchored" data-anchor-id="treino-e-teste">Treino e Teste</h2>
+</section><section id="treino-e-teste" class="level2"><h2 class="anchored" data-anchor-id="treino-e-teste">Treino e Teste</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> credito<span class="sc">$</span>inadimplente</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>indice_teste <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(y, <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> credito <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>indice_teste)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> credito <span class="sc">%&gt;%</span> <span class="fu">slice</span>(indice_teste)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(conj_treino)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">$</span><span class="va">inadimplente</span></span>
+<span><span class="va">indice_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.2</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="op">-</span><span class="va">indice_teste</span><span class="op">)</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">indice_teste</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> inadimplente   estudante         balanco          receita     
  Nao:7733     Min.   :0.0000   Min.   :   0.0   Min.   :  772  
@@ -550,7 +517,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
               3rd Qu.:1.0000   3rd Qu.:1167.1   3rd Qu.:43840  
               Max.   :1.0000   Max.   :2654.3   Max.   :73554  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(conj_teste)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> inadimplente   estudante         balanco          receita     
  Nao:1934     Min.   :0.0000   Min.   :   0.0   Min.   : 4755  
@@ -561,34 +528,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
               Max.   :1.0000   Max.   :2461.5   Max.   :71239  </code></pre>
 </div>
 </div>
-</section>
-<section id="arvore-de-classificação" class="level2">
-<h2 class="anchored" data-anchor-id="arvore-de-classificação">Arvore de Classificação</h2>
+</section><section id="arvore-de-classificação" class="level2"><h2 class="anchored" data-anchor-id="arvore-de-classificação">Arvore de Classificação</h2>
 <p>Na biblioteca rpart as arvores de classificação são obtidas usando o método class. Existem alguns controles que podem ser feitos nos parametros da arvore.</p>
 <p>Neste exemplo só definimos o menor conjunto de dados numa partição (minsplit) e o parametro de complexidade cp.&nbsp;Posteriormente vamos ampliar este controle. Um valor de cp muito pequeno ocasiona overfitting e um valor muito grande resulta numa arvore muito pequena (underfitting). Nos dois casos se diminui o desempenho do modelo.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Usando rpart para desenvolver a arvore  </span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>arvcl <span class="ot">&lt;-</span> <span class="fu">rpart</span>(inadimplente <span class="sc">~</span> ., </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>conj_treino,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">method=</span><span class="st">"class"</span>, <span class="co">#para arvore de classificação</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">control=</span><span class="fu">rpart.control</span>(<span class="at">minsplit=</span><span class="dv">30</span>,<span class="at">cp=</span><span class="fl">0.02</span>))</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arvcl)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(arvcl,<span class="at">pretty=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">##Usando rpart para desenvolver a arvore  </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span></span>
+<span><span class="va">arvcl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">.</span>, </span>
+<span>                data<span class="op">=</span><span class="va">conj_treino</span>,</span>
+<span>                method<span class="op">=</span><span class="st">"class"</span>, <span class="co">#para arvore de classificação</span></span>
+<span>                control<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.control.html">rpart.control</a></span><span class="op">(</span>minsplit<span class="op">=</span><span class="fl">30</span>,cp<span class="op">=</span><span class="fl">0.02</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">arvcl</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">arvcl</span>,pretty<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula12.1_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula12.1_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="regras" class="level2">
-<h2 class="anchored" data-anchor-id="regras">Regras</h2>
+</section><section id="regras" class="level2"><h2 class="anchored" data-anchor-id="regras">Regras</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regras de Decisão</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>arvcl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Regras de Decisão</span></span>
+<span><span class="va">arvcl</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>n= 7999 
 
@@ -604,30 +566,25 @@ node), split, n, loss, yval, (yprob)
      7) balanco&gt;=1971.915 88  21 Sim (0.23863636 0.76136364) *</code></pre>
 </div>
 </div>
-</section>
-<section id="desenhando-a-árvore-de-uma-forma-mais-clara" class="level2">
-<h2 class="anchored" data-anchor-id="desenhando-a-árvore-de-uma-forma-mais-clara">Desenhando a Árvore de uma forma mais clara</h2>
+</section><section id="desenhando-a-árvore-de-uma-forma-mais-clara" class="level2"><h2 class="anchored" data-anchor-id="desenhando-a-árvore-de-uma-forma-mais-clara">Desenhando a Árvore de uma forma mais clara</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rattle)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fancyRpartPlot</span>(arvcl, <span class="at">caption =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rattle.togaware.com/">rattle</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.org/rpart-plot/index.html">rpart.plot</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/rattle/man/fancyRpartPlot.html">fancyRpartPlot</a></span><span class="op">(</span><span class="va">arvcl</span>, caption <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula12.1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula12.1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="previsões" class="level2">
-<h2 class="anchored" data-anchor-id="previsões">Previsões</h2>
+</section><section id="previsões" class="level2"><h2 class="anchored" data-anchor-id="previsões">Previsões</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazendo Previsões</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>y_chapeu <span class="ot">&lt;-</span> <span class="fu">predict</span>(arvcl, <span class="at">newdata =</span> conj_teste, <span class="at">type=</span><span class="st">"class"</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(y_chapeu, conj_teste<span class="sc">$</span>inadimplente, <span class="at">positive=</span><span class="st">"Sim"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Fazendo Previsões</span></span>
+<span><span class="va">y_chapeu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">arvcl</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span>, type<span class="op">=</span><span class="st">"class"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">y_chapeu</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span>, positive<span class="op">=</span><span class="st">"Sim"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix and Statistics
 
@@ -658,69 +615,61 @@ Prediction  Nao  Sim
                                           </code></pre>
 </div>
 </div>
-</section>
-<section id="arvore-de-classificação-no-caret" class="level2">
-<h2 class="anchored" data-anchor-id="arvore-de-classificação-no-caret">Arvore de Classificação no caret</h2>
+</section><section id="arvore-de-classificação-no-caret" class="level2"><h2 class="anchored" data-anchor-id="arvore-de-classificação-no-caret">Arvore de Classificação no caret</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Usando rpart para desenvolver a arvore  </span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Otimizamos o valor de cp usando um 10-fold cv</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># O parametro tuneLength diz para o algoritmo escolher diferentes valores para cp</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># O parametro tuneGrid permite decidir que valores cp deve assumir enquanto que o</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># tuneLength somente limita o número default de parametros que se usa.</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>tgrid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">cp =</span> <span class="fu">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.10</span>,<span class="fl">0.001</span>))</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>ctrl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">classProbs=</span><span class="cn">TRUE</span>)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>arvclass <span class="ot">&lt;-</span> <span class="fu">train</span>(inadimplente <span class="sc">~</span> . , <span class="at">data =</span> conj_treino, <span class="at">method =</span> <span class="st">"rpart"</span>,</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trControl =</span> ctrl,</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">tuneGrid =</span> tgrid</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>                 )</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostra a acurácia vs cp (parametro de complexidade)</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arvclass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">##Usando rpart para desenvolver a arvore  </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span><span class="co">## Otimizamos o valor de cp usando um 10-fold cv</span></span>
+<span><span class="co"># O parametro tuneLength diz para o algoritmo escolher diferentes valores para cp</span></span>
+<span><span class="co"># O parametro tuneGrid permite decidir que valores cp deve assumir enquanto que o</span></span>
+<span><span class="co"># tuneLength somente limita o número default de parametros que se usa.</span></span>
+<span><span class="va">tgrid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>cp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.10</span>,<span class="fl">0.001</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cv"</span>, classProbs<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">arvclass</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">.</span> , data <span class="op">=</span> <span class="va">conj_treino</span>, method <span class="op">=</span> <span class="st">"rpart"</span>,</span>
+<span>                 trControl <span class="op">=</span> <span class="va">ctrl</span>,</span>
+<span>                 tuneGrid <span class="op">=</span> <span class="va">tgrid</span></span>
+<span>                 <span class="op">)</span></span>
+<span><span class="co"># Mostra a acurácia vs cp (parametro de complexidade)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">arvclass</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula12.1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula12.1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Indica o melhor valor de cp</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>arvclass<span class="sc">$</span>bestTune</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Indica o melhor valor de cp</span></span>
+<span><span class="va">arvclass</span><span class="op">$</span><span class="va">bestTune</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      cp
 53 0.062</code></pre>
 </div>
 </div>
-</section>
-<section id="uma-forma-melhor-de-ver-a-árvore" class="level2">
-<h2 class="anchored" data-anchor-id="uma-forma-melhor-de-ver-a-árvore">Uma forma melhor de ver a Árvore</h2>
+</section><section id="uma-forma-melhor-de-ver-a-árvore" class="level2"><h2 class="anchored" data-anchor-id="uma-forma-melhor-de-ver-a-árvore">Uma forma melhor de ver a Árvore</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## melhorando apresentação da árvore</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rattle)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fancyRpartPlot</span>(arvclass<span class="sc">$</span>finalModel, <span class="at">caption =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## melhorando apresentação da árvore</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rattle.togaware.com/">rattle</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.org/rpart-plot/index.html">rpart.plot</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/rattle/man/fancyRpartPlot.html">fancyRpartPlot</a></span><span class="op">(</span><span class="va">arvclass</span><span class="op">$</span><span class="va">finalModel</span>, caption <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula12.1_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula12.1_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="previsões-1" class="level2">
-<h2 class="anchored" data-anchor-id="previsões-1">Previsões</h2>
+</section><section id="previsões-1" class="level2"><h2 class="anchored" data-anchor-id="previsões-1">Previsões</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazendo Previsões</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>y_chapeu <span class="ot">&lt;-</span> arvclass <span class="sc">%&gt;%</span> <span class="fu">predict</span>(conj_teste) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">levels</span>(conj_teste<span class="sc">$</span>inadimplente))</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(y_chapeu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Fazendo Previsões</span></span>
+<span><span class="va">y_chapeu</span> <span class="op">&lt;-</span> <span class="va">arvclass</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">y_chapeu</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] Nao Nao Nao Nao Nao Nao
 Levels: Nao Sim</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(y_chapeu, conj_teste<span class="sc">$</span>inadimplente, <span class="at">positive=</span><span class="st">"Sim"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">y_chapeu</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span>, positive<span class="op">=</span><span class="st">"Sim"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix and Statistics
 
@@ -751,18 +700,16 @@ Prediction  Nao  Sim
                                          </code></pre>
 </div>
 </div>
-</section>
-<section id="verificando-a-consistencia-dos-resultados" class="level2">
-<h2 class="anchored" data-anchor-id="verificando-a-consistencia-dos-resultados">Verificando a consistencia dos resultados</h2>
+</section><section id="verificando-a-consistencia-dos-resultados" class="level2"><h2 class="anchored" data-anchor-id="verificando-a-consistencia-dos-resultados">Verificando a consistencia dos resultados</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">121</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> credito<span class="sc">$</span>inadimplente</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>indice_teste <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(y, <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> credito <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>indice_teste)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> credito <span class="sc">%&gt;%</span> <span class="fu">slice</span>(indice_teste)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_treino)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">121</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">$</span><span class="va">inadimplente</span></span>
+<span><span class="va">indice_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.2</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="op">-</span><span class="va">indice_teste</span><span class="op">)</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">indice_teste</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [7,999 × 4] (S3: tbl_df/tbl/data.frame)
  $ inadimplente: Factor w/ 2 levels "Nao","Sim": 1 1 1 1 1 1 1 1 1 1 ...
@@ -770,13 +717,13 @@ Prediction  Nao  Sim
  $ balanco     : num [1:7999] 730 817 1074 786 920 ...
  $ receita     : num [1:7999] 44362 12106 31767 38463 7492 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(conj_treino<span class="sc">$</span>inadimplente))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
        Nao        Sim 
 0.96674584 0.03325416 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(conj_teste)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [2,001 × 4] (S3: tbl_df/tbl/data.frame)
  $ inadimplente: Factor w/ 2 levels "Nao","Sim": 1 1 1 1 1 1 1 1 1 1 ...
@@ -784,97 +731,86 @@ Prediction  Nao  Sim
  $ balanco     : num [1:2001] 529 1161 1113 1500 1152 ...
  $ receita     : num [1:2001] 35704 37469 23810 13191 42917 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(conj_teste<span class="sc">$</span>inadimplente))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
        Nao        Sim 
 0.96651674 0.03348326 </code></pre>
 </div>
 </div>
-</section>
-<section id="obtendo-a-arvore" class="level2">
-<h2 class="anchored" data-anchor-id="obtendo-a-arvore">Obtendo a arvore</h2>
+</section><section id="obtendo-a-arvore" class="level2"><h2 class="anchored" data-anchor-id="obtendo-a-arvore">Obtendo a arvore</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Usando rpart para desenvolver a arvore  </span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>arvcl <span class="ot">&lt;-</span> <span class="fu">rpart</span>(inadimplente <span class="sc">~</span> ., </span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>conj_treino,</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">method=</span><span class="st">"class"</span>, <span class="co">#para arvore de classificação</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">control=</span><span class="fu">rpart.control</span>(<span class="at">minsplit=</span><span class="dv">30</span>,<span class="at">cp=</span><span class="fl">0.02</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">##Usando rpart para desenvolver a arvore  </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span></span>
+<span><span class="va">arvcl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">.</span>, </span>
+<span>                data<span class="op">=</span><span class="va">conj_treino</span>,</span>
+<span>                method<span class="op">=</span><span class="st">"class"</span>, <span class="co">#para arvore de classificação</span></span>
+<span>                control<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.control.html">rpart.control</a></span><span class="op">(</span>minsplit<span class="op">=</span><span class="fl">30</span>,cp<span class="op">=</span><span class="fl">0.02</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="desenhando-a-árvore-de-uma-forma-mais-clara-1" class="level2">
-<h2 class="anchored" data-anchor-id="desenhando-a-árvore-de-uma-forma-mais-clara-1">Desenhando a Árvore de uma forma mais clara</h2>
+</section><section id="desenhando-a-árvore-de-uma-forma-mais-clara-1" class="level2"><h2 class="anchored" data-anchor-id="desenhando-a-árvore-de-uma-forma-mais-clara-1">Desenhando a Árvore de uma forma mais clara</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rattle)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fancyRpartPlot</span>(arvcl, <span class="at">caption =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rattle.togaware.com/">rattle</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.org/rpart-plot/index.html">rpart.plot</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/rattle/man/fancyRpartPlot.html">fancyRpartPlot</a></span><span class="op">(</span><span class="va">arvcl</span>, caption <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula12.1_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula12.1_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="gbm" class="level2">
-<h2 class="anchored" data-anchor-id="gbm">GBM</h2>
-<section id="criando-um-grid-para-avaliar-os-parametros" class="level3">
-<h3 class="anchored" data-anchor-id="criando-um-grid-para-avaliar-os-parametros">Criando um grid para avaliar os parametros</h3>
+</section><section id="gbm" class="level2"><h2 class="anchored" data-anchor-id="gbm">GBM</h2>
+<section id="criando-um-grid-para-avaliar-os-parametros" class="level3"><h3 class="anchored" data-anchor-id="criando-um-grid-para-avaliar-os-parametros">Criando um grid para avaliar os parametros</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>hiper_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">shrinkage =</span> <span class="fu">c</span>(.<span class="dv">001</span>, .<span class="dv">01</span>, .<span class="dv">1</span>),</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">interaction.depth =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>),</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.minobsinnode =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>),</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">bag.fraction =</span> <span class="fu">c</span>(.<span class="dv">65</span>, <span class="dv">1</span>),</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimal_trees =</span> <span class="dv">0</span>, <span class="co"># um lugar para guardar resultados</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_erro =</span> <span class="dv">0</span>   <span class="co"># um lugar para guardar resultados</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="co"># número total de combinações</span></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(hiper_grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hiper_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
+<span>  shrinkage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.001</span>, <span class="fl">.01</span>, <span class="fl">.1</span><span class="op">)</span>,</span>
+<span>  interaction.depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  n.minobsinnode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">15</span><span class="op">)</span>,</span>
+<span>  bag.fraction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.65</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  optimal_trees <span class="op">=</span> <span class="fl">0</span>, <span class="co"># um lugar para guardar resultados</span></span>
+<span>  min_erro <span class="op">=</span> <span class="fl">0</span>   <span class="co"># um lugar para guardar resultados</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># número total de combinações</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">hiper_grid</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 54</code></pre>
 </div>
 </div>
-</section>
-</section>
-<section id="avaliando-o-grid-de-parametros" class="level2">
-<h2 class="anchored" data-anchor-id="avaliando-o-grid-de-parametros">Avaliando o grid de parametros</h2>
+</section></section><section id="avaliando-o-grid-de-parametros" class="level2"><h2 class="anchored" data-anchor-id="avaliando-o-grid-de-parametros">Avaliando o grid de parametros</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gbm)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>conj_treino<span class="sc">$</span>inadimplente <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(conj_treino<span class="sc">$</span>inadimplente)</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>conj_treino <span class="ot">&lt;-</span> <span class="fu">transform</span>(conj_treino, <span class="at">inadimplente=</span>inadimplente <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Busca no grid</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(hiper_grid)) {</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#</span></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># treina o modelo</span></span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  gbm.tune <span class="ot">&lt;-</span> <span class="fu">gbm</span>(</span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> inadimplente <span class="sc">~</span> .,</span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">distribution =</span> <span class="st">"bernoulli"</span>,</span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> conj_treino,</span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.trees =</span> <span class="dv">2000</span>,</span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">interaction.depth =</span> hiper_grid<span class="sc">$</span>interaction.depth[i],</span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">shrinkage =</span> hiper_grid<span class="sc">$</span>shrinkage[i],</span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.minobsinnode =</span> hiper_grid<span class="sc">$</span>n.minobsinnode[i],</span>
-<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">bag.fraction =</span> hiper_grid<span class="sc">$</span>bag.fraction[i],</span>
-<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">train.fraction =</span> .<span class="dv">75</span>,</span>
-<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.cores =</span> <span class="cn">NULL</span>,</span>
-<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adiciona os erros de treino e arvores ao grid</span></span>
-<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a>  hiper_grid<span class="sc">$</span>optimal_trees[i] <span class="ot">&lt;-</span> <span class="fu">which.min</span>(gbm.tune<span class="sc">$</span>valid.error)</span>
-<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a>  hiper_grid<span class="sc">$</span>min_erro[i] <span class="ot">&lt;-</span> <span class="fu">min</span>(gbm.tune<span class="sc">$</span>valid.error)</span>
-<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb43-30"><a href="#cb43-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-31"><a href="#cb43-31" aria-hidden="true" tabindex="-1"></a>hiper_grid <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(min_erro) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/gbm-developers/gbm">gbm</a></span><span class="op">)</span></span>
+<span><span class="va">conj_treino</span><span class="op">$</span><span class="va">inadimplente</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span><span class="va">conj_treino</span>, inadimplente<span class="op">=</span><span class="va">inadimplente</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Busca no grid</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">hiper_grid</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="co">#</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># treina o modelo</span></span>
+<span>  <span class="va">gbm.tune</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gbm/man/gbm.html">gbm</a></span><span class="op">(</span></span>
+<span>    formula <span class="op">=</span> <span class="va">inadimplente</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>    distribution <span class="op">=</span> <span class="st">"bernoulli"</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
+<span>    n.trees <span class="op">=</span> <span class="fl">2000</span>,</span>
+<span>    interaction.depth <span class="op">=</span> <span class="va">hiper_grid</span><span class="op">$</span><span class="va">interaction.depth</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    shrinkage <span class="op">=</span> <span class="va">hiper_grid</span><span class="op">$</span><span class="va">shrinkage</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    n.minobsinnode <span class="op">=</span> <span class="va">hiper_grid</span><span class="op">$</span><span class="va">n.minobsinnode</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    bag.fraction <span class="op">=</span> <span class="va">hiper_grid</span><span class="op">$</span><span class="va">bag.fraction</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    train.fraction <span class="op">=</span> <span class="fl">.75</span>,</span>
+<span>    n.cores <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># adiciona os erros de treino e arvores ao grid</span></span>
+<span>  <span class="va">hiper_grid</span><span class="op">$</span><span class="va">optimal_trees</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">gbm.tune</span><span class="op">$</span><span class="va">valid.error</span><span class="op">)</span></span>
+<span>  <span class="va">hiper_grid</span><span class="op">$</span><span class="va">min_erro</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">gbm.tune</span><span class="op">$</span><span class="va">valid.error</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">hiper_grid</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">min_erro</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   shrinkage interaction.depth n.minobsinnode bag.fraction optimal_trees
 1       0.10                 1             15         0.65           142
@@ -900,43 +836,38 @@ Prediction  Nao  Sim
 10 0.1612577</code></pre>
 </div>
 </div>
-</section>
-<section id="modelo-final" class="level2">
-<h2 class="anchored" data-anchor-id="modelo-final">Modelo final</h2>
+</section><section id="modelo-final" class="level2"><h2 class="anchored" data-anchor-id="modelo-final">Modelo final</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># treina o modelo GBM</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>gbm.fit.final <span class="ot">&lt;-</span> <span class="fu">gbm</span>(</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> inadimplente <span class="sc">~</span> .,</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">distribution =</span> <span class="st">"bernoulli"</span>,</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> conj_treino,</span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.trees =</span> <span class="dv">193</span>,</span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">interaction.depth =</span> <span class="dv">1</span>,</span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">shrinkage =</span> <span class="fl">0.10</span>,</span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.minobsinnode =</span> <span class="dv">5</span>,</span>
-<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">bag.fraction =</span> <span class="fl">1.00</span>, </span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">train.fraction =</span> <span class="dv">1</span>,</span>
-<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.cores =</span> <span class="cn">NULL</span>, </span>
-<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>  )  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># treina o modelo GBM</span></span>
+<span><span class="va">gbm.fit.final</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gbm/man/gbm.html">gbm</a></span><span class="op">(</span></span>
+<span>  formula <span class="op">=</span> <span class="va">inadimplente</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>  distribution <span class="op">=</span> <span class="st">"bernoulli"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
+<span>  n.trees <span class="op">=</span> <span class="fl">193</span>,</span>
+<span>  interaction.depth <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  shrinkage <span class="op">=</span> <span class="fl">0.10</span>,</span>
+<span>  n.minobsinnode <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  bag.fraction <span class="op">=</span> <span class="fl">1.00</span>, </span>
+<span>  train.fraction <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  n.cores <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="importância-das-variáveis" class="level2">
-<h2 class="anchored" data-anchor-id="importância-das-variáveis">Importância das Variáveis</h2>
+</section><section id="importância-das-variáveis" class="level2"><h2 class="anchored" data-anchor-id="importância-das-variáveis">Importância das Variáveis</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mai =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  gbm.fit.final, </span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cBars =</span> <span class="dv">10</span>,</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> relative.influence, <span class="co"># também pode ser usado permutation.test.gbm</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">las =</span> <span class="dv">2</span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span></span>
+<span>  <span class="va">gbm.fit.final</span>, </span>
+<span>  cBars <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  method <span class="op">=</span> <span class="va">relative.influence</span>, <span class="co"># também pode ser usado permutation.test.gbm</span></span>
+<span>  las <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula12.1_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula12.1_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -947,25 +878,23 @@ estudante estudante  0.4480848
 receita     receita  0.3157499</code></pre>
 </div>
 </div>
-</section>
-<section id="previsão" class="level2">
-<h2 class="anchored" data-anchor-id="previsão">Previsão</h2>
+</section><section id="previsão" class="level2"><h2 class="anchored" data-anchor-id="previsão">Previsão</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>conj_teste<span class="sc">$</span>inadimplente <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(conj_teste<span class="sc">$</span>inadimplente)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>conj_teste <span class="ot">&lt;-</span> <span class="fu">transform</span>(conj_teste, <span class="at">inadimplente=</span>inadimplente <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazendo Previsões</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>previsao1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(gbm.fit.final, </span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">newdata =</span> conj_teste,</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n.trees=</span>gbm.fit.final<span class="sc">$</span>n.trees,</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(previsao1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span><span class="va">conj_teste</span>, inadimplente<span class="op">=</span><span class="va">inadimplente</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fazendo Previsões</span></span>
+<span><span class="va">previsao1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">gbm.fit.final</span>, </span>
+<span>                     newdata <span class="op">=</span> <span class="va">conj_teste</span>,</span>
+<span>                     n.trees<span class="op">=</span><span class="va">gbm.fit.final</span><span class="op">$</span><span class="va">n.trees</span>,</span>
+<span>                     type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">previsao1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.002456101 0.015887955 0.013762373 0.099006852 0.015887955 0.002456101</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>gbm.ychapeu <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(previsao1 <span class="sc">&lt;</span> <span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(gbm.ychapeu,<span class="fu">as.factor</span>(conj_teste<span class="sc">$</span>inadimplente), <span class="at">positive=</span><span class="st">"1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gbm.ychapeu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">previsao1</span> <span class="op">&lt;</span> <span class="fl">0.5</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">gbm.ychapeu</span>,<span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span>, positive<span class="op">=</span><span class="st">"1"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix and Statistics
 
@@ -996,31 +925,25 @@ Prediction    0    1
                                          </code></pre>
 </div>
 </div>
-</section>
-<section id="curva-roc" class="level2">
-<h2 class="anchored" data-anchor-id="curva-roc">Curva ROC</h2>
+</section><section id="curva-roc" class="level2"><h2 class="anchored" data-anchor-id="curva-roc">Curva ROC</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>p_chapeu_gbm <span class="ot">&lt;-</span> previsao1</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>roc_gbm <span class="ot">&lt;-</span> <span class="fu">roc</span>(conj_teste<span class="sc">$</span>inadimplente <span class="sc">~</span> p_chapeu_gbm, <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">print.auc=</span><span class="cn">FALSE</span>, <span class="at">col=</span><span class="st">"black"</span>, <span class="at">legacy.axes=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
+<span><span class="va">p_chapeu_gbm</span> <span class="op">&lt;-</span> <span class="va">previsao1</span></span>
+<span><span class="va">roc_gbm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">p_chapeu_gbm</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, print.auc<span class="op">=</span><span class="cn">FALSE</span>, col<span class="op">=</span><span class="st">"black"</span>, legacy.axes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="Aula12.1_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula12.1_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(roc_gbm<span class="sc">$</span>auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">roc_gbm</span><span class="op">$</span><span class="va">auc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9536804</code></pre>
 </div>
 </div>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1580,9 +1503,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../semanas/Aula11.3.html" class="pagination-link" aria-label="Arvore de Regressão (XGBoost)">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Arvore de Regressão (XGBoost)</span>
       </a>          
@@ -1594,8 +1515,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>Baseado em https://sta210-s22.github.io/website/</p>
 </div>   
@@ -1607,8 +1527,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>
