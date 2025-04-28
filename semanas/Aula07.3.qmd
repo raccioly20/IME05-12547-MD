@@ -211,7 +211,6 @@ vif(mod_bic)
 vif(mod_cp)
 ```
 
-
 ## Testando os dois modelos com o conjunto de teste
 
 ```{r C_teste}
@@ -228,8 +227,7 @@ summary(mod_bic)$adj.r.squared
 sqrt(mean((conj_teste$preco_m - predict(mod_bic, conj_teste)) ^ 2))
 ```
 
-Aqui vemos que as diferença de resultados entre os dois modelos é muito pequena, mas o modelo com base no BIC é mais parcimonioso, então vamos usá-lo para fazer a previsão. 
-
+Aqui vemos que as diferença de resultados entre os dois modelos é muito pequena, mas o modelo com base no BIC é mais parcimonioso, então vamos usá-lo para fazer a previsão.
 
 ## Comparando valor real vs previsão (conjunto de treino)
 
@@ -241,7 +239,6 @@ ggplot(conj_treino, aes(x=Previsoes, y=preco_m)) +
   ggtitle("Preço da Casa vs. Previsões do modelo linear")
 ```
 
-
 ## Comparando valor real vs previsão (conjunto de teste)
 
 ```{r}
@@ -251,7 +248,6 @@ ggplot(conj_teste, aes(x=Previsoes, y=preco_m)) +
   geom_abline(color = "darkblue") +
   ggtitle("Preço da Casa vs. Previsões do modelo linear")
 ```
-
 
 ## Avaliando os resíduos
 
