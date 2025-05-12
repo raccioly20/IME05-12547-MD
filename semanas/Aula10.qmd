@@ -21,7 +21,7 @@ execute:
 
 ## Carregando Bibliotecas
 
-```{r bibliotecas, message=FALSE}
+```{r}
 library(tidyverse)
 library(ISLR)
 data(Default)
@@ -32,7 +32,7 @@ head(Default)
 
 ## Manipulando os dados
 
-```{r inadimplente}
+```{r}
 credito <- tibble(Default)
 summary(credito)
 # renomeando colunas
@@ -55,7 +55,7 @@ summary(credito)
 
 ## Treino e Teste
 
-```{r conjuntos-treino-teste, message=FALSE}
+```{r}
 library(caret)
 set.seed(2024)
 y <- credito$inadimplente
@@ -71,7 +71,7 @@ summary(conj_teste)
 
 ## Balanço e receita
 
-```{r balanco-receita}
+```{r}
 featurePlot(x = conj_treino[, c("balanco", "receita", "estudante")], 
             y = conj_treino$inadimplente,
             plot = "density", 
@@ -87,7 +87,7 @@ featurePlot(x = conj_treino[, c("balanco", "receita", "estudante")],
 
 ## Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)
 
-```{r box-plot}
+```{r}
 library(patchwork)
 p1 <- ggplot(credito, aes(x=inadimplente, y=balanco, color=inadimplente)) +
   geom_boxplot()
@@ -104,12 +104,33 @@ p4 <- ggplot(credito, aes(x=as.factor(estudante), y=receita, color=as.factor(est
 
 ## Calcula Erro
 
-```{r erro_class}
+```{r}
 # Este valor é igual a 1 - Accuracy da matriz de confusão
 calc_erro_class <- function(real, previsto) {
   mean(real != previsto)
 }
 ```
+
+
+## Treino e Teste Normalizado
+
+```{r}
+library(caret)
+set.seed(2024)
+# Normalizando os dados
+credito <- credito %>% mutate(balanco = scale(balanco), receita = scale(receita))
+
+y <- credito$inadimplente
+indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
+
+conj_treino <- credito[-indice_teste,]
+conj_teste <- credito[indice_teste,]
+
+summary(conj_treino)
+summary(conj_teste)
+
+```
+
 
 ## LDA
 
