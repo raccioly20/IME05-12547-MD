@@ -111,7 +111,6 @@ calc_erro_class <- function(real, previsto) {
 }
 ```
 
-
 ## Treino e Teste Normalizado
 
 ```{r}
@@ -130,7 +129,6 @@ summary(conj_treino)
 summary(conj_teste)
 
 ```
-
 
 ## LDA
 
@@ -163,6 +161,43 @@ confusionMatrix(data = y_chapeu, reference = conj_teste$inadimplente,  positive=
 # Este valor é igual a 1 - Accuracy da matriz de confusão
 calc_erro_class(conj_teste$inadimplente, y_chapeu)
 ```
+
+
+## Seleção de variáveis
+
+No LDA, a seleção de variáveis pode ser feita com o RFE (Recursive Feature Elimination). O RFE é um método de seleção de variáveis que utiliza a validação cruzada para avaliar o desempenho do modelo com diferentes subconjuntos de variáveis. O RFE é implementado na função `rfe()` do pacote `caret`.
+
+```{r}
+# Usar o RFE para selecionar as variáveis
+# Definir controle para RFE
+control <- rfeControl(functions = ldaFuncs, method = "cv", number = 10)
+
+# Aplicar o RFE
+set.seed(2024)
+result <- rfe(conj_treino[, 2:4], conj_treino$inadimplente, sizes = c(1:3), rfeControl = control)
+
+# Resultados
+print(result)
+```
+
+## Outra Opção
+
+Podemos usar os gráfico exploratórios iniciais e também o resultado da regressão logística como ponto de partida para a seleção de variáveis.
+
+```{r}
+treina_lda2 <- lda(inadimplente ~ balanco + estudante, data = conj_treino)
+treina_lda2
+plot(treina_lda2)
+y_chapeu <- predict(treina_lda2, conj_teste)$class %>% 
+             factor(levels = levels(conj_teste$inadimplente))
+confusionMatrix(data = y_chapeu, reference = conj_teste$inadimplente,  positive="Sim")
+
+
+# Este valor é igual a 1 - Accuracy da matriz de confusão
+calc_erro_class(conj_teste$inadimplente, y_chapeu)
+```
+
+Podemos observar que não houve mudança nos resultados ao retirar a variável receita.
 
 ## QDA
 
