@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.29">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-08-20">
+<meta name="dcterms.date" content="2025-05-26">
 <title>Arvores de Regressão – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -530,7 +530,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link active" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
-  <li><a href="#avaliando-selecionando-dados" id="toc-avaliando-selecionando-dados" class="nav-link" data-scroll-target="#avaliando-selecionando-dados">Avaliando, selecionando dados</a></li>
+  <li><a href="#carregando-os-dados" id="toc-carregando-os-dados" class="nav-link" data-scroll-target="#carregando-os-dados">Carregando os dados</a></li>
+  <li><a href="#conhecendo-as-vari%C3%A1veis" id="toc-conhecendo-as-variáveis" class="nav-link" data-scroll-target="#conhecendo-as-vari%C3%A1veis">Conhecendo as variáveis</a></li>
+  <li><a href="#selecionando-os-dados" id="toc-selecionando-os-dados" class="nav-link" data-scroll-target="#selecionando-os-dados">Selecionando os dados</a></li>
   <li><a href="#visualizando-os-dados" id="toc-visualizando-os-dados" class="nav-link" data-scroll-target="#visualizando-os-dados">Visualizando os dados</a></li>
   <li><a href="#arvore-de-regress%C3%A3o" id="toc-arvore-de-regressão" class="nav-link" data-scroll-target="#arvore-de-regress%C3%A3o">Arvore de Regressão</a></li>
   <li><a href="#segmentos" id="toc-segmentos" class="nav-link" data-scroll-target="#segmentos">Segmentos</a></li>
@@ -567,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 20, 2024</p>
+      <p class="date">May 26, 2025</p>
     </div>
   </div>
   
@@ -582,7 +584,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="avaliando-selecionando-dados" class="level2"><h2 class="anchored" data-anchor-id="avaliando-selecionando-dados">Avaliando, selecionando dados</h2>
+</section><section id="carregando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="carregando-os-dados">Carregando os dados</h2>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"Boston"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">Boston</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -623,6 +625,23 @@ black       7.10 4.06
 lstat       0.46 0.32
 medv        1.45 0.41</code></pre>
 </div>
+</div>
+</section><section id="conhecendo-as-variáveis" class="level2"><h2 class="anchored" data-anchor-id="conhecendo-as-variáveis">Conhecendo as variáveis</h2>
+<ul>
+<li><p>crim: taxa de criminalidade per capita por cidade.</p></li>
+<li><p>zn: proporção de terrenos residenciais zoneados para lotes acima de 25.000 pés quadrados.</p></li>
+<li><p>indus: proporção de acres de negócios não varejistas por cidade.</p></li>
+<li><p>chas: variável fictícia do rio Charles (= 1 se o trato limita o rio; 0 caso contrário). nox concentração de óxidos de nitrogênio (partes por 10 milhões).</p></li>
+<li><p>rm: número médio de cômodos por habitação.</p></li>
+<li><p>age: proporção de unidades ocupadas pelo proprietário construídas antes de 1940.</p></li>
+<li><p>dis: média ponderada das distâncias até cinco centros de emprego de Boston.</p></li>
+<li><p>rad: índice de acessibilidade a rodovias radiais. tax taxa de imposto sobre a propriedade do valor total por $ 10.000.</p></li>
+<li><p>ptratio: proporção aluno-professor por cidade.</p></li>
+<li><p>black: 1000(Bk−0,63)21000(Bk−0,63)2 onde BkBk é a proporção de negros por cidade.</p></li>
+<li><p>lstat: status inferior da população (por cento).</p></li>
+<li><p>medv: valor médio das casas ocupadas pelo proprietário em $ 1000s.</p></li>
+</ul></section><section id="selecionando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="selecionando-os-dados">Selecionando os dados</h2>
+<div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dados</span> <span class="op">&lt;-</span> <span class="va">Boston</span> </span>
 <span><span class="va">extrato</span> <span class="op">&lt;-</span> <span class="va">dados</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/lm.ridge.html">select</a></span><span class="op">(</span><span class="va">medv</span>, <span class="va">nox</span>, <span class="va">rm</span><span class="op">)</span>  </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">extrato</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -638,7 +657,7 @@ medv        1.45 0.41</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">extrato</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula11.1_files/figure-html/dados-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula11.1_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -870,7 +889,7 @@ n= 381
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula11.1_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula11.1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -883,7 +902,7 @@ n= 381
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">arvreg1</span>,pretty<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula11.1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula11.1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -1059,7 +1078,7 @@ node), split, n, deviance, yval
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">arvreg1s</span>,pretty<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula11.1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula11.1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>

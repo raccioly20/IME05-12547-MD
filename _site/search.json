@@ -671,6 +671,28 @@
     ]
   },
   {
+    "objectID": "semanas/Aula10.html#seleção-de-variáveis",
+    "href": "semanas/Aula10.html#seleção-de-variáveis",
+    "title": "LDA e QDA",
+    "section": "Seleção de variáveis",
+    "text": "Seleção de variáveis\nNo LDA, a seleção de variáveis pode ser feita com o RFE (Recursive Feature Elimination). O RFE é um método de seleção de variáveis que utiliza a validação cruzada para avaliar o desempenho do modelo com diferentes subconjuntos de variáveis. O RFE é implementado na função rfe() do pacote caret.\n\n# Usar o RFE para selecionar as variáveis\n# Definir controle para RFE\ncontrol &lt;- rfeControl(functions = ldaFuncs, method = \"cv\", number = 10)\n\n# Aplicar o RFE\nset.seed(2024)\nresult &lt;- rfe(conj_treino[, 2:4], conj_treino$inadimplente, sizes = c(1:3), rfeControl = control)\n\n# Resultados\nprint(result)\n\n#&gt; \n#&gt; Recursive feature selection\n#&gt; \n#&gt; Outer resampling method: Cross-Validated (10 fold) \n#&gt; \n#&gt; Resampling performance over subset size:\n#&gt; \n#&gt;  Variables Accuracy  Kappa AccuracySD KappaSD Selected\n#&gt;          1   0.9724 0.3451   0.003761 0.12676         \n#&gt;          2   0.9729 0.3562   0.003398 0.10548         \n#&gt;          3   0.9735 0.3804   0.002942 0.09046        *\n#&gt; \n#&gt; The top 3 variables (out of 3):\n#&gt;    balanco, estudante, receita",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "LDA-QDA"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula10.html#outra-opção",
+    "href": "semanas/Aula10.html#outra-opção",
+    "title": "LDA e QDA",
+    "section": "Outra Opção",
+    "text": "Outra Opção\nPodemos usar os gráfico exploratórios iniciais e também o resultado da regressão logística como ponto de partida para a seleção de variáveis.\n\ntreina_lda2 &lt;- lda(inadimplente ~ balanco + estudante, data = conj_treino)\ntreina_lda2\n\n#&gt; Call:\n#&gt; lda(inadimplente ~ balanco + estudante, data = conj_treino)\n#&gt; \n#&gt; Prior probabilities of groups:\n#&gt;        Nao        Sim \n#&gt; 0.96674584 0.03325416 \n#&gt; \n#&gt; Group means:\n#&gt;         balanco estudante\n#&gt; Nao -0.06884968 0.2903142\n#&gt; Sim  1.88077996 0.3684211\n#&gt; \n#&gt; Coefficients of linear discriminants:\n#&gt;                  LD1\n#&gt; balanco    1.0935003\n#&gt; estudante -0.2716957\n\nplot(treina_lda2)\n\n\n\n\n\n\ny_chapeu &lt;- predict(treina_lda2, conj_teste)$class %&gt;% \n             factor(levels = levels(conj_teste$inadimplente))\nconfusionMatrix(data = y_chapeu, reference = conj_teste$inadimplente,  positive=\"Sim\")\n\n#&gt; Confusion Matrix and Statistics\n#&gt; \n#&gt;           Reference\n#&gt; Prediction  Nao  Sim\n#&gt;        Nao 1926   48\n#&gt;        Sim    8   19\n#&gt;                                           \n#&gt;                Accuracy : 0.972           \n#&gt;                  95% CI : (0.9638, 0.9788)\n#&gt;     No Information Rate : 0.9665          \n#&gt;     P-Value [Acc &gt; NIR] : 0.09339         \n#&gt;                                           \n#&gt;                   Kappa : 0.3926          \n#&gt;                                           \n#&gt;  Mcnemar's Test P-Value : 1.872e-07       \n#&gt;                                           \n#&gt;             Sensitivity : 0.283582        \n#&gt;             Specificity : 0.995863        \n#&gt;          Pos Pred Value : 0.703704        \n#&gt;          Neg Pred Value : 0.975684        \n#&gt;              Prevalence : 0.033483        \n#&gt;          Detection Rate : 0.009495        \n#&gt;    Detection Prevalence : 0.013493        \n#&gt;       Balanced Accuracy : 0.639723        \n#&gt;                                           \n#&gt;        'Positive' Class : Sim             \n#&gt; \n\n# Este valor é igual a 1 - Accuracy da matriz de confusão\ncalc_erro_class(conj_teste$inadimplente, y_chapeu)\n\n#&gt; [1] 0.02798601\n\n\nPodemos observar que não houve mudança nos resultados ao retirar a variável receita.",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "LDA-QDA"
+    ]
+  },
+  {
     "objectID": "semanas/Aula10.html#qda",
     "href": "semanas/Aula10.html#qda",
     "title": "LDA e QDA",
@@ -3772,11 +3794,33 @@
     ]
   },
   {
-    "objectID": "semanas/Aula11.1.html#avaliando-selecionando-dados",
-    "href": "semanas/Aula11.1.html#avaliando-selecionando-dados",
+    "objectID": "semanas/Aula11.1.html#carregando-os-dados",
+    "href": "semanas/Aula11.1.html#carregando-os-dados",
     "title": "Arvores de Regressão",
-    "section": "Avaliando, selecionando dados",
-    "text": "Avaliando, selecionando dados\n\ndata(\"Boston\")\nnames(Boston)\n\n [1] \"crim\"    \"zn\"      \"indus\"   \"chas\"    \"nox\"     \"rm\"      \"age\"    \n [8] \"dis\"     \"rad\"     \"tax\"     \"ptratio\" \"black\"   \"lstat\"   \"medv\"   \n\ndescribe(Boston)\n\n        vars   n   mean     sd median trimmed    mad    min    max  range  skew\ncrim       1 506   3.61   8.60   0.26    1.68   0.33   0.01  88.98  88.97  5.19\nzn         2 506  11.36  23.32   0.00    5.08   0.00   0.00 100.00 100.00  2.21\nindus      3 506  11.14   6.86   9.69   10.93   9.37   0.46  27.74  27.28  0.29\nchas       4 506   0.07   0.25   0.00    0.00   0.00   0.00   1.00   1.00  3.39\nnox        5 506   0.55   0.12   0.54    0.55   0.13   0.38   0.87   0.49  0.72\nrm         6 506   6.28   0.70   6.21    6.25   0.51   3.56   8.78   5.22  0.40\nage        7 506  68.57  28.15  77.50   71.20  28.98   2.90 100.00  97.10 -0.60\ndis        8 506   3.80   2.11   3.21    3.54   1.91   1.13  12.13  11.00  1.01\nrad        9 506   9.55   8.71   5.00    8.73   2.97   1.00  24.00  23.00  1.00\ntax       10 506 408.24 168.54 330.00  400.04 108.23 187.00 711.00 524.00  0.67\nptratio   11 506  18.46   2.16  19.05   18.66   1.70  12.60  22.00   9.40 -0.80\nblack     12 506 356.67  91.29 391.44  383.17   8.09   0.32 396.90 396.58 -2.87\nlstat     13 506  12.65   7.14  11.36   11.90   7.11   1.73  37.97  36.24  0.90\nmedv      14 506  22.53   9.20  21.20   21.56   5.93   5.00  50.00  45.00  1.10\n        kurtosis   se\ncrim       36.60 0.38\nzn          3.95 1.04\nindus      -1.24 0.30\nchas        9.48 0.01\nnox        -0.09 0.01\nrm          1.84 0.03\nage        -0.98 1.25\ndis         0.46 0.09\nrad        -0.88 0.39\ntax        -1.15 7.49\nptratio    -0.30 0.10\nblack       7.10 4.06\nlstat       0.46 0.32\nmedv        1.45 0.41\n\ndados &lt;- Boston \nextrato &lt;- dados %&gt;% select(medv, nox, rm)  \nsummary(extrato)\n\n      medv            nox               rm       \n Min.   : 5.00   Min.   :0.3850   Min.   :3.561  \n 1st Qu.:17.02   1st Qu.:0.4490   1st Qu.:5.886  \n Median :21.20   Median :0.5380   Median :6.208  \n Mean   :22.53   Mean   :0.5547   Mean   :6.285  \n 3rd Qu.:25.00   3rd Qu.:0.6240   3rd Qu.:6.623  \n Max.   :50.00   Max.   :0.8710   Max.   :8.780  \n\nboxplot(extrato$medv)",
+    "section": "Carregando os dados",
+    "text": "Carregando os dados\n\ndata(\"Boston\")\nnames(Boston)\n\n [1] \"crim\"    \"zn\"      \"indus\"   \"chas\"    \"nox\"     \"rm\"      \"age\"    \n [8] \"dis\"     \"rad\"     \"tax\"     \"ptratio\" \"black\"   \"lstat\"   \"medv\"   \n\ndescribe(Boston)\n\n        vars   n   mean     sd median trimmed    mad    min    max  range  skew\ncrim       1 506   3.61   8.60   0.26    1.68   0.33   0.01  88.98  88.97  5.19\nzn         2 506  11.36  23.32   0.00    5.08   0.00   0.00 100.00 100.00  2.21\nindus      3 506  11.14   6.86   9.69   10.93   9.37   0.46  27.74  27.28  0.29\nchas       4 506   0.07   0.25   0.00    0.00   0.00   0.00   1.00   1.00  3.39\nnox        5 506   0.55   0.12   0.54    0.55   0.13   0.38   0.87   0.49  0.72\nrm         6 506   6.28   0.70   6.21    6.25   0.51   3.56   8.78   5.22  0.40\nage        7 506  68.57  28.15  77.50   71.20  28.98   2.90 100.00  97.10 -0.60\ndis        8 506   3.80   2.11   3.21    3.54   1.91   1.13  12.13  11.00  1.01\nrad        9 506   9.55   8.71   5.00    8.73   2.97   1.00  24.00  23.00  1.00\ntax       10 506 408.24 168.54 330.00  400.04 108.23 187.00 711.00 524.00  0.67\nptratio   11 506  18.46   2.16  19.05   18.66   1.70  12.60  22.00   9.40 -0.80\nblack     12 506 356.67  91.29 391.44  383.17   8.09   0.32 396.90 396.58 -2.87\nlstat     13 506  12.65   7.14  11.36   11.90   7.11   1.73  37.97  36.24  0.90\nmedv      14 506  22.53   9.20  21.20   21.56   5.93   5.00  50.00  45.00  1.10\n        kurtosis   se\ncrim       36.60 0.38\nzn          3.95 1.04\nindus      -1.24 0.30\nchas        9.48 0.01\nnox        -0.09 0.01\nrm          1.84 0.03\nage        -0.98 1.25\ndis         0.46 0.09\nrad        -0.88 0.39\ntax        -1.15 7.49\nptratio    -0.30 0.10\nblack       7.10 4.06\nlstat       0.46 0.32\nmedv        1.45 0.41",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Arvore de Regressão"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula11.1.html#conhecendo-as-variáveis",
+    "href": "semanas/Aula11.1.html#conhecendo-as-variáveis",
+    "title": "Arvores de Regressão",
+    "section": "Conhecendo as variáveis",
+    "text": "Conhecendo as variáveis\n\ncrim: taxa de criminalidade per capita por cidade.\nzn: proporção de terrenos residenciais zoneados para lotes acima de 25.000 pés quadrados.\nindus: proporção de acres de negócios não varejistas por cidade.\nchas: variável fictícia do rio Charles (= 1 se o trato limita o rio; 0 caso contrário). nox concentração de óxidos de nitrogênio (partes por 10 milhões).\nrm: número médio de cômodos por habitação.\nage: proporção de unidades ocupadas pelo proprietário construídas antes de 1940.\ndis: média ponderada das distâncias até cinco centros de emprego de Boston.\nrad: índice de acessibilidade a rodovias radiais. tax taxa de imposto sobre a propriedade do valor total por $ 10.000.\nptratio: proporção aluno-professor por cidade.\nblack: 1000(Bk−0,63)21000(Bk−0,63)2 onde BkBk é a proporção de negros por cidade.\nlstat: status inferior da população (por cento).\nmedv: valor médio das casas ocupadas pelo proprietário em $ 1000s.",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Arvore de Regressão"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula11.1.html#selecionando-os-dados",
+    "href": "semanas/Aula11.1.html#selecionando-os-dados",
+    "title": "Arvores de Regressão",
+    "section": "Selecionando os dados",
+    "text": "Selecionando os dados\n\ndados &lt;- Boston \nextrato &lt;- dados %&gt;% select(medv, nox, rm)  \nsummary(extrato)\n\n      medv            nox               rm       \n Min.   : 5.00   Min.   :0.3850   Min.   :3.561  \n 1st Qu.:17.02   1st Qu.:0.4490   1st Qu.:5.886  \n Median :21.20   Median :0.5380   Median :6.208  \n Mean   :22.53   Mean   :0.5547   Mean   :6.285  \n 3rd Qu.:25.00   3rd Qu.:0.6240   3rd Qu.:6.623  \n Max.   :50.00   Max.   :0.8710   Max.   :8.780  \n\nboxplot(extrato$medv)",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão"
@@ -4412,28 +4456,6 @@
     "crumbs": [
       "Conteúdo Semanal",
       "Análise de Associação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula10.html#seleção-de-variáveis",
-    "href": "semanas/Aula10.html#seleção-de-variáveis",
-    "title": "LDA e QDA",
-    "section": "Seleção de variáveis",
-    "text": "Seleção de variáveis\nNo LDA, a seleção de variáveis pode ser feita com o RFE (Recursive Feature Elimination). O RFE é um método de seleção de variáveis que utiliza a validação cruzada para avaliar o desempenho do modelo com diferentes subconjuntos de variáveis. O RFE é implementado na função rfe() do pacote caret.\n\n# Usar o RFE para selecionar as variáveis\n# Definir controle para RFE\ncontrol &lt;- rfeControl(functions = ldaFuncs, method = \"cv\", number = 10)\n\n# Aplicar o RFE\nset.seed(2024)\nresult &lt;- rfe(conj_treino[, 2:4], conj_treino$inadimplente, sizes = c(1:3), rfeControl = control)\n\n# Resultados\nprint(result)\n\n#&gt; \n#&gt; Recursive feature selection\n#&gt; \n#&gt; Outer resampling method: Cross-Validated (10 fold) \n#&gt; \n#&gt; Resampling performance over subset size:\n#&gt; \n#&gt;  Variables Accuracy  Kappa AccuracySD KappaSD Selected\n#&gt;          1   0.9724 0.3451   0.003761 0.12676         \n#&gt;          2   0.9729 0.3562   0.003398 0.10548         \n#&gt;          3   0.9735 0.3804   0.002942 0.09046        *\n#&gt; \n#&gt; The top 3 variables (out of 3):\n#&gt;    balanco, estudante, receita",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "LDA-QDA"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula10.html#outra-opção",
-    "href": "semanas/Aula10.html#outra-opção",
-    "title": "LDA e QDA",
-    "section": "Outra Opção",
-    "text": "Outra Opção\nPodemos usar os gráfico exploratórios iniciais e também o resultado da regressão logística como ponto de partida para a seleção de variáveis.\n\ntreina_lda2 &lt;- lda(inadimplente ~ balanco + estudante, data = conj_treino)\ntreina_lda2\n\n#&gt; Call:\n#&gt; lda(inadimplente ~ balanco + estudante, data = conj_treino)\n#&gt; \n#&gt; Prior probabilities of groups:\n#&gt;        Nao        Sim \n#&gt; 0.96674584 0.03325416 \n#&gt; \n#&gt; Group means:\n#&gt;         balanco estudante\n#&gt; Nao -0.06884968 0.2903142\n#&gt; Sim  1.88077996 0.3684211\n#&gt; \n#&gt; Coefficients of linear discriminants:\n#&gt;                  LD1\n#&gt; balanco    1.0935003\n#&gt; estudante -0.2716957\n\nplot(treina_lda2)\n\n\n\n\n\n\ny_chapeu &lt;- predict(treina_lda2, conj_teste)$class %&gt;% \n             factor(levels = levels(conj_teste$inadimplente))\nconfusionMatrix(data = y_chapeu, reference = conj_teste$inadimplente,  positive=\"Sim\")\n\n#&gt; Confusion Matrix and Statistics\n#&gt; \n#&gt;           Reference\n#&gt; Prediction  Nao  Sim\n#&gt;        Nao 1926   48\n#&gt;        Sim    8   19\n#&gt;                                           \n#&gt;                Accuracy : 0.972           \n#&gt;                  95% CI : (0.9638, 0.9788)\n#&gt;     No Information Rate : 0.9665          \n#&gt;     P-Value [Acc &gt; NIR] : 0.09339         \n#&gt;                                           \n#&gt;                   Kappa : 0.3926          \n#&gt;                                           \n#&gt;  Mcnemar's Test P-Value : 1.872e-07       \n#&gt;                                           \n#&gt;             Sensitivity : 0.283582        \n#&gt;             Specificity : 0.995863        \n#&gt;          Pos Pred Value : 0.703704        \n#&gt;          Neg Pred Value : 0.975684        \n#&gt;              Prevalence : 0.033483        \n#&gt;          Detection Rate : 0.009495        \n#&gt;    Detection Prevalence : 0.013493        \n#&gt;       Balanced Accuracy : 0.639723        \n#&gt;                                           \n#&gt;        'Positive' Class : Sim             \n#&gt; \n\n# Este valor é igual a 1 - Accuracy da matriz de confusão\ncalc_erro_class(conj_teste$inadimplente, y_chapeu)\n\n#&gt; [1] 0.02798601",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "LDA-QDA"
     ]
   }
 ]

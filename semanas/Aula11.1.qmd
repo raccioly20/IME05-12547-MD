@@ -29,17 +29,50 @@ library(tidyverse)
 library(psych)
 ```
 
-## Avaliando, selecionando dados
+## Carregando os dados
 
 ```{r dados}
 data("Boston")
 names(Boston)
 describe(Boston)
+```
+
+## Conhecendo as variáveis
+
+-   crim: taxa de criminalidade per capita por cidade.
+
+-   zn: proporção de terrenos residenciais zoneados para lotes acima de 25.000 pés quadrados.
+
+-   indus: proporção de acres de negócios não varejistas por cidade.
+
+-   chas: variável fictícia do rio Charles (= 1 se o trato limita o rio; 0 caso contrário). nox concentração de óxidos de nitrogênio (partes por 10 milhões).
+
+-   rm: número médio de cômodos por habitação.
+
+-   age: proporção de unidades ocupadas pelo proprietário construídas antes de 1940.
+
+-   dis: média ponderada das distâncias até cinco centros de emprego de Boston.
+
+-   rad: índice de acessibilidade a rodovias radiais. tax taxa de imposto sobre a propriedade do valor total por \$ 10.000.
+
+-   ptratio: proporção aluno-professor por cidade.
+
+-   black: 1000(Bk−0,63)21000(Bk−0,63)2 onde BkBk é a proporção de negros por cidade.
+
+-   lstat: status inferior da população (por cento).
+
+-   medv: valor médio das casas ocupadas pelo proprietário em \$ 1000s.
+
+
+## Selecionando os dados
+
+```{r}
 dados <- Boston 
 extrato <- dados %>% select(medv, nox, rm)  
 summary(extrato)
 boxplot(extrato$medv)
 ```
+
 
 ## Visualizando os dados
 
