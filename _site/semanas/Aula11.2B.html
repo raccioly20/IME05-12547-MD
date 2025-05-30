@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.29">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-08-20">
+<meta name="dcterms.date" content="2025-05-30">
 <title>Arvores de Regressão - Gradient Boosting – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -63,7 +63,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../semanas/Aula11.3.html" rel="next">
-<link href="../semanas/Aula11.1.html" rel="prev">
+<link href="../semanas/Aula11.2A.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -273,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula11.2.html">Arvore de Regressão (GBM)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula11.2B.html">Arvore de Regressão (GBM)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -479,7 +479,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula11.2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../semanas/Aula11.2A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão (Randon Forest)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula11.2B.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Arvore de Regressão (GBM)</span></a>
   </div>
 </li>
@@ -538,12 +544,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#modelo-final" id="toc-modelo-final" class="nav-link" data-scroll-target="#modelo-final">Modelo final</a></li>
   <li><a href="#variable-importance" id="toc-variable-importance" class="nav-link" data-scroll-target="#variable-importance">Variable importance</a></li>
   <li><a href="#previs%C3%A3o" id="toc-previsão" class="nav-link" data-scroll-target="#previs%C3%A3o">Previsão</a></li>
+  <li><a href="#compara%C3%A7%C3%A3o-com-outro-modelo-regress%C3%A3o-linear" id="toc-comparação-com-outro-modelo-regressão-linear" class="nav-link" data-scroll-target="#compara%C3%A7%C3%A3o-com-outro-modelo-regress%C3%A3o-linear">Comparação com outro modelo (Regressão Linear)</a></li>
   <li><a href="#entendendo-melhor-os-resultados" id="toc-entendendo-melhor-os-resultados" class="nav-link" data-scroll-target="#entendendo-melhor-os-resultados">Entendendo melhor os resultados</a></li>
   <li><a href="#gr%C3%A1fico-de-dependencia-parcial-partial-dependence-plot" id="toc-gráfico-de-dependencia-parcial-partial-dependence-plot" class="nav-link" data-scroll-target="#gr%C3%A1fico-de-dependencia-parcial-partial-dependence-plot">Gráfico de Dependencia Parcial (Partial Dependence Plot)</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula11.2.html">Arvore de Regressão (GBM)</a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula11.2B.html">Arvore de Regressão (GBM)</a></li></ol></nav><div class="quarto-title">
 <h1 class="title">Arvores de Regressão - Gradient Boosting</h1>
 </div>
 
@@ -561,7 +568,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 20, 2024</p>
+      <p class="date">May 30, 2025</p>
     </div>
   </div>
   
@@ -745,7 +752,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula11.2_files/figure-html/vi-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula11.2B_files/figure-html/vi-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -781,10 +788,32 @@ zn           zn  0.0946421</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.189849</code></pre>
 </div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">caret</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">postResample</a></span><span class="op">(</span><span class="va">previsao1</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     RMSE  Rsquared       MAE 
+4.1898489 0.8118316 2.7829890 </code></pre>
+</div>
+</div>
+</section><section id="comparação-com-outro-modelo-regressão-linear" class="level2"><h2 class="anchored" data-anchor-id="comparação-com-outro-modelo-regressão-linear">Comparação com outro modelo (Regressão Linear)</h2>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cv"</span>, number <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">model_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span></span>
+<span>  <span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"lm"</span>,</span>
+<span>  trControl <span class="op">=</span> <span class="va">ctrl</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pred_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_lm</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">postResample</a></span><span class="op">(</span><span class="va">pred_lm</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     RMSE  Rsquared       MAE 
+5.9426142 0.6315418 3.9610503 </code></pre>
+</div>
 </div>
 </section><section id="entendendo-melhor-os-resultados" class="level2"><h2 class="anchored" data-anchor-id="entendendo-melhor-os-resultados">Entendendo melhor os resultados</h2>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lime.data-imaginist.com">lime</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lime.data-imaginist.com">lime</a></span><span class="op">)</span></span>
 <span><span class="va">model_type.gbm</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -802,19 +831,19 @@ zn           zn  0.0946421</code></pre>
 <span><span class="fu"><a href="https://lime.data-imaginist.com/reference/plot_features.html">plot_features</a></span><span class="op">(</span><span class="va">explicacao</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula11.2_files/figure-html/LIME-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula11.2B_files/figure-html/LIME-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </section><section id="gráfico-de-dependencia-parcial-partial-dependence-plot" class="level2"><h2 class="anchored" data-anchor-id="gráfico-de-dependencia-parcial-partial-dependence-plot">Gráfico de Dependencia Parcial (Partial Dependence Plot)</h2>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">graf_rm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">gbm.fit.final</span>, i <span class="op">=</span> <span class="st">"rm"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">graf_rm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">gbm.fit.final</span>, i <span class="op">=</span> <span class="st">"rm"</span><span class="op">)</span></span>
 <span><span class="va">graf_lstat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">gbm.fit.final</span>, i <span class="op">=</span> <span class="st">"lstat"</span><span class="op">)</span></span>
 <span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">graf_lstat</span>, <span class="va">graf_rm</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula11.2_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula11.2B_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -1233,8 +1262,8 @@ zn           zn  0.0946421</code></pre>
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="../semanas/Aula11.1.html" class="pagination-link" aria-label="Arvore de Regressão">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Arvore de Regressão</span>
+      <a href="../semanas/Aula11.2A.html" class="pagination-link" aria-label="Arvore de Regressão (Randon Forest)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Arvore de Regressão (Randon Forest)</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

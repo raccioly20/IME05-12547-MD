@@ -1,0 +1,126 @@
+---
+title: 'Arvores de Regressão - Random Forest '
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+execute: 
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+format:
+ html:
+    code-link: true
+    fig-height: 10
+    fig-width: 10
+    fig-align: center
+    fig-dpi: 300
+knitr: 
+  opts_chunk: 
+    out.width: 90%
+    fig.showtext: true
+    collapese: true
+---
+
+## Bibliotecas
+
+```{r bibliotecas , message=FALSE}
+library(MASS)
+library(tidyverse)
+library(ranger) # Random Forest
+```
+
+## Avaliando, selecionando dados
+
+```{r dados}
+data("Boston")
+names(Boston)
+dados <- Boston 
+```
+
+## Treino e Teste com todas as variáveis
+
+```{r conjuntos-treino-teste}
+## Vamos criar os conjuntos de treino teste e desenvolver a arvore 
+## com todas as variáveis.
+library(caret)
+set.seed(21)
+indice <- createDataPartition(dados$medv, times=1, p=0.75, list=FALSE)
+conj_treino <- dados[indice,]
+conj_teste <- dados[-indice,]
+head(conj_treino)
+head(conj_teste)
+```
+
+## Ajuste do modelo Random Forest com `caret`
+
+```{r}
+ctrl <- trainControl(method = "cv", number = 5)
+
+model_rf <- train(
+  medv ~ ., data = conj_treino,
+  method = "ranger", # Usando o pacote ranger para Random Forest
+trControl = ctrl,
+  tuneLength = 5,
+  importance = 'impurity'
+)
+```
+
+## Resultados do modelo
+
+```{r}
+print(model_rf)
+plot(model_rf)
+```
+
+## Avaliação no conjunto de teste
+
+```{r}
+pred <- predict(model_rf, newdata = conj_teste)
+
+# Métricas de desempenho
+postResample(pred, conj_teste$medv)
+```
+
+## Importância das variáveis
+
+```{r}
+varimp <- varImp(model_rf)$importance
+varimp$Variable <- rownames(varimp)
+
+# Gráfico de importância
+varimp_plot <- ggplot(varimp, aes(x = reorder(Variable, Overall), y = Overall)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(title = "Importância das Variáveis - Random Forest (ranger)",
+       x = "Variável", y = "Importância") +
+  theme_minimal()
+
+varimp_plot
+```
+
+## Comparação com outro modelo (Regressão Linear)
+
+```{r}
+model_lm <- train(
+  medv ~ ., data = conj_treino,
+  method = "lm",
+  trControl = ctrl
+)
+
+pred_lm <- predict(model_lm, newdata = conj_teste)
+postResample(pred_lm, conj_teste$medv)
+```
+
+## Grafico de comparação
+
+```{r}
+# Gráfico de comparação
+comparison_plot <- ggplot() +
+  geom_point(aes(x = conj_teste$medv, y = pred), color = "blue", alpha = 0.5) +
+  geom_point(aes(x = conj_teste$medv, y = pred_lm), color = "red", alpha = 0.5) +
+  labs(title = "Comparação de Previsões: Random Forest vs Regressão Linear",
+       x = "Valores Reais (medv)", y = "Previsões") +
+  theme_minimal()
+comparison_plot
+
+```

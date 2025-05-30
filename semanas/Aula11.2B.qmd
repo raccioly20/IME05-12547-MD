@@ -164,7 +164,24 @@ head(previsao1)
 
 # Calcula os erros de previsão
 caret::RMSE(previsao1, conj_teste$medv)
+caret::postResample(previsao1, conj_teste$medv)
 ```
+
+## Comparação com outro modelo (Regressão Linear)
+
+```{r}
+ctrl <- trainControl(method = "cv", number = 5)
+
+model_lm <- train(
+  medv ~ ., data = conj_treino,
+  method = "lm",
+  trControl = ctrl
+)
+
+pred_lm <- predict(model_lm, newdata = conj_teste)
+postResample(pred_lm, conj_teste$medv)
+```
+
 
 ## Entendendo melhor os resultados
 
@@ -194,3 +211,4 @@ graf_rm <- plot(gbm.fit.final, i = "rm")
 graf_lstat <- plot(gbm.fit.final, i = "lstat")
 gridExtra::grid.arrange(graf_lstat, graf_rm, ncol = 2)
 ```
+
