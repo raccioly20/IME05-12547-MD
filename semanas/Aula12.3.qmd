@@ -24,112 +24,121 @@ knitr:
 ## Bibliotecas
 
 ```{r bibliotecas , message=FALSE}
-library(tidyverse)
 library(ISLR)
+library(xgboost)
+library(dplyr)
+library(caret)
+library(pROC)
 ```
 
 ## Dados
 
+Vamos começar a aplicar a metodologia de árvores usando **árvores de classificação** para analisar os dados existentes em `Carseats`. Este conjunto de dados (simulado) é sobre venda de assentos de criança para carros. Ele tem 400 observações das seguintes variáveis (11), cujos nomes serão convertidos para o português:
+
+Sales: vendas em unidades (em mil) em cada local
+
+CompPrice: preço cobrado pelo competidor em cada local
+
+Income: nível de renda da comunidade local (em mil US\$)
+
+Advertising: orçamento local de propaganda (em mil US\$)
+
+Population: população na região (em mil)
+
+Price: preço cobrado pela empresa em cada local
+
+ShelveLoc: um fator com níveis Ruim, Bom e Medio indicando a qualidade da localização das prateleiras para os assentos em cada lugar
+
+Age: idade media da população local
+
+Education: nível de educação em cada local
+
+Urban: um fator Sim e Não indicando se a loja esta em uma área urbana ou rural
+
+US: um fator indicando se a loja é nos EUA ou não
+
+Neste dados, `Sales` é a variável resposta, só que ela é uma variável contínua, por este motivo vamos usá-la para criar uma variável binária. Vamos usar a função `ifelse()` para criar a variável binária, que chamaremos de **alta**, ela assume os valores `Sim` se `Sales` for maior que 8 e assume o valor `Não` caso contrário:
+
 ```{r}
-data(Default)
-summary(Default)
-str(Default)
-head(Default)
+data(Carseats)
+summary(Carseats)
+str(Carseats)
 ```
 
-## Manipulando os dados
-
 ```{r}
-credito <- tibble(Default)
-summary(credito)
-# renomeando colunas
-credito <- credito %>% 
-                rename( inadimplente = default, estudante = student, balanco = balance,
-                receita = income)
-credito <- credito %>% mutate( inadimplente =  case_when(
-                           inadimplente == "No"  ~ "Nao",
-                           inadimplente == "Yes" ~ "Sim"
-                          )) %>% mutate(inadimplente = factor(inadimplente))
-credito <- credito %>% mutate( estudante =  case_when(
-                           estudante == "No"  ~ 0,
-                           estudante == "Yes" ~ 1
-                          )) 
+# Manipulando os dados
+cad_crianca <- Carseats %>% rename(vendas = Sales, 
+                                   preco_comp = CompPrice,
+                                   renda = Income,
+                                   propaganda = Advertising,
+                                   populacao = Population,
+                                   preco = Price,
+                                   local_prat = ShelveLoc,
+                                   idade = Age,
+                                   educacao = Education,
+                                   urbano = Urban,
+                                   eua = US)
 
-str(credito)
-summary(credito)
-```
+cad_crianca <- cad_crianca %>% mutate(vendaAlta = ifelse(vendas > 8, 1, 0)) %>%  select(-vendas)
 
-## Treino e Teste
-
-```{r}
-library(caret)
+# Dividir em treino e teste
 set.seed(21)
-y <- credito$inadimplente
-indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
+indice <- createDataPartition(cad_crianca$vendaAlta, p = 0.7, list = FALSE)
+conj_treino <- cad_crianca[indice, ]
+conj_teste <- cad_crianca[-indice, ]
 
-x_conj_treino <- credito %>% slice(-indice_teste) %>% select(-inadimplente)
-x_conj_teste <- credito %>% slice(indice_teste) %>% select(-inadimplente)
-y_treino <- credito %>% slice(-indice_teste) %>% select(inadimplente) 
-y_treino <- as.integer(unlist(y_treino))-1
-y_teste <- credito %>% slice(indice_teste) %>% select(inadimplente)
-y_teste <- as.integer(unlist(y_teste))-1
+# Codificação dummy para variáveis categóricas
+dummies <- dummyVars(vendaAlta ~ ., data = conj_treino)
+X_treino <- predict(dummies, newdata = conj_treino)
+X_teste <- predict(dummies, newdata = conj_teste)
+
+# Criar matrizes DMatrix
+dtreino <- xgb.DMatrix(data = X_treino, label = conj_treino$vendaAlta)
+dteste <- xgb.DMatrix(data = X_teste, label = conj_teste$vendaAlta)
+
 ```
 
-## Treinando
-
 ```{r}
-## 1a tentativa Xgboost
-library(xgboost)
-num_class = 2
-params = list(
-  booster="gbtree",
-  eta=0.001,
-  max_depth=5,
-  gamma=3,
-  subsample=0.75,
-  colsample_bytree=1,
-  objective="multi:softprob",
-  eval_metric="mlogloss",
-  num_class=num_class
+# Parâmetros do modelo
+param <- list(
+  objective = "binary:logistic",
+  eval_metric = "error",
+  max_depth = 4,
+  eta = 0.1
 )
 
-set.seed(21)
-cv <- xgb.cv(data = as.matrix(x_conj_treino), label = as.matrix(y_treino), params=params, 
-             nrounds = 10000, nfold = 5, early_stopping_rounds=10, 
-             nthreads=1, verbose=FALSE)
-# cv
-elog <- as.data.frame(cv$evaluation_log)
-elog %>% 
-   summarize(ntrees.train = which.min(train_mlogloss_mean),  
-             ntrees.test  = which.min(test_mlogloss_mean))   
-(nrounds <- which.min(elog$test_mlogloss_mean))
+# Treinamento
+model <- xgb.train(
+  params = param,
+  data = dtreino,
+  nrounds = 100,
+  watchlist = list(train = dtreino, test = dteste),
+  verbose = 0
+)
+
 ```
-
-## Modelo Final
-
-```{r final}
-modelo_xgb <- xgboost(data = as.matrix(x_conj_treino), label = as.matrix(y_treino),
-             params=params, nrounds = nrounds, verbose = FALSE)
-```
-
-## Importancia das variáveis
 
 ```{r}
-importancia <- xgb.importance(model = modelo_xgb)
-importancia
-xgb.plot.importance(importancia)
-```
+# Previsões
+pred_prob <- predict(model, dteste)
+pred_class <- ifelse(pred_prob > 0.5, 1, 0)
 
-## Previsões
+# Matriz de confusão
+conf_matrix <- confusionMatrix(factor(pred_class), factor(conj_teste$vendaAlta))
+conf_matrix
+
+```
 
 ```{r}
-x_conj_teste$prev <- predict(modelo_xgb, as.matrix(x_conj_teste), reshape=T)
+roc_obj <- roc(conj_teste$vendaAlta, pred_prob)
+plot(roc_obj, main = "Curva ROC - XGBoost", col = "blue")
+auc(roc_obj)
 
 ```
-
-## Avaliando
 
 ```{r}
-xgb.ychapeu <- as.factor(ifelse(x_conj_teste$prev[,1] > 0.5,0,1))
-confusionMatrix(xgb.ychapeu,as.factor(y_teste), positive="1")
+importance <- xgb.importance(model = model)
+xgb.plot.importance(importance_matrix = importance)
+
 ```
+

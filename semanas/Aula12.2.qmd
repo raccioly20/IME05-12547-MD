@@ -1,5 +1,5 @@
 ---
-title: "Arvores de Classificação - Única e GBM"
+title: "Arvores de Classificação - GBM"
 author: "Ricardo Accioly"
 date: "`r Sys.Date()`"
 execute: 
@@ -24,8 +24,11 @@ knitr:
 ## Bibliotecas
 
 ```{r bibliotecas , message=FALSE}
-library(tidyverse)
 library(ISLR)
+library(dplyr)
+library(gbm)
+library(caret)
+library(pROC)
 ```
 
 ## Dados
@@ -77,24 +80,13 @@ cad_crianca <- Carseats %>% rename(vendas = Sales,
                                    urbano = Urban,
                                    eua = US)
 
-cad_crianca <- cad_crianca %>% mutate(alta = ifelse(vendas > 8, "Sim",
-                                                   "Não")) %>%
-                              mutate(alta = factor(alta))
+cad_crianca <- cad_crianca %>%
+  mutate(vendaAlta = ifelse(vendas > 8, "Alta", "Baixa")) %>%
+  mutate(vendaAlta = as.factor(vendaAlta)) %>%
+  select(-vendas)  # Remover Sales original
 
-cad_crianca<- cad_crianca %>% mutate(local_prat =  case_when(
-                                      local_prat == "Bad"  ~ "Ruim",
-                                      local_prat == "Good" ~ "Bom",
-                                      local_prat == "Medium" ~ "Medio"))%>%                               mutate(local_prat = factor(local_prat))
-
-cad_crianca<- cad_crianca %>% mutate(urbano =  case_when(
-                                      urbano == "Yes"  ~ "Sim",
-                                      urbano == "No" ~ "Não")) %>%                                       mutate(urbano = factor(urbano))
-
-cad_crianca<- cad_crianca %>% mutate(eua =  case_when(
-                                      eua == "Yes"  ~ "Sim",
-                                      eua == "No" ~ "Não")) %>%                                          mutate(eua = factor(eua))
-
-cad_crianca<- cad_crianca %>% select(-vendas)
+# Verificar distribuição
+table(cad_crianca$vendaAlta)
 
 str(cad_crianca)
 summary(cad_crianca)
@@ -104,13 +96,12 @@ summary(cad_crianca)
 ## Treino e Teste
 
 ```{r}
-library(caret)
 set.seed(21)
-y <- cad_crianca$alta
+y <- cad_crianca$vendaAlta
 indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
 
-conj_treino <- cad_crianca %>% slice(-indice_teste)
-conj_teste <- cad_crianca %>% slice(indice_teste)
+conj_treino <- cad_crianca[-indice_teste,]
+conj_teste <- cad_crianca[indice_teste,]
 
 str(conj_treino)
 prop.table(table(conj_treino$alta))
@@ -118,254 +109,75 @@ str(conj_teste)
 prop.table(table(conj_teste$alta))
 ```
 
-## Arvore de Classificação
-
-Na biblioteca rpart as arvores de classificação são obtidas usando o método class. Existem alguns controles que podem ser feitos nos parametros da arvore.
-
-Neste exemplo só definimos o menor conjunto de dados numa partição (minsplit) e o parametro de complexidade cp. Posteriormente vamos ampliar este controle. Um valor de cp muito pequeno ocasiona overfitting e um valor muito grande resulta numa arvore muito pequena (underfitting). Nos dois casos se diminui o desempenho do modelo.
-
-```{r}
-##Usando rpart para desenvolver a arvore  
-library(rpart)
-arvcl <- rpart(alta ~ ., 
-                data=conj_treino,
-                method="class", #para arvore de classificação
-                control=rpart.control(minsplit=30,cp=0.02))
-plot(arvcl)
-text(arvcl,pretty=0)
-```
-
-## Regras
-
-```{r}
-# Regras de Decisão
-arvcl
-```
-
-## Desenhando a Árvore de uma forma mais clara
-
-```{r}
-library(rattle)
-library(rpart.plot)
-library(RColorBrewer)
-fancyRpartPlot(arvcl, caption = NULL)
-
-```
-
-## Previsões
-
-```{r}
-
-# Fazendo Previsões
-y_chapeu <- predict(arvcl, newdata = conj_teste, type="class")
-
-confusionMatrix(y_chapeu, conj_teste$alta, positive="Sim") 
-```
-
-## Arvore de Classificação no caret
-
-```{r}
-##Usando rpart para desenvolver a arvore  
-library(rpart)
-set.seed(21)
-## Otimizamos o valor de cp usando um 10-fold cv
-# O parametro tuneLength diz para o algoritmo escolher diferentes valores para cp
-# O parametro tuneGrid permite decidir que valores cp deve assumir enquanto que o
-# tuneLength somente limita o número default de parametros que se usa.
-tgrid <- expand.grid(cp = seq(0.01,0.10,0.001))
-ctrl <- trainControl(method = "cv", classProbs=TRUE)
-arvclass <- train(alta ~ . , data = conj_treino, method = "rpart",
-                 trControl = ctrl,
-                 tuneGrid = tgrid
-                 )
-# Mostra a acurácia vs cp (parametro de complexidade)
-plot(arvclass)
-## Indica o melhor valor de cp
-arvclass$bestTune
-```
-
-## Uma forma melhor de ver a Árvore
-
-```{r}
-## melhorando apresentação da árvore
-library(rattle)
-library(rpart.plot)
-library(RColorBrewer)
-fancyRpartPlot(arvclass$finalModel, caption = NULL)
-```
-
-## Previsões
-
-```{r}
-
-# Fazendo Previsões
-y_chapeu <- arvclass %>% predict(conj_teste) %>% 
-                   factor(levels = levels(conj_teste$alta))
-head(y_chapeu)
-confusionMatrix(y_chapeu, conj_teste$alta, positive="Sim") 
-```
-
-## Verificando a consistencia dos resultados
-
-```{r}
-set.seed(121)
-y <- cad_crianca$alta
-indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
-
-conj_treino <- cad_crianca %>% slice(-indice_teste)
-conj_teste <- cad_crianca %>% slice(indice_teste)
-
-str(conj_treino)
-prop.table(table(conj_treino$alta))
-str(conj_teste)
-prop.table(table(conj_teste$alta))
-```
-
-## Obtendo a arvore
-
-```{r}
-##Usando rpart para desenvolver a arvore  
-library(rpart)
-arvcl <- rpart(alta ~ ., 
-                data=conj_treino,
-                method="class", #para arvore de classificação
-                control=rpart.control(minsplit=30,cp=0.02))
-
-```
-
-## Desenhando a Árvore de uma forma mais clara
-
-```{r}
-library(rattle)
-library(rpart.plot)
-library(RColorBrewer)
-fancyRpartPlot(arvcl, caption = NULL)
-
-```
 
 ## GBM
 
-### Criando um grid para avaliar os parametros
+### Ajustando um modelo GBM
 
 ```{r}
-hiper_grid <- expand.grid(
-  shrinkage = c(.001, .01, .1),
-  interaction.depth = c(1, 3, 5),
-  n.minobsinnode = c(5, 10, 15),
-  bag.fraction = c(.65, 1),
-  optimal_trees = 0, # um lugar para guardar resultados
-  min_erro = 0   # um lugar para guardar resultados
-  )
-
-# número total de combinações
-nrow(hiper_grid)
-```
-
-## Avaliando o grid de parametros
-
-```{r}
-library(gbm)
-conj_treino$alta <- as.numeric(conj_treino$alta)
-conj_treino <- transform(conj_treino, alta=alta - 1)
-conj_treino$eua <- as.numeric(conj_treino$eua)
-conj_treino <- transform(conj_treino, eua=eua - 1)
-conj_treino$local_prat <- as.numeric(conj_treino$local_prat)
-conj_treino <- transform(conj_treino, local_prat=local_prat - 1)
-
-
-#Busca no grid
-for(i in 1:nrow(hiper_grid)) {
-
-  #
-  set.seed(21)
-
-  # treina o modelo
-  gbm.tune <- gbm(
-    formula = alta ~ .,
-    distribution = "bernoulli",
-    data = conj_treino,
-    n.trees = 5000,
-    interaction.depth = hiper_grid$interaction.depth[i],
-    shrinkage = hiper_grid$shrinkage[i],
-    n.minobsinnode = hiper_grid$n.minobsinnode[i],
-    bag.fraction = hiper_grid$bag.fraction[i],
-    train.fraction = .75,
-    n.cores = NULL,
-    verbose = FALSE
-  )
-
-  # adiciona os erros de treino e arvores ao grid
-  hiper_grid$optimal_trees[i] <- which.min(gbm.tune$valid.error)
-  hiper_grid$min_erro[i] <- min(gbm.tune$valid.error)
-}
-
-hiper_grid %>% dplyr::arrange(min_erro) %>% head(10)
-```
-
-## Modelo final
-
-```{r}
-# 
 set.seed(21)
 
-# treina o modelo GBM
-gbm.fit.final <- gbm(
-  formula = alta ~ .,
-  distribution = "bernoulli",
+# Definir grade de parâmetros
+tune_grid <- expand.grid(
+  n.trees = c(100, 300, 500),
+  interaction.depth = c(1, 3, 5),
+  shrinkage = c(0.01, 0.1),
+  n.minobsinnode = c(5, 10)
+)
+
+# Treinamento com validação cruzada
+ctrl <- trainControl(method = "cv", number = 5)
+
+gbm_caret <- train(
+  vendaAlta ~ .,
   data = conj_treino,
-  n.trees = 165,
-  interaction.depth = 3,
-  shrinkage = 0.10,
-  n.minobsinnode = 5,
-  bag.fraction = 0.65, 
-  train.fraction = 1,
-  n.cores = NULL, 
+  method = "gbm",
+  distribution = "bernoulli",
+  trControl = ctrl,
+  tuneGrid = tune_grid,
   verbose = FALSE
-  )  
+)
+
 
 ```
 
-## Importância das Variáveis
+## Melhor modelo
 
 ```{r}
-par(mai = c(1, 2, 1, 2))
-summary(
-  gbm.fit.final, 
-  cBars = 10,
-  method = relative.influence, # também pode ser usado permutation.test.gbm
-  las = 2
-  )
-
+# Melhor modelo
+gbm_caret$bestTune
 ```
 
-## Previsão
+
+## Verificando os Resultados
 
 ```{r}
-conj_teste$alta <- as.numeric(conj_teste$alta)
-conj_teste <- transform(conj_teste, alta=alta - 1)
-conj_teste$eua <- as.numeric(conj_teste$eua)
-conj_teste <- transform(conj_teste, eua=eua - 1)
-conj_teste$local_prat <- as.numeric(conj_teste$local_prat)
-conj_teste <- transform(conj_teste, local_prat=local_prat - 1)
+# Previsões
+pred_class <- predict(gbm_caret, newdata = conj_teste)
 
-# Fazendo Previsões
-previsao1 <- predict(gbm.fit.final, 
-                     newdata = conj_teste,
-                     n.trees=gbm.fit.final$n.trees,
-                     type = "response")
-head(previsao1)
-
-gbm.ychapeu <- as.factor(ifelse(previsao1 < 0.5,0,1))
- 
-confusionMatrix(gbm.ychapeu,as.factor(conj_teste$alta), positive="1")
-
+# Matriz de confusão
+confusionMatrix(pred_class, conj_teste$vendaAlta)
 ```
 
 ## Curva ROC
 
 ```{r}
-library(pROC)
-p_chapeu_gbm <- previsao1
-roc_gbm <- roc(conj_teste$alta ~ p_chapeu_gbm, plot = TRUE, print.auc=FALSE, col="black", legacy.axes=TRUE)
-as.numeric(roc_gbm$auc)
+# Probabilidades previstas
+pred_prob <- predict(gbm_caret, newdata = conj_teste, type = "prob")
+
+# Curva ROC
+roc_obj <- roc(response = conj_teste$vendaAlta, predictor = pred_prob$Alta)
+plot(roc_obj, col = "blue", lwd = 2, main = "Curva ROC - GBM")
+auc(roc_obj)
 ```
+
+## Importância das variáveis
+
+```{r}
+# Obter importância
+importancia <- varImp(gbm_caret)
+
+# Visualização gráfica
+plot(importancia, top = 10, main = "Importância das Variáveis - GBM")
+```
+

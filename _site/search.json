@@ -114,10 +114,10 @@
     "href": "semanas/Aula12.3.html",
     "title": "Arvores de Classificação - XGboost",
     "section": "",
-    "text": "library(tidyverse)\nlibrary(ISLR)",
+    "text": "library(ISLR)\nlibrary(xgboost)\nlibrary(dplyr)\nlibrary(caret)\nlibrary(pROC)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação XGBooost"
+      "Arvore de Classificação - XGBooost"
     ]
   },
   {
@@ -125,10 +125,10 @@
     "href": "semanas/Aula12.3.html#bibliotecas",
     "title": "Arvores de Classificação - XGboost",
     "section": "",
-    "text": "library(tidyverse)\nlibrary(ISLR)",
+    "text": "library(ISLR)\nlibrary(xgboost)\nlibrary(dplyr)\nlibrary(caret)\nlibrary(pROC)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação XGBooost"
+      "Arvore de Classificação - XGBooost"
     ]
   },
   {
@@ -136,307 +136,175 @@
     "href": "semanas/Aula12.3.html#dados",
     "title": "Arvores de Classificação - XGboost",
     "section": "Dados",
-    "text": "Dados\n\ndata(Default)\nsummary(Default)\n\n default    student       balance           income     \n No :9667   No :7056   Min.   :   0.0   Min.   :  772  \n Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  \n                       Median : 823.6   Median :34553  \n                       Mean   : 835.4   Mean   :33517  \n                       3rd Qu.:1166.3   3rd Qu.:43808  \n                       Max.   :2654.3   Max.   :73554  \n\nstr(Default)\n\n'data.frame':   10000 obs. of  4 variables:\n $ default: Factor w/ 2 levels \"No\",\"Yes\": 1 1 1 1 1 1 1 1 1 1 ...\n $ student: Factor w/ 2 levels \"No\",\"Yes\": 1 2 1 1 1 2 1 2 1 1 ...\n $ balance: num  730 817 1074 529 786 ...\n $ income : num  44362 12106 31767 35704 38463 ...\n\nhead(Default)\n\n  default student   balance    income\n1      No      No  729.5265 44361.625\n2      No     Yes  817.1804 12106.135\n3      No      No 1073.5492 31767.139\n4      No      No  529.2506 35704.494\n5      No      No  785.6559 38463.496\n6      No     Yes  919.5885  7491.559",
+    "text": "Dados\nVamos começar a aplicar a metodologia de árvores usando árvores de classificação para analisar os dados existentes em Carseats. Este conjunto de dados (simulado) é sobre venda de assentos de criança para carros. Ele tem 400 observações das seguintes variáveis (11), cujos nomes serão convertidos para o português:\nSales: vendas em unidades (em mil) em cada local\nCompPrice: preço cobrado pelo competidor em cada local\nIncome: nível de renda da comunidade local (em mil US$)\nAdvertising: orçamento local de propaganda (em mil US$)\nPopulation: população na região (em mil)\nPrice: preço cobrado pela empresa em cada local\nShelveLoc: um fator com níveis Ruim, Bom e Medio indicando a qualidade da localização das prateleiras para os assentos em cada lugar\nAge: idade media da população local\nEducation: nível de educação em cada local\nUrban: um fator Sim e Não indicando se a loja esta em uma área urbana ou rural\nUS: um fator indicando se a loja é nos EUA ou não\nNeste dados, Sales é a variável resposta, só que ela é uma variável contínua, por este motivo vamos usá-la para criar uma variável binária. Vamos usar a função ifelse() para criar a variável binária, que chamaremos de alta, ela assume os valores Sim se Sales for maior que 8 e assume o valor Não caso contrário:\n\ndata(Carseats)\nsummary(Carseats)\n\n     Sales          CompPrice       Income        Advertising    \n Min.   : 0.000   Min.   : 77   Min.   : 21.00   Min.   : 0.000  \n 1st Qu.: 5.390   1st Qu.:115   1st Qu.: 42.75   1st Qu.: 0.000  \n Median : 7.490   Median :125   Median : 69.00   Median : 5.000  \n Mean   : 7.496   Mean   :125   Mean   : 68.66   Mean   : 6.635  \n 3rd Qu.: 9.320   3rd Qu.:135   3rd Qu.: 91.00   3rd Qu.:12.000  \n Max.   :16.270   Max.   :175   Max.   :120.00   Max.   :29.000  \n   Population        Price        ShelveLoc        Age          Education   \n Min.   : 10.0   Min.   : 24.0   Bad   : 96   Min.   :25.00   Min.   :10.0  \n 1st Qu.:139.0   1st Qu.:100.0   Good  : 85   1st Qu.:39.75   1st Qu.:12.0  \n Median :272.0   Median :117.0   Medium:219   Median :54.50   Median :14.0  \n Mean   :264.8   Mean   :115.8                Mean   :53.32   Mean   :13.9  \n 3rd Qu.:398.5   3rd Qu.:131.0                3rd Qu.:66.00   3rd Qu.:16.0  \n Max.   :509.0   Max.   :191.0                Max.   :80.00   Max.   :18.0  \n Urban       US     \n No :118   No :142  \n Yes:282   Yes:258  \n                    \n                    \n                    \n                    \n\nstr(Carseats)\n\n'data.frame':   400 obs. of  11 variables:\n $ Sales      : num  9.5 11.22 10.06 7.4 4.15 ...\n $ CompPrice  : num  138 111 113 117 141 124 115 136 132 132 ...\n $ Income     : num  73 48 35 100 64 113 105 81 110 113 ...\n $ Advertising: num  11 16 10 4 3 13 0 15 0 0 ...\n $ Population : num  276 260 269 466 340 501 45 425 108 131 ...\n $ Price      : num  120 83 80 97 128 72 108 120 124 124 ...\n $ ShelveLoc  : Factor w/ 3 levels \"Bad\",\"Good\",\"Medium\": 1 2 3 3 1 1 3 2 3 3 ...\n $ Age        : num  42 65 59 55 38 78 71 67 76 76 ...\n $ Education  : num  17 10 12 14 13 16 15 10 10 17 ...\n $ Urban      : Factor w/ 2 levels \"No\",\"Yes\": 2 2 2 2 2 1 2 2 1 1 ...\n $ US         : Factor w/ 2 levels \"No\",\"Yes\": 2 2 2 2 1 2 1 2 1 2 ...\n\n\n\n# Manipulando os dados\ncad_crianca &lt;- Carseats %&gt;% rename(vendas = Sales, \n                                   preco_comp = CompPrice,\n                                   renda = Income,\n                                   propaganda = Advertising,\n                                   populacao = Population,\n                                   preco = Price,\n                                   local_prat = ShelveLoc,\n                                   idade = Age,\n                                   educacao = Education,\n                                   urbano = Urban,\n                                   eua = US)\n\ncad_crianca &lt;- cad_crianca %&gt;% mutate(vendaAlta = ifelse(vendas &gt; 8, 1, 0)) %&gt;%  select(-vendas)\n\n# Dividir em treino e teste\nset.seed(21)\nindice &lt;- createDataPartition(cad_crianca$vendaAlta, p = 0.7, list = FALSE)\nconj_treino &lt;- cad_crianca[indice, ]\nconj_teste &lt;- cad_crianca[-indice, ]\n\n# Codificação dummy para variáveis categóricas\ndummies &lt;- dummyVars(vendaAlta ~ ., data = conj_treino)\nX_treino &lt;- predict(dummies, newdata = conj_treino)\nX_teste &lt;- predict(dummies, newdata = conj_teste)\n\n# Criar matrizes DMatrix\ndtreino &lt;- xgb.DMatrix(data = X_treino, label = conj_treino$vendaAlta)\ndteste &lt;- xgb.DMatrix(data = X_teste, label = conj_teste$vendaAlta)\n\n\n# Parâmetros do modelo\nparam &lt;- list(\n  objective = \"binary:logistic\",\n  eval_metric = \"error\",\n  max_depth = 4,\n  eta = 0.1\n)\n\n# Treinamento\nmodel &lt;- xgb.train(\n  params = param,\n  data = dtreino,\n  nrounds = 100,\n  watchlist = list(train = dtreino, test = dteste),\n  verbose = 0\n)\n\n\n# Previsões\npred_prob &lt;- predict(model, dteste)\npred_class &lt;- ifelse(pred_prob &gt; 0.5, 1, 0)\n\n# Matriz de confusão\nconf_matrix &lt;- confusionMatrix(factor(pred_class), factor(conj_teste$vendaAlta))\nconf_matrix\n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction  0  1\n         0 56 14\n         1 12 38\n                                          \n               Accuracy : 0.7833          \n                 95% CI : (0.6989, 0.8533)\n    No Information Rate : 0.5667          \n    P-Value [Acc &gt; NIR] : 5.495e-07       \n                                          \n                  Kappa : 0.5568          \n                                          \n Mcnemar's Test P-Value : 0.8445          \n                                          \n            Sensitivity : 0.8235          \n            Specificity : 0.7308          \n         Pos Pred Value : 0.8000          \n         Neg Pred Value : 0.7600          \n             Prevalence : 0.5667          \n         Detection Rate : 0.4667          \n   Detection Prevalence : 0.5833          \n      Balanced Accuracy : 0.7771          \n                                          \n       'Positive' Class : 0               \n                                          \n\n\n\nroc_obj &lt;- roc(conj_teste$vendaAlta, pred_prob)\nplot(roc_obj, main = \"Curva ROC - XGBoost\", col = \"blue\")\n\n\n\n\n\n\nauc(roc_obj)\n\nArea under the curve: 0.8767\n\n\n\nimportance &lt;- xgb.importance(model = model)\nxgb.plot.importance(importance_matrix = importance)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação XGBooost"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.3.html#manipulando-os-dados",
-    "href": "semanas/Aula12.3.html#manipulando-os-dados",
-    "title": "Arvores de Classificação - XGboost",
-    "section": "Manipulando os dados",
-    "text": "Manipulando os dados\n\ncredito &lt;- tibble(Default)\nsummary(credito)\n\n default    student       balance           income     \n No :9667   No :7056   Min.   :   0.0   Min.   :  772  \n Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  \n                       Median : 823.6   Median :34553  \n                       Mean   : 835.4   Mean   :33517  \n                       3rd Qu.:1166.3   3rd Qu.:43808  \n                       Max.   :2654.3   Max.   :73554  \n\n# renomeando colunas\ncredito &lt;- credito %&gt;% \n                rename( inadimplente = default, estudante = student, balanco = balance,\n                receita = income)\ncredito &lt;- credito %&gt;% mutate( inadimplente =  case_when(\n                           inadimplente == \"No\"  ~ \"Nao\",\n                           inadimplente == \"Yes\" ~ \"Sim\"\n                          )) %&gt;% mutate(inadimplente = factor(inadimplente))\ncredito &lt;- credito %&gt;% mutate( estudante =  case_when(\n                           estudante == \"No\"  ~ 0,\n                           estudante == \"Yes\" ~ 1\n                          )) \n\nstr(credito)\n\ntibble [10,000 × 4] (S3: tbl_df/tbl/data.frame)\n $ inadimplente: Factor w/ 2 levels \"Nao\",\"Sim\": 1 1 1 1 1 1 1 1 1 1 ...\n $ estudante   : num [1:10000] 0 1 0 0 0 1 0 1 0 0 ...\n $ balanco     : num [1:10000] 730 817 1074 529 786 ...\n $ receita     : num [1:10000] 44362 12106 31767 35704 38463 ...\n\nsummary(credito)\n\n inadimplente   estudante         balanco          receita     \n Nao:9667     Min.   :0.0000   Min.   :   0.0   Min.   :  772  \n Sim: 333     1st Qu.:0.0000   1st Qu.: 481.7   1st Qu.:21340  \n              Median :0.0000   Median : 823.6   Median :34553  \n              Mean   :0.2944   Mean   : 835.4   Mean   :33517  \n              3rd Qu.:1.0000   3rd Qu.:1166.3   3rd Qu.:43808  \n              Max.   :1.0000   Max.   :2654.3   Max.   :73554",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação XGBooost"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.3.html#treino-e-teste",
-    "href": "semanas/Aula12.3.html#treino-e-teste",
-    "title": "Arvores de Classificação - XGboost",
-    "section": "Treino e Teste",
-    "text": "Treino e Teste\n\nlibrary(caret)\nset.seed(21)\ny &lt;- credito$inadimplente\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nx_conj_treino &lt;- credito %&gt;% slice(-indice_teste) %&gt;% select(-inadimplente)\nx_conj_teste &lt;- credito %&gt;% slice(indice_teste) %&gt;% select(-inadimplente)\ny_treino &lt;- credito %&gt;% slice(-indice_teste) %&gt;% select(inadimplente) \ny_treino &lt;- as.integer(unlist(y_treino))-1\ny_teste &lt;- credito %&gt;% slice(indice_teste) %&gt;% select(inadimplente)\ny_teste &lt;- as.integer(unlist(y_teste))-1",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação XGBooost"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.3.html#treinando",
-    "href": "semanas/Aula12.3.html#treinando",
-    "title": "Arvores de Classificação - XGboost",
-    "section": "Treinando",
-    "text": "Treinando\n\n## 1a tentativa Xgboost\nlibrary(xgboost)\nnum_class = 2\nparams = list(\n  booster=\"gbtree\",\n  eta=0.001,\n  max_depth=5,\n  gamma=3,\n  subsample=0.75,\n  colsample_bytree=1,\n  objective=\"multi:softprob\",\n  eval_metric=\"mlogloss\",\n  num_class=num_class\n)\n\nset.seed(21)\ncv &lt;- xgb.cv(data = as.matrix(x_conj_treino), label = as.matrix(y_treino), params=params, \n             nrounds = 10000, nfold = 5, early_stopping_rounds=10, \n             nthreads=1, verbose=FALSE)\n# cv\nelog &lt;- as.data.frame(cv$evaluation_log)\nelog %&gt;% \n   summarize(ntrees.train = which.min(train_mlogloss_mean),  \n             ntrees.test  = which.min(test_mlogloss_mean))   \n\n  ntrees.train ntrees.test\n1         6678        6668\n\n(nrounds &lt;- which.min(elog$test_mlogloss_mean))\n\n[1] 6668",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação XGBooost"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.3.html#modelo-final",
-    "href": "semanas/Aula12.3.html#modelo-final",
-    "title": "Arvores de Classificação - XGboost",
-    "section": "Modelo Final",
-    "text": "Modelo Final\n\nmodelo_xgb &lt;- xgboost(data = as.matrix(x_conj_treino), label = as.matrix(y_treino),\n             params=params, nrounds = nrounds, verbose = FALSE)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação XGBooost"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.3.html#importancia-das-variáveis",
-    "href": "semanas/Aula12.3.html#importancia-das-variáveis",
-    "title": "Arvores de Classificação - XGboost",
-    "section": "Importancia das variáveis",
-    "text": "Importancia das variáveis\n\nimportancia &lt;- xgb.importance(model = modelo_xgb)\nimportancia\n\n     Feature        Gain       Cover  Frequency\n      &lt;char&gt;       &lt;num&gt;       &lt;num&gt;      &lt;num&gt;\n1:   balanco 0.936743463 0.938791966 0.74828024\n2:   receita 0.057924670 0.052455552 0.22517788\n3: estudante 0.005331867 0.008752483 0.02654188\n\nxgb.plot.importance(importancia)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação XGBooost"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.3.html#previsões",
-    "href": "semanas/Aula12.3.html#previsões",
-    "title": "Arvores de Classificação - XGboost",
-    "section": "Previsões",
-    "text": "Previsões\n\nx_conj_teste$prev &lt;- predict(modelo_xgb, as.matrix(x_conj_teste), reshape=T)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação XGBooost"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.3.html#avaliando",
-    "href": "semanas/Aula12.3.html#avaliando",
-    "title": "Arvores de Classificação - XGboost",
-    "section": "Avaliando",
-    "text": "Avaliando\n\nxgb.ychapeu &lt;- as.factor(ifelse(x_conj_teste$prev[,1] &gt; 0.5,0,1))\nconfusionMatrix(xgb.ychapeu,as.factor(y_teste), positive=\"1\")\n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction    0    1\n         0 1924   38\n         1   10   29\n                                          \n               Accuracy : 0.976           \n                 95% CI : (0.9683, 0.9823)\n    No Information Rate : 0.9665          \n    P-Value [Acc &gt; NIR] : 0.008318        \n                                          \n                  Kappa : 0.5357          \n                                          \n Mcnemar's Test P-Value : 9.735e-05       \n                                          \n            Sensitivity : 0.43284         \n            Specificity : 0.99483         \n         Pos Pred Value : 0.74359         \n         Neg Pred Value : 0.98063         \n             Prevalence : 0.03348         \n         Detection Rate : 0.01449         \n   Detection Prevalence : 0.01949         \n      Balanced Accuracy : 0.71383         \n                                          \n       'Positive' Class : 1",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação XGBooost"
+      "Arvore de Classificação - XGBooost"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html",
     "href": "semanas/Aula12.1.html",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "",
-    "text": "library(tidyverse)\nlibrary(ISLR)\ndata(Default)\nsummary(Default)\n\n default    student       balance           income     \n No :9667   No :7056   Min.   :   0.0   Min.   :  772  \n Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  \n                       Median : 823.6   Median :34553  \n                       Mean   : 835.4   Mean   :33517  \n                       3rd Qu.:1166.3   3rd Qu.:43808  \n                       Max.   :2654.3   Max.   :73554  \n\nstr(Default)\n\n'data.frame':   10000 obs. of  4 variables:\n $ default: Factor w/ 2 levels \"No\",\"Yes\": 1 1 1 1 1 1 1 1 1 1 ...\n $ student: Factor w/ 2 levels \"No\",\"Yes\": 1 2 1 1 1 2 1 2 1 1 ...\n $ balance: num  730 817 1074 529 786 ...\n $ income : num  44362 12106 31767 35704 38463 ...\n\nhead(Default)\n\n  default student   balance    income\n1      No      No  729.5265 44361.625\n2      No     Yes  817.1804 12106.135\n3      No      No 1073.5492 31767.139\n4      No      No  529.2506 35704.494\n5      No      No  785.6559 38463.496\n6      No     Yes  919.5885  7491.559",
+    "text": "library(tidyverse)\nlibrary(ISLR)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
-    "objectID": "semanas/Aula12.1.html#carregando-bibliotecas",
-    "href": "semanas/Aula12.1.html#carregando-bibliotecas",
-    "title": "Arvores de Classificação - Única e GBM",
+    "objectID": "semanas/Aula12.1.html#bibliotecas",
+    "href": "semanas/Aula12.1.html#bibliotecas",
+    "title": "Arvores de Classificação - Única",
     "section": "",
-    "text": "library(tidyverse)\nlibrary(ISLR)\ndata(Default)\nsummary(Default)\n\n default    student       balance           income     \n No :9667   No :7056   Min.   :   0.0   Min.   :  772  \n Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  \n                       Median : 823.6   Median :34553  \n                       Mean   : 835.4   Mean   :33517  \n                       3rd Qu.:1166.3   3rd Qu.:43808  \n                       Max.   :2654.3   Max.   :73554  \n\nstr(Default)\n\n'data.frame':   10000 obs. of  4 variables:\n $ default: Factor w/ 2 levels \"No\",\"Yes\": 1 1 1 1 1 1 1 1 1 1 ...\n $ student: Factor w/ 2 levels \"No\",\"Yes\": 1 2 1 1 1 2 1 2 1 1 ...\n $ balance: num  730 817 1074 529 786 ...\n $ income : num  44362 12106 31767 35704 38463 ...\n\nhead(Default)\n\n  default student   balance    income\n1      No      No  729.5265 44361.625\n2      No     Yes  817.1804 12106.135\n3      No      No 1073.5492 31767.139\n4      No      No  529.2506 35704.494\n5      No      No  785.6559 38463.496\n6      No     Yes  919.5885  7491.559",
+    "text": "library(tidyverse)\nlibrary(ISLR)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula12.1.html#dados",
+    "href": "semanas/Aula12.1.html#dados",
+    "title": "Arvores de Classificação - Única",
+    "section": "Dados",
+    "text": "Dados\nVamos começar a aplicar a metodologia de árvores usando árvores de classificação para analisar os dados existentes em Carseats. Este conjunto de dados (simulado) é sobre venda de assentos de criança para carros. Ele tem 400 observações das seguintes variáveis (11), cujos nomes serão convertidos para o português:\nSales: vendas em unidades (em mil) em cada local\nCompPrice: preço cobrado pelo competidor em cada local\nIncome: nível de renda da comunidade local (em mil US$)\nAdvertising: orçamento local de propaganda (em mil US$)\nPopulation: população na região (em mil)\nPrice: preço cobrado pela empresa em cada local\nShelveLoc: um fator com níveis Ruim, Bom e Medio indicando a qualidade da localização das prateleiras para os assentos em cada lugar\nAge: idade media da população local\nEducation: nível de educação em cada local\nUrban: um fator Sim e Não indicando se a loja esta em uma área urbana ou rural\nUS: um fator indicando se a loja é nos EUA ou não\nNeste dados, Sales é a variável resposta, só que ela é uma variável contínua, por este motivo vamos usá-la para criar uma variável binária. Vamos usar a função ifelse() para criar a variável binária, que chamaremos de alta, ela assume os valores Sim se Sales for maior que 8 e assume o valor Não caso contrário:\n\ndata(Carseats)\nsummary(Carseats)\n\n     Sales          CompPrice       Income        Advertising    \n Min.   : 0.000   Min.   : 77   Min.   : 21.00   Min.   : 0.000  \n 1st Qu.: 5.390   1st Qu.:115   1st Qu.: 42.75   1st Qu.: 0.000  \n Median : 7.490   Median :125   Median : 69.00   Median : 5.000  \n Mean   : 7.496   Mean   :125   Mean   : 68.66   Mean   : 6.635  \n 3rd Qu.: 9.320   3rd Qu.:135   3rd Qu.: 91.00   3rd Qu.:12.000  \n Max.   :16.270   Max.   :175   Max.   :120.00   Max.   :29.000  \n   Population        Price        ShelveLoc        Age          Education   \n Min.   : 10.0   Min.   : 24.0   Bad   : 96   Min.   :25.00   Min.   :10.0  \n 1st Qu.:139.0   1st Qu.:100.0   Good  : 85   1st Qu.:39.75   1st Qu.:12.0  \n Median :272.0   Median :117.0   Medium:219   Median :54.50   Median :14.0  \n Mean   :264.8   Mean   :115.8                Mean   :53.32   Mean   :13.9  \n 3rd Qu.:398.5   3rd Qu.:131.0                3rd Qu.:66.00   3rd Qu.:16.0  \n Max.   :509.0   Max.   :191.0                Max.   :80.00   Max.   :18.0  \n Urban       US     \n No :118   No :142  \n Yes:282   Yes:258  \n                    \n                    \n                    \n                    \n\nstr(Carseats)\n\n'data.frame':   400 obs. of  11 variables:\n $ Sales      : num  9.5 11.22 10.06 7.4 4.15 ...\n $ CompPrice  : num  138 111 113 117 141 124 115 136 132 132 ...\n $ Income     : num  73 48 35 100 64 113 105 81 110 113 ...\n $ Advertising: num  11 16 10 4 3 13 0 15 0 0 ...\n $ Population : num  276 260 269 466 340 501 45 425 108 131 ...\n $ Price      : num  120 83 80 97 128 72 108 120 124 124 ...\n $ ShelveLoc  : Factor w/ 3 levels \"Bad\",\"Good\",\"Medium\": 1 2 3 3 1 1 3 2 3 3 ...\n $ Age        : num  42 65 59 55 38 78 71 67 76 76 ...\n $ Education  : num  17 10 12 14 13 16 15 10 10 17 ...\n $ Urban      : Factor w/ 2 levels \"No\",\"Yes\": 2 2 2 2 2 1 2 2 1 1 ...\n $ US         : Factor w/ 2 levels \"No\",\"Yes\": 2 2 2 2 1 2 1 2 1 2 ...",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#manipulando-os-dados",
     "href": "semanas/Aula12.1.html#manipulando-os-dados",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Manipulando os dados",
-    "text": "Manipulando os dados\n\ncredito &lt;- tibble(Default)\nsummary(credito)\n\n default    student       balance           income     \n No :9667   No :7056   Min.   :   0.0   Min.   :  772  \n Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  \n                       Median : 823.6   Median :34553  \n                       Mean   : 835.4   Mean   :33517  \n                       3rd Qu.:1166.3   3rd Qu.:43808  \n                       Max.   :2654.3   Max.   :73554  \n\n# renomeando colunas\ncredito &lt;- credito %&gt;% \n                rename( inadimplente = default, estudante = student, balanco = balance,\n                receita = income)\ncredito &lt;- credito %&gt;% mutate( inadimplente =  case_when(\n                           inadimplente == \"No\"  ~ \"Nao\",\n                           inadimplente == \"Yes\" ~ \"Sim\"\n                          )) %&gt;% mutate(inadimplente = factor(inadimplente))\ncredito &lt;- credito %&gt;% mutate( estudante =  case_when(\n                           estudante == \"No\"  ~ 0,\n                           estudante == \"Yes\" ~ 1\n                          )) \n\nstr(credito)\n\ntibble [10,000 × 4] (S3: tbl_df/tbl/data.frame)\n $ inadimplente: Factor w/ 2 levels \"Nao\",\"Sim\": 1 1 1 1 1 1 1 1 1 1 ...\n $ estudante   : num [1:10000] 0 1 0 0 0 1 0 1 0 0 ...\n $ balanco     : num [1:10000] 730 817 1074 529 786 ...\n $ receita     : num [1:10000] 44362 12106 31767 35704 38463 ...\n\nsummary(credito)\n\n inadimplente   estudante         balanco          receita     \n Nao:9667     Min.   :0.0000   Min.   :   0.0   Min.   :  772  \n Sim: 333     1st Qu.:0.0000   1st Qu.: 481.7   1st Qu.:21340  \n              Median :0.0000   Median : 823.6   Median :34553  \n              Mean   :0.2944   Mean   : 835.4   Mean   :33517  \n              3rd Qu.:1.0000   3rd Qu.:1166.3   3rd Qu.:43808  \n              Max.   :1.0000   Max.   :2654.3   Max.   :73554",
+    "text": "Manipulando os dados\n\ncad_crianca &lt;- Carseats %&gt;% rename(vendas = Sales, \n                                   preco_comp = CompPrice,\n                                   renda = Income,\n                                   propaganda = Advertising,\n                                   populacao = Population,\n                                   preco = Price,\n                                   local_prat = ShelveLoc,\n                                   idade = Age,\n                                   educacao = Education,\n                                   urbano = Urban,\n                                   eua = US)\n\ncad_crianca &lt;- cad_crianca %&gt;% mutate(alta = ifelse(vendas &gt; 8, \"Sim\",\n                                                   \"Não\")) %&gt;%\n                              mutate(alta = factor(alta))\n\ncad_crianca&lt;- cad_crianca %&gt;% mutate(local_prat =  case_when(\n                                      local_prat == \"Bad\"  ~ \"Ruim\",\n                                      local_prat == \"Good\" ~ \"Bom\",\n                                      local_prat == \"Medium\" ~ \"Medio\"))%&gt;%                               mutate(local_prat = factor(local_prat))\n\ncad_crianca&lt;- cad_crianca %&gt;% mutate(urbano =  case_when(\n                                      urbano == \"Yes\"  ~ \"Sim\",\n                                      urbano == \"No\" ~ \"Não\")) %&gt;%                                       mutate(urbano = factor(urbano))\n\ncad_crianca&lt;- cad_crianca %&gt;% mutate(eua =  case_when(\n                                      eua == \"Yes\"  ~ \"Sim\",\n                                      eua == \"No\" ~ \"Não\")) %&gt;%                                          mutate(eua = factor(eua))\n\ncad_crianca&lt;- cad_crianca %&gt;% select(-vendas)\n\nstr(cad_crianca)\n\n'data.frame':   400 obs. of  11 variables:\n $ preco_comp: num  138 111 113 117 141 124 115 136 132 132 ...\n $ renda     : num  73 48 35 100 64 113 105 81 110 113 ...\n $ propaganda: num  11 16 10 4 3 13 0 15 0 0 ...\n $ populacao : num  276 260 269 466 340 501 45 425 108 131 ...\n $ preco     : num  120 83 80 97 128 72 108 120 124 124 ...\n $ local_prat: Factor w/ 3 levels \"Bom\",\"Medio\",..: 3 1 2 2 3 3 2 1 2 2 ...\n $ idade     : num  42 65 59 55 38 78 71 67 76 76 ...\n $ educacao  : num  17 10 12 14 13 16 15 10 10 17 ...\n $ urbano    : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 2 2 1 2 2 1 1 ...\n $ eua       : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 2 1 2 1 2 1 2 ...\n $ alta      : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 1 1 2 1 2 1 1 ...\n\nsummary(cad_crianca)\n\n   preco_comp      renda          propaganda       populacao    \n Min.   : 77   Min.   : 21.00   Min.   : 0.000   Min.   : 10.0  \n 1st Qu.:115   1st Qu.: 42.75   1st Qu.: 0.000   1st Qu.:139.0  \n Median :125   Median : 69.00   Median : 5.000   Median :272.0  \n Mean   :125   Mean   : 68.66   Mean   : 6.635   Mean   :264.8  \n 3rd Qu.:135   3rd Qu.: 91.00   3rd Qu.:12.000   3rd Qu.:398.5  \n Max.   :175   Max.   :120.00   Max.   :29.000   Max.   :509.0  \n     preco       local_prat      idade          educacao    urbano     eua     \n Min.   : 24.0   Bom  : 85   Min.   :25.00   Min.   :10.0   Não:118   Não:142  \n 1st Qu.:100.0   Medio:219   1st Qu.:39.75   1st Qu.:12.0   Sim:282   Sim:258  \n Median :117.0   Ruim : 96   Median :54.50   Median :14.0                      \n Mean   :115.8               Mean   :53.32   Mean   :13.9                      \n 3rd Qu.:131.0               3rd Qu.:66.00   3rd Qu.:16.0                      \n Max.   :191.0               Max.   :80.00   Max.   :18.0                      \n  alta    \n Não:236  \n Sim:164",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#treino-e-teste",
     "href": "semanas/Aula12.1.html#treino-e-teste",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Treino e Teste",
-    "text": "Treino e Teste\n\nlibrary(caret)\nset.seed(21)\ny &lt;- credito$inadimplente\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- credito %&gt;% slice(-indice_teste)\nconj_teste &lt;- credito %&gt;% slice(indice_teste)\n\nsummary(conj_treino)\n\n inadimplente   estudante         balanco          receita     \n Nao:7733     Min.   :0.0000   Min.   :   0.0   Min.   :  772  \n Sim: 266     1st Qu.:0.0000   1st Qu.: 481.3   1st Qu.:21339  \n              Median :0.0000   Median : 819.1   Median :34541  \n              Mean   :0.2953   Mean   : 832.7   Mean   :33541  \n              3rd Qu.:1.0000   3rd Qu.:1167.1   3rd Qu.:43840  \n              Max.   :1.0000   Max.   :2654.3   Max.   :73554  \n\nsummary(conj_teste)\n\n inadimplente   estudante         balanco          receita     \n Nao:1934     Min.   :0.0000   Min.   :   0.0   Min.   : 4755  \n Sim:  67     1st Qu.:0.0000   1st Qu.: 483.5   1st Qu.:21371  \n              Median :0.0000   Median : 836.6   Median :34591  \n              Mean   :0.2909   Mean   : 846.2   Mean   :33423  \n              3rd Qu.:1.0000   3rd Qu.:1163.1   3rd Qu.:43646  \n              Max.   :1.0000   Max.   :2461.5   Max.   :71239",
+    "text": "Treino e Teste\n\nlibrary(caret)\nset.seed(21)\ny &lt;- cad_crianca$alta\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- cad_crianca %&gt;% slice(-indice_teste)\nconj_teste &lt;- cad_crianca %&gt;% slice(indice_teste)\n\nstr(conj_treino)\n\n'data.frame':   319 obs. of  11 variables:\n $ preco_comp: num  138 111 113 141 124 136 132 121 117 122 ...\n $ renda     : num  73 48 35 64 113 81 110 78 94 35 ...\n $ propaganda: num  11 16 10 3 13 15 0 9 4 2 ...\n $ populacao : num  276 260 269 340 501 425 108 150 503 393 ...\n $ preco     : num  120 83 80 128 72 120 124 100 94 136 ...\n $ local_prat: Factor w/ 3 levels \"Bom\",\"Medio\",..: 3 1 2 3 3 1 2 3 1 2 ...\n $ idade     : num  42 65 59 38 78 67 76 26 50 62 ...\n $ educacao  : num  17 10 12 13 16 10 10 10 13 18 ...\n $ urbano    : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 2 1 2 1 1 2 2 ...\n $ eua       : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 1 2 2 1 2 2 1 ...\n $ alta      : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 1 2 2 1 2 2 1 ...\n\nprop.table(table(conj_treino$alta))\n\n\n      Não       Sim \n0.5893417 0.4106583 \n\nstr(conj_teste)\n\n'data.frame':   81 obs. of  11 variables:\n $ preco_comp: num  117 115 132 115 147 145 114 121 123 103 ...\n $ renda     : num  100 105 113 28 74 119 38 41 42 93 ...\n $ propaganda: num  4 0 0 11 13 16 13 5 11 15 ...\n $ populacao : num  466 45 131 29 251 294 317 412 16 188 ...\n $ preco     : num  97 108 124 86 131 113 128 110 134 103 ...\n $ local_prat: Factor w/ 3 levels \"Bom\",\"Medio\",..: 2 2 2 1 1 3 1 2 2 3 ...\n $ idade     : num  55 71 76 53 52 42 50 54 59 74 ...\n $ educacao  : num  14 15 17 18 10 12 16 10 13 16 ...\n $ urbano    : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 1 2 2 2 2 2 2 2 ...\n $ eua       : Factor w/ 2 levels \"Não\",\"Sim\": 2 1 2 2 2 2 2 2 2 2 ...\n $ alta      : Factor w/ 2 levels \"Não\",\"Sim\": 1 1 1 2 2 2 2 1 1 1 ...\n\nprop.table(table(conj_teste$alta))\n\n\n      Não       Sim \n0.5925926 0.4074074",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#arvore-de-classificação",
     "href": "semanas/Aula12.1.html#arvore-de-classificação",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Arvore de Classificação",
-    "text": "Arvore de Classificação\nNa biblioteca rpart as arvores de classificação são obtidas usando o método class. Existem alguns controles que podem ser feitos nos parametros da arvore.\nNeste exemplo só definimos o menor conjunto de dados numa partição (minsplit) e o parametro de complexidade cp. Posteriormente vamos ampliar este controle. Um valor de cp muito pequeno ocasiona overfitting e um valor muito grande resulta numa arvore muito pequena (underfitting). Nos dois casos se diminui o desempenho do modelo.\n\n##Usando rpart para desenvolver a arvore  \nlibrary(rpart)\narvcl &lt;- rpart(inadimplente ~ ., \n                data=conj_treino,\n                method=\"class\", #para arvore de classificação\n                control=rpart.control(minsplit=30,cp=0.02))\nplot(arvcl)\ntext(arvcl,pretty=0)",
+    "text": "Arvore de Classificação\nNa biblioteca rpart as arvores de classificação são obtidas usando o método class. Existem alguns controles que podem ser feitos nos parametros da arvore.\nNeste exemplo só definimos o menor conjunto de dados numa partição (minsplit) e o parametro de complexidade cp. Posteriormente vamos ampliar este controle. Um valor de cp muito pequeno ocasiona overfitting e um valor muito grande resulta numa arvore muito pequena (underfitting). Nos dois casos se diminui o desempenho do modelo.\n\n##Usando rpart para desenvolver a arvore  \nlibrary(rpart)\narvcl &lt;- rpart(alta ~ ., \n                data=conj_treino,\n                method=\"class\", #para arvore de classificação\n                control=rpart.control(minsplit=30,cp=0.02))\nplot(arvcl)\ntext(arvcl,pretty=0)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#regras",
     "href": "semanas/Aula12.1.html#regras",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Regras",
-    "text": "Regras\n\n# Regras de Decisão\narvcl\n\nn= 7999 \n\nnode), split, n, loss, yval, (yprob)\n      * denotes terminal node\n\n 1) root 7999 266 Nao (0.96674584 0.03325416)  \n   2) balanco&lt; 1788.349 7761 136 Nao (0.98247648 0.01752352) *\n   3) balanco&gt;=1788.349 238 108 Sim (0.45378151 0.54621849)  \n     6) balanco&lt; 1971.915 150  63 Nao (0.58000000 0.42000000)  \n      12) receita&lt; 33211.76 105  36 Nao (0.65714286 0.34285714) *\n      13) receita&gt;=33211.76 45  18 Sim (0.40000000 0.60000000) *\n     7) balanco&gt;=1971.915 88  21 Sim (0.23863636 0.76136364) *",
+    "text": "Regras\n\n# Regras de Decisão\narvcl\n\nn= 319 \n\nnode), split, n, loss, yval, (yprob)\n      * denotes terminal node\n\n 1) root 319 131 Não (0.58934169 0.41065831)  \n   2) local_prat=Medio,Ruim 249  77 Não (0.69076305 0.30923695)  \n     4) preco&gt;=92 213  51 Não (0.76056338 0.23943662)  \n       8) idade&gt;=49.5 123  15 Não (0.87804878 0.12195122) *\n       9) idade&lt; 49.5 90  36 Não (0.60000000 0.40000000)  \n        18) preco&gt;=124.5 44   6 Não (0.86363636 0.13636364) *\n        19) preco&lt; 124.5 46  16 Sim (0.34782609 0.65217391) *\n     5) preco&lt; 92 36  10 Sim (0.27777778 0.72222222)  \n      10) local_prat=Ruim 13   5 Não (0.61538462 0.38461538) *\n      11) local_prat=Medio 23   2 Sim (0.08695652 0.91304348) *\n   3) local_prat=Bom 70  16 Sim (0.22857143 0.77142857)  \n     6) preco&gt;=142.5 10   3 Não (0.70000000 0.30000000) *\n     7) preco&lt; 142.5 60   9 Sim (0.15000000 0.85000000) *",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#desenhando-a-árvore-de-uma-forma-mais-clara",
     "href": "semanas/Aula12.1.html#desenhando-a-árvore-de-uma-forma-mais-clara",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Desenhando a Árvore de uma forma mais clara",
     "text": "Desenhando a Árvore de uma forma mais clara\n\nlibrary(rattle)\nlibrary(rpart.plot)\nlibrary(RColorBrewer)\nfancyRpartPlot(arvcl, caption = NULL)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#previsões",
     "href": "semanas/Aula12.1.html#previsões",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Previsões",
-    "text": "Previsões\n\n# Fazendo Previsões\ny_chapeu &lt;- predict(arvcl, newdata = conj_teste, type=\"class\")\n\nconfusionMatrix(y_chapeu, conj_teste$inadimplente, positive=\"Sim\") \n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction  Nao  Sim\n       Nao 1922   36\n       Sim   12   31\n                                          \n               Accuracy : 0.976           \n                 95% CI : (0.9683, 0.9823)\n    No Information Rate : 0.9665          \n    P-Value [Acc &gt; NIR] : 0.0083176       \n                                          \n                  Kappa : 0.5519          \n                                          \n Mcnemar's Test P-Value : 0.0009009       \n                                          \n            Sensitivity : 0.46269         \n            Specificity : 0.99380         \n         Pos Pred Value : 0.72093         \n         Neg Pred Value : 0.98161         \n             Prevalence : 0.03348         \n         Detection Rate : 0.01549         \n   Detection Prevalence : 0.02149         \n      Balanced Accuracy : 0.72824         \n                                          \n       'Positive' Class : Sim",
+    "text": "Previsões\n\n# Fazendo Previsões\ny_chapeu &lt;- predict(arvcl, newdata = conj_teste, type=\"class\")\n\nconfusionMatrix(y_chapeu, conj_teste$alta, positive=\"Sim\") \n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction Não Sim\n       Não  37  13\n       Sim  11  20\n                                          \n               Accuracy : 0.7037          \n                 95% CI : (0.5919, 0.8001)\n    No Information Rate : 0.5926          \n    P-Value [Acc &gt; NIR] : 0.02573         \n                                          \n                  Kappa : 0.3805          \n                                          \n Mcnemar's Test P-Value : 0.83826         \n                                          \n            Sensitivity : 0.6061          \n            Specificity : 0.7708          \n         Pos Pred Value : 0.6452          \n         Neg Pred Value : 0.7400          \n             Prevalence : 0.4074          \n         Detection Rate : 0.2469          \n   Detection Prevalence : 0.3827          \n      Balanced Accuracy : 0.6884          \n                                          \n       'Positive' Class : Sim",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#arvore-de-classificação-no-caret",
     "href": "semanas/Aula12.1.html#arvore-de-classificação-no-caret",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Arvore de Classificação no caret",
-    "text": "Arvore de Classificação no caret\n\n##Usando rpart para desenvolver a arvore  \nlibrary(rpart)\nset.seed(21)\n## Otimizamos o valor de cp usando um 10-fold cv\n# O parametro tuneLength diz para o algoritmo escolher diferentes valores para cp\n# O parametro tuneGrid permite decidir que valores cp deve assumir enquanto que o\n# tuneLength somente limita o número default de parametros que se usa.\ntgrid &lt;- expand.grid(cp = seq(0.01,0.10,0.001))\nctrl &lt;- trainControl(method = \"cv\", classProbs=TRUE)\narvclass &lt;- train(inadimplente ~ . , data = conj_treino, method = \"rpart\",\n                 trControl = ctrl,\n                 tuneGrid = tgrid\n                 )\n# Mostra a acurácia vs cp (parametro de complexidade)\nplot(arvclass)\n\n\n\n\n\n\n## Indica o melhor valor de cp\narvclass$bestTune\n\n      cp\n53 0.062",
+    "text": "Arvore de Classificação no caret\n\n##Usando rpart para desenvolver a arvore  \nlibrary(rpart)\nset.seed(21)\n## Otimizamos o valor de cp usando um 10-fold cv\n# O parametro tuneLength diz para o algoritmo escolher diferentes valores para cp\n# O parametro tuneGrid permite decidir que valores cp deve assumir enquanto que o\n# tuneLength somente limita o número default de parametros que se usa.\ntgrid &lt;- expand.grid(cp = seq(0.01,0.10,0.001))\nctrl &lt;- trainControl(method = \"cv\", classProbs=TRUE)\narvclass &lt;- train(alta ~ . , data = conj_treino, method = \"rpart\",\n                 trControl = ctrl,\n                 tuneGrid = tgrid\n                 )\n# Mostra a acurácia vs cp (parametro de complexidade)\nplot(arvclass)\n\n\n\n\n\n\n## Indica o melhor valor de cp\narvclass$bestTune\n\n     cp\n7 0.016",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#uma-forma-melhor-de-ver-a-árvore",
     "href": "semanas/Aula12.1.html#uma-forma-melhor-de-ver-a-árvore",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Uma forma melhor de ver a Árvore",
     "text": "Uma forma melhor de ver a Árvore\n\n## melhorando apresentação da árvore\nlibrary(rattle)\nlibrary(rpart.plot)\nlibrary(RColorBrewer)\nfancyRpartPlot(arvclass$finalModel, caption = NULL)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#previsões-1",
     "href": "semanas/Aula12.1.html#previsões-1",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Previsões",
-    "text": "Previsões\n\n# Fazendo Previsões\ny_chapeu &lt;- arvclass %&gt;% predict(conj_teste) %&gt;% \n                   factor(levels = levels(conj_teste$inadimplente))\nhead(y_chapeu)\n\n[1] Nao Nao Nao Nao Nao Nao\nLevels: Nao Sim\n\nconfusionMatrix(y_chapeu, conj_teste$inadimplente, positive=\"Sim\") \n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction  Nao  Sim\n       Nao 1927   44\n       Sim    7   23\n                                         \n               Accuracy : 0.9745         \n                 95% CI : (0.9666, 0.981)\n    No Information Rate : 0.9665         \n    P-Value [Acc &gt; NIR] : 0.02354        \n                                         \n                  Kappa : 0.4631         \n                                         \n Mcnemar's Test P-Value : 4.631e-07      \n                                         \n            Sensitivity : 0.34328        \n            Specificity : 0.99638        \n         Pos Pred Value : 0.76667        \n         Neg Pred Value : 0.97768        \n             Prevalence : 0.03348        \n         Detection Rate : 0.01149        \n   Detection Prevalence : 0.01499        \n      Balanced Accuracy : 0.66983        \n                                         \n       'Positive' Class : Sim",
+    "text": "Previsões\n\n# Fazendo Previsões\ny_chapeu &lt;- arvclass %&gt;% predict(conj_teste) %&gt;% \n                   factor(levels = levels(conj_teste$alta))\nhead(y_chapeu)\n\n[1] Não Não Não Sim Sim Não\nLevels: Não Sim\n\nconfusionMatrix(y_chapeu, conj_teste$alta, positive=\"Sim\") \n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction Não Sim\n       Não  40  13\n       Sim   8  20\n                                          \n               Accuracy : 0.7407          \n                 95% CI : (0.6314, 0.8318)\n    No Information Rate : 0.5926          \n    P-Value [Acc &gt; NIR] : 0.003896        \n                                          \n                  Kappa : 0.45            \n                                          \n Mcnemar's Test P-Value : 0.382733        \n                                          \n            Sensitivity : 0.6061          \n            Specificity : 0.8333          \n         Pos Pred Value : 0.7143          \n         Neg Pred Value : 0.7547          \n             Prevalence : 0.4074          \n         Detection Rate : 0.2469          \n   Detection Prevalence : 0.3457          \n      Balanced Accuracy : 0.7197          \n                                          \n       'Positive' Class : Sim",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#verificando-a-consistencia-dos-resultados",
     "href": "semanas/Aula12.1.html#verificando-a-consistencia-dos-resultados",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Verificando a consistencia dos resultados",
-    "text": "Verificando a consistencia dos resultados\n\nset.seed(121)\ny &lt;- credito$inadimplente\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- credito %&gt;% slice(-indice_teste)\nconj_teste &lt;- credito %&gt;% slice(indice_teste)\n\nstr(conj_treino)\n\ntibble [7,999 × 4] (S3: tbl_df/tbl/data.frame)\n $ inadimplente: Factor w/ 2 levels \"Nao\",\"Sim\": 1 1 1 1 1 1 1 1 1 1 ...\n $ estudante   : num [1:7999] 0 1 0 0 1 0 1 0 1 1 ...\n $ balanco     : num [1:7999] 730 817 1074 786 920 ...\n $ receita     : num [1:7999] 44362 12106 31767 38463 7492 ...\n\nprop.table(table(conj_treino$inadimplente))\n\n\n       Nao        Sim \n0.96674584 0.03325416 \n\nstr(conj_teste)\n\ntibble [2,001 × 4] (S3: tbl_df/tbl/data.frame)\n $ inadimplente: Factor w/ 2 levels \"Nao\",\"Sim\": 1 1 1 1 1 1 1 1 1 1 ...\n $ estudante   : num [1:2001] 0 0 0 1 0 0 1 1 0 0 ...\n $ balanco     : num [1:2001] 529 1161 1113 1500 1152 ...\n $ receita     : num [1:2001] 35704 37469 23810 13191 42917 ...\n\nprop.table(table(conj_teste$inadimplente))\n\n\n       Nao        Sim \n0.96651674 0.03348326",
+    "text": "Verificando a consistencia dos resultados\n\nset.seed(121)\ny &lt;- cad_crianca$alta\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- cad_crianca %&gt;% slice(-indice_teste)\nconj_teste &lt;- cad_crianca %&gt;% slice(indice_teste)\n\nstr(conj_treino)\n\n'data.frame':   319 obs. of  11 variables:\n $ preco_comp: num  138 113 141 124 115 136 132 121 117 115 ...\n $ renda     : num  73 35 64 113 105 81 113 78 94 28 ...\n $ propaganda: num  11 10 3 13 0 15 0 9 4 11 ...\n $ populacao : num  276 269 340 501 45 425 131 150 503 29 ...\n $ preco     : num  120 80 128 72 108 120 124 100 94 86 ...\n $ local_prat: Factor w/ 3 levels \"Bom\",\"Medio\",..: 3 2 3 3 2 1 2 3 1 1 ...\n $ idade     : num  42 59 38 78 71 67 76 26 50 53 ...\n $ educacao  : num  17 12 13 16 15 10 17 10 13 18 ...\n $ urbano    : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 1 2 2 1 1 2 2 ...\n $ eua       : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 1 2 1 2 2 2 2 2 ...\n $ alta      : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 1 2 1 2 1 2 2 2 ...\n\nprop.table(table(conj_treino$alta))\n\n\n      Não       Sim \n0.5893417 0.4106583 \n\nstr(conj_teste)\n\n'data.frame':   81 obs. of  11 variables:\n $ preco_comp: num  111 117 132 122 125 139 103 125 122 121 ...\n $ renda     : num  48 100 110 35 90 32 74 94 76 90 ...\n $ propaganda: num  16 4 0 2 2 0 0 0 0 0 ...\n $ populacao : num  260 466 108 393 367 176 359 447 270 150 ...\n $ preco     : num  83 97 124 136 131 82 97 89 100 108 ...\n $ local_prat: Factor w/ 3 levels \"Bom\",\"Medio\",..: 1 2 2 2 2 1 3 1 1 3 ...\n $ idade     : num  65 55 76 62 35 54 55 30 60 75 ...\n $ educacao  : num  10 14 10 18 18 11 11 12 18 16 ...\n $ urbano    : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 1 2 2 1 2 2 1 2 ...\n $ eua       : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 1 1 2 1 2 1 1 1 ...\n $ alta      : Factor w/ 2 levels \"Não\",\"Sim\": 2 1 1 1 1 2 1 2 2 1 ...\n\nprop.table(table(conj_teste$alta))\n\n\n      Não       Sim \n0.5925926 0.4074074",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#obtendo-a-arvore",
     "href": "semanas/Aula12.1.html#obtendo-a-arvore",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Obtendo a arvore",
-    "text": "Obtendo a arvore\n\n##Usando rpart para desenvolver a arvore  \nlibrary(rpart)\narvcl &lt;- rpart(inadimplente ~ ., \n                data=conj_treino,\n                method=\"class\", #para arvore de classificação\n                control=rpart.control(minsplit=30,cp=0.02))",
+    "text": "Obtendo a arvore\n\n##Usando rpart para desenvolver a arvore  \nlibrary(rpart)\narvcl &lt;- rpart(alta ~ ., \n                data=conj_treino,\n                method=\"class\", #para arvore de classificação\n                control=rpart.control(minsplit=30,cp=0.02))",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
     "objectID": "semanas/Aula12.1.html#desenhando-a-árvore-de-uma-forma-mais-clara-1",
     "href": "semanas/Aula12.1.html#desenhando-a-árvore-de-uma-forma-mais-clara-1",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - Única",
     "section": "Desenhando a Árvore de uma forma mais clara",
     "text": "Desenhando a Árvore de uma forma mais clara\n\nlibrary(rattle)\nlibrary(rpart.plot)\nlibrary(RColorBrewer)\nfancyRpartPlot(arvcl, caption = NULL)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.1.html#gbm",
-    "href": "semanas/Aula12.1.html#gbm",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "GBM",
-    "text": "GBM\nCriando um grid para avaliar os parametros\n\nhiper_grid &lt;- expand.grid(\n  shrinkage = c(.001, .01, .1),\n  interaction.depth = c(1, 3, 5),\n  n.minobsinnode = c(5, 10, 15),\n  bag.fraction = c(.65, 1),\n  optimal_trees = 0, # um lugar para guardar resultados\n  min_erro = 0   # um lugar para guardar resultados\n  )\n\n# número total de combinações\nnrow(hiper_grid)\n\n[1] 54",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.1.html#avaliando-o-grid-de-parametros",
-    "href": "semanas/Aula12.1.html#avaliando-o-grid-de-parametros",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Avaliando o grid de parametros",
-    "text": "Avaliando o grid de parametros\n\nlibrary(gbm)\nconj_treino$inadimplente &lt;- as.numeric(conj_treino$inadimplente)\nconj_treino &lt;- transform(conj_treino, inadimplente=inadimplente - 1)\n\n#Busca no grid\nfor(i in 1:nrow(hiper_grid)) {\n\n  #\n  set.seed(21)\n\n  # treina o modelo\n  gbm.tune &lt;- gbm(\n    formula = inadimplente ~ .,\n    distribution = \"bernoulli\",\n    data = conj_treino,\n    n.trees = 2000,\n    interaction.depth = hiper_grid$interaction.depth[i],\n    shrinkage = hiper_grid$shrinkage[i],\n    n.minobsinnode = hiper_grid$n.minobsinnode[i],\n    bag.fraction = hiper_grid$bag.fraction[i],\n    train.fraction = .75,\n    n.cores = NULL,\n    verbose = FALSE\n  )\n\n  # adiciona os erros de treino e arvores ao grid\n  hiper_grid$optimal_trees[i] &lt;- which.min(gbm.tune$valid.error)\n  hiper_grid$min_erro[i] &lt;- min(gbm.tune$valid.error)\n}\n\nhiper_grid %&gt;% dplyr::arrange(min_erro) %&gt;% head(10)\n\n   shrinkage interaction.depth n.minobsinnode bag.fraction optimal_trees\n1       0.10                 1             15         0.65           142\n2       0.10                 1             10         0.65           142\n3       0.10                 1              5         0.65            84\n4       0.10                 1              5         1.00           155\n5       0.01                 1              5         1.00          1592\n6       0.10                 1             10         1.00           136\n7       0.10                 1             15         1.00           136\n8       0.01                 1              5         0.65          1002\n9       0.01                 1             10         1.00           940\n10      0.01                 1             15         1.00           940\n    min_erro\n1  0.1602066\n2  0.1602292\n3  0.1604008\n4  0.1607106\n5  0.1608038\n6  0.1611587\n7  0.1611587\n8  0.1611858\n9  0.1612577\n10 0.1612577",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.1.html#modelo-final",
-    "href": "semanas/Aula12.1.html#modelo-final",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Modelo final",
-    "text": "Modelo final\n\n# \nset.seed(21)\n\n# treina o modelo GBM\ngbm.fit.final &lt;- gbm(\n  formula = inadimplente ~ .,\n  distribution = \"bernoulli\",\n  data = conj_treino,\n  n.trees = 193,\n  interaction.depth = 1,\n  shrinkage = 0.10,\n  n.minobsinnode = 5,\n  bag.fraction = 1.00, \n  train.fraction = 1,\n  n.cores = NULL, \n  verbose = FALSE\n  )",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.1.html#importância-das-variáveis",
-    "href": "semanas/Aula12.1.html#importância-das-variáveis",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Importância das Variáveis",
-    "text": "Importância das Variáveis\n\npar(mai = c(1, 2, 1, 2))\nsummary(\n  gbm.fit.final, \n  cBars = 10,\n  method = relative.influence, # também pode ser usado permutation.test.gbm\n  las = 2\n  )\n\n\n\n\n\n\n\n                var    rel.inf\nbalanco     balanco 99.2361652\nestudante estudante  0.4480848\nreceita     receita  0.3157499",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.1.html#previsão",
-    "href": "semanas/Aula12.1.html#previsão",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Previsão",
-    "text": "Previsão\n\nconj_teste$inadimplente &lt;- as.numeric(conj_teste$inadimplente)\nconj_teste &lt;- transform(conj_teste, inadimplente=inadimplente - 1)\n\n# Fazendo Previsões\nprevisao1 &lt;- predict(gbm.fit.final, \n                     newdata = conj_teste,\n                     n.trees=gbm.fit.final$n.trees,\n                     type = \"response\")\nhead(previsao1)\n\n[1] 0.002456101 0.015887955 0.013762373 0.099006852 0.015887955 0.002456101\n\ngbm.ychapeu &lt;- as.factor(ifelse(previsao1 &lt; 0.5,0,1))\n \nconfusionMatrix(gbm.ychapeu,as.factor(conj_teste$inadimplente), positive=\"1\")\n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction    0    1\n         0 1933   50\n         1    1   17\n                                         \n               Accuracy : 0.9745         \n                 95% CI : (0.9666, 0.981)\n    No Information Rate : 0.9665         \n    P-Value [Acc &gt; NIR] : 0.02354        \n                                         \n                  Kappa : 0.3914         \n                                         \n Mcnemar's Test P-Value : 1.801e-11      \n                                         \n            Sensitivity : 0.253731       \n            Specificity : 0.999483       \n         Pos Pred Value : 0.944444       \n         Neg Pred Value : 0.974786       \n             Prevalence : 0.033483       \n         Detection Rate : 0.008496       \n   Detection Prevalence : 0.008996       \n      Balanced Accuracy : 0.626607       \n                                         \n       'Positive' Class : 1",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.1.html#curva-roc",
-    "href": "semanas/Aula12.1.html#curva-roc",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Curva ROC",
-    "text": "Curva ROC\n\nlibrary(pROC)\np_chapeu_gbm &lt;- previsao1\nroc_gbm &lt;- roc(conj_teste$inadimplente ~ p_chapeu_gbm, plot = TRUE, print.auc=FALSE, col=\"black\", legacy.axes=TRUE)\n\n\n\n\n\n\nas.numeric(roc_gbm$auc)\n\n[1] 0.9536804",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - Única"
     ]
   },
   {
@@ -2522,7 +2390,7 @@
     "href": "index.html",
     "title": "IME05-12547/14149 Mineração de Dados",
     "section": "",
-    "text": "Bom dia / Boa tarde / Boa Noite,\nAqui vocês vão encontrar alguns dos exemplos apresentados em aula, com uso do R. O objetivo é mostrar as possibilidades de aplicação do R nesta disciplina.\nOs códigos apresentados em aula serão colocado por aqui também.\n[📖] Explorando 01\n[📖] Explorando 01A\n[📖] Explorando 02\n[📖] Explorando 03\n[📖] Explorando 04\n[📖] Explorando 05\n[📖] Explorando 06\n[📖] Explorando 06A\n[📖] Regressão Simples\n[📖] Regressão Múltipla\n[📖] Problemas na Regressão\n[📖] Seleção de Modelos\n[📖] Métodos de Encolhimento\n[📖] Classificação 1os passos\n[📖] KNN\n[📖] Regressão Logística\n[📖] SMOTE\n[📖] LDA e QDA\n[📖] Arvore de Regressão\n[📖] Arvore de Regressão Random Forest\n[📖] Arvore de Regressão GBM\n[📖] Arvore de Regressão XGBoost\n[📖] Arvore de Classificação\n[📖] Arvore de Classificação\n[📖] Arvore de Classificação XGBoost\n[📖] Análise de Clusters\n[📖] Análise de Associação",
+    "text": "Bom dia / Boa tarde / Boa Noite,\nAqui vocês vão encontrar alguns dos exemplos apresentados em aula, com uso do R. O objetivo é mostrar as possibilidades de aplicação do R nesta disciplina.\nOs códigos apresentados em aula serão colocado por aqui também.\n[📖] Explorando 01\n[📖] Explorando 01A\n[📖] Explorando 02\n[📖] Explorando 03\n[📖] Explorando 04\n[📖] Explorando 05\n[📖] Explorando 06\n[📖] Explorando 06A\n[📖] Regressão Simples\n[📖] Regressão Múltipla\n[📖] Problemas na Regressão\n[📖] Seleção de Modelos\n[📖] Métodos de Encolhimento\n[📖] Classificação 1os passos\n[📖] KNN\n[📖] Regressão Logística\n[📖] SMOTE\n[📖] LDA e QDA\n[📖] Arvore de Regressão\n[📖] Arvore de Regressão Random Forest\n[📖] Arvore de Regressão GBM\n[📖] Arvore de Regressão XGBoost\n[📖] Arvore de Classificação Única\n[📖] Arvore de Classificação - GBM\n[📖] Arvore de Classificação - XGBoost\n[📖] Análise de Clusters\n[📖] Análise de Associação",
     "crumbs": [
       "Informação da disciplina",
       "Cronograma"
@@ -4225,232 +4093,111 @@
   {
     "objectID": "semanas/Aula12.2.html",
     "href": "semanas/Aula12.2.html",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - GBM",
     "section": "",
-    "text": "library(tidyverse)\nlibrary(ISLR)",
+    "text": "library(ISLR)\nlibrary(dplyr)\nlibrary(gbm)\nlibrary(caret)\nlibrary(pROC)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - GBM"
     ]
   },
   {
     "objectID": "semanas/Aula12.2.html#bibliotecas",
     "href": "semanas/Aula12.2.html#bibliotecas",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - GBM",
     "section": "",
-    "text": "library(tidyverse)\nlibrary(ISLR)",
+    "text": "library(ISLR)\nlibrary(dplyr)\nlibrary(gbm)\nlibrary(caret)\nlibrary(pROC)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - GBM"
     ]
   },
   {
     "objectID": "semanas/Aula12.2.html#dados",
     "href": "semanas/Aula12.2.html#dados",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - GBM",
     "section": "Dados",
     "text": "Dados\nVamos começar a aplicar a metodologia de árvores usando árvores de classificação para analisar os dados existentes em Carseats. Este conjunto de dados (simulado) é sobre venda de assentos de criança para carros. Ele tem 400 observações das seguintes variáveis (11), cujos nomes serão convertidos para o português:\nSales: vendas em unidades (em mil) em cada local\nCompPrice: preço cobrado pelo competidor em cada local\nIncome: nível de renda da comunidade local (em mil US$)\nAdvertising: orçamento local de propaganda (em mil US$)\nPopulation: população na região (em mil)\nPrice: preço cobrado pela empresa em cada local\nShelveLoc: um fator com níveis Ruim, Bom e Medio indicando a qualidade da localização das prateleiras para os assentos em cada lugar\nAge: idade media da população local\nEducation: nível de educação em cada local\nUrban: um fator Sim e Não indicando se a loja esta em uma área urbana ou rural\nUS: um fator indicando se a loja é nos EUA ou não\nNeste dados, Sales é a variável resposta, só que ela é uma variável contínua, por este motivo vamos usá-la para criar uma variável binária. Vamos usar a função ifelse() para criar a variável binária, que chamaremos de alta, ela assume os valores Sim se Sales for maior que 8 e assume o valor Não caso contrário:\n\ndata(Carseats)\nsummary(Carseats)\n\n     Sales          CompPrice       Income        Advertising    \n Min.   : 0.000   Min.   : 77   Min.   : 21.00   Min.   : 0.000  \n 1st Qu.: 5.390   1st Qu.:115   1st Qu.: 42.75   1st Qu.: 0.000  \n Median : 7.490   Median :125   Median : 69.00   Median : 5.000  \n Mean   : 7.496   Mean   :125   Mean   : 68.66   Mean   : 6.635  \n 3rd Qu.: 9.320   3rd Qu.:135   3rd Qu.: 91.00   3rd Qu.:12.000  \n Max.   :16.270   Max.   :175   Max.   :120.00   Max.   :29.000  \n   Population        Price        ShelveLoc        Age          Education   \n Min.   : 10.0   Min.   : 24.0   Bad   : 96   Min.   :25.00   Min.   :10.0  \n 1st Qu.:139.0   1st Qu.:100.0   Good  : 85   1st Qu.:39.75   1st Qu.:12.0  \n Median :272.0   Median :117.0   Medium:219   Median :54.50   Median :14.0  \n Mean   :264.8   Mean   :115.8                Mean   :53.32   Mean   :13.9  \n 3rd Qu.:398.5   3rd Qu.:131.0                3rd Qu.:66.00   3rd Qu.:16.0  \n Max.   :509.0   Max.   :191.0                Max.   :80.00   Max.   :18.0  \n Urban       US     \n No :118   No :142  \n Yes:282   Yes:258  \n                    \n                    \n                    \n                    \n\nstr(Carseats)\n\n'data.frame':   400 obs. of  11 variables:\n $ Sales      : num  9.5 11.22 10.06 7.4 4.15 ...\n $ CompPrice  : num  138 111 113 117 141 124 115 136 132 132 ...\n $ Income     : num  73 48 35 100 64 113 105 81 110 113 ...\n $ Advertising: num  11 16 10 4 3 13 0 15 0 0 ...\n $ Population : num  276 260 269 466 340 501 45 425 108 131 ...\n $ Price      : num  120 83 80 97 128 72 108 120 124 124 ...\n $ ShelveLoc  : Factor w/ 3 levels \"Bad\",\"Good\",\"Medium\": 1 2 3 3 1 1 3 2 3 3 ...\n $ Age        : num  42 65 59 55 38 78 71 67 76 76 ...\n $ Education  : num  17 10 12 14 13 16 15 10 10 17 ...\n $ Urban      : Factor w/ 2 levels \"No\",\"Yes\": 2 2 2 2 2 1 2 2 1 1 ...\n $ US         : Factor w/ 2 levels \"No\",\"Yes\": 2 2 2 2 1 2 1 2 1 2 ...",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - GBM"
     ]
   },
   {
     "objectID": "semanas/Aula12.2.html#manipulando-os-dados",
     "href": "semanas/Aula12.2.html#manipulando-os-dados",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - GBM",
     "section": "Manipulando os dados",
-    "text": "Manipulando os dados\n\ncad_crianca &lt;- Carseats %&gt;% rename(vendas = Sales, \n                                   preco_comp = CompPrice,\n                                   renda = Income,\n                                   propaganda = Advertising,\n                                   populacao = Population,\n                                   preco = Price,\n                                   local_prat = ShelveLoc,\n                                   idade = Age,\n                                   educacao = Education,\n                                   urbano = Urban,\n                                   eua = US)\n\ncad_crianca &lt;- cad_crianca %&gt;% mutate(alta = ifelse(vendas &gt; 8, \"Sim\",\n                                                   \"Não\")) %&gt;%\n                              mutate(alta = factor(alta))\n\ncad_crianca&lt;- cad_crianca %&gt;% mutate(local_prat =  case_when(\n                                      local_prat == \"Bad\"  ~ \"Ruim\",\n                                      local_prat == \"Good\" ~ \"Bom\",\n                                      local_prat == \"Medium\" ~ \"Medio\"))%&gt;%                               mutate(local_prat = factor(local_prat))\n\ncad_crianca&lt;- cad_crianca %&gt;% mutate(urbano =  case_when(\n                                      urbano == \"Yes\"  ~ \"Sim\",\n                                      urbano == \"No\" ~ \"Não\")) %&gt;%                                       mutate(urbano = factor(urbano))\n\ncad_crianca&lt;- cad_crianca %&gt;% mutate(eua =  case_when(\n                                      eua == \"Yes\"  ~ \"Sim\",\n                                      eua == \"No\" ~ \"Não\")) %&gt;%                                          mutate(eua = factor(eua))\n\ncad_crianca&lt;- cad_crianca %&gt;% select(-vendas)\n\nstr(cad_crianca)\n\n'data.frame':   400 obs. of  11 variables:\n $ preco_comp: num  138 111 113 117 141 124 115 136 132 132 ...\n $ renda     : num  73 48 35 100 64 113 105 81 110 113 ...\n $ propaganda: num  11 16 10 4 3 13 0 15 0 0 ...\n $ populacao : num  276 260 269 466 340 501 45 425 108 131 ...\n $ preco     : num  120 83 80 97 128 72 108 120 124 124 ...\n $ local_prat: Factor w/ 3 levels \"Bom\",\"Medio\",..: 3 1 2 2 3 3 2 1 2 2 ...\n $ idade     : num  42 65 59 55 38 78 71 67 76 76 ...\n $ educacao  : num  17 10 12 14 13 16 15 10 10 17 ...\n $ urbano    : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 2 2 1 2 2 1 1 ...\n $ eua       : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 2 1 2 1 2 1 2 ...\n $ alta      : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 1 1 2 1 2 1 1 ...\n\nsummary(cad_crianca)\n\n   preco_comp      renda          propaganda       populacao    \n Min.   : 77   Min.   : 21.00   Min.   : 0.000   Min.   : 10.0  \n 1st Qu.:115   1st Qu.: 42.75   1st Qu.: 0.000   1st Qu.:139.0  \n Median :125   Median : 69.00   Median : 5.000   Median :272.0  \n Mean   :125   Mean   : 68.66   Mean   : 6.635   Mean   :264.8  \n 3rd Qu.:135   3rd Qu.: 91.00   3rd Qu.:12.000   3rd Qu.:398.5  \n Max.   :175   Max.   :120.00   Max.   :29.000   Max.   :509.0  \n     preco       local_prat      idade          educacao    urbano     eua     \n Min.   : 24.0   Bom  : 85   Min.   :25.00   Min.   :10.0   Não:118   Não:142  \n 1st Qu.:100.0   Medio:219   1st Qu.:39.75   1st Qu.:12.0   Sim:282   Sim:258  \n Median :117.0   Ruim : 96   Median :54.50   Median :14.0                      \n Mean   :115.8               Mean   :53.32   Mean   :13.9                      \n 3rd Qu.:131.0               3rd Qu.:66.00   3rd Qu.:16.0                      \n Max.   :191.0               Max.   :80.00   Max.   :18.0                      \n  alta    \n Não:236  \n Sim:164",
+    "text": "Manipulando os dados\n\ncad_crianca &lt;- Carseats %&gt;% rename(vendas = Sales, \n                                   preco_comp = CompPrice,\n                                   renda = Income,\n                                   propaganda = Advertising,\n                                   populacao = Population,\n                                   preco = Price,\n                                   local_prat = ShelveLoc,\n                                   idade = Age,\n                                   educacao = Education,\n                                   urbano = Urban,\n                                   eua = US)\n\ncad_crianca &lt;- cad_crianca %&gt;%\n  mutate(vendaAlta = ifelse(vendas &gt; 8, \"Alta\", \"Baixa\")) %&gt;%\n  mutate(vendaAlta = as.factor(vendaAlta)) %&gt;%\n  select(-vendas)  # Remover Sales original\n\n# Verificar distribuição\ntable(cad_crianca$vendaAlta)\n\n\n Alta Baixa \n  164   236 \n\nstr(cad_crianca)\n\n'data.frame':   400 obs. of  11 variables:\n $ preco_comp: num  138 111 113 117 141 124 115 136 132 132 ...\n $ renda     : num  73 48 35 100 64 113 105 81 110 113 ...\n $ propaganda: num  11 16 10 4 3 13 0 15 0 0 ...\n $ populacao : num  276 260 269 466 340 501 45 425 108 131 ...\n $ preco     : num  120 83 80 97 128 72 108 120 124 124 ...\n $ local_prat: Factor w/ 3 levels \"Bad\",\"Good\",\"Medium\": 1 2 3 3 1 1 3 2 3 3 ...\n $ idade     : num  42 65 59 55 38 78 71 67 76 76 ...\n $ educacao  : num  17 10 12 14 13 16 15 10 10 17 ...\n $ urbano    : Factor w/ 2 levels \"No\",\"Yes\": 2 2 2 2 2 1 2 2 1 1 ...\n $ eua       : Factor w/ 2 levels \"No\",\"Yes\": 2 2 2 2 1 2 1 2 1 2 ...\n $ vendaAlta : Factor w/ 2 levels \"Alta\",\"Baixa\": 1 1 1 2 2 1 2 1 2 2 ...\n\nsummary(cad_crianca)\n\n   preco_comp      renda          propaganda       populacao    \n Min.   : 77   Min.   : 21.00   Min.   : 0.000   Min.   : 10.0  \n 1st Qu.:115   1st Qu.: 42.75   1st Qu.: 0.000   1st Qu.:139.0  \n Median :125   Median : 69.00   Median : 5.000   Median :272.0  \n Mean   :125   Mean   : 68.66   Mean   : 6.635   Mean   :264.8  \n 3rd Qu.:135   3rd Qu.: 91.00   3rd Qu.:12.000   3rd Qu.:398.5  \n Max.   :175   Max.   :120.00   Max.   :29.000   Max.   :509.0  \n     preco        local_prat      idade          educacao    urbano   \n Min.   : 24.0   Bad   : 96   Min.   :25.00   Min.   :10.0   No :118  \n 1st Qu.:100.0   Good  : 85   1st Qu.:39.75   1st Qu.:12.0   Yes:282  \n Median :117.0   Medium:219   Median :54.50   Median :14.0            \n Mean   :115.8                Mean   :53.32   Mean   :13.9            \n 3rd Qu.:131.0                3rd Qu.:66.00   3rd Qu.:16.0            \n Max.   :191.0                Max.   :80.00   Max.   :18.0            \n  eua      vendaAlta  \n No :142   Alta :164  \n Yes:258   Baixa:236",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - GBM"
     ]
   },
   {
     "objectID": "semanas/Aula12.2.html#treino-e-teste",
     "href": "semanas/Aula12.2.html#treino-e-teste",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - GBM",
     "section": "Treino e Teste",
-    "text": "Treino e Teste\n\nlibrary(caret)\nset.seed(21)\ny &lt;- cad_crianca$alta\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- cad_crianca %&gt;% slice(-indice_teste)\nconj_teste &lt;- cad_crianca %&gt;% slice(indice_teste)\n\nstr(conj_treino)\n\n'data.frame':   319 obs. of  11 variables:\n $ preco_comp: num  138 111 113 141 124 136 132 121 117 122 ...\n $ renda     : num  73 48 35 64 113 81 110 78 94 35 ...\n $ propaganda: num  11 16 10 3 13 15 0 9 4 2 ...\n $ populacao : num  276 260 269 340 501 425 108 150 503 393 ...\n $ preco     : num  120 83 80 128 72 120 124 100 94 136 ...\n $ local_prat: Factor w/ 3 levels \"Bom\",\"Medio\",..: 3 1 2 3 3 1 2 3 1 2 ...\n $ idade     : num  42 65 59 38 78 67 76 26 50 62 ...\n $ educacao  : num  17 10 12 13 16 10 10 10 13 18 ...\n $ urbano    : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 2 1 2 1 1 2 2 ...\n $ eua       : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 1 2 2 1 2 2 1 ...\n $ alta      : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 1 2 2 1 2 2 1 ...\n\nprop.table(table(conj_treino$alta))\n\n\n      Não       Sim \n0.5893417 0.4106583 \n\nstr(conj_teste)\n\n'data.frame':   81 obs. of  11 variables:\n $ preco_comp: num  117 115 132 115 147 145 114 121 123 103 ...\n $ renda     : num  100 105 113 28 74 119 38 41 42 93 ...\n $ propaganda: num  4 0 0 11 13 16 13 5 11 15 ...\n $ populacao : num  466 45 131 29 251 294 317 412 16 188 ...\n $ preco     : num  97 108 124 86 131 113 128 110 134 103 ...\n $ local_prat: Factor w/ 3 levels \"Bom\",\"Medio\",..: 2 2 2 1 1 3 1 2 2 3 ...\n $ idade     : num  55 71 76 53 52 42 50 54 59 74 ...\n $ educacao  : num  14 15 17 18 10 12 16 10 13 16 ...\n $ urbano    : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 1 2 2 2 2 2 2 2 ...\n $ eua       : Factor w/ 2 levels \"Não\",\"Sim\": 2 1 2 2 2 2 2 2 2 2 ...\n $ alta      : Factor w/ 2 levels \"Não\",\"Sim\": 1 1 1 2 2 2 2 1 1 1 ...\n\nprop.table(table(conj_teste$alta))\n\n\n      Não       Sim \n0.5925926 0.4074074",
+    "text": "Treino e Teste\n\nset.seed(21)\ny &lt;- cad_crianca$vendaAlta\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- cad_crianca[-indice_teste,]\nconj_teste &lt;- cad_crianca[indice_teste,]\n\nstr(conj_treino)\n\n'data.frame':   319 obs. of  11 variables:\n $ preco_comp: num  111 117 141 124 115 132 132 121 117 122 ...\n $ renda     : num  48 100 64 113 105 110 113 78 94 35 ...\n $ propaganda: num  16 4 3 13 0 0 0 9 4 2 ...\n $ populacao : num  260 466 340 501 45 108 131 150 503 393 ...\n $ preco     : num  83 97 128 72 108 124 124 100 94 136 ...\n $ local_prat: Factor w/ 3 levels \"Bad\",\"Good\",\"Medium\": 2 3 1 1 3 3 3 1 2 3 ...\n $ idade     : num  65 55 38 78 71 76 76 26 50 62 ...\n $ educacao  : num  10 14 13 16 15 10 17 10 13 18 ...\n $ urbano    : Factor w/ 2 levels \"No\",\"Yes\": 2 2 2 1 2 1 1 1 2 2 ...\n $ eua       : Factor w/ 2 levels \"No\",\"Yes\": 2 2 1 2 1 1 2 2 2 1 ...\n $ vendaAlta : Factor w/ 2 levels \"Alta\",\"Baixa\": 1 2 2 1 2 2 2 1 1 2 ...\n\nprop.table(table(conj_treino$alta))\n\nnumeric(0)\n\nstr(conj_teste)\n\n'data.frame':   81 obs. of  11 variables:\n $ preco_comp: num  138 113 136 125 139 98 115 131 157 118 ...\n $ renda     : num  73 35 81 90 32 118 54 84 53 71 ...\n $ propaganda: num  11 10 15 2 0 0 0 11 0 4 ...\n $ populacao : num  276 269 425 367 176 19 406 29 403 148 ...\n $ preco     : num  120 80 120 131 82 107 128 96 124 114 ...\n $ local_prat: Factor w/ 3 levels \"Bad\",\"Good\",\"Medium\": 1 3 2 3 2 3 3 3 1 3 ...\n $ idade     : num  42 59 67 35 54 64 42 44 58 80 ...\n $ educacao  : num  17 12 10 18 11 17 17 17 16 13 ...\n $ urbano    : Factor w/ 2 levels \"No\",\"Yes\": 2 2 2 2 1 2 2 1 2 2 ...\n $ eua       : Factor w/ 2 levels \"No\",\"Yes\": 2 2 2 2 1 1 2 2 1 1 ...\n $ vendaAlta : Factor w/ 2 levels \"Alta\",\"Baixa\": 1 1 1 2 1 2 2 1 2 2 ...\n\nprop.table(table(conj_teste$alta))\n\nnumeric(0)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#arvore-de-classificação",
-    "href": "semanas/Aula12.2.html#arvore-de-classificação",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Arvore de Classificação",
-    "text": "Arvore de Classificação\nNa biblioteca rpart as arvores de classificação são obtidas usando o método class. Existem alguns controles que podem ser feitos nos parametros da arvore.\nNeste exemplo só definimos o menor conjunto de dados numa partição (minsplit) e o parametro de complexidade cp. Posteriormente vamos ampliar este controle. Um valor de cp muito pequeno ocasiona overfitting e um valor muito grande resulta numa arvore muito pequena (underfitting). Nos dois casos se diminui o desempenho do modelo.\n\n##Usando rpart para desenvolver a arvore  \nlibrary(rpart)\narvcl &lt;- rpart(alta ~ ., \n                data=conj_treino,\n                method=\"class\", #para arvore de classificação\n                control=rpart.control(minsplit=30,cp=0.02))\nplot(arvcl)\ntext(arvcl,pretty=0)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#regras",
-    "href": "semanas/Aula12.2.html#regras",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Regras",
-    "text": "Regras\n\n# Regras de Decisão\narvcl\n\nn= 319 \n\nnode), split, n, loss, yval, (yprob)\n      * denotes terminal node\n\n 1) root 319 131 Não (0.58934169 0.41065831)  \n   2) local_prat=Medio,Ruim 249  77 Não (0.69076305 0.30923695)  \n     4) preco&gt;=92 213  51 Não (0.76056338 0.23943662)  \n       8) idade&gt;=49.5 123  15 Não (0.87804878 0.12195122) *\n       9) idade&lt; 49.5 90  36 Não (0.60000000 0.40000000)  \n        18) preco&gt;=124.5 44   6 Não (0.86363636 0.13636364) *\n        19) preco&lt; 124.5 46  16 Sim (0.34782609 0.65217391) *\n     5) preco&lt; 92 36  10 Sim (0.27777778 0.72222222)  \n      10) local_prat=Ruim 13   5 Não (0.61538462 0.38461538) *\n      11) local_prat=Medio 23   2 Sim (0.08695652 0.91304348) *\n   3) local_prat=Bom 70  16 Sim (0.22857143 0.77142857)  \n     6) preco&gt;=142.5 10   3 Não (0.70000000 0.30000000) *\n     7) preco&lt; 142.5 60   9 Sim (0.15000000 0.85000000) *",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#desenhando-a-árvore-de-uma-forma-mais-clara",
-    "href": "semanas/Aula12.2.html#desenhando-a-árvore-de-uma-forma-mais-clara",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Desenhando a Árvore de uma forma mais clara",
-    "text": "Desenhando a Árvore de uma forma mais clara\n\nlibrary(rattle)\nlibrary(rpart.plot)\nlibrary(RColorBrewer)\nfancyRpartPlot(arvcl, caption = NULL)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#previsões",
-    "href": "semanas/Aula12.2.html#previsões",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Previsões",
-    "text": "Previsões\n\n# Fazendo Previsões\ny_chapeu &lt;- predict(arvcl, newdata = conj_teste, type=\"class\")\n\nconfusionMatrix(y_chapeu, conj_teste$alta, positive=\"Sim\") \n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction Não Sim\n       Não  37  13\n       Sim  11  20\n                                          \n               Accuracy : 0.7037          \n                 95% CI : (0.5919, 0.8001)\n    No Information Rate : 0.5926          \n    P-Value [Acc &gt; NIR] : 0.02573         \n                                          \n                  Kappa : 0.3805          \n                                          \n Mcnemar's Test P-Value : 0.83826         \n                                          \n            Sensitivity : 0.6061          \n            Specificity : 0.7708          \n         Pos Pred Value : 0.6452          \n         Neg Pred Value : 0.7400          \n             Prevalence : 0.4074          \n         Detection Rate : 0.2469          \n   Detection Prevalence : 0.3827          \n      Balanced Accuracy : 0.6884          \n                                          \n       'Positive' Class : Sim",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#arvore-de-classificação-no-caret",
-    "href": "semanas/Aula12.2.html#arvore-de-classificação-no-caret",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Arvore de Classificação no caret",
-    "text": "Arvore de Classificação no caret\n\n##Usando rpart para desenvolver a arvore  \nlibrary(rpart)\nset.seed(21)\n## Otimizamos o valor de cp usando um 10-fold cv\n# O parametro tuneLength diz para o algoritmo escolher diferentes valores para cp\n# O parametro tuneGrid permite decidir que valores cp deve assumir enquanto que o\n# tuneLength somente limita o número default de parametros que se usa.\ntgrid &lt;- expand.grid(cp = seq(0.01,0.10,0.001))\nctrl &lt;- trainControl(method = \"cv\", classProbs=TRUE)\narvclass &lt;- train(alta ~ . , data = conj_treino, method = \"rpart\",\n                 trControl = ctrl,\n                 tuneGrid = tgrid\n                 )\n# Mostra a acurácia vs cp (parametro de complexidade)\nplot(arvclass)\n\n\n\n\n\n\n## Indica o melhor valor de cp\narvclass$bestTune\n\n     cp\n7 0.016",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#uma-forma-melhor-de-ver-a-árvore",
-    "href": "semanas/Aula12.2.html#uma-forma-melhor-de-ver-a-árvore",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Uma forma melhor de ver a Árvore",
-    "text": "Uma forma melhor de ver a Árvore\n\n## melhorando apresentação da árvore\nlibrary(rattle)\nlibrary(rpart.plot)\nlibrary(RColorBrewer)\nfancyRpartPlot(arvclass$finalModel, caption = NULL)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#previsões-1",
-    "href": "semanas/Aula12.2.html#previsões-1",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Previsões",
-    "text": "Previsões\n\n# Fazendo Previsões\ny_chapeu &lt;- arvclass %&gt;% predict(conj_teste) %&gt;% \n                   factor(levels = levels(conj_teste$alta))\nhead(y_chapeu)\n\n[1] Não Não Não Sim Sim Não\nLevels: Não Sim\n\nconfusionMatrix(y_chapeu, conj_teste$alta, positive=\"Sim\") \n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction Não Sim\n       Não  40  13\n       Sim   8  20\n                                          \n               Accuracy : 0.7407          \n                 95% CI : (0.6314, 0.8318)\n    No Information Rate : 0.5926          \n    P-Value [Acc &gt; NIR] : 0.003896        \n                                          \n                  Kappa : 0.45            \n                                          \n Mcnemar's Test P-Value : 0.382733        \n                                          \n            Sensitivity : 0.6061          \n            Specificity : 0.8333          \n         Pos Pred Value : 0.7143          \n         Neg Pred Value : 0.7547          \n             Prevalence : 0.4074          \n         Detection Rate : 0.2469          \n   Detection Prevalence : 0.3457          \n      Balanced Accuracy : 0.7197          \n                                          \n       'Positive' Class : Sim",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#verificando-a-consistencia-dos-resultados",
-    "href": "semanas/Aula12.2.html#verificando-a-consistencia-dos-resultados",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Verificando a consistencia dos resultados",
-    "text": "Verificando a consistencia dos resultados\n\nset.seed(121)\ny &lt;- cad_crianca$alta\nindice_teste &lt;- createDataPartition(y, times = 1, p = 0.2, list = FALSE)\n\nconj_treino &lt;- cad_crianca %&gt;% slice(-indice_teste)\nconj_teste &lt;- cad_crianca %&gt;% slice(indice_teste)\n\nstr(conj_treino)\n\n'data.frame':   319 obs. of  11 variables:\n $ preco_comp: num  138 113 141 124 115 136 132 121 117 115 ...\n $ renda     : num  73 35 64 113 105 81 113 78 94 28 ...\n $ propaganda: num  11 10 3 13 0 15 0 9 4 11 ...\n $ populacao : num  276 269 340 501 45 425 131 150 503 29 ...\n $ preco     : num  120 80 128 72 108 120 124 100 94 86 ...\n $ local_prat: Factor w/ 3 levels \"Bom\",\"Medio\",..: 3 2 3 3 2 1 2 3 1 1 ...\n $ idade     : num  42 59 38 78 71 67 76 26 50 53 ...\n $ educacao  : num  17 12 13 16 15 10 17 10 13 18 ...\n $ urbano    : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 2 1 2 2 1 1 2 2 ...\n $ eua       : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 1 2 1 2 2 2 2 2 ...\n $ alta      : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 1 2 1 2 1 2 2 2 ...\n\nprop.table(table(conj_treino$alta))\n\n\n      Não       Sim \n0.5893417 0.4106583 \n\nstr(conj_teste)\n\n'data.frame':   81 obs. of  11 variables:\n $ preco_comp: num  111 117 132 122 125 139 103 125 122 121 ...\n $ renda     : num  48 100 110 35 90 32 74 94 76 90 ...\n $ propaganda: num  16 4 0 2 2 0 0 0 0 0 ...\n $ populacao : num  260 466 108 393 367 176 359 447 270 150 ...\n $ preco     : num  83 97 124 136 131 82 97 89 100 108 ...\n $ local_prat: Factor w/ 3 levels \"Bom\",\"Medio\",..: 1 2 2 2 2 1 3 1 1 3 ...\n $ idade     : num  65 55 76 62 35 54 55 30 60 75 ...\n $ educacao  : num  10 14 10 18 18 11 11 12 18 16 ...\n $ urbano    : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 1 2 2 1 2 2 1 2 ...\n $ eua       : Factor w/ 2 levels \"Não\",\"Sim\": 2 2 1 1 2 1 2 1 1 1 ...\n $ alta      : Factor w/ 2 levels \"Não\",\"Sim\": 2 1 1 1 1 2 1 2 2 1 ...\n\nprop.table(table(conj_teste$alta))\n\n\n      Não       Sim \n0.5925926 0.4074074",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#obtendo-a-arvore",
-    "href": "semanas/Aula12.2.html#obtendo-a-arvore",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Obtendo a arvore",
-    "text": "Obtendo a arvore\n\n##Usando rpart para desenvolver a arvore  \nlibrary(rpart)\narvcl &lt;- rpart(alta ~ ., \n                data=conj_treino,\n                method=\"class\", #para arvore de classificação\n                control=rpart.control(minsplit=30,cp=0.02))",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#desenhando-a-árvore-de-uma-forma-mais-clara-1",
-    "href": "semanas/Aula12.2.html#desenhando-a-árvore-de-uma-forma-mais-clara-1",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Desenhando a Árvore de uma forma mais clara",
-    "text": "Desenhando a Árvore de uma forma mais clara\n\nlibrary(rattle)\nlibrary(rpart.plot)\nlibrary(RColorBrewer)\nfancyRpartPlot(arvcl, caption = NULL)",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - GBM"
     ]
   },
   {
     "objectID": "semanas/Aula12.2.html#gbm",
     "href": "semanas/Aula12.2.html#gbm",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - GBM",
     "section": "GBM",
-    "text": "GBM\nCriando um grid para avaliar os parametros\n\nhiper_grid &lt;- expand.grid(\n  shrinkage = c(.001, .01, .1),\n  interaction.depth = c(1, 3, 5),\n  n.minobsinnode = c(5, 10, 15),\n  bag.fraction = c(.65, 1),\n  optimal_trees = 0, # um lugar para guardar resultados\n  min_erro = 0   # um lugar para guardar resultados\n  )\n\n# número total de combinações\nnrow(hiper_grid)\n\n[1] 54",
+    "text": "GBM\nAjustando um modelo GBM\n\nset.seed(21)\n\n# Definir grade de parâmetros\ntune_grid &lt;- expand.grid(\n  n.trees = c(100, 300, 500),\n  interaction.depth = c(1, 3, 5),\n  shrinkage = c(0.01, 0.1),\n  n.minobsinnode = c(5, 10)\n)\n\n# Treinamento com validação cruzada\nctrl &lt;- trainControl(method = \"cv\", number = 5)\n\ngbm_caret &lt;- train(\n  vendaAlta ~ .,\n  data = conj_treino,\n  method = \"gbm\",\n  distribution = \"bernoulli\",\n  trControl = ctrl,\n  tuneGrid = tune_grid,\n  verbose = FALSE\n)",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - GBM"
     ]
   },
   {
-    "objectID": "semanas/Aula12.2.html#avaliando-o-grid-de-parametros",
-    "href": "semanas/Aula12.2.html#avaliando-o-grid-de-parametros",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Avaliando o grid de parametros",
-    "text": "Avaliando o grid de parametros\n\nlibrary(gbm)\nconj_treino$alta &lt;- as.numeric(conj_treino$alta)\nconj_treino &lt;- transform(conj_treino, alta=alta - 1)\nconj_treino$eua &lt;- as.numeric(conj_treino$eua)\nconj_treino &lt;- transform(conj_treino, eua=eua - 1)\nconj_treino$local_prat &lt;- as.numeric(conj_treino$local_prat)\nconj_treino &lt;- transform(conj_treino, local_prat=local_prat - 1)\n\n\n#Busca no grid\nfor(i in 1:nrow(hiper_grid)) {\n\n  #\n  set.seed(21)\n\n  # treina o modelo\n  gbm.tune &lt;- gbm(\n    formula = alta ~ .,\n    distribution = \"bernoulli\",\n    data = conj_treino,\n    n.trees = 5000,\n    interaction.depth = hiper_grid$interaction.depth[i],\n    shrinkage = hiper_grid$shrinkage[i],\n    n.minobsinnode = hiper_grid$n.minobsinnode[i],\n    bag.fraction = hiper_grid$bag.fraction[i],\n    train.fraction = .75,\n    n.cores = NULL,\n    verbose = FALSE\n  )\n\n  # adiciona os erros de treino e arvores ao grid\n  hiper_grid$optimal_trees[i] &lt;- which.min(gbm.tune$valid.error)\n  hiper_grid$min_erro[i] &lt;- min(gbm.tune$valid.error)\n}\n\nhiper_grid %&gt;% dplyr::arrange(min_erro) %&gt;% head(10)\n\n   shrinkage interaction.depth n.minobsinnode bag.fraction optimal_trees\n1       0.10                 3              5         0.65           165\n2       0.01                 1             10         0.65          3778\n3       0.10                 1             10         0.65           409\n4       0.01                 1              5         0.65          3577\n5       0.10                 1             15         0.65           295\n6       0.01                 1             15         0.65          3555\n7       0.10                 1              5         0.65           322\n8       0.10                 5              5         0.65           134\n9       0.01                 3              5         0.65          1515\n10      0.01                 3             10         0.65          1525\n    min_erro\n1  0.5223560\n2  0.5265243\n3  0.5273196\n4  0.5292021\n5  0.5311457\n6  0.5364523\n7  0.5377417\n8  0.5453332\n9  0.5509056\n10 0.5576744",
+    "objectID": "semanas/Aula12.2.html#melhor-modelo",
+    "href": "semanas/Aula12.2.html#melhor-modelo",
+    "title": "Arvores de Classificação - GBM",
+    "section": "Melhor modelo",
+    "text": "Melhor modelo\n\n# Melhor modelo\ngbm_caret$bestTune\n\n   n.trees interaction.depth shrinkage n.minobsinnode\n23     300                 1       0.1             10",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - GBM"
     ]
   },
   {
-    "objectID": "semanas/Aula12.2.html#modelo-final",
-    "href": "semanas/Aula12.2.html#modelo-final",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Modelo final",
-    "text": "Modelo final\n\n# \nset.seed(21)\n\n# treina o modelo GBM\ngbm.fit.final &lt;- gbm(\n  formula = alta ~ .,\n  distribution = \"bernoulli\",\n  data = conj_treino,\n  n.trees = 165,\n  interaction.depth = 3,\n  shrinkage = 0.10,\n  n.minobsinnode = 5,\n  bag.fraction = 0.65, \n  train.fraction = 1,\n  n.cores = NULL, \n  verbose = FALSE\n  )",
+    "objectID": "semanas/Aula12.2.html#verificando-os-resultados",
+    "href": "semanas/Aula12.2.html#verificando-os-resultados",
+    "title": "Arvores de Classificação - GBM",
+    "section": "Verificando os Resultados",
+    "text": "Verificando os Resultados\n\n# Previsões\npred_class &lt;- predict(gbm_caret, newdata = conj_teste)\n\n# Matriz de confusão\nconfusionMatrix(pred_class, conj_teste$vendaAlta)\n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction Alta Baixa\n     Alta    25     6\n     Baixa    8    42\n                                         \n               Accuracy : 0.8272         \n                 95% CI : (0.727, 0.9022)\n    No Information Rate : 0.5926         \n    P-Value [Acc &gt; NIR] : 5.302e-06      \n                                         \n                  Kappa : 0.6386         \n                                         \n Mcnemar's Test P-Value : 0.7893         \n                                         \n            Sensitivity : 0.7576         \n            Specificity : 0.8750         \n         Pos Pred Value : 0.8065         \n         Neg Pred Value : 0.8400         \n             Prevalence : 0.4074         \n         Detection Rate : 0.3086         \n   Detection Prevalence : 0.3827         \n      Balanced Accuracy : 0.8163         \n                                         \n       'Positive' Class : Alta",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#importância-das-variáveis",
-    "href": "semanas/Aula12.2.html#importância-das-variáveis",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Importância das Variáveis",
-    "text": "Importância das Variáveis\n\npar(mai = c(1, 2, 1, 2))\nsummary(\n  gbm.fit.final, \n  cBars = 10,\n  method = relative.influence, # também pode ser usado permutation.test.gbm\n  las = 2\n  )\n\n\n\n\n\n\n\n                  var    rel.inf\npreco           preco 29.5468476\nlocal_prat local_prat 21.5292204\npropaganda propaganda 12.2498142\nrenda           renda 11.4616394\nidade           idade 10.3960594\npreco_comp preco_comp 10.1224807\npopulacao   populacao  2.0513691\neua               eua  1.2347441\neducacao     educacao  1.1121800\nurbano         urbano  0.2956451",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula12.2.html#previsão",
-    "href": "semanas/Aula12.2.html#previsão",
-    "title": "Arvores de Classificação - Única e GBM",
-    "section": "Previsão",
-    "text": "Previsão\n\nconj_teste$alta &lt;- as.numeric(conj_teste$alta)\nconj_teste &lt;- transform(conj_teste, alta=alta - 1)\nconj_teste$eua &lt;- as.numeric(conj_teste$eua)\nconj_teste &lt;- transform(conj_teste, eua=eua - 1)\nconj_teste$local_prat &lt;- as.numeric(conj_teste$local_prat)\nconj_teste &lt;- transform(conj_teste, local_prat=local_prat - 1)\n\n# Fazendo Previsões\nprevisao1 &lt;- predict(gbm.fit.final, \n                     newdata = conj_teste,\n                     n.trees=gbm.fit.final$n.trees,\n                     type = \"response\")\nhead(previsao1)\n\n[1] 0.965002359 0.784188568 0.176077409 0.003460984 0.027812237 0.995643378\n\ngbm.ychapeu &lt;- as.factor(ifelse(previsao1 &lt; 0.5,0,1))\n \nconfusionMatrix(gbm.ychapeu,as.factor(conj_teste$alta), positive=\"1\")\n\nConfusion Matrix and Statistics\n\n          Reference\nPrediction  0  1\n         0 37  6\n         1 11 27\n                                          \n               Accuracy : 0.7901          \n                 95% CI : (0.6854, 0.8727)\n    No Information Rate : 0.5926          \n    P-Value [Acc &gt; NIR] : 0.0001359       \n                                          \n                  Kappa : 0.5754          \n                                          \n Mcnemar's Test P-Value : 0.3319755       \n                                          \n            Sensitivity : 0.8182          \n            Specificity : 0.7708          \n         Pos Pred Value : 0.7105          \n         Neg Pred Value : 0.8605          \n             Prevalence : 0.4074          \n         Detection Rate : 0.3333          \n   Detection Prevalence : 0.4691          \n      Balanced Accuracy : 0.7945          \n                                          \n       'Positive' Class : 1",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - GBM"
     ]
   },
   {
     "objectID": "semanas/Aula12.2.html#curva-roc",
     "href": "semanas/Aula12.2.html#curva-roc",
-    "title": "Arvores de Classificação - Única e GBM",
+    "title": "Arvores de Classificação - GBM",
     "section": "Curva ROC",
-    "text": "Curva ROC\n\nlibrary(pROC)\np_chapeu_gbm &lt;- previsao1\nroc_gbm &lt;- roc(conj_teste$alta ~ p_chapeu_gbm, plot = TRUE, print.auc=FALSE, col=\"black\", legacy.axes=TRUE)\n\n\n\n\n\n\nas.numeric(roc_gbm$auc)\n\n[1] 0.9034091",
+    "text": "Curva ROC\n\n# Probabilidades previstas\npred_prob &lt;- predict(gbm_caret, newdata = conj_teste, type = \"prob\")\n\n# Curva ROC\nroc_obj &lt;- roc(response = conj_teste$vendaAlta, predictor = pred_prob$Alta)\nplot(roc_obj, col = \"blue\", lwd = 2, main = \"Curva ROC - GBM\")\n\n\n\n\n\n\nauc(roc_obj)\n\nArea under the curve: 0.9394",
     "crumbs": [
       "Conteúdo Semanal",
-      "Arvore de Classificação"
+      "Arvore de Classificação - GBM"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula12.2.html#importância-das-variáveis",
+    "href": "semanas/Aula12.2.html#importância-das-variáveis",
+    "title": "Arvores de Classificação - GBM",
+    "section": "Importância das variáveis",
+    "text": "Importância das variáveis\n\n# Obter importância\nimportancia &lt;- varImp(gbm_caret)\n\n# Visualização gráfica\nplot(importancia, top = 10, main = \"Importância das Variáveis - GBM\")",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Arvore de Classificação - GBM"
     ]
   },
   {

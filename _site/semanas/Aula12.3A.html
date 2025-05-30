@@ -496,19 +496,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arvore de Classificação</span></a>
+ <span class="menu-text">Arvore de Classificação - Única</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arvore de Classificação</span></a>
+ <span class="menu-text">Arvore de Classificação - GBM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../semanas/Aula12.3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arvore de Classificação XGBooost</span></a>
+ <span class="menu-text">Arvore de Classificação - XGBooost</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -765,7 +765,7 @@ Computational engine: xgboost </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">doParallel</span><span class="fu">::</span><span class="fu">registerDoParallel</span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">doParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html">registerDoParallel</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">)</span></span>
 <span><span class="va">xgb_res</span> <span class="op">&lt;-</span> <span class="fu">tune_grid</span><span class="op">(</span></span>
@@ -869,7 +869,7 @@ Computational engine: xgboost </code></pre>
 <span><span class="va">final_xgb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">fit</span><span class="op">(</span>data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">pull_workflow_fit</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">vip</span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://koalaverse.github.io/vip/reference/vip.html">vip</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="Aula12.3A_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
