@@ -182,7 +182,6 @@ pred_lm <- predict(model_lm, newdata = conj_teste)
 postResample(pred_lm, conj_teste$medv)
 ```
 
-
 ## Entendendo melhor os resultados
 
 ```{r LIME}
@@ -211,4 +210,3 @@ graf_rm <- plot(gbm.fit.final, i = "rm")
 graf_lstat <- plot(gbm.fit.final, i = "lstat")
 gridExtra::grid.arrange(graf_lstat, graf_rm, ncol = 2)
 ```
-

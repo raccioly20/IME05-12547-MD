@@ -61,7 +61,7 @@ model_rf <- train(
   method = "ranger", # Usando o pacote ranger para Random Forest
 trControl = ctrl,
   tuneLength = 5,
-  importance = 'impurity'
+  importance = "permutation"
 )
 ```
 

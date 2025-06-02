@@ -1,0 +1,142 @@
+---
+title: 'Arvores de Regressão - LIME e SHAP'
+author: "Ricardo Accioly"
+date: "`r Sys.Date()`"
+execute: 
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+format:
+ html:
+    code-link: true
+    fig-height: 10
+    fig-width: 10
+    fig-align: center
+    fig-dpi: 300
+knitr: 
+  opts_chunk: 
+    out.width: 90%
+    fig.showtext: true
+    collapese: true
+---
+
+## Bibliotecas
+
+```{r bibliotecas , message=FALSE}
+library(MASS)        # Base de dados
+library(ranger)      # Random Forest
+library(lime)        # LIME
+library(iml)         # SHAP
+library(ggplot2)     # Gráficos
+library(dplyr)       # Manipulação
+library(caret)       # Partição dos dados
+library(tidyr)       # Para pivotar
+library(fastshap)
+library(shapviz)
+```
+
+## Avaliando, selecionando dados
+
+```{r dados}
+data("Boston")
+names(Boston)
+dados <- Boston 
+```
+
+## Treino e Teste com todas as variáveis
+
+```{r conjuntos-treino-teste}
+## Vamos criar os conjuntos de treino teste e desenvolver a arvore 
+## com todas as variáveis.
+library(caret)
+set.seed(21)
+indice <- createDataPartition(dados$medv, times=1, p=0.75, list=FALSE)
+conj_treino <- dados[indice,]
+conj_teste <- dados[-indice,]
+head(conj_treino)
+head(conj_teste)
+```
+
+## Treinamento do modelo Random Forest
+
+```{r}
+modelo_rf <- ranger(
+  formula = medv ~ .,
+  data = conj_treino,
+  num.trees = 500
+)
+```
+
+```{r}
+# Wrapper para predições
+model_type.ranger <- function(x, ...) {
+  "regression"
+}
+
+predict_model.ranger <- function(x, newdata, ...) {
+  data.frame(Response = predict(x, data = newdata)$predictions)
+}
+
+# Criando explicador LIME
+explainer_lime <- lime(
+  x = conj_treino[, setdiff(names(conj_treino), "medv")],
+  model = modelo_rf
+)
+
+# Explicação para a primeira observação do teste
+explanation_lime <- lime::explain(
+  x = conj_teste[1, setdiff(names(conj_teste),"medv"), drop=FALSE],
+  explainer = explainer_lime,
+  n_features = 5
+)
+
+# Gráfico LIME
+lime::plot_features(explanation_lime)
+
+```
+
+```{r}
+# Criando objeto predictor para o iml
+predictor_shap <- Predictor$new(
+  model = modelo_rf,
+  data = conj_treino[, -which(names(conj_treino) == "medv")],
+  y = conj_treino$medv
+)
+
+# SHAP para a mesma observação
+shap <- Shapley$new(predictor_shap, x.interest = conj_teste[1, -which(names(conj_teste) == "medv")])
+
+# Gráfico SHAP
+plot(shap)
+
+```
+
+
+```{r}
+# Gráfico SHAP com shapviz
+# Matriz de preditores
+X <- conj_treino[, setdiff(names(conj_treino), "medv")]
+
+# Função de predição para fastshap
+pred_fun <- function(object, newdata) {
+  predict(object, data = newdata)$predictions
+}
+
+# Calculando valores SHAP com fastshap
+shap_values <- fastshap::explain(
+  object = modelo_rf,
+  X = X,
+  pred_wrapper = pred_fun,
+  nsim = 100  # número de permutações (pode ajustar)
+)
+
+# Criando objeto shapviz
+sv_rf <- shapviz(shap_values, X = X)
+
+# Visualizações
+sv_importance(sv_rf, kind="bee")
+sv_dependence(sv_rf, v = "lstat")
+sv_waterfall(sv_rf, row_id = 1)
+```
+
