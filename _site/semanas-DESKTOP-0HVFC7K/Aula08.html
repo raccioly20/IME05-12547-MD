@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Ricardo Accioly">
+<meta name="dcterms.date" content="2024-08-20">
+<title>KNN – IME05-12547</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../semanas/Aula09.html" rel="next">
+<link href="../semanas/Aula08.0.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-748b535e376f14d4692bf2b2e5fd6380.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-595e7a736fcf46aa1895a448280c433c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-e9f3ba5fbee03b112b18b9666ab66a2c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-595e7a736fcf46aa1895a448280c433c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+</head>
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula08.html">KNN</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <div class="sidebar-tools-main">
+    <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Informação da disciplina</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visão Geral</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cronograma</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Sobre</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">RStudio Cloud</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acesso</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conteúdo Semanal</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula01A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 01A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 02</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 04</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 05</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 06</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula06A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 06A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regressão Simples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regressão Múltipla</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.2B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problemas em Regressão</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seleção de Modelos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Métodos de Encolhimento</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula08.0.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Classificação 1os passos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula08.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">KNN</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula09.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regressão Logística</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula09A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SMOTE</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LDA-QDA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula11.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula11.2A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão (Randon Forest)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula11.2B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão (GBM)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula11.3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão (XGBoost)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula11.4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LIME e SHAP</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Classificação - Única</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Classificação - GBM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula12.3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Classificação - XGBooost</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Análise de Clusters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Análise de Associação</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#knn" id="toc-knn" class="nav-link active" data-scroll-target="#knn">KNN</a></li>
+  <li><a href="#carregando-bibliotecas" id="toc-carregando-bibliotecas" class="nav-link" data-scroll-target="#carregando-bibliotecas">Carregando Bibliotecas</a></li>
+  <li><a href="#manipulando-os-dados" id="toc-manipulando-os-dados" class="nav-link" data-scroll-target="#manipulando-os-dados">Manipulando os dados</a></li>
+  <li><a href="#matriz-de-dispers%C3%A3o" id="toc-matriz-de-dispersão" class="nav-link" data-scroll-target="#matriz-de-dispers%C3%A3o">Matriz de dispersão</a></li>
+  <li><a href="#avaliando-o-comportamento-das-vari%C3%A1veis-em-fun%C3%A7%C3%A3o-do-status-inadimplente-estudante" id="toc-avaliando-o-comportamento-das-variáveis-em-função-do-status-inadimplente-estudante" class="nav-link" data-scroll-target="#avaliando-o-comportamento-das-vari%C3%A1veis-em-fun%C3%A7%C3%A3o-do-status-inadimplente-estudante">Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)</a></li>
+  <li><a href="#explorando-um-pouco-mais-balan%C3%A7o-e-receita" id="toc-explorando-um-pouco-mais-balanço-e-receita" class="nav-link" data-scroll-target="#explorando-um-pouco-mais-balan%C3%A7o-e-receita">Explorando um pouco mais Balanço e Receita</a></li>
+  <li><a href="#balan%C3%A7o-vs-receita" id="toc-balanço-vs-receita" class="nav-link" data-scroll-target="#balan%C3%A7o-vs-receita">Balanço vs Receita</a></li>
+  <li><a href="#knn-1" id="toc-knn-1" class="nav-link" data-scroll-target="#knn-1">KNN</a></li>
+  <li><a href="#criando-conjuntos-de-treino-e-teste-e-normalizando-vari%C3%A1veis" id="toc-criando-conjuntos-de-treino-e-teste-e-normalizando-variáveis" class="nav-link" data-scroll-target="#criando-conjuntos-de-treino-e-teste-e-normalizando-vari%C3%A1veis">Criando conjuntos de treino e teste e normalizando variáveis</a></li>
+  <li><a href="#a-modelo" id="toc-a-modelo" class="nav-link" data-scroll-target="#a-modelo">1a Modelo</a></li>
+  <li><a href="#avaliando-o-modelo" id="toc-avaliando-o-modelo" class="nav-link" data-scroll-target="#avaliando-o-modelo">Avaliando o modelo</a></li>
+  <li><a href="#curva-roc" id="toc-curva-roc" class="nav-link" data-scroll-target="#curva-roc">Curva ROC</a></li>
+  <li><a href="#area-embaixo-da-curva-roc" id="toc-area-embaixo-da-curva-roc" class="nav-link" data-scroll-target="#area-embaixo-da-curva-roc">Area embaixo da curva ROC</a></li>
+  <li><a href="#variando-k" id="toc-variando-k" class="nav-link" data-scroll-target="#variando-k">Variando K</a></li>
+  <li><a href="#curva-roc-dos-2-melhores-modelos-k90-e-k15" id="toc-curva-roc-dos-2-melhores-modelos-k90-e-k15" class="nav-link" data-scroll-target="#curva-roc-dos-2-melhores-modelos-k90-e-k15">Curva ROC dos 2 melhores modelos k=90 e k=15</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula08.html">KNN</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">KNN</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ricardo Accioly </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 20, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="knn" class="level2"><h2 class="anchored" data-anchor-id="knn">KNN</h2>
+<p><strong>O KNN é um algoritmo muito simples no qual cada observação é prevista com base em sua “semelhança” com outras observações. Ao contrário da maioria dos métodos, KNN é um algoritmo baseado na memória e não pode ser resumido por um modelo de forma fechada. Isso significa que as amostras de treinamento são necessárias no tempo de execução e as previsões são feitas diretamente das relações amostrais. Consequentemente, os KNNs também são conhecidos como aprendizes preguiçosos</strong></p>
+</section><section id="carregando-bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="carregando-bibliotecas">Carregando Bibliotecas</h2>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.statlearning.com">ISLR</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;  default    student       balance           income     
+#&gt;  No :9667   No :7056   Min.   :   0.0   Min.   :  772  
+#&gt;  Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  
+#&gt;                        Median : 823.6   Median :34553  
+#&gt;                        Mean   : 835.4   Mean   :33517  
+#&gt;                        3rd Qu.:1166.3   3rd Qu.:43808  
+#&gt;                        Max.   :2654.3   Max.   :73554</code></pre>
+</div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 'data.frame':    10000 obs. of  4 variables:
+#&gt;  $ default: Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ student: Factor w/ 2 levels "No","Yes": 1 2 1 1 1 2 1 2 1 1 ...
+#&gt;  $ balance: num  730 817 1074 529 786 ...
+#&gt;  $ income : num  44362 12106 31767 35704 38463 ...</code></pre>
+</div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;   default student   balance    income
+#&gt; 1      No      No  729.5265 44361.625
+#&gt; 2      No     Yes  817.1804 12106.135
+#&gt; 3      No      No 1073.5492 31767.139
+#&gt; 4      No      No  529.2506 35704.494
+#&gt; 5      No      No  785.6559 38463.496
+#&gt; 6      No     Yes  919.5885  7491.559</code></pre>
+</div>
+</div>
+</section><section id="manipulando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="manipulando-os-dados">Manipulando os dados</h2>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;  default    student       balance           income     
+#&gt;  No :9667   No :7056   Min.   :   0.0   Min.   :  772  
+#&gt;  Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  
+#&gt;                        Median : 823.6   Median :34553  
+#&gt;                        Mean   : 835.4   Mean   :33517  
+#&gt;                        3rd Qu.:1166.3   3rd Qu.:43808  
+#&gt;                        Max.   :2654.3   Max.   :73554</code></pre>
+</div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># renomeando colunas</span></span>
+<span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>                <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span> inadimplente <span class="op">=</span> <span class="va">default</span>, estudante <span class="op">=</span> <span class="va">student</span>, balanco <span class="op">=</span> <span class="va">balance</span>,</span>
+<span>                receita <span class="op">=</span> <span class="va">income</span><span class="op">)</span></span>
+<span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span> inadimplente <span class="op">=</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>                           <span class="va">inadimplente</span> <span class="op">==</span> <span class="st">"No"</span>  <span class="op">~</span> <span class="st">"Nao"</span>,</span>
+<span>                           <span class="va">inadimplente</span> <span class="op">==</span> <span class="st">"Yes"</span> <span class="op">~</span> <span class="st">"Sim"</span></span>
+<span>                          <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>inadimplente <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span> estudante <span class="op">=</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>                           <span class="va">estudante</span> <span class="op">==</span> <span class="st">"No"</span>  <span class="op">~</span> <span class="fl">0</span>,</span>
+<span>                           <span class="va">estudante</span> <span class="op">==</span> <span class="st">"Yes"</span> <span class="op">~</span> <span class="fl">1</span></span>
+<span>                          <span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; tibble [10,000 × 4] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ inadimplente: Factor w/ 2 levels "Nao","Sim": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ estudante   : num [1:10000] 0 1 0 0 0 1 0 1 0 0 ...
+#&gt;  $ balanco     : num [1:10000] 730 817 1074 529 786 ...
+#&gt;  $ receita     : num [1:10000] 44362 12106 31767 35704 38463 ...</code></pre>
+</div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;  inadimplente   estudante         balanco          receita     
+#&gt;  Nao:9667     Min.   :0.0000   Min.   :   0.0   Min.   :  772  
+#&gt;  Sim: 333     1st Qu.:0.0000   1st Qu.: 481.7   1st Qu.:21340  
+#&gt;               Median :0.0000   Median : 823.6   Median :34553  
+#&gt;               Mean   :0.2944   Mean   : 835.4   Mean   :33517  
+#&gt;               3rd Qu.:1.0000   3rd Qu.:1166.3   3rd Qu.:43808  
+#&gt;               Max.   :1.0000   Max.   :2654.3   Max.   :73554</code></pre>
+</div>
+</div>
+</section><section id="matriz-de-dispersão" class="level2"><h2 class="anchored" data-anchor-id="matriz-de-dispersão">Matriz de dispersão</h2>
+<p>Vamos agora explorar os dados originais para termos algum visão do comportamento das variáveis explicativas e a variável dependente.</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/pairs.panels.html">pairs.panels</a></span><span class="op">(</span><span class="va">credito</span>, </span>
+<span>             method <span class="op">=</span> <span class="st">"pearson"</span>, <span class="co"># metodo de correlação</span></span>
+<span>             hist.col <span class="op">=</span> <span class="st">"#00AFBB"</span>,</span>
+<span>             density <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># mostra graficos de densidade</span></span>
+<span>             ellipses <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># mostra elipses de correlação</span></span>
+<span>             <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula08_files/figure-html/splom-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="avaliando-o-comportamento-das-variáveis-em-função-do-status-inadimplente-estudante" class="level2"><h2 class="anchored" data-anchor-id="avaliando-o-comportamento-das-variáveis-em-função-do-status-inadimplente-estudante">Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)</h2>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">credito</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">inadimplente</span>, y<span class="op">=</span><span class="va">balanco</span>, color<span class="op">=</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">credito</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">inadimplente</span>, y<span class="op">=</span><span class="va">receita</span>, color<span class="op">=</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">credito</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">estudante</span><span class="op">)</span>, y<span class="op">=</span><span class="va">balanco</span>, color<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">estudante</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">credito</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">estudante</span><span class="op">)</span>, y<span class="op">=</span><span class="va">receita</span>, color<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">estudante</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula08_files/figure-html/box-plot-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="explorando-um-pouco-mais-balanço-e-receita" class="level2"><h2 class="anchored" data-anchor-id="explorando-um-pouco-mais-balanço-e-receita">Explorando um pouco mais Balanço e Receita</h2>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">credito</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">balanco</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fl">3.322</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">credito</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">receita</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fl">3.322</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p5</span> <span class="op">+</span> <span class="va">p6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula08_files/figure-html/histogramas-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="balanço-vs-receita" class="level2"><h2 class="anchored" data-anchor-id="balanço-vs-receita">Balanço vs Receita</h2>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">credito</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">balanco</span>,  y <span class="op">=</span> <span class="va">receita</span>, col <span class="op">=</span> <span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula08_files/figure-html/dispersao-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="knn-1" class="level2"><h2 class="anchored" data-anchor-id="knn-1">KNN</h2>
+<p>Vamos usar a função knn da biblioteca caret que tem ótimas funcionalidades. Observem que a saída pode ser as classes ou as probabilidades de pertencer a uma classe</p>
+<p><strong>Como o KNN usa as distancias entre os pontos ele é afetado pela escala dos dados, portanto, é necessário que os dados sejam normalizados (padronizados) para eliminar este efeito.</strong></p>
+<p>Quando temos diversas variáveis explicativas em diferentes escalas, em geral, elas devem ser transformadas para ter media zero e desvio padrão 1</p>
+</section><section id="criando-conjuntos-de-treino-e-teste-e-normalizando-variáveis" class="level2"><h2 class="anchored" data-anchor-id="criando-conjuntos-de-treino-e-teste-e-normalizando-variáveis">Criando conjuntos de treino e teste e normalizando variáveis</h2>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">$</span><span class="va">inadimplente</span></span>
+<span><span class="va">credito_split</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.80</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">[</span><span class="va">credito_split</span>,<span class="op">]</span></span>
+<span><span class="va">conj_treino</span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="co"># scale normaliza</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">[</span><span class="op">-</span><span class="va">credito_split</span>,<span class="op">]</span></span>
+<span><span class="va">conj_teste</span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">[</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span>                           </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;  inadimplente   estudante         balanco            receita        
+#&gt;  Nao:7734     Min.   :0.0000   Min.   :-1.72131   Min.   :-2.45922  
+#&gt;  Sim: 267     1st Qu.:0.0000   1st Qu.:-0.73380   1st Qu.:-0.91305  
+#&gt;               Median :0.0000   Median :-0.02068   Median : 0.07759  
+#&gt;               Mean   :0.2945   Mean   : 0.00000   Mean   : 0.00000  
+#&gt;               3rd Qu.:1.0000   3rd Qu.: 0.68805   3rd Qu.: 0.77310  
+#&gt;               Max.   :1.0000   Max.   : 3.74460   Max.   : 2.93799</code></pre>
+</div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;  inadimplente   estudante         balanco            receita        
+#&gt;  Nao:1933     Min.   :0.0000   Min.   :-1.75009   Min.   :-2.12222  
+#&gt;  Sim:  66     1st Qu.:0.0000   1st Qu.:-0.72205   1st Qu.:-0.91629  
+#&gt;               Median :0.0000   Median :-0.04085   Median : 0.09891  
+#&gt;               Mean   :0.2941   Mean   : 0.00000   Mean   : 0.00000  
+#&gt;               3rd Qu.:1.0000   3rd Qu.: 0.65118   3rd Qu.: 0.76539  
+#&gt;               Max.   :1.0000   Max.   : 3.50597   Max.   : 2.93133</code></pre>
+</div>
+</div>
+</section><section id="a-modelo" class="level2"><h2 class="anchored" data-anchor-id="a-modelo">1a Modelo</h2>
+<p>Vamos usar a regra da raiz quadrada do tamanho da amostra para definir o número de vizinhos do KNN.</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span><span class="op">)</span> <span class="co">## ~90</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] 89.44831</code></pre>
+</div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">23</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">t_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/knn3.html">knn3</a></span><span class="op">(</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">balanco</span> <span class="op">+</span> <span class="va">receita</span> <span class="op">+</span> <span class="va">estudante</span>, data <span class="op">=</span> <span class="va">conj_treino</span>, k <span class="op">=</span> <span class="fl">90</span><span class="op">)</span></span>
+<span><span class="va">t_knn1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 90-nearest neighbor model
+#&gt; Training set outcome distribution:
+#&gt; 
+#&gt;  Nao  Sim 
+#&gt; 7734  267</code></pre>
+</div>
+</div>
+</section><section id="avaliando-o-modelo" class="level2"><h2 class="anchored" data-anchor-id="avaliando-o-modelo">Avaliando o modelo</h2>
+<p><strong>Através da função matriz de confusão do pacote caret conseguimos obter as principais medidas de avaliação de um modelo de classificação.</strong></p>
+<p><strong>Veja que a acurácia deu um valor alto, mas isto não é suficiente para considerarmos que temos um bom modelo. Veja que a sensibilidade está muito baixa e que o ideal é que tenhamos valores altos de sensibilidade e especificidade.</strong></p>
+<p><strong>Observar que a prevalência é muito baixa o que está afetando os resultados do modelo.</strong></p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y_chapeu_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">t_knn1</span>, <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">y_chapeu_knn1</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span>, positive<span class="op">=</span><span class="st">"Sim"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Confusion Matrix and Statistics
+#&gt; 
+#&gt;           Reference
+#&gt; Prediction  Nao  Sim
+#&gt;        Nao 1932   50
+#&gt;        Sim    1   16
+#&gt;                                           
+#&gt;                Accuracy : 0.9745          
+#&gt;                  95% CI : (0.9666, 0.9809)
+#&gt;     No Information Rate : 0.967           
+#&gt;     P-Value [Acc &gt; NIR] : 0.03105         
+#&gt;                                           
+#&gt;                   Kappa : 0.3771          
+#&gt;                                           
+#&gt;  Mcnemar's Test P-Value : 1.801e-11       
+#&gt;                                           
+#&gt;             Sensitivity : 0.242424        
+#&gt;             Specificity : 0.999483        
+#&gt;          Pos Pred Value : 0.941176        
+#&gt;          Neg Pred Value : 0.974773        
+#&gt;              Prevalence : 0.033017        
+#&gt;          Detection Rate : 0.008004        
+#&gt;    Detection Prevalence : 0.008504        
+#&gt;       Balanced Accuracy : 0.620953        
+#&gt;                                           
+#&gt;        'Positive' Class : Sim             
+#&gt; </code></pre>
+</div>
+</div>
+</section><section id="curva-roc" class="level2"><h2 class="anchored" data-anchor-id="curva-roc">Curva ROC</h2>
+<p>Para a curva ROC é necessário que obtenhamos as probabilidades e não das classes, vejam nos comandos abaixo como se obtem as probabilidades.</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># </span></span>
+<span><span class="va">p_chapeu_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">t_knn1</span>, <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">p_chapeu_knn1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;            Nao        Sim
+#&gt; [1,] 1.0000000 0.00000000
+#&gt; [2,] 0.9777778 0.02222222
+#&gt; [3,] 1.0000000 0.00000000
+#&gt; [4,] 1.0000000 0.00000000
+#&gt; [5,] 1.0000000 0.00000000
+#&gt; [6,] 0.9888889 0.01111111</code></pre>
+</div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Aqui gera o curva e salvo numa variável</span></span>
+<span><span class="va">roc_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">p_chapeu_knn1</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, print.auc<span class="op">=</span><span class="cn">FALSE</span>, col<span class="op">=</span><span class="st">"black"</span>, legacy.axes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>,legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"KNN1"</span><span class="op">)</span>, </span>
+<span>       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"black"</span><span class="op">)</span>,lwd<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula08_files/figure-html/ROC-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="area-embaixo-da-curva-roc" class="level2"><h2 class="anchored" data-anchor-id="area-embaixo-da-curva-roc">Area embaixo da curva ROC</h2>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Area abaixo da Curva (AUC)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">roc_knn1</span><span class="op">$</span><span class="va">auc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] 0.9468286</code></pre>
+</div>
+</div>
+</section><section id="variando-k" class="level2"><h2 class="anchored" data-anchor-id="variando-k">Variando K</h2>
+<p><strong>Anteriormente usamos k=90. Este parametro deve ser ajustado para melhoramos os modelo KNN. Para isto vamos usar a função train da biblioteca caret</strong></p>
+<p><strong>Observe que a otimização de k é feita através de acurácia.</strong></p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Usando validação cruzada para obter o valor de k através da função train da biblioteca caret e o controle do treino e fazendo um gride de valores para k.</span></span>
+<span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"repeatedcv"</span>, </span>
+<span>                     number <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>                     repeats <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">t_knn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">balanco</span> <span class="op">+</span> <span class="va">receita</span> <span class="op">+</span> <span class="va">estudante</span>,</span>
+<span>                method <span class="op">=</span> <span class="st">"knn"</span>, </span>
+<span>                trControl<span class="op">=</span> <span class="va">ctrl</span>,</span>
+<span>                tuneGrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">100</span>, by<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                metric <span class="op">=</span> <span class="st">"Accuracy"</span>,</span>
+<span>                data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span></span>
+<span><span class="co">## Resultados do treino</span></span>
+<span><span class="va">t_knn2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; k-Nearest Neighbors 
+#&gt; 
+#&gt; 8001 samples
+#&gt;    3 predictor
+#&gt;    2 classes: 'Nao', 'Sim' 
+#&gt; 
+#&gt; No pre-processing
+#&gt; Resampling: Cross-Validated (10 fold, repeated 5 times) 
+#&gt; Summary of sample sizes: 7200, 7202, 7200, 7202, 7201, 7200, ... 
+#&gt; Resampling results across tuning parameters:
+#&gt; 
+#&gt;   k    Accuracy   Kappa    
+#&gt;     5  0.9687539  0.3713723
+#&gt;    10  0.9710787  0.4074849
+#&gt;    15  0.9719035  0.3949430
+#&gt;    20  0.9714038  0.3650255
+#&gt;    25  0.9716285  0.3568810
+#&gt;    30  0.9716288  0.3532068
+#&gt;    35  0.9715038  0.3445969
+#&gt;    40  0.9715037  0.3418931
+#&gt;    45  0.9714537  0.3369602
+#&gt;    50  0.9715037  0.3314707
+#&gt;    55  0.9711037  0.3129172
+#&gt;    60  0.9707038  0.2893980
+#&gt;    65  0.9705289  0.2761428
+#&gt;    70  0.9704536  0.2663185
+#&gt;    75  0.9699037  0.2364880
+#&gt;    80  0.9696287  0.2176720
+#&gt;    85  0.9693037  0.1946375
+#&gt;    90  0.9688291  0.1614589
+#&gt;    95  0.9685543  0.1362015
+#&gt;   100  0.9680543  0.1070964
+#&gt; 
+#&gt; Accuracy was used to select the optimal model using the largest value.
+#&gt; The final value used for the model was k = 15.</code></pre>
+</div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">t_knn2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula08_files/figure-html/K1-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Previsões com o resultaddos do treino</span></span>
+<span><span class="va">prev_knn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">t_knn2</span>, <span class="va">conj_teste</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">prev_knn2</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span>,  positive<span class="op">=</span><span class="st">"Sim"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Confusion Matrix and Statistics
+#&gt; 
+#&gt;           Reference
+#&gt; Prediction  Nao  Sim
+#&gt;        Nao 1924   41
+#&gt;        Sim    9   25
+#&gt;                                           
+#&gt;                Accuracy : 0.975           
+#&gt;                  95% CI : (0.9672, 0.9814)
+#&gt;     No Information Rate : 0.967           
+#&gt;     P-Value [Acc &gt; NIR] : 0.02267         
+#&gt;                                           
+#&gt;                   Kappa : 0.4885          
+#&gt;                                           
+#&gt;  Mcnemar's Test P-Value : 1.165e-05       
+#&gt;                                           
+#&gt;             Sensitivity : 0.37879         
+#&gt;             Specificity : 0.99534         
+#&gt;          Pos Pred Value : 0.73529         
+#&gt;          Neg Pred Value : 0.97913         
+#&gt;              Prevalence : 0.03302         
+#&gt;          Detection Rate : 0.01251         
+#&gt;    Detection Prevalence : 0.01701         
+#&gt;       Balanced Accuracy : 0.68707         
+#&gt;                                           
+#&gt;        'Positive' Class : Sim             
+#&gt; </code></pre>
+</div>
+</div>
+</section><section id="curva-roc-dos-2-melhores-modelos-k90-e-k15" class="level2"><h2 class="anchored" data-anchor-id="curva-roc-dos-2-melhores-modelos-k90-e-k15">Curva ROC dos 2 melhores modelos k=90 e k=15</h2>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prev_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">t_knn1</span>, <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
+<span><span class="va">prev_knn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">t_knn2</span>, <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
+<span><span class="va">roc_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">prev_knn1</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, print.auc<span class="op">=</span><span class="cn">FALSE</span>, col<span class="op">=</span><span class="st">"black"</span>, legacy.axes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">roc_knn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">prev_knn2</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, print.auc<span class="op">=</span><span class="cn">FALSE</span>, col<span class="op">=</span><span class="st">"green"</span>, legacy.axes<span class="op">=</span><span class="cn">TRUE</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>,legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"KNN1"</span>, <span class="st">"KNN2"</span><span class="op">)</span>, </span>
+<span>       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"black"</span>,<span class="st">"green"</span><span class="op">)</span>,lwd<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula08_files/figure-html/ROC2-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Area embaixo das curvas</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">roc_knn1</span><span class="op">$</span><span class="va">auc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] 0.9468286</code></pre>
+</div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">roc_knn2</span><span class="op">$</span><span class="va">auc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] 0.8927715</code></pre>
+</div>
+</div>
+<p><strong>Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos a sensibilidade e especificidade!</strong></p>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../semanas/Aula08.0.html" class="pagination-link" aria-label="Classificação 1os passos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Classificação 1os passos</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../semanas/Aula09.html" class="pagination-link" aria-label="Regressão Logística">
+        <span class="nav-page-text">Regressão Logística</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Baseado em https://sta210-s22.github.io/website/</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>
