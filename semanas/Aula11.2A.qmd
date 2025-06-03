@@ -23,15 +23,20 @@ knitr:
 
 ## Bibliotecas
 
-```{r bibliotecas , message=FALSE}
+```{r}
+library(ranger)
+library(dplyr)
+library(purrr)
+library(rsample)
+library(yardstick)
+library(tibble)
+library(ggplot2)
 library(MASS)
-library(tidyverse)
-library(ranger) # Random Forest
 ```
 
 ## Avaliando, selecionando dados
 
-```{r dados}
+```{r}
 data("Boston")
 names(Boston)
 dados <- Boston 
@@ -39,7 +44,7 @@ dados <- Boston
 
 ## Treino e Teste com todas as variáveis
 
-```{r conjuntos-treino-teste}
+```{r}
 ## Vamos criar os conjuntos de treino teste e desenvolver a arvore 
 ## com todas as variáveis.
 library(caret)
@@ -51,31 +56,90 @@ head(conj_treino)
 head(conj_teste)
 ```
 
-## Ajuste do modelo Random Forest com `caret`
+## Criando um grid de parametros
 
 ```{r}
-ctrl <- trainControl(method = "cv", number = 5)
-
-model_rf <- train(
-  medv ~ ., data = conj_treino,
-  method = "ranger", # Usando o pacote ranger para Random Forest
-trControl = ctrl,
-  tuneLength = 5,
-  importance = "permutation"
+grid_params <- expand.grid(
+  mtry = c(2, 4, 6),
+  min.node.size = c(1, 5),
+  splitrule = c("variance", "extratrees"),
+  num.trees = c(100)
 )
+nrow(grid_params)
+head(grid_params)
 ```
 
-## Resultados do modelo
+## Validação cruzada com `rsample`
 
 ```{r}
-print(model_rf)
-plot(model_rf)
+set.seed(2025)
+folds <- vfold_cv(Boston, v = 5)
+
+```
+
+## Ajuste do modelo Random Forest com cada combinação
+
+```{r}
+avaliacoes <- grid_params %>%
+  mutate(
+    media_rmse = pmap_dbl(list(mtry, min.node.size, splitrule, num.trees), 
+      function(mtry, min.node.size, splitrule, num.trees) {
+        rmse_fold <- map_dbl(folds$splits, function(split) {
+          treino <- analysis(split)
+          teste  <- assessment(split)
+          modelo <- ranger(
+            medv ~ ., 
+            data = treino,
+            mtry = mtry,
+            min.node.size = min.node.size,
+            splitrule = splitrule,
+            num.trees = num.trees,
+            seed = 123
+          )
+          pred <- predict(modelo, data = teste)$predictions
+          metric <- yardstick::rmse_vec(truth = teste$medv, estimate = pred)
+          return(metric)
+        })
+        mean(rmse_fold)
+      }
+    )
+  )
+avaliacoes %>% arrange(media_rmse) %>% head()
+
+
+```
+
+## Melhor combinação de parâmetros
+
+```{r}
+melhor_param <- avaliacoes %>% arrange(media_rmse) %>% slice(1)
+melhor_param
+
+
+```
+
+## Ajuste do modelo final
+
+```{r}
+modelo_final <- ranger(
+  medv ~ ., 
+  data = conj_treino,
+  mtry = melhor_param$mtry,
+  min.node.size = melhor_param$min.node.size,
+  splitrule = melhor_param$splitrule,
+  num.trees = melhor_param$num.trees,
+  seed = 2025,
+  importance = "permutation"
+)
+
+modelo_final
+
 ```
 
 ## Avaliação no conjunto de teste
 
 ```{r}
-pred <- predict(model_rf, newdata = conj_teste)
+pred <- predict(modelo_final, data = conj_teste)$predictions
 
 # Métricas de desempenho
 postResample(pred, conj_teste$medv)
@@ -84,23 +148,26 @@ postResample(pred, conj_teste$medv)
 ## Importância das variáveis
 
 ```{r}
-varimp <- varImp(model_rf)$importance
-varimp$Variable <- rownames(varimp)
+# Converter a importância em tibble ordenada
+df_importancia <- importance(modelo_final) %>% 
+  enframe(name = "Variável", value = "Importância") %>% 
+  arrange(desc(Importância))
 
-# Gráfico de importância
-varimp_plot <- ggplot(varimp, aes(x = reorder(Variable, Overall), y = Overall)) +
+# Gráfico de barras da importância das variáveis
+ggplot(df_importancia, aes(x = reorder(Variável, Importância), y = Importância)) +
   geom_col(fill = "steelblue") +
   coord_flip() +
-  labs(title = "Importância das Variáveis - Random Forest (ranger)",
-       x = "Variável", y = "Importância") +
+  labs(title = "Importância das Variáveis (Permutação)",
+       x = "Variável",
+       y = "Importância") +
   theme_minimal()
-
-varimp_plot
 ```
 
 ## Comparação com outro modelo (Regressão Linear)
 
 ```{r}
+ctrl <- trainControl(method = "cv", number = 5)
+
 model_lm <- train(
   medv ~ ., data = conj_treino,
   method = "lm",
@@ -115,12 +182,50 @@ postResample(pred_lm, conj_teste$medv)
 
 ```{r}
 # Gráfico de comparação
-comparison_plot <- ggplot() +
+graf_comparacao <- ggplot() +
   geom_point(aes(x = conj_teste$medv, y = pred), color = "blue", alpha = 0.5) +
   geom_point(aes(x = conj_teste$medv, y = pred_lm), color = "red", alpha = 0.5) +
   labs(title = "Comparação de Previsões: Random Forest vs Regressão Linear",
        x = "Valores Reais (medv)", y = "Previsões") +
   theme_minimal()
-comparison_plot
+graf_comparacao
 
+```
+
+## Analisando com o LIME
+
+```{r}
+# Treinamento com ranger precisa ser refeito em formato compatível com lime
+library(lime)
+
+# Treinando modelo com train() + ranger para compatibilidade com LIME
+set.seed(2025)
+tune_grid <- data.frame(
+  mtry = melhor_param$mtry,
+  splitrule = as.character(melhor_param$splitrule),
+  min.node.size = melhor_param$min.node.size
+)
+modelo_caret <- train(
+  medv ~ ., 
+  data = conj_treino,
+  method = "ranger",
+  trControl = trainControl(method = "none"),
+  tuneGrid = tune_grid
+)
+
+# Preparar explicador LIME
+explainer <- lime(conj_treino, modelo_caret, bin_continuous = FALSE)
+
+# Aplicar LIME a 3 observações novas
+explicacoes <- explain(
+  conj_teste[1:3, ],
+  explainer = explainer,
+  n_features = 5,
+  n_labels = 1
+)
+
+# Dados Analisados
+conj_teste[1:3, c("medv", "rm", "ptratio", "nox", "dis", "lstat", "tax")]
+# Visualizar explicações
+plot_features(explicacoes)
 ```

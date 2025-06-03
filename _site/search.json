@@ -312,7 +312,7 @@
     "href": "semanas/Aula11.3.html",
     "title": "Arvores de Regressão - XGBoost",
     "section": "",
-    "text": "library(MASS)\nlibrary(tidyverse)",
+    "text": "library(MASS)         # Dados Boston\nlibrary(xgboost)      # Modelo XGBoost\nlibrary(dplyr)        # Manipulação de dados\nlibrary(rsample)      # Separação treino/teste\nlibrary(Metrics)      # Cálculo de RMSE\nlibrary(ggplot2)      # Gráficos",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (XGBoost)"
@@ -323,7 +323,7 @@
     "href": "semanas/Aula11.3.html#bibliotecas",
     "title": "Arvores de Regressão - XGBoost",
     "section": "",
-    "text": "library(MASS)\nlibrary(tidyverse)",
+    "text": "library(MASS)         # Dados Boston\nlibrary(xgboost)      # Modelo XGBoost\nlibrary(dplyr)        # Manipulação de dados\nlibrary(rsample)      # Separação treino/teste\nlibrary(Metrics)      # Cálculo de RMSE\nlibrary(ggplot2)      # Gráficos",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (XGBoost)"
@@ -356,18 +356,18 @@
     "href": "semanas/Aula11.3.html#preparando-os-dados",
     "title": "Arvores de Regressão - XGBoost",
     "section": "Preparando os dados",
-    "text": "Preparando os dados\n\nx_treino &lt;- model.matrix(medv ~ . , data = conj_treino)[, -1]\ny_treino &lt;- conj_treino$medv\n\nx_teste &lt;- model.matrix(medv ~ . , data = conj_teste)[, -1]\ny_teste = conj_teste$medv",
+    "text": "Preparando os dados\n\nx_treino &lt;- model.matrix(medv ~ . , data = conj_treino)[, -1]\ny_treino &lt;- conj_treino$medv\n\nx_teste &lt;- model.matrix(medv ~ . , data = conj_teste)[, -1]\ny_teste = conj_teste$medv\n\ndtrain &lt;- xgb.DMatrix(data = x_treino, label = y_treino)\ndtest &lt;- xgb.DMatrix(data = x_teste, label = y_teste)",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (XGBoost)"
     ]
   },
   {
-    "objectID": "semanas/Aula11.3.html#a-tentativa-xgboost",
-    "href": "semanas/Aula11.3.html#a-tentativa-xgboost",
+    "objectID": "semanas/Aula11.3.html#treinamento-com-validação-cruzada-e-grid-de-parâmetros",
+    "href": "semanas/Aula11.3.html#treinamento-com-validação-cruzada-e-grid-de-parâmetros",
     "title": "Arvores de Regressão - XGBoost",
-    "section": "1a tentativa Xgboost",
-    "text": "1a tentativa Xgboost\n\nlibrary(xgboost)\nset.seed(21)\ncv &lt;- xgb.cv(data = as.matrix(x_treino), label = as.matrix(y_treino),\n             objective = \"reg:squarederror\", nrounds = 100, nfold = 5, eta = 0.3, max_depth = 6,\n             verbose = FALSE)\n# cv\nelog &lt;- as.data.frame(cv$evaluation_log)\nelog %&gt;% \n   summarize(ntrees.train = which.min(train_rmse_mean),   # find the index of min(train_rmse_mean)\n             ntrees.test  = which.min(test_rmse_mean))   # find the index of min(test_rmse_mean)\n\n  ntrees.train ntrees.test\n1          100          39\n\n(nrounds &lt;- which.min(elog$test_rmse_mean))\n\n[1] 39",
+    "section": "Treinamento com validação cruzada e grid de parâmetros",
+    "text": "Treinamento com validação cruzada e grid de parâmetros\n\nset.seed(21)\n# Grid de hiperparâmetros\ngrid &lt;- expand.grid(\n  eta = c(0.01, 0.1),\n  max_depth = c(3, 6),\n  nrounds = c(100, 200)\n)\n\n# Avaliar cada combinação com CV\nresultados_cv &lt;- list()\n\nfor (i in 1:nrow(grid)) {\n  params &lt;- list(\n    objective = \"reg:squarederror\",\n    eta = grid$eta[i],\n    max_depth = grid$max_depth[i],\n    verbosity = 0\n  )\n  \n  cv &lt;- xgb.cv(\n    params = params,\n    data = dtrain,\n    nrounds = grid$nrounds[i],\n    nfold = 5,\n    metrics = \"rmse\",\n    early_stopping_rounds = 10,\n    verbose = 0\n  )\n  \n  resultados_cv[[i]] &lt;- list(\n    rmse = min(cv$evaluation_log$test_rmse_mean),\n    best_nrounds = cv$best_iteration,\n    params = grid[i, ]\n  )\n}\n\n# Melhor modelo\nrmses &lt;- sapply(resultados_cv, function(x) x$rmse)\nmelhor_indice &lt;- which.min(rmses)\nmelhor_param &lt;- resultados_cv[[melhor_indice]]$params\nmelhor_nrounds &lt;- resultados_cv[[melhor_indice]]$best_nrounds\n\nmelhor_param\n\n  eta max_depth nrounds\n6 0.1         3     200",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (XGBoost)"
@@ -378,7 +378,18 @@
     "href": "semanas/Aula11.3.html#modelo-final",
     "title": "Arvores de Regressão - XGBoost",
     "section": "Modelo Final",
-    "text": "Modelo Final\n\n modelo_xgb &lt;- xgboost(data = as.matrix(x_treino), label = as.matrix(y_treino),\n             objective = \"reg:squarederror\", nrounds = nrounds, eta = 0.3, max_depth = 6,\n             verbose = FALSE)",
+    "text": "Modelo Final\n\n# Treino final com os melhores parâmetros\nfinal_model &lt;- xgb.train(\n  params = list(\n    objective = \"reg:squarederror\",\n    eta = melhor_param$eta,\n    max_depth = melhor_param$max_depth\n  ),\n  data = dtrain,\n  nrounds = melhor_nrounds,\n  verbose = 0\n)",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Arvore de Regressão (XGBoost)"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula11.3.html#importancia-das-variáveis",
+    "href": "semanas/Aula11.3.html#importancia-das-variáveis",
+    "title": "Arvores de Regressão - XGBoost",
+    "section": "Importancia das variáveis",
+    "text": "Importancia das variáveis\n\n# Importância das variáveis\nimportance_matrix &lt;- xgb.importance(model = final_model)\n\n# Gráfico\nxgb.plot.importance(importance_matrix)",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (XGBoost)"
@@ -389,7 +400,7 @@
     "href": "semanas/Aula11.3.html#previsões",
     "title": "Arvores de Regressão - XGBoost",
     "section": "Previsões",
-    "text": "Previsões\n\nconj_teste$prev &lt;- predict(modelo_xgb, as.matrix(x_teste))\n\n\nggplot(conj_teste, aes(x = prev, y = medv)) + \n  geom_point() + \n  geom_abline()",
+    "text": "Previsões\n\nconj_teste$prev &lt;- predict(final_model, dtest)\n\n\nggplot(conj_teste, aes(x = prev, y = medv)) + \n  geom_point() + \n  geom_abline()",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (XGBoost)"
@@ -400,7 +411,7 @@
     "href": "semanas/Aula11.3.html#calculando-o-rmse",
     "title": "Arvores de Regressão - XGBoost",
     "section": "Calculando o RMSE",
-    "text": "Calculando o RMSE\n\nconj_teste %&gt;%\n  mutate(residuos = medv - prev) %&gt;%\n  summarize(rmse = sqrt(mean(residuos^2)))\n\n      rmse\n1 3.874079\n\ncaret::postResample(conj_teste$prev, conj_teste$medv)\n\n     RMSE  Rsquared       MAE \n3.8740789 0.8403368 2.3881401",
+    "text": "Calculando o RMSE\n\nrmse_final &lt;- rmse(y_teste, conj_teste$prev)\ncat(\"RMSE no conjunto de teste:\", rmse_final)\n\nRMSE no conjunto de teste: 3.80707\n\ncaret::postResample(conj_teste$prev, conj_teste$medv)\n\n     RMSE  Rsquared       MAE \n3.8070699 0.8497835 2.3451366",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (XGBoost)"
@@ -422,7 +433,7 @@
     "href": "semanas/Aula11.2A.html",
     "title": "Arvores de Regressão - Random Forest",
     "section": "",
-    "text": "library(MASS)\nlibrary(tidyverse)\nlibrary(ranger) # Random Forest",
+    "text": "library(ranger)\nlibrary(dplyr)\nlibrary(purrr)\nlibrary(rsample)\nlibrary(yardstick)\nlibrary(tibble)\nlibrary(ggplot2)\nlibrary(MASS)",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (Randon Forest)"
@@ -433,7 +444,7 @@
     "href": "semanas/Aula11.2A.html#bibliotecas",
     "title": "Arvores de Regressão - Random Forest",
     "section": "",
-    "text": "library(MASS)\nlibrary(tidyverse)\nlibrary(ranger) # Random Forest",
+    "text": "library(ranger)\nlibrary(dplyr)\nlibrary(purrr)\nlibrary(rsample)\nlibrary(yardstick)\nlibrary(tibble)\nlibrary(ggplot2)\nlibrary(MASS)",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (Randon Forest)"
@@ -462,22 +473,55 @@
     ]
   },
   {
-    "objectID": "semanas/Aula11.2A.html#ajuste-do-modelo-random-forest-com-caret",
-    "href": "semanas/Aula11.2A.html#ajuste-do-modelo-random-forest-com-caret",
+    "objectID": "semanas/Aula11.2A.html#criando-um-grid-de-parametros",
+    "href": "semanas/Aula11.2A.html#criando-um-grid-de-parametros",
     "title": "Arvores de Regressão - Random Forest",
-    "section": "Ajuste do modelo Random Forest com caret\n",
-    "text": "Ajuste do modelo Random Forest com caret\n\n\nctrl &lt;- trainControl(method = \"cv\", number = 5)\n\nmodel_rf &lt;- train(\n  medv ~ ., data = conj_treino,\n  method = \"ranger\", # Usando o pacote ranger para Random Forest\ntrControl = ctrl,\n  tuneLength = 5,\n  importance = \"permutation\"\n)",
+    "section": "Criando um grid de parametros",
+    "text": "Criando um grid de parametros\n\ngrid_params &lt;- expand.grid(\n  mtry = c(2, 4, 6),\n  min.node.size = c(1, 5),\n  splitrule = c(\"variance\", \"extratrees\"),\n  num.trees = c(100)\n)\nnrow(grid_params)\n\n[1] 12\n\nhead(grid_params)\n\n  mtry min.node.size splitrule num.trees\n1    2             1  variance       100\n2    4             1  variance       100\n3    6             1  variance       100\n4    2             5  variance       100\n5    4             5  variance       100\n6    6             5  variance       100",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (Randon Forest)"
     ]
   },
   {
-    "objectID": "semanas/Aula11.2A.html#resultados-do-modelo",
-    "href": "semanas/Aula11.2A.html#resultados-do-modelo",
+    "objectID": "semanas/Aula11.2A.html#validação-cruzada-com-rsample",
+    "href": "semanas/Aula11.2A.html#validação-cruzada-com-rsample",
     "title": "Arvores de Regressão - Random Forest",
-    "section": "Resultados do modelo",
-    "text": "Resultados do modelo\n\nprint(model_rf)\n\nRandom Forest \n\n381 samples\n 13 predictor\n\nNo pre-processing\nResampling: Cross-Validated (5 fold) \nSummary of sample sizes: 304, 303, 306, 305, 306 \nResampling results across tuning parameters:\n\n  mtry  splitrule   RMSE      Rsquared   MAE     \n   2    variance    3.738441  0.8478051  2.478749\n   2    extratrees  4.086867  0.8238616  2.699963\n   4    variance    3.407047  0.8674394  2.316360\n   4    extratrees  3.557420  0.8607147  2.350807\n   7    variance    3.426677  0.8607768  2.332572\n   7    extratrees  3.405111  0.8687576  2.282396\n  10    variance    3.490597  0.8541012  2.369265\n  10    extratrees  3.394757  0.8661821  2.263713\n  13    variance    3.537076  0.8489625  2.381604\n  13    extratrees  3.439379  0.8611419  2.305458\n\nTuning parameter 'min.node.size' was held constant at a value of 5\nRMSE was used to select the optimal model using the smallest value.\nThe final values used for the model were mtry = 10, splitrule = extratrees\n and min.node.size = 5.\n\nplot(model_rf)",
+    "section": "Validação cruzada com rsample\n",
+    "text": "Validação cruzada com rsample\n\n\nset.seed(2025)\nfolds &lt;- vfold_cv(Boston, v = 5)",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Arvore de Regressão (Randon Forest)"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula11.2A.html#ajuste-do-modelo-random-forest-com-cada-combinação",
+    "href": "semanas/Aula11.2A.html#ajuste-do-modelo-random-forest-com-cada-combinação",
+    "title": "Arvores de Regressão - Random Forest",
+    "section": "Ajuste do modelo Random Forest com cada combinação",
+    "text": "Ajuste do modelo Random Forest com cada combinação\n\navaliacoes &lt;- grid_params %&gt;%\n  mutate(\n    media_rmse = pmap_dbl(list(mtry, min.node.size, splitrule, num.trees), \n      function(mtry, min.node.size, splitrule, num.trees) {\n        rmse_fold &lt;- map_dbl(folds$splits, function(split) {\n          treino &lt;- analysis(split)\n          teste  &lt;- assessment(split)\n          modelo &lt;- ranger(\n            medv ~ ., \n            data = treino,\n            mtry = mtry,\n            min.node.size = min.node.size,\n            splitrule = splitrule,\n            num.trees = num.trees,\n            seed = 123\n          )\n          pred &lt;- predict(modelo, data = teste)$predictions\n          metric &lt;- yardstick::rmse_vec(truth = teste$medv, estimate = pred)\n          return(metric)\n        })\n        mean(rmse_fold)\n      }\n    )\n  )\navaliacoes %&gt;% arrange(media_rmse) %&gt;% head()\n\n  mtry min.node.size  splitrule num.trees media_rmse\n1    6             1   variance       100   3.138929\n2    6             5   variance       100   3.180183\n3    4             1   variance       100   3.182037\n4    6             1 extratrees       100   3.223310\n5    4             5   variance       100   3.223342\n6    6             5 extratrees       100   3.292367",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Arvore de Regressão (Randon Forest)"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula11.2A.html#melhor-combinação-de-parâmetros",
+    "href": "semanas/Aula11.2A.html#melhor-combinação-de-parâmetros",
+    "title": "Arvores de Regressão - Random Forest",
+    "section": "Melhor combinação de parâmetros",
+    "text": "Melhor combinação de parâmetros\n\nmelhor_param &lt;- avaliacoes %&gt;% arrange(media_rmse) %&gt;% slice(1)\nmelhor_param\n\n  mtry min.node.size splitrule num.trees media_rmse\n1    6             1  variance       100   3.138929",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Arvore de Regressão (Randon Forest)"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula11.2A.html#ajuste-do-modelo-final",
+    "href": "semanas/Aula11.2A.html#ajuste-do-modelo-final",
+    "title": "Arvores de Regressão - Random Forest",
+    "section": "Ajuste do modelo final",
+    "text": "Ajuste do modelo final\n\nmodelo_final &lt;- ranger(\n  medv ~ ., \n  data = conj_treino,\n  mtry = melhor_param$mtry,\n  min.node.size = melhor_param$min.node.size,\n  splitrule = melhor_param$splitrule,\n  num.trees = melhor_param$num.trees,\n  seed = 2025,\n  importance = \"permutation\"\n)\n\nmodelo_final\n\nRanger result\n\nCall:\n ranger(medv ~ ., data = conj_treino, mtry = melhor_param$mtry,      min.node.size = melhor_param$min.node.size, splitrule = melhor_param$splitrule,      num.trees = melhor_param$num.trees, seed = 2025, importance = \"permutation\") \n\nType:                             Regression \nNumber of trees:                  100 \nSample size:                      381 \nNumber of independent variables:  13 \nMtry:                             6 \nTarget node size:                 1 \nVariable importance mode:         permutation \nSplitrule:                        1 \nOOB prediction error (MSE):       12.75977 \nR squared (OOB):                  0.8445772",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (Randon Forest)"
@@ -488,7 +532,7 @@
     "href": "semanas/Aula11.2A.html#avaliação-no-conjunto-de-teste",
     "title": "Arvores de Regressão - Random Forest",
     "section": "Avaliação no conjunto de teste",
-    "text": "Avaliação no conjunto de teste\n\npred &lt;- predict(model_rf, newdata = conj_teste)\n\n# Métricas de desempenho\npostResample(pred, conj_teste$medv)\n\n     RMSE  Rsquared       MAE \n4.0789597 0.8276481 2.3000856",
+    "text": "Avaliação no conjunto de teste\n\npred &lt;- predict(modelo_final, data = conj_teste)$predictions\n\n# Métricas de desempenho\npostResample(pred, conj_teste$medv)\n\n     RMSE  Rsquared       MAE \n4.0052763 0.8341371 2.2677500",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (Randon Forest)"
@@ -499,7 +543,7 @@
     "href": "semanas/Aula11.2A.html#importância-das-variáveis",
     "title": "Arvores de Regressão - Random Forest",
     "section": "Importância das variáveis",
-    "text": "Importância das variáveis\n\nvarimp &lt;- varImp(model_rf)$importance\nvarimp$Variable &lt;- rownames(varimp)\n\n# Gráfico de importância\nvarimp_plot &lt;- ggplot(varimp, aes(x = reorder(Variable, Overall), y = Overall)) +\n  geom_col(fill = \"steelblue\") +\n  coord_flip() +\n  labs(title = \"Importância das Variáveis - Random Forest (ranger)\",\n       x = \"Variável\", y = \"Importância\") +\n  theme_minimal()\n\nvarimp_plot",
+    "text": "Importância das variáveis\n\n# Converter a importância em tibble ordenada\ndf_importancia &lt;- importance(modelo_final) %&gt;% \n  enframe(name = \"Variável\", value = \"Importância\") %&gt;% \n  arrange(desc(Importância))\n\n# Gráfico de barras da importância das variáveis\nggplot(df_importancia, aes(x = reorder(Variável, Importância), y = Importância)) +\n  geom_col(fill = \"steelblue\") +\n  coord_flip() +\n  labs(title = \"Importância das Variáveis (Permutação)\",\n       x = \"Variável\",\n       y = \"Importância\") +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (Randon Forest)"
@@ -510,7 +554,7 @@
     "href": "semanas/Aula11.2A.html#comparação-com-outro-modelo-regressão-linear",
     "title": "Arvores de Regressão - Random Forest",
     "section": "Comparação com outro modelo (Regressão Linear)",
-    "text": "Comparação com outro modelo (Regressão Linear)\n\nmodel_lm &lt;- train(\n  medv ~ ., data = conj_treino,\n  method = \"lm\",\n  trControl = ctrl\n)\n\npred_lm &lt;- predict(model_lm, newdata = conj_teste)\npostResample(pred_lm, conj_teste$medv)\n\n     RMSE  Rsquared       MAE \n5.9426142 0.6315418 3.9610503",
+    "text": "Comparação com outro modelo (Regressão Linear)\n\nctrl &lt;- trainControl(method = \"cv\", number = 5)\n\nmodel_lm &lt;- train(\n  medv ~ ., data = conj_treino,\n  method = \"lm\",\n  trControl = ctrl\n)\n\npred_lm &lt;- predict(model_lm, newdata = conj_teste)\npostResample(pred_lm, conj_teste$medv)\n\n     RMSE  Rsquared       MAE \n5.9426142 0.6315418 3.9610503",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (Randon Forest)"
@@ -521,7 +565,18 @@
     "href": "semanas/Aula11.2A.html#grafico-de-comparação",
     "title": "Arvores de Regressão - Random Forest",
     "section": "Grafico de comparação",
-    "text": "Grafico de comparação\n\n# Gráfico de comparação\ncomparison_plot &lt;- ggplot() +\n  geom_point(aes(x = conj_teste$medv, y = pred), color = \"blue\", alpha = 0.5) +\n  geom_point(aes(x = conj_teste$medv, y = pred_lm), color = \"red\", alpha = 0.5) +\n  labs(title = \"Comparação de Previsões: Random Forest vs Regressão Linear\",\n       x = \"Valores Reais (medv)\", y = \"Previsões\") +\n  theme_minimal()\ncomparison_plot",
+    "text": "Grafico de comparação\n\n# Gráfico de comparação\ngraf_comparacao &lt;- ggplot() +\n  geom_point(aes(x = conj_teste$medv, y = pred), color = \"blue\", alpha = 0.5) +\n  geom_point(aes(x = conj_teste$medv, y = pred_lm), color = \"red\", alpha = 0.5) +\n  labs(title = \"Comparação de Previsões: Random Forest vs Regressão Linear\",\n       x = \"Valores Reais (medv)\", y = \"Previsões\") +\n  theme_minimal()\ngraf_comparacao",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Arvore de Regressão (Randon Forest)"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula11.2A.html#analisando-com-o-lime",
+    "href": "semanas/Aula11.2A.html#analisando-com-o-lime",
+    "title": "Arvores de Regressão - Random Forest",
+    "section": "Analisando com o LIME",
+    "text": "Analisando com o LIME\n\n# Treinamento com ranger precisa ser refeito em formato compatível com lime\nlibrary(lime)\n\n# Treinando modelo com train() + ranger para compatibilidade com LIME\nset.seed(2025)\ntune_grid &lt;- data.frame(\n  mtry = melhor_param$mtry,\n  splitrule = as.character(melhor_param$splitrule),\n  min.node.size = melhor_param$min.node.size\n)\nmodelo_caret &lt;- train(\n  medv ~ ., \n  data = conj_treino,\n  method = \"ranger\",\n  trControl = trainControl(method = \"none\"),\n  tuneGrid = tune_grid\n)\n\n# Preparar explicador LIME\nexplainer &lt;- lime(conj_treino, modelo_caret, bin_continuous = FALSE)\n\n# Aplicar LIME a 3 observações novas\nexplicacoes &lt;- explain(\n  conj_teste[1:3, ],\n  explainer = explainer,\n  n_features = 5,\n  n_labels = 1\n)\n\n# Dados Analisados\nconj_teste[1:3, c(\"medv\", \"rm\", \"ptratio\", \"nox\", \"dis\", \"lstat\", \"tax\")]\n\n   medv    rm ptratio   nox    dis lstat tax\n2  21.6 6.421    17.8 0.469 4.9671  9.14 242\n10 18.9 6.004    15.2 0.524 6.5921 17.10 311\n12 18.9 6.009    15.2 0.524 6.2267 13.27 311\n\n# Visualizar explicações\nplot_features(explicacoes)",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (Randon Forest)"

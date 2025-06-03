@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.29">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2025-05-30">
+<meta name="dcterms.date" content="2025-06-03">
 <title>Arvores de Regressão - XGBoost – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -545,8 +545,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#avaliando-selecionando-dados" id="toc-avaliando-selecionando-dados" class="nav-link" data-scroll-target="#avaliando-selecionando-dados">Avaliando, selecionando dados</a></li>
   <li><a href="#treino-e-teste-com-todas-as-vari%C3%A1veis" id="toc-treino-e-teste-com-todas-as-variáveis" class="nav-link" data-scroll-target="#treino-e-teste-com-todas-as-vari%C3%A1veis">Treino e Teste com todas as variáveis</a></li>
   <li><a href="#preparando-os-dados" id="toc-preparando-os-dados" class="nav-link" data-scroll-target="#preparando-os-dados">Preparando os dados</a></li>
-  <li><a href="#a-tentativa-xgboost" id="toc-a-tentativa-xgboost" class="nav-link" data-scroll-target="#a-tentativa-xgboost">1a tentativa Xgboost</a></li>
+  <li><a href="#treinamento-com-valida%C3%A7%C3%A3o-cruzada-e-grid-de-par%C3%A2metros" id="toc-treinamento-com-validação-cruzada-e-grid-de-parâmetros" class="nav-link" data-scroll-target="#treinamento-com-valida%C3%A7%C3%A3o-cruzada-e-grid-de-par%C3%A2metros">Treinamento com validação cruzada e grid de parâmetros</a></li>
   <li><a href="#modelo-final" id="toc-modelo-final" class="nav-link" data-scroll-target="#modelo-final">Modelo Final</a></li>
+  <li><a href="#importancia-das-vari%C3%A1veis" id="toc-importancia-das-variáveis" class="nav-link" data-scroll-target="#importancia-das-vari%C3%A1veis">Importancia das variáveis</a></li>
   <li><a href="#previs%C3%B5es" id="toc-previsões" class="nav-link" data-scroll-target="#previs%C3%B5es">Previsões</a></li>
   <li><a href="#calculando-o-rmse" id="toc-calculando-o-rmse" class="nav-link" data-scroll-target="#calculando-o-rmse">Calculando o RMSE</a></li>
   <li><a href="#compara%C3%A7%C3%A3o-com-outro-modelo-regress%C3%A3o-linear" id="toc-comparação-com-outro-modelo-regressão-linear" class="nav-link" data-scroll-target="#compara%C3%A7%C3%A3o-com-outro-modelo-regress%C3%A3o-linear">Comparação com outro modelo (Regressão Linear)</a></li>
@@ -571,7 +572,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 30, 2025</p>
+      <p class="date">June 3, 2025</p>
     </div>
   </div>
   
@@ -582,8 +583,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><section id="bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span>         <span class="co"># Dados Boston</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dmlc/xgboost">xgboost</a></span><span class="op">)</span>      <span class="co"># Modelo XGBoost</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>        <span class="co"># Manipulação de dados</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rsample.tidymodels.org">rsample</a></span><span class="op">)</span>      <span class="co"># Separação treino/teste</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mfrasco/Metrics">Metrics</a></span><span class="op">)</span>      <span class="co"># Cálculo de RMSE</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>      <span class="co"># Gráficos</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="avaliando-selecionando-dados" class="level2"><h2 class="anchored" data-anchor-id="avaliando-selecionando-dados">Avaliando, selecionando dados</h2>
 <div class="cell">
@@ -647,38 +652,92 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">y_treino</span> <span class="op">&lt;-</span> <span class="va">conj_treino</span><span class="op">$</span><span class="va">medv</span></span>
 <span></span>
 <span><span class="va">x_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="va">medv</span> <span class="op">~</span> <span class="va">.</span> , data <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">y_teste</span> <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">y_teste</span> <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span></span>
+<span></span>
+<span><span class="va">dtrain</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.DMatrix.html">xgb.DMatrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">x_treino</span>, label <span class="op">=</span> <span class="va">y_treino</span><span class="op">)</span></span>
+<span><span class="va">dtest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.DMatrix.html">xgb.DMatrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">x_teste</span>, label <span class="op">=</span> <span class="va">y_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="a-tentativa-xgboost" class="level2"><h2 class="anchored" data-anchor-id="a-tentativa-xgboost">1a tentativa Xgboost</h2>
+</section><section id="treinamento-com-validação-cruzada-e-grid-de-parâmetros" class="level2"><h2 class="anchored" data-anchor-id="treinamento-com-validação-cruzada-e-grid-de-parâmetros">Treinamento com validação cruzada e grid de parâmetros</h2>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dmlc/xgboost">xgboost</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
-<span><span class="va">cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.cv.html">xgb.cv</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">x_treino</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">y_treino</span><span class="op">)</span>,</span>
-<span>             objective <span class="op">=</span> <span class="st">"reg:squarederror"</span>, nrounds <span class="op">=</span> <span class="fl">100</span>, nfold <span class="op">=</span> <span class="fl">5</span>, eta <span class="op">=</span> <span class="fl">0.3</span>, max_depth <span class="op">=</span> <span class="fl">6</span>,</span>
-<span>             verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co"># cv</span></span>
-<span><span class="va">elog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">cv</span><span class="op">$</span><span class="va">evaluation_log</span><span class="op">)</span></span>
-<span><span class="va">elog</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>ntrees.train <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">train_rmse_mean</span><span class="op">)</span>,   <span class="co"># find the index of min(train_rmse_mean)</span></span>
-<span>             ntrees.test  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">test_rmse_mean</span><span class="op">)</span><span class="op">)</span>   <span class="co"># find the index of min(test_rmse_mean)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span><span class="co"># Grid de hiperparâmetros</span></span>
+<span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
+<span>  eta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.1</span><span class="op">)</span>,</span>
+<span>  max_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>  nrounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Avaliar cada combinação com CV</span></span>
+<span><span class="va">resultados_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    objective <span class="op">=</span> <span class="st">"reg:squarederror"</span>,</span>
+<span>    eta <span class="op">=</span> <span class="va">grid</span><span class="op">$</span><span class="va">eta</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    max_depth <span class="op">=</span> <span class="va">grid</span><span class="op">$</span><span class="va">max_depth</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    verbosity <span class="op">=</span> <span class="fl">0</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.cv.html">xgb.cv</a></span><span class="op">(</span></span>
+<span>    params <span class="op">=</span> <span class="va">params</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">dtrain</span>,</span>
+<span>    nrounds <span class="op">=</span> <span class="va">grid</span><span class="op">$</span><span class="va">nrounds</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    nfold <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>    metrics <span class="op">=</span> <span class="st">"rmse"</span>,</span>
+<span>    early_stopping_rounds <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    verbose <span class="op">=</span> <span class="fl">0</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">resultados_cv</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    rmse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">cv</span><span class="op">$</span><span class="va">evaluation_log</span><span class="op">$</span><span class="va">test_rmse_mean</span><span class="op">)</span>,</span>
+<span>    best_nrounds <span class="op">=</span> <span class="va">cv</span><span class="op">$</span><span class="va">best_iteration</span>,</span>
+<span>    params <span class="op">=</span> <span class="va">grid</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Melhor modelo</span></span>
+<span><span class="va">rmses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">resultados_cv</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">$</span><span class="va">rmse</span><span class="op">)</span></span>
+<span><span class="va">melhor_indice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">rmses</span><span class="op">)</span></span>
+<span><span class="va">melhor_param</span> <span class="op">&lt;-</span> <span class="va">resultados_cv</span><span class="op">[[</span><span class="va">melhor_indice</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">params</span></span>
+<span><span class="va">melhor_nrounds</span> <span class="op">&lt;-</span> <span class="va">resultados_cv</span><span class="op">[[</span><span class="va">melhor_indice</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">best_nrounds</span></span>
+<span></span>
+<span><span class="va">melhor_param</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  ntrees.train ntrees.test
-1          100          39</code></pre>
-</div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">nrounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">elog</span><span class="op">$</span><span class="va">test_rmse_mean</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 39</code></pre>
+<pre><code>  eta max_depth nrounds
+6 0.1         3     200</code></pre>
 </div>
 </div>
 </section><section id="modelo-final" class="level2"><h2 class="anchored" data-anchor-id="modelo-final">Modelo Final</h2>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> <span class="va">modelo_xgb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.train.html">xgboost</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">x_treino</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">y_treino</span><span class="op">)</span>,</span>
-<span>             objective <span class="op">=</span> <span class="st">"reg:squarederror"</span>, nrounds <span class="op">=</span> <span class="va">nrounds</span>, eta <span class="op">=</span> <span class="fl">0.3</span>, max_depth <span class="op">=</span> <span class="fl">6</span>,</span>
-<span>             verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Treino final com os melhores parâmetros</span></span>
+<span><span class="va">final_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.train.html">xgb.train</a></span><span class="op">(</span></span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    objective <span class="op">=</span> <span class="st">"reg:squarederror"</span>,</span>
+<span>    eta <span class="op">=</span> <span class="va">melhor_param</span><span class="op">$</span><span class="va">eta</span>,</span>
+<span>    max_depth <span class="op">=</span> <span class="va">melhor_param</span><span class="op">$</span><span class="va">max_depth</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">dtrain</span>,</span>
+<span>  nrounds <span class="op">=</span> <span class="va">melhor_nrounds</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="importancia-das-variáveis" class="level2"><h2 class="anchored" data-anchor-id="importancia-das-variáveis">Importancia das variáveis</h2>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Importância das variáveis</span></span>
+<span><span class="va">importance_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.importance.html">xgb.importance</a></span><span class="op">(</span>model <span class="op">=</span> <span class="va">final_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Gráfico</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.importance.html">xgb.plot.importance</a></span><span class="op">(</span><span class="va">importance_matrix</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula11.3_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
 </div>
 </section><section id="previsões" class="level2"><h2 class="anchored" data-anchor-id="previsões">Previsões</h2>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_teste</span><span class="op">$</span><span class="va">prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">modelo_xgb</span>, <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">x_teste</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_teste</span><span class="op">$</span><span class="va">prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">final_model</span>, <span class="va">dtest</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">conj_teste</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">prev</span>, y <span class="op">=</span> <span class="va">medv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -686,29 +745,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula11.3_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula11.3_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </section><section id="calculando-o-rmse" class="level2"><h2 class="anchored" data-anchor-id="calculando-o-rmse">Calculando o RMSE</h2>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_teste</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>residuos <span class="op">=</span> <span class="va">medv</span> <span class="op">-</span> <span class="va">prev</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>rmse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">residuos</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rmse_final</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Metrics/man/rmse.html">rmse</a></span><span class="op">(</span><span class="va">y_teste</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">prev</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"RMSE no conjunto de teste:"</span>, <span class="va">rmse_final</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      rmse
-1 3.874079</code></pre>
+<pre><code>RMSE no conjunto de teste: 3.80707</code></pre>
 </div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">caret</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">postResample</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">prev</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">caret</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">postResample</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">prev</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     RMSE  Rsquared       MAE 
-3.8740789 0.8403368 2.3881401 </code></pre>
+3.8070699 0.8497835 2.3451366 </code></pre>
 </div>
 </div>
 </section><section id="comparação-com-outro-modelo-regressão-linear" class="level2"><h2 class="anchored" data-anchor-id="comparação-com-outro-modelo-regressão-linear">Comparação com outro modelo (Regressão Linear)</h2>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cv"</span>, number <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cv"</span>, number <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">model_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span></span>
 <span>  <span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">conj_treino</span>,</span>

@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.29">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2025-06-02">
+<meta name="dcterms.date" content="2025-06-03">
 <title>Arvores de Regressão - Random Forest – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -544,12 +544,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link active" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
   <li><a href="#avaliando-selecionando-dados" id="toc-avaliando-selecionando-dados" class="nav-link" data-scroll-target="#avaliando-selecionando-dados">Avaliando, selecionando dados</a></li>
   <li><a href="#treino-e-teste-com-todas-as-vari%C3%A1veis" id="toc-treino-e-teste-com-todas-as-variáveis" class="nav-link" data-scroll-target="#treino-e-teste-com-todas-as-vari%C3%A1veis">Treino e Teste com todas as variáveis</a></li>
-  <li><a href="#ajuste-do-modelo-random-forest-com-caret" id="toc-ajuste-do-modelo-random-forest-com-caret" class="nav-link" data-scroll-target="#ajuste-do-modelo-random-forest-com-caret">Ajuste do modelo Random Forest com <code>caret</code></a></li>
-  <li><a href="#resultados-do-modelo" id="toc-resultados-do-modelo" class="nav-link" data-scroll-target="#resultados-do-modelo">Resultados do modelo</a></li>
+  <li><a href="#criando-um-grid-de-parametros" id="toc-criando-um-grid-de-parametros" class="nav-link" data-scroll-target="#criando-um-grid-de-parametros">Criando um grid de parametros</a></li>
+  <li><a href="#valida%C3%A7%C3%A3o-cruzada-com-rsample" id="toc-validação-cruzada-com-rsample" class="nav-link" data-scroll-target="#valida%C3%A7%C3%A3o-cruzada-com-rsample">Validação cruzada com <code>rsample</code></a></li>
+  <li><a href="#ajuste-do-modelo-random-forest-com-cada-combina%C3%A7%C3%A3o" id="toc-ajuste-do-modelo-random-forest-com-cada-combinação" class="nav-link" data-scroll-target="#ajuste-do-modelo-random-forest-com-cada-combina%C3%A7%C3%A3o">Ajuste do modelo Random Forest com cada combinação</a></li>
+  <li><a href="#melhor-combina%C3%A7%C3%A3o-de-par%C3%A2metros" id="toc-melhor-combinação-de-parâmetros" class="nav-link" data-scroll-target="#melhor-combina%C3%A7%C3%A3o-de-par%C3%A2metros">Melhor combinação de parâmetros</a></li>
+  <li><a href="#ajuste-do-modelo-final" id="toc-ajuste-do-modelo-final" class="nav-link" data-scroll-target="#ajuste-do-modelo-final">Ajuste do modelo final</a></li>
   <li><a href="#avalia%C3%A7%C3%A3o-no-conjunto-de-teste" id="toc-avaliação-no-conjunto-de-teste" class="nav-link" data-scroll-target="#avalia%C3%A7%C3%A3o-no-conjunto-de-teste">Avaliação no conjunto de teste</a></li>
   <li><a href="#import%C3%A2ncia-das-vari%C3%A1veis" id="toc-importância-das-variáveis" class="nav-link" data-scroll-target="#import%C3%A2ncia-das-vari%C3%A1veis">Importância das variáveis</a></li>
   <li><a href="#compara%C3%A7%C3%A3o-com-outro-modelo-regress%C3%A3o-linear" id="toc-comparação-com-outro-modelo-regressão-linear" class="nav-link" data-scroll-target="#compara%C3%A7%C3%A3o-com-outro-modelo-regress%C3%A3o-linear">Comparação com outro modelo (Regressão Linear)</a></li>
   <li><a href="#grafico-de-compara%C3%A7%C3%A3o" id="toc-grafico-de-comparação" class="nav-link" data-scroll-target="#grafico-de-compara%C3%A7%C3%A3o">Grafico de comparação</a></li>
+  <li><a href="#analisando-com-o-lime" id="toc-analisando-com-o-lime" class="nav-link" data-scroll-target="#analisando-com-o-lime">Analisando com o LIME</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -571,7 +575,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 2, 2025</p>
+      <p class="date">June 3, 2025</p>
     </div>
   </div>
   
@@ -582,9 +586,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><section id="bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://imbs-hl.github.io/ranger/">ranger</a></span><span class="op">)</span> <span class="co"># Random Forest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://imbs-hl.github.io/ranger/">ranger</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rsample.tidymodels.org">rsample</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/yardstick">yardstick</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="avaliando-selecionando-dados" class="level2"><h2 class="anchored" data-anchor-id="avaliando-selecionando-dados">Avaliando, selecionando dados</h2>
 <div class="cell">
@@ -640,93 +649,151 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 23 15.2</code></pre>
 </div>
 </div>
-</section><section id="ajuste-do-modelo-random-forest-com-caret" class="level2"><h2 class="anchored" data-anchor-id="ajuste-do-modelo-random-forest-com-caret">Ajuste do modelo Random Forest com <code>caret</code>
+</section><section id="criando-um-grid-de-parametros" class="level2"><h2 class="anchored" data-anchor-id="criando-um-grid-de-parametros">Criando um grid de parametros</h2>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid_params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
+<span>  mtry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>  min.node.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  splitrule <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"variance"</span>, <span class="st">"extratrees"</span><span class="op">)</span>,</span>
+<span>  num.trees <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">grid_params</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">grid_params</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  mtry min.node.size splitrule num.trees
+1    2             1  variance       100
+2    4             1  variance       100
+3    6             1  variance       100
+4    2             5  variance       100
+5    4             5  variance       100
+6    6             5  variance       100</code></pre>
+</div>
+</div>
+</section><section id="validação-cruzada-com-rsample" class="level2"><h2 class="anchored" data-anchor-id="validação-cruzada-com-rsample">Validação cruzada com <code>rsample</code>
 </h2>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cv"</span>, number <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">model_rf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span></span>
-<span>  <span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
-<span>  method <span class="op">=</span> <span class="st">"ranger"</span>, <span class="co"># Usando o pacote ranger para Random Forest</span></span>
-<span>trControl <span class="op">=</span> <span class="va">ctrl</span>,</span>
-<span>  tuneLength <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  importance <span class="op">=</span> <span class="st">"permutation"</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span>
+<span><span class="va">folds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rsample.tidymodels.org/reference/vfold_cv.html">vfold_cv</a></span><span class="op">(</span><span class="va">Boston</span>, v <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="resultados-do-modelo" class="level2"><h2 class="anchored" data-anchor-id="resultados-do-modelo">Resultados do modelo</h2>
+</section><section id="ajuste-do-modelo-random-forest-com-cada-combinação" class="level2"><h2 class="anchored" data-anchor-id="ajuste-do-modelo-random-forest-com-cada-combinação">Ajuste do modelo Random Forest com cada combinação</h2>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">model_rf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">avaliacoes</span> <span class="op">&lt;-</span> <span class="va">grid_params</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    media_rmse <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pmap.html">pmap_dbl</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">mtry</span>, <span class="va">min.node.size</span>, <span class="va">splitrule</span>, <span class="va">num.trees</span><span class="op">)</span>, </span>
+<span>      <span class="kw">function</span><span class="op">(</span><span class="va">mtry</span>, <span class="va">min.node.size</span>, <span class="va">splitrule</span>, <span class="va">num.trees</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">rmse_fold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">folds</span><span class="op">$</span><span class="va">splits</span>, <span class="kw">function</span><span class="op">(</span><span class="va">split</span><span class="op">)</span> <span class="op">{</span></span>
+<span>          <span class="va">treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rsample.tidymodels.org/reference/as.data.frame.rsplit.html">analysis</a></span><span class="op">(</span><span class="va">split</span><span class="op">)</span></span>
+<span>          <span class="va">teste</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rsample.tidymodels.org/reference/as.data.frame.rsplit.html">assessment</a></span><span class="op">(</span><span class="va">split</span><span class="op">)</span></span>
+<span>          <span class="va">modelo</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://imbs-hl.github.io/ranger/reference/ranger.html">ranger</a></span><span class="op">(</span></span>
+<span>            <span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>, </span>
+<span>            data <span class="op">=</span> <span class="va">treino</span>,</span>
+<span>            mtry <span class="op">=</span> <span class="va">mtry</span>,</span>
+<span>            min.node.size <span class="op">=</span> <span class="va">min.node.size</span>,</span>
+<span>            splitrule <span class="op">=</span> <span class="va">splitrule</span>,</span>
+<span>            num.trees <span class="op">=</span> <span class="va">num.trees</span>,</span>
+<span>            seed <span class="op">=</span> <span class="fl">123</span></span>
+<span>          <span class="op">)</span></span>
+<span>          <span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">modelo</span>, data <span class="op">=</span> <span class="va">teste</span><span class="op">)</span><span class="op">$</span><span class="va">predictions</span></span>
+<span>          <span class="va">metric</span> <span class="op">&lt;-</span> <span class="fu">yardstick</span><span class="fu">::</span><span class="fu"><a href="https://yardstick.tidymodels.org/reference/rmse.html">rmse_vec</a></span><span class="op">(</span>truth <span class="op">=</span> <span class="va">teste</span><span class="op">$</span><span class="va">medv</span>, estimate <span class="op">=</span> <span class="va">pred</span><span class="op">)</span></span>
+<span>          <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">metric</span><span class="op">)</span></span>
+<span>        <span class="op">}</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">rmse_fold</span><span class="op">)</span></span>
+<span>      <span class="op">}</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">avaliacoes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">media_rmse</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Random Forest 
-
-381 samples
- 13 predictor
-
-No pre-processing
-Resampling: Cross-Validated (5 fold) 
-Summary of sample sizes: 304, 303, 306, 305, 306 
-Resampling results across tuning parameters:
-
-  mtry  splitrule   RMSE      Rsquared   MAE     
-   2    variance    3.738441  0.8478051  2.478749
-   2    extratrees  4.086867  0.8238616  2.699963
-   4    variance    3.407047  0.8674394  2.316360
-   4    extratrees  3.557420  0.8607147  2.350807
-   7    variance    3.426677  0.8607768  2.332572
-   7    extratrees  3.405111  0.8687576  2.282396
-  10    variance    3.490597  0.8541012  2.369265
-  10    extratrees  3.394757  0.8661821  2.263713
-  13    variance    3.537076  0.8489625  2.381604
-  13    extratrees  3.439379  0.8611419  2.305458
-
-Tuning parameter 'min.node.size' was held constant at a value of 5
-RMSE was used to select the optimal model using the smallest value.
-The final values used for the model were mtry = 10, splitrule = extratrees
- and min.node.size = 5.</code></pre>
+<pre><code>  mtry min.node.size  splitrule num.trees media_rmse
+1    6             1   variance       100   3.138929
+2    6             5   variance       100   3.180183
+3    4             1   variance       100   3.182037
+4    6             1 extratrees       100   3.223310
+5    4             5   variance       100   3.223342
+6    6             5 extratrees       100   3.292367</code></pre>
 </div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">model_rf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="Aula11.2A_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
-</figure>
 </div>
+</section><section id="melhor-combinação-de-parâmetros" class="level2"><h2 class="anchored" data-anchor-id="melhor-combinação-de-parâmetros">Melhor combinação de parâmetros</h2>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">melhor_param</span> <span class="op">&lt;-</span> <span class="va">avaliacoes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">media_rmse</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">melhor_param</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  mtry min.node.size splitrule num.trees media_rmse
+1    6             1  variance       100   3.138929</code></pre>
+</div>
+</div>
+</section><section id="ajuste-do-modelo-final" class="level2"><h2 class="anchored" data-anchor-id="ajuste-do-modelo-final">Ajuste do modelo final</h2>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">modelo_final</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://imbs-hl.github.io/ranger/reference/ranger.html">ranger</a></span><span class="op">(</span></span>
+<span>  <span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
+<span>  mtry <span class="op">=</span> <span class="va">melhor_param</span><span class="op">$</span><span class="va">mtry</span>,</span>
+<span>  min.node.size <span class="op">=</span> <span class="va">melhor_param</span><span class="op">$</span><span class="va">min.node.size</span>,</span>
+<span>  splitrule <span class="op">=</span> <span class="va">melhor_param</span><span class="op">$</span><span class="va">splitrule</span>,</span>
+<span>  num.trees <span class="op">=</span> <span class="va">melhor_param</span><span class="op">$</span><span class="va">num.trees</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">2025</span>,</span>
+<span>  importance <span class="op">=</span> <span class="st">"permutation"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">modelo_final</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Ranger result
+
+Call:
+ ranger(medv ~ ., data = conj_treino, mtry = melhor_param$mtry,      min.node.size = melhor_param$min.node.size, splitrule = melhor_param$splitrule,      num.trees = melhor_param$num.trees, seed = 2025, importance = "permutation") 
+
+Type:                             Regression 
+Number of trees:                  100 
+Sample size:                      381 
+Number of independent variables:  13 
+Mtry:                             6 
+Target node size:                 1 
+Variable importance mode:         permutation 
+Splitrule:                        1 
+OOB prediction error (MSE):       12.75977 
+R squared (OOB):                  0.8445772 </code></pre>
 </div>
 </div>
 </section><section id="avaliação-no-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="avaliação-no-conjunto-de-teste">Avaliação no conjunto de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_rf</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">modelo_final</span>, data <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span><span class="op">$</span><span class="va">predictions</span></span>
 <span></span>
 <span><span class="co"># Métricas de desempenho</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">postResample</a></span><span class="op">(</span><span class="va">pred</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     RMSE  Rsquared       MAE 
-4.0789597 0.8276481 2.3000856 </code></pre>
+4.0052763 0.8341371 2.2677500 </code></pre>
 </div>
 </div>
 </section><section id="importância-das-variáveis" class="level2"><h2 class="anchored" data-anchor-id="importância-das-variáveis">Importância das variáveis</h2>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">varimp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/varImp.html">varImp</a></span><span class="op">(</span><span class="va">model_rf</span><span class="op">)</span><span class="op">$</span><span class="va">importance</span></span>
-<span><span class="va">varimp</span><span class="op">$</span><span class="va">Variable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">varimp</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Converter a importância em tibble ordenada</span></span>
+<span><span class="va">df_importancia</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://imbs-hl.github.io/ranger/reference/importance.ranger.html">importance</a></span><span class="op">(</span><span class="va">modelo_final</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/enframe.html">enframe</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Variável"</span>, value <span class="op">=</span> <span class="st">"Importância"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">Importância</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Gráfico de importância</span></span>
-<span><span class="va">varimp_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">varimp</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">Variable</span>, <span class="va">Overall</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">Overall</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="co"># Gráfico de barras da importância das variáveis</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df_importancia</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">Variável</span>, <span class="va">Importância</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">Importância</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Importância das Variáveis - Random Forest (ranger)"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Variável"</span>, y <span class="op">=</span> <span class="st">"Importância"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">varimp_plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Importância das Variáveis (Permutação)"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Variável"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Importância"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula11.2A_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula11.2A_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </section><section id="comparação-com-outro-modelo-regressão-linear" class="level2"><h2 class="anchored" data-anchor-id="comparação-com-outro-modelo-regressão-linear">Comparação com outro modelo (Regressão Linear)</h2>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cv"</span>, number <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">model_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span></span>
 <span>  <span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
 <span>  method <span class="op">=</span> <span class="st">"lm"</span>,</span>
 <span>  trControl <span class="op">=</span> <span class="va">ctrl</span></span>
@@ -741,17 +808,65 @@ The final values used for the model were mtry = 10, splitrule = extratrees
 </div>
 </section><section id="grafico-de-comparação" class="level2"><h2 class="anchored" data-anchor-id="grafico-de-comparação">Grafico de comparação</h2>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Gráfico de comparação</span></span>
-<span><span class="va">comparison_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Gráfico de comparação</span></span>
+<span><span class="va">graf_comparacao</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span>, y <span class="op">=</span> <span class="va">pred</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span>, y <span class="op">=</span> <span class="va">pred_lm</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Comparação de Previsões: Random Forest vs Regressão Linear"</span>,</span>
 <span>       x <span class="op">=</span> <span class="st">"Valores Reais (medv)"</span>, y <span class="op">=</span> <span class="st">"Previsões"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">comparison_plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">graf_comparacao</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula11.2A_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula11.2A_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="analisando-com-o-lime" class="level2"><h2 class="anchored" data-anchor-id="analisando-com-o-lime">Analisando com o LIME</h2>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Treinamento com ranger precisa ser refeito em formato compatível com lime</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lime.data-imaginist.com">lime</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Treinando modelo com train() + ranger para compatibilidade com LIME</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span>
+<span><span class="va">tune_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  mtry <span class="op">=</span> <span class="va">melhor_param</span><span class="op">$</span><span class="va">mtry</span>,</span>
+<span>  splitrule <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">melhor_param</span><span class="op">$</span><span class="va">splitrule</span><span class="op">)</span>,</span>
+<span>  min.node.size <span class="op">=</span> <span class="va">melhor_param</span><span class="op">$</span><span class="va">min.node.size</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">modelo_caret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span></span>
+<span>  <span class="va">medv</span> <span class="op">~</span> <span class="va">.</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">conj_treino</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"ranger"</span>,</span>
+<span>  trControl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>,</span>
+<span>  tuneGrid <span class="op">=</span> <span class="va">tune_grid</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Preparar explicador LIME</span></span>
+<span><span class="va">explainer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lime.data-imaginist.com/reference/lime.html">lime</a></span><span class="op">(</span><span class="va">conj_treino</span>, <span class="va">modelo_caret</span>, bin_continuous <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Aplicar LIME a 3 observações novas</span></span>
+<span><span class="va">explicacoes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lime.data-imaginist.com/reference/explain.html">explain</a></span><span class="op">(</span></span>
+<span>  <span class="va">conj_teste</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="op">]</span>,</span>
+<span>  explainer <span class="op">=</span> <span class="va">explainer</span>,</span>
+<span>  n_features <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  n_labels <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Dados Analisados</span></span>
+<span><span class="va">conj_teste</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"medv"</span>, <span class="st">"rm"</span>, <span class="st">"ptratio"</span>, <span class="st">"nox"</span>, <span class="st">"dis"</span>, <span class="st">"lstat"</span>, <span class="st">"tax"</span><span class="op">)</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   medv    rm ptratio   nox    dis lstat tax
+2  21.6 6.421    17.8 0.469 4.9671  9.14 242
+10 18.9 6.004    15.2 0.524 6.5921 17.10 311
+12 18.9 6.009    15.2 0.524 6.2267 13.27 311</code></pre>
+</div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Visualizar explicações</span></span>
+<span><span class="fu"><a href="https://lime.data-imaginist.com/reference/plot_features.html">plot_features</a></span><span class="op">(</span><span class="va">explicacoes</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula11.2A_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>

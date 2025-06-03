@@ -23,14 +23,18 @@ knitr:
 
 ## Bibliotecas
 
-```{r bibliotecas , message=FALSE}
-library(MASS)
-library(tidyverse)
+```{r}
+library(MASS)         # Dados Boston
+library(xgboost)      # Modelo XGBoost
+library(dplyr)        # Manipulação de dados
+library(rsample)      # Separação treino/teste
+library(Metrics)      # Cálculo de RMSE
+library(ggplot2)      # Gráficos
 ```
 
 ## Avaliando, selecionando dados
 
-```{r dados}
+```{r}
 data("Boston")
 names(Boston)
 dados <- Boston 
@@ -38,7 +42,7 @@ dados <- Boston
 
 ## Treino e Teste com todas as variáveis
 
-```{r conjuntos-treino-teste}
+```{r}
 ## Vamos criar os conjuntos de treino teste e desenvolver a arvore 
 ## com todas as variáveis.
 library(caret)
@@ -58,36 +62,92 @@ y_treino <- conj_treino$medv
 
 x_teste <- model.matrix(medv ~ . , data = conj_teste)[, -1]
 y_teste = conj_teste$medv
+
+dtrain <- xgb.DMatrix(data = x_treino, label = y_treino)
+dtest <- xgb.DMatrix(data = x_teste, label = y_teste)
 ```
 
-## 1a tentativa Xgboost
+## Treinamento com validação cruzada e grid de parâmetros
 
-```{r xgboots}
-library(xgboost)
+```{r}
 set.seed(21)
-cv <- xgb.cv(data = as.matrix(x_treino), label = as.matrix(y_treino),
-             objective = "reg:squarederror", nrounds = 100, nfold = 5, eta = 0.3, max_depth = 6,
-             verbose = FALSE)
-# cv
-elog <- as.data.frame(cv$evaluation_log)
-elog %>% 
-   summarize(ntrees.train = which.min(train_rmse_mean),   # find the index of min(train_rmse_mean)
-             ntrees.test  = which.min(test_rmse_mean))   # find the index of min(test_rmse_mean)
-(nrounds <- which.min(elog$test_rmse_mean))
+# Grid de hiperparâmetros
+grid <- expand.grid(
+  eta = c(0.01, 0.1),
+  max_depth = c(3, 6),
+  nrounds = c(100, 200)
+)
+
+# Avaliar cada combinação com CV
+resultados_cv <- list()
+
+for (i in 1:nrow(grid)) {
+  params <- list(
+    objective = "reg:squarederror",
+    eta = grid$eta[i],
+    max_depth = grid$max_depth[i],
+    verbosity = 0
+  )
+  
+  cv <- xgb.cv(
+    params = params,
+    data = dtrain,
+    nrounds = grid$nrounds[i],
+    nfold = 5,
+    metrics = "rmse",
+    early_stopping_rounds = 10,
+    verbose = 0
+  )
+  
+  resultados_cv[[i]] <- list(
+    rmse = min(cv$evaluation_log$test_rmse_mean),
+    best_nrounds = cv$best_iteration,
+    params = grid[i, ]
+  )
+}
+
+# Melhor modelo
+rmses <- sapply(resultados_cv, function(x) x$rmse)
+melhor_indice <- which.min(rmses)
+melhor_param <- resultados_cv[[melhor_indice]]$params
+melhor_nrounds <- resultados_cv[[melhor_indice]]$best_nrounds
+
+melhor_param
 ```
 
 ## Modelo Final
 
-```{r final}
- modelo_xgb <- xgboost(data = as.matrix(x_treino), label = as.matrix(y_treino),
-             objective = "reg:squarederror", nrounds = nrounds, eta = 0.3, max_depth = 6,
-             verbose = FALSE)
+```{r}
+# Treino final com os melhores parâmetros
+final_model <- xgb.train(
+  params = list(
+    objective = "reg:squarederror",
+    eta = melhor_param$eta,
+    max_depth = melhor_param$max_depth
+  ),
+  data = dtrain,
+  nrounds = melhor_nrounds,
+  verbose = 0
+)
 ```
+
+
+## Importancia das variáveis
+
+```{r}
+# Importância das variáveis
+importance_matrix <- xgb.importance(model = final_model)
+
+# Gráfico
+xgb.plot.importance(importance_matrix)
+
+```
+
 
 ## Previsões
 
 ```{r}
-conj_teste$prev <- predict(modelo_xgb, as.matrix(x_teste))
+conj_teste$prev <- predict(final_model, dtest)
 
 
 ggplot(conj_teste, aes(x = prev, y = medv)) + 
@@ -98,9 +158,8 @@ ggplot(conj_teste, aes(x = prev, y = medv)) +
 ## Calculando o RMSE
 
 ```{r}
-conj_teste %>%
-  mutate(residuos = medv - prev) %>%
-  summarize(rmse = sqrt(mean(residuos^2)))
+rmse_final <- rmse(y_teste, conj_teste$prev)
+cat("RMSE no conjunto de teste:", rmse_final)
 caret::postResample(conj_teste$prev, conj_teste$medv)
 ```
 
