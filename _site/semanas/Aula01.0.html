@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Ricardo Accioly">
+<meta name="dcterms.date" content="2025-06-27">
+<title>Avaliando dados e reduzindo as dimensões – IME05-12547</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../semanas/Aula01.1.html" rel="next">
+<link href="../acesso-rstudio.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-748b535e376f14d4692bf2b2e5fd6380.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-595e7a736fcf46aa1895a448280c433c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-e9f3ba5fbee03b112b18b9666ab66a2c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-595e7a736fcf46aa1895a448280c433c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+</head>
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.0.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula01.0.html">Explorando 01</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/md.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <div class="sidebar-tools-main">
+    <a href="https://github.com/raccioly20" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Informação da disciplina</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../visao-do-curso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visão Geral</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cronograma</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Sobre</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sobre</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">RStudio Cloud</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../acesso-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acesso</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conteúdo Semanal</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula01.0.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Explorando 01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula01.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 01A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula01.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 01B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 02</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 04</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 05</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 06</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula06A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explorando 06A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regressão Simples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regressão Múltipla</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.2B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problemas em Regressão</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seleção de Modelos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula07.4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Métodos de Encolhimento</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula08.0.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Classificação 1os passos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KNN</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula09.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regressão Logística</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula09A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SMOTE</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LDA-QDA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula11.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula11.2A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão (Randon Forest)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula11.2B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão (GBM)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula11.3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Regressão (XGBoost)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula11.4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LIME e SHAP</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Classificação - Única</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Classificação - GBM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula12.3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arvore de Classificação - XGBooost</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Análise de Clusters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../semanas/Aula14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Análise de Associação</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#entrada-de-dados-no-r" id="toc-entrada-de-dados-no-r" class="nav-link active" data-scroll-target="#entrada-de-dados-no-r">Entrada de dados no R</a></li>
+  <li><a href="#lendo-dados-de-arquivos-csv" id="toc-lendo-dados-de-arquivos-csv" class="nav-link" data-scroll-target="#lendo-dados-de-arquivos-csv">Lendo dados de arquivos csv</a></li>
+  <li><a href="#o-read_delim-permite-que-seja-definido-o-tipo-de-delimitador-dos-dados" id="toc-o-read_delim-permite-que-seja-definido-o-tipo-de-delimitador-dos-dados" class="nav-link" data-scroll-target="#o-read_delim-permite-que-seja-definido-o-tipo-de-delimitador-dos-dados">O read_delim permite que seja definido o tipo de delimitador dos dados</a></li>
+  <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
+  <li><a href="#dados-de-po%C3%A7os" id="toc-dados-de-poços" class="nav-link" data-scroll-target="#dados-de-po%C3%A7os">Dados de poços</a></li>
+  <li><a href="#variaveis-com-dados-ausentes" id="toc-variaveis-com-dados-ausentes" class="nav-link" data-scroll-target="#variaveis-com-dados-ausentes">Variaveis com dados ausentes</a></li>
+  <li><a href="#criando-um-filtro-de-dados-ausentes" id="toc-criando-um-filtro-de-dados-ausentes" class="nav-link" data-scroll-target="#criando-um-filtro-de-dados-ausentes">Criando um filtro de dados ausentes</a></li>
+  <li><a href="#visualizando-os-dados-filtrados" id="toc-visualizando-os-dados-filtrados" class="nav-link" data-scroll-target="#visualizando-os-dados-filtrados">Visualizando os dados filtrados</a></li>
+  <li><a href="#salvando-os-dados-filtrados" id="toc-salvando-os-dados-filtrados" class="nav-link" data-scroll-target="#salvando-os-dados-filtrados">Salvando os dados filtrados</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../semanas/Aula01.0.html">Conteúdo Semanal</a></li><li class="breadcrumb-item"><a href="../semanas/Aula01.0.html">Explorando 01</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Avaliando dados e reduzindo as dimensões</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ricardo Accioly </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 27, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="entrada-de-dados-no-r" class="level2"><h2 class="anchored" data-anchor-id="entrada-de-dados-no-r">Entrada de dados no R</h2>
+</section><section id="lendo-dados-de-arquivos-csv" class="level2"><h2 class="anchored" data-anchor-id="lendo-dados-de-arquivos-csv">Lendo dados de arquivos csv</h2>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
+<span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos-acervo-de-dados-tecnicos/tabela-pocos.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="o-read_delim-permite-que-seja-definido-o-tipo-de-delimitador-dos-dados" class="level2"><h2 class="anchored" data-anchor-id="o-read_delim-permite-que-seja-definido-o-tipo-de-delimitador-dos-dados">O read_delim permite que seja definido o tipo de delimitador dos dados</h2>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pocos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span><span class="op">(</span><span class="va">url</span>, delim <span class="op">=</span> <span class="st">";"</span>, locale<span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span>, col_names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pocos</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 6 × 60
+#&gt;   POCO        CADASTRO OPERADOR POCO_OPERADOR ESTADO BACIA BLOCO SIG_CAMPO CAMPO
+#&gt;   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;
+#&gt; 1 7-PRG-59H-… 7428102… Equinor… BMC7B15       RJ     Camp… &lt;NA&gt;  "PRG  "   PERE…
+#&gt; 2 7-GVR-26D-… 5009002… Eneva    7GVR26DMA     MA     Parn… PN-T… "GVR  "   GAVI…
+#&gt; 3 6-BRSA-134… 7428102… Petrobr… 6MLS233RJS    RJ     Camp… &lt;NA&gt;  "MLS  "   MARL…
+#&gt; 4 7-CP-1505D… 9012002… Carmo    7CP1505DSE    SE     Serg… &lt;NA&gt;  "CP   "   CARM…
+#&gt; 5 7-GVP-6-MA  5009002… Eneva    7GVP6MA       MA     Parn… PN-T… "GVP  "   GAVI…
+#&gt; 6 7-TIE-1D-BA 2024002… SPE Tiê… 7TIE1DBA      BA     Recô… &lt;NA&gt;  "TIE  "   TIÊ  
+#&gt; # ℹ 51 more variables: TERRA_MAR &lt;chr&gt;, POCO_POS_ANP &lt;chr&gt;, TIPO &lt;chr&gt;,
+#&gt; #   CATEGORIA &lt;chr&gt;, RECLASSIFICACAO &lt;chr&gt;, SITUACAO &lt;chr&gt;, INICIO &lt;chr&gt;,
+#&gt; #   TERMINO &lt;chr&gt;, CONCLUSAO &lt;chr&gt;, TITULARIDADE &lt;chr&gt;, LATITUDE_BASE_4C &lt;chr&gt;,
+#&gt; #   LONGITUDE_BASE_4C &lt;chr&gt;, LATITUDE_BASE_DD &lt;dbl&gt;, LONGITUDE_BASE_DD &lt;dbl&gt;,
+#&gt; #   DATUM_HORIZONTAL &lt;chr&gt;, TIPO_DE_COORDENADA_DE_BASE &lt;chr&gt;, DIRECAO &lt;chr&gt;,
+#&gt; #   PROFUNDIDADE_VERTICAL_M &lt;dbl&gt;, PROFUNDIDADE_SONDADOR_M &lt;dbl&gt;,
+#&gt; #   PROFUNDIDADE_MEDIDA_M &lt;dbl&gt;, REFERENCIA_DE_PROFUNDIDADE &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section><section id="bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
+<p>Vamos carregar as bibliotecas que serão usadas na manipulação e visualização de dados.</p>
+<p>O pacote tidyverse carrega diversos pacotes muito uteis na manipulação e visualização de dados</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyverse.tidyverse.org">"tidyverse"</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Vamos primeiro conhecer o que tem na base de dados pocos. A base de dados possui 30566 linhas</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">pocos</span><span class="op">)</span>  <span class="co"># Tipo de base de dados</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"</code></pre>
+</div>
+</div>
+</section><section id="dados-de-poços" class="level2"><h2 class="anchored" data-anchor-id="dados-de-poços">Dados de poços</h2>
+<p>Os dados da tabela poços tem 60 colunas, mas vejam que existem diversas variáveis com dados ausentes “NA”.</p>
+</section><section id="variaveis-com-dados-ausentes" class="level2"><h2 class="anchored" data-anchor-id="variaveis-com-dados-ausentes">Variaveis com dados ausentes</h2>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">pocos</span><span class="op">)</span> <span class="co"># estrutura da base de dados</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Rows: 30,566
+#&gt; Columns: 60
+#&gt; $ POCO                       &lt;chr&gt; "7-PRG-59H-RJS", "7-GVR-26D-MA", "6-BRSA-13…
+#&gt; $ CADASTRO                   &lt;chr&gt; "74281028968", "50090029009", "74281028991"…
+#&gt; $ OPERADOR                   &lt;chr&gt; "Equinor Brasil", "Eneva", "Petrobras", "Ca…
+#&gt; $ POCO_OPERADOR              &lt;chr&gt; "BMC7B15", "7GVR26DMA", "6MLS233RJS", "7CP1…
+#&gt; $ ESTADO                     &lt;chr&gt; "RJ", "MA", "RJ", "SE", "MA", "BA", "SE", "…
+#&gt; $ BACIA                      &lt;chr&gt; "Campos", "Parnaíba", "Campos", "Sergipe", …
+#&gt; $ BLOCO                      &lt;chr&gt; NA, "PN-T-68", NA, NA, "PN-T-67", NA, NA, N…
+#&gt; $ SIG_CAMPO                  &lt;chr&gt; "PRG  ", "GVR  ", "MLS  ", "CP   ", "GVP  "…
+#&gt; $ CAMPO                      &lt;chr&gt; "PEREGRINO", "GAVIÃO REAL", "MARLIM SUL", "…
+#&gt; $ TERRA_MAR                  &lt;chr&gt; "M", "T", "M", "T", "T", "T", "T", "T", "T"…
+#&gt; $ POCO_POS_ANP               &lt;chr&gt; "S", "S", "S", "S", "S", "S", "S", "S", "S"…
+#&gt; $ TIPO                       &lt;chr&gt; "7 ", "7 ", "6 ", "7 ", "7 ", "7 ", "7 ", "…
+#&gt; $ CATEGORIA                  &lt;chr&gt; "Desenvolvimento", "Desenvolvimento", "Jazi…
+#&gt; $ RECLASSIFICACAO            &lt;chr&gt; "INDEFINIDO", "ABANDONADO POR OUTRAS RAZÕES…
+#&gt; $ SITUACAO                   &lt;chr&gt; "ABANDONADO PERMANENTEMENTE", "ARRASADO", "…
+#&gt; $ INICIO                     &lt;chr&gt; "24/04/2017 00:00", "21/06/2017 00:00", "28…
+#&gt; $ TERMINO                    &lt;chr&gt; "01/05/2017 00:00", "05/07/2017 00:00", "16…
+#&gt; $ CONCLUSAO                  &lt;chr&gt; "13/05/2017 00:00", "11/07/2017 00:00", "30…
+#&gt; $ TITULARIDADE               &lt;chr&gt; "Público", "Público", "Público", "Público",…
+#&gt; $ LATITUDE_BASE_4C           &lt;chr&gt; "-23:17:45,778", "-04:51:16,170", "-22:30:5…
+#&gt; $ LONGITUDE_BASE_4C          &lt;chr&gt; "-41:12:28,246", "-44:22:32,123", "-40:01:0…
+#&gt; $ LATITUDE_BASE_DD           &lt;dbl&gt; -23.296049, -4.854492, -22.515081, -10.6391…
+#&gt; $ LONGITUDE_BASE_DD          &lt;dbl&gt; -41.20785, -44.37559, -40.01919, -36.98067,…
+#&gt; $ DATUM_HORIZONTAL           &lt;chr&gt; "SIRGAS2000", "SIRGAS2000", "SIRGAS2000", "…
+#&gt; $ TIPO_DE_COORDENADA_DE_BASE &lt;chr&gt; "Definitiva", "Definitiva", "Definitiva", "…
+#&gt; $ DIRECAO                    &lt;chr&gt; "Horizontal", "Direcional", "Vertical", "Di…
+#&gt; $ PROFUNDIDADE_VERTICAL_M    &lt;dbl&gt; 760.00, 1470.76, -4572.00, -834.70, 1344.00…
+#&gt; $ PROFUNDIDADE_SONDADOR_M    &lt;dbl&gt; 760.00, 2210.00, 4600.00, 935.00, 1430.00, …
+#&gt; $ PROFUNDIDADE_MEDIDA_M      &lt;dbl&gt; 760.00, 2211.00, 4604.00, 934.30, 1430.00, …
+#&gt; $ REFERENCIA_DE_PROFUNDIDADE &lt;chr&gt; "MR", "MR", "MR", "MR", "MR", "MR", "MR", "…
+#&gt; $ MESA_ROTATIVA              &lt;dbl&gt; 50.00, 143.00, 32.00, 55.78, 86.00, 109.77,…
+#&gt; $ COTA_ALTIMETRICA_M         &lt;dbl&gt; 0.00, 137.00, 0.00, 50.78, 80.00, 103.84, 6…
+#&gt; $ LAMINA_D_AGUA_M            &lt;dbl&gt; 122, 0, 1107, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12…
+#&gt; $ DATUM_VERTICAL             &lt;chr&gt; "NM", "NM", "NM", "NM", "NM", "NM", "NM", "…
+#&gt; $ UNIDADE_ESTRATIGRAFICA     &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ GEOLOGIA_GRUPO_FINAL       &lt;chr&gt; "Campos", "Canindé", "Lagoa Feia", "Corurip…
+#&gt; $ GEOLOGIA_FORMACAO_FINAL    &lt;chr&gt; "Carapebus", "Poti", "Macabu", "Barra de It…
+#&gt; $ GEOLOGIA_MEMBRO_FINAL      &lt;chr&gt; NA, NA, NA, NA, NA, "Boipeba", NA, NA, NA, …
+#&gt; $ CDPE                       &lt;chr&gt; "Existe", "Existe", "Existe", "Existe", "Ex…
+#&gt; $ AGP                        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ PC                         &lt;chr&gt; NA, NA, "Existe", NA, NA, NA, NA, NA, NA, N…
+#&gt; $ PAG                        &lt;chr&gt; NA, "Existe", "Existe", NA, "Existe", NA, N…
+#&gt; $ PERFIS_CONVENCIONAIS       &lt;chr&gt; NA, "Existe", "Existe", "Existe", "Existe",…
+#&gt; $ DURANTE_PERFURACAO         &lt;chr&gt; NA, NA, "Existe", NA, NA, NA, NA, NA, NA, N…
+#&gt; $ PERFIS_DIGITAIS            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ PERFIS_PROCESSADOS         &lt;chr&gt; NA, NA, "Existe", "Existe", "Existe", NA, "…
+#&gt; $ PERFIS_ESPECIAIS           &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ AMOSTRA_LATERAL            &lt;chr&gt; NA, NA, "Existe", NA, NA, NA, NA, NA, NA, N…
+#&gt; $ SISMICA                    &lt;chr&gt; NA, NA, "Existe", NA, NA, NA, NA, NA, NA, N…
+#&gt; $ TABELA_TEMPO_PROFUNDIDADE  &lt;chr&gt; NA, NA, "Existe", NA, NA, NA, NA, NA, NA, N…
+#&gt; $ DADOS_DIRECIONAIS          &lt;chr&gt; NA, "Existe", "Existe", "Existe", "Existe",…
+#&gt; $ TESTE_A_CABO               &lt;chr&gt; NA, "Existe", "Existe", "Existe", NA, NA, "…
+#&gt; $ TESTE_DE_FORMACAO          &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ CANHONEIO                  &lt;chr&gt; NA, NA, NA, "Existe", NA, NA, NA, "Existe",…
+#&gt; $ TESTEMUNHO                 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ GEOQUIMICA                 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ SIG_SONDA                  &lt;chr&gt; "DR-B", "GREAT120 (TUS 120)", "NS-33", "EBS…
+#&gt; $ NOM_SONDA                  &lt;chr&gt; "DRILLINGRIG-B", "GREAT - 120", "NORBE IX",…
+#&gt; $ ATINGIU_PRESAL             &lt;chr&gt; "I", "I", "S", "I", "I", "I", "I", "I", "I"…
+#&gt; $ DHA_ATUALIZACAO            &lt;chr&gt; "05/11/2023 05:00", "05/11/2023 05:00", "05…</code></pre>
+</div>
+</div>
+</section><section id="criando-um-filtro-de-dados-ausentes" class="level2"><h2 class="anchored" data-anchor-id="criando-um-filtro-de-dados-ausentes">Criando um filtro de dados ausentes</h2>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">pocos</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Calculando razão de valores ausentes</span></span>
+<span><span class="va">val_ausentes_df</span> <span class="op">&lt;-</span> <span class="va">pocos</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"variavel"</span>, values_to <span class="op">=</span> <span class="st">"num_val_ausentes"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>razao_val_ausente <span class="op">=</span> <span class="va">num_val_ausentes</span> <span class="op">/</span> <span class="va">n</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Vendo resultado</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">val_ausentes_df</span>, booktabs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">variavel</th>
+<th style="text-align: right;">num_val_ausentes</th>
+<th style="text-align: right;">razao_val_ausente</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">POCO</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CADASTRO</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OPERADOR</td>
+<td style="text-align: right;">2926</td>
+<td style="text-align: right;">0.0957273</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">POCO_OPERADOR</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ESTADO</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BACIA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BLOCO</td>
+<td style="text-align: right;">3792</td>
+<td style="text-align: right;">0.1240594</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SIG_CAMPO</td>
+<td style="text-align: right;">4107</td>
+<td style="text-align: right;">0.1343650</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CAMPO</td>
+<td style="text-align: right;">4107</td>
+<td style="text-align: right;">0.1343650</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TERRA_MAR</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">POCO_POS_ANP</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TIPO</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CATEGORIA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RECLASSIFICACAO</td>
+<td style="text-align: right;">1263</td>
+<td style="text-align: right;">0.0413204</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SITUACAO</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: right;">0.0035333</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">INICIO</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TERMINO</td>
+<td style="text-align: right;">1860</td>
+<td style="text-align: right;">0.0608519</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CONCLUSAO</td>
+<td style="text-align: right;">146</td>
+<td style="text-align: right;">0.0047765</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TITULARIDADE</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LATITUDE_BASE_4C</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGITUDE_BASE_4C</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LATITUDE_BASE_DD</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGITUDE_BASE_DD</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DATUM_HORIZONTAL</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TIPO_DE_COORDENADA_DE_BASE</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DIRECAO</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PROFUNDIDADE_VERTICAL_M</td>
+<td style="text-align: right;">18066</td>
+<td style="text-align: right;">0.5910489</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PROFUNDIDADE_SONDADOR_M</td>
+<td style="text-align: right;">1004</td>
+<td style="text-align: right;">0.0328470</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PROFUNDIDADE_MEDIDA_M</td>
+<td style="text-align: right;">16550</td>
+<td style="text-align: right;">0.5414513</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">REFERENCIA_DE_PROFUNDIDADE</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MESA_ROTATIVA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COTA_ALTIMETRICA_M</td>
+<td style="text-align: right;">15971</td>
+<td style="text-align: right;">0.5225087</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LAMINA_D_AGUA_M</td>
+<td style="text-align: right;">13946</td>
+<td style="text-align: right;">0.4562586</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DATUM_VERTICAL</td>
+<td style="text-align: right;">13437</td>
+<td style="text-align: right;">0.4396061</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">UNIDADE_ESTRATIGRAFICA</td>
+<td style="text-align: right;">30566</td>
+<td style="text-align: right;">1.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GEOLOGIA_GRUPO_FINAL</td>
+<td style="text-align: right;">27388</td>
+<td style="text-align: right;">0.8960283</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GEOLOGIA_FORMACAO_FINAL</td>
+<td style="text-align: right;">27127</td>
+<td style="text-align: right;">0.8874894</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GEOLOGIA_MEMBRO_FINAL</td>
+<td style="text-align: right;">30362</td>
+<td style="text-align: right;">0.9933259</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CDPE</td>
+<td style="text-align: right;">21320</td>
+<td style="text-align: right;">0.6975070</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AGP</td>
+<td style="text-align: right;">23656</td>
+<td style="text-align: right;">0.7739318</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC</td>
+<td style="text-align: right;">22122</td>
+<td style="text-align: right;">0.7237453</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PAG</td>
+<td style="text-align: right;">29215</td>
+<td style="text-align: right;">0.9558006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PERFIS_CONVENCIONAIS</td>
+<td style="text-align: right;">21982</td>
+<td style="text-align: right;">0.7191651</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DURANTE_PERFURACAO</td>
+<td style="text-align: right;">27530</td>
+<td style="text-align: right;">0.9006740</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PERFIS_DIGITAIS</td>
+<td style="text-align: right;">9824</td>
+<td style="text-align: right;">0.3214029</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PERFIS_PROCESSADOS</td>
+<td style="text-align: right;">29516</td>
+<td style="text-align: right;">0.9656481</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PERFIS_ESPECIAIS</td>
+<td style="text-align: right;">29860</td>
+<td style="text-align: right;">0.9769024</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AMOSTRA_LATERAL</td>
+<td style="text-align: right;">29604</td>
+<td style="text-align: right;">0.9685271</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SISMICA</td>
+<td style="text-align: right;">28871</td>
+<td style="text-align: right;">0.9445462</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TABELA_TEMPO_PROFUNDIDADE</td>
+<td style="text-align: right;">29676</td>
+<td style="text-align: right;">0.9708827</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DADOS_DIRECIONAIS</td>
+<td style="text-align: right;">22650</td>
+<td style="text-align: right;">0.7410194</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TESTE_A_CABO</td>
+<td style="text-align: right;">26192</td>
+<td style="text-align: right;">0.8568998</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TESTE_DE_FORMACAO</td>
+<td style="text-align: right;">29926</td>
+<td style="text-align: right;">0.9790617</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CANHONEIO</td>
+<td style="text-align: right;">29326</td>
+<td style="text-align: right;">0.9594320</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TESTEMUNHO</td>
+<td style="text-align: right;">30133</td>
+<td style="text-align: right;">0.9858339</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GEOQUIMICA</td>
+<td style="text-align: right;">27420</td>
+<td style="text-align: right;">0.8970752</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SIG_SONDA</td>
+<td style="text-align: right;">86</td>
+<td style="text-align: right;">0.0028136</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NOM_SONDA</td>
+<td style="text-align: right;">4120</td>
+<td style="text-align: right;">0.1347903</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ATINGIU_PRESAL</td>
+<td style="text-align: right;">21767</td>
+<td style="text-align: right;">0.7121311</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DHA_ATUALIZACAO</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## filtro</span></span>
+<span><span class="va">val_ausente_filtro</span> <span class="op">&lt;-</span> <span class="va">val_ausentes_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">razao_val_ausente</span> <span class="op">&lt;=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">variavel</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Aplicando o filtro</span></span>
+<span><span class="va">poco_filtrado</span> <span class="op">&lt;-</span> <span class="va">pocos</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">val_ausente_filtro</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="visualizando-os-dados-filtrados" class="level2"><h2 class="anchored" data-anchor-id="visualizando-os-dados-filtrados">Visualizando os dados filtrados</h2>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">poco_filtrado</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># estrutura da base de dados filtrada</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Rows: 30,566
+#&gt; Columns: 35
+#&gt; $ POCO                       &lt;chr&gt; "7-PRG-59H-RJS", "7-GVR-26D-MA", "6-BRSA-13…
+#&gt; $ CADASTRO                   &lt;chr&gt; "74281028968", "50090029009", "74281028991"…
+#&gt; $ OPERADOR                   &lt;chr&gt; "Equinor Brasil", "Eneva", "Petrobras", "Ca…
+#&gt; $ POCO_OPERADOR              &lt;chr&gt; "BMC7B15", "7GVR26DMA", "6MLS233RJS", "7CP1…
+#&gt; $ ESTADO                     &lt;chr&gt; "RJ", "MA", "RJ", "SE", "MA", "BA", "SE", "…
+#&gt; $ BACIA                      &lt;chr&gt; "Campos", "Parnaíba", "Campos", "Sergipe", …
+#&gt; $ BLOCO                      &lt;chr&gt; NA, "PN-T-68", NA, NA, "PN-T-67", NA, NA, N…
+#&gt; $ SIG_CAMPO                  &lt;chr&gt; "PRG  ", "GVR  ", "MLS  ", "CP   ", "GVP  "…
+#&gt; $ CAMPO                      &lt;chr&gt; "PEREGRINO", "GAVIÃO REAL", "MARLIM SUL", "…
+#&gt; $ TERRA_MAR                  &lt;chr&gt; "M", "T", "M", "T", "T", "T", "T", "T", "T"…
+#&gt; $ POCO_POS_ANP               &lt;chr&gt; "S", "S", "S", "S", "S", "S", "S", "S", "S"…
+#&gt; $ TIPO                       &lt;chr&gt; "7 ", "7 ", "6 ", "7 ", "7 ", "7 ", "7 ", "…
+#&gt; $ CATEGORIA                  &lt;chr&gt; "Desenvolvimento", "Desenvolvimento", "Jazi…
+#&gt; $ RECLASSIFICACAO            &lt;chr&gt; "INDEFINIDO", "ABANDONADO POR OUTRAS RAZÕES…
+#&gt; $ SITUACAO                   &lt;chr&gt; "ABANDONADO PERMANENTEMENTE", "ARRASADO", "…
+#&gt; $ INICIO                     &lt;chr&gt; "24/04/2017 00:00", "21/06/2017 00:00", "28…
+#&gt; $ TERMINO                    &lt;chr&gt; "01/05/2017 00:00", "05/07/2017 00:00", "16…
+#&gt; $ CONCLUSAO                  &lt;chr&gt; "13/05/2017 00:00", "11/07/2017 00:00", "30…
+#&gt; $ TITULARIDADE               &lt;chr&gt; "Público", "Público", "Público", "Público",…
+#&gt; $ LATITUDE_BASE_4C           &lt;chr&gt; "-23:17:45,778", "-04:51:16,170", "-22:30:5…
+#&gt; $ LONGITUDE_BASE_4C          &lt;chr&gt; "-41:12:28,246", "-44:22:32,123", "-40:01:0…
+#&gt; $ LATITUDE_BASE_DD           &lt;dbl&gt; -23.296049, -4.854492, -22.515081, -10.6391…
+#&gt; $ LONGITUDE_BASE_DD          &lt;dbl&gt; -41.20785, -44.37559, -40.01919, -36.98067,…
+#&gt; $ DATUM_HORIZONTAL           &lt;chr&gt; "SIRGAS2000", "SIRGAS2000", "SIRGAS2000", "…
+#&gt; $ TIPO_DE_COORDENADA_DE_BASE &lt;chr&gt; "Definitiva", "Definitiva", "Definitiva", "…
+#&gt; $ DIRECAO                    &lt;chr&gt; "Horizontal", "Direcional", "Vertical", "Di…
+#&gt; $ PROFUNDIDADE_SONDADOR_M    &lt;dbl&gt; 760.00, 2210.00, 4600.00, 935.00, 1430.00, …
+#&gt; $ REFERENCIA_DE_PROFUNDIDADE &lt;chr&gt; "MR", "MR", "MR", "MR", "MR", "MR", "MR", "…
+#&gt; $ MESA_ROTATIVA              &lt;dbl&gt; 50.00, 143.00, 32.00, 55.78, 86.00, 109.77,…
+#&gt; $ LAMINA_D_AGUA_M            &lt;dbl&gt; 122, 0, 1107, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12…
+#&gt; $ DATUM_VERTICAL             &lt;chr&gt; "NM", "NM", "NM", "NM", "NM", "NM", "NM", "…
+#&gt; $ PERFIS_DIGITAIS            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ SIG_SONDA                  &lt;chr&gt; "DR-B", "GREAT120 (TUS 120)", "NS-33", "EBS…
+#&gt; $ NOM_SONDA                  &lt;chr&gt; "DRILLINGRIG-B", "GREAT - 120", "NORBE IX",…
+#&gt; $ DHA_ATUALIZACAO            &lt;chr&gt; "05/11/2023 05:00", "05/11/2023 05:00", "05…</code></pre>
+</div>
+</div>
+</section><section id="salvando-os-dados-filtrados" class="level2"><h2 class="anchored" data-anchor-id="salvando-os-dados-filtrados">Salvando os dados filtrados</h2>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">poco_filtrado</span>, <span class="st">"pocos_filtrados.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../acesso-rstudio.html" class="pagination-link" aria-label="Acesso">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Acesso</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../semanas/Aula01.1.html" class="pagination-link" aria-label="Explorando 01A">
+        <span class="nav-page-text">Explorando 01A</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Baseado em https://sta210-s22.github.io/website/</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

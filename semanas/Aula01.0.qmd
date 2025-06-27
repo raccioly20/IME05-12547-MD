@@ -1,0 +1,104 @@
+---
+title: "Avaliando dados e reduzindo as dimensões"
+author: "Ricardo Accioly"
+date: ' `r Sys.Date()` '
+format:
+ html:
+    code-link: true
+    fig-width: 9
+    fig-height: 7
+    fig-dpi: 300
+knitr:
+  opts_chunk: 
+    out.width: 90%
+    comment: "#>"
+execute:
+  freeze: auto
+  warning: false
+  message: false
+---
+
+## Entrada de dados no R
+
+## Lendo dados de arquivos csv
+
+```{r csv}
+library(readr)
+url <- "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos-acervo-de-dados-tecnicos/tabela-pocos.csv"
+
+```
+
+## O read_delim permite que seja definido o tipo de delimitador dos dados
+
+```{r}
+pocos <- read_delim(url, delim = ";", locale= locale(decimal_mark = ","), col_names = TRUE)
+head(pocos)
+```
+
+## Bibliotecas
+
+Vamos carregar as bibliotecas que serão usadas na manipulação e visualização de dados.
+
+O pacote tidyverse carrega diversos pacotes muito uteis na manipulação e visualização de dados
+
+```{r carregando_bibliotecas}
+#| message: false
+library("tidyverse")
+```
+
+Vamos primeiro conhecer o que tem na base de dados pocos. A base de dados possui `r  nrow(pocos)` linhas
+
+```{r conhecendo_pocos}
+class(pocos)  # Tipo de base de dados
+```
+
+## Dados de poços
+
+Os dados da tabela poços tem 60 colunas, mas vejam que existem diversas variáveis com dados ausentes "NA".
+
+## Variaveis com dados ausentes
+
+```{r}
+glimpse(pocos) # estrutura da base de dados
+```
+
+## Criando um filtro de dados ausentes
+
+```{r}
+n <-  nrow(pocos)
+
+## Calculando razão de valores ausentes
+val_ausentes_df <- pocos %>% 
+  summarize(across(everything(), ~ sum(is.na(.)))) %>% 
+  pivot_longer(everything(), names_to = "variavel", values_to = "num_val_ausentes") %>% 
+  mutate(razao_val_ausente = num_val_ausentes / n)
+
+## Vendo resultado
+knitr::kable(val_ausentes_df, booktabs = TRUE)
+
+## filtro
+val_ausente_filtro <- val_ausentes_df %>% 
+  filter(razao_val_ausente <= 0.5) %>% 
+  pull(variavel)
+
+# Aplicando o filtro
+poco_filtrado <- pocos %>% 
+  select(all_of(val_ausente_filtro))
+```
+
+## Visualizando os dados filtrados
+
+```{r}
+poco_filtrado %>% 
+  glimpse() # estrutura da base de dados filtrada
+
+```
+
+## Salvando os dados filtrados
+
+```{r}
+write_csv(poco_filtrado, "pocos_filtrados.csv")
+```
+
+
+

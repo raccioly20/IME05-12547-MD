@@ -95,15 +95,39 @@ p2
 ## Visualizando 3
 
 ```{r graf3}
-p3 <- p + geom_point() + geom_line()
+p3 <- p + geom_line() + geom_point()
 p3
 ```
+
+
+## Melhorando a visualização
+
+```{r}
+p4 <- ggplot(gap_brachi, aes(x = year, y = gdpPercap)) +
+  geom_line(
+    aes(group = country),
+    color = "gray60", linewidth = 1
+  ) +
+  geom_point(
+    aes(fill = country),
+    size = 5, shape = 21,
+    color = "white", stroke = 1.5
+  ) +
+  labs(
+    title = "PIB per capita do Brasil e do Chile",
+    x = NULL, y = "PIB", fill = "País:"
+  ) +
+  theme_minimal()
+p4
+```
+
+
 
 ## Visualizando 4 - Usando o pacote patchwork
 
 ```{r graf4}
 (p1 + p2) /
-  p3
+  p4
 ```
 
 ## Manipulando 4
