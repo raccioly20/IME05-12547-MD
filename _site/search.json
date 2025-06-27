@@ -1687,7 +1687,18 @@
     "href": "semanas/Aula06A.html#vamos-ver-se-temos-alguma-relação-entre-as-variáveis",
     "title": "Explorando Dados",
     "section": "Vamos ver se temos alguma relação entre as variáveis",
-    "text": "Vamos ver se temos alguma relação entre as variáveis\n\niris %&gt;% \n  group_by(Species) %&gt;% ggplot(aes(x=Sepal.Width, y=Sepal.Length, \n                                   color=Species)) + geom_point()",
+    "text": "Vamos ver se temos alguma relação entre as variáveis\n\niris %&gt;% \n  group_by(Species) %&gt;% \n  ggplot(aes(x=Sepal.Width, y=Sepal.Length, color=Species)) + \n  geom_point() +\n  theme_minimal()",
+    "crumbs": [
+      "Conteúdo Semanal",
+      "Explorando 06A"
+    ]
+  },
+  {
+    "objectID": "semanas/Aula06A.html#vamos-ver-se-temos-alguma-relação-entre-as-variáveis-1",
+    "href": "semanas/Aula06A.html#vamos-ver-se-temos-alguma-relação-entre-as-variáveis-1",
+    "title": "Explorando Dados",
+    "section": "Vamos ver se temos alguma relação entre as variáveis",
+    "text": "Vamos ver se temos alguma relação entre as variáveis\n\niris %&gt;% \n  group_by(Species) %&gt;% \n  ggplot(aes(x=Sepal.Width, y=Sepal.Length, color=Species)) +\n  geom_point() + \n  geom_smooth(method = \"lm\", se=FALSE) +\n  labs(title = \"Relação entre Sepal Width e Sepal Length\",\n       x = \"Largura (cm)\",\n       y = \"Comprimento (cm)\") +\n  theme_minimal()\n\n#&gt; `geom_smooth()` using formula = 'y ~ x'",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06A"
@@ -1697,8 +1708,8 @@
     "objectID": "semanas/Aula06A.html#vamos-ver-se-temos-alguma-relação-entre-as-variáveis-2",
     "href": "semanas/Aula06A.html#vamos-ver-se-temos-alguma-relação-entre-as-variáveis-2",
     "title": "Explorando Dados",
-    "section": "Vamos ver se temos alguma relação entre as variáveis 2",
-    "text": "Vamos ver se temos alguma relação entre as variáveis 2\n\niris %&gt;% \n  group_by(Species) %&gt;% \n  ggplot(aes(x=Sepal.Width, y=Sepal.Length, color=Species)) +\n  geom_point() + geom_smooth(method = \"lm\", se=FALSE)\n\n#&gt; `geom_smooth()` using formula = 'y ~ x'",
+    "section": "Vamos ver se temos alguma relação entre as variáveis",
+    "text": "Vamos ver se temos alguma relação entre as variáveis\n\niris %&gt;% \n  group_by(Species) %&gt;% \n  ggplot(aes(x=Petal.Width, y=Petal.Length, color=Species)) + \n  geom_point() +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06A"
@@ -1708,19 +1719,8 @@
     "objectID": "semanas/Aula06A.html#vamos-ver-se-temos-alguma-relação-entre-as-variáveis-3",
     "href": "semanas/Aula06A.html#vamos-ver-se-temos-alguma-relação-entre-as-variáveis-3",
     "title": "Explorando Dados",
-    "section": "Vamos ver se temos alguma relação entre as variáveis 3",
-    "text": "Vamos ver se temos alguma relação entre as variáveis 3\n\niris %&gt;% \n  group_by(Species) %&gt;% ggplot(aes(x=Petal.Width, y=Petal.Length, \n                                   color=Species)) + geom_point()",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Explorando 06A"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula06A.html#vamos-ver-se-temos-alguma-relação-entre-as-variáveis-4",
-    "href": "semanas/Aula06A.html#vamos-ver-se-temos-alguma-relação-entre-as-variáveis-4",
-    "title": "Explorando Dados",
-    "section": "Vamos ver se temos alguma relação entre as variáveis 4",
-    "text": "Vamos ver se temos alguma relação entre as variáveis 4\n\niris %&gt;% \n  group_by(Species) %&gt;% \n  ggplot(aes(x=Petal.Width, y=Petal.Length, color=Species)) +\n  geom_point() + geom_smooth(method = \"lm\")\n\n#&gt; `geom_smooth()` using formula = 'y ~ x'",
+    "section": "Vamos ver se temos alguma relação entre as variáveis",
+    "text": "Vamos ver se temos alguma relação entre as variáveis\n\niris %&gt;% \n  group_by(Species) %&gt;% \n  ggplot(aes(x=Petal.Width, y=Petal.Length, color=Species)) +\n  geom_point() + \n  geom_smooth(method = \"lm\") +\n  labs(title = \"Relação entre Petal Width e Petal Length\",\n       x = \"Largura (cm)\",\n       y = \"Comprimento (cm)\") +\n  theme_minimal()\n\n#&gt; `geom_smooth()` using formula = 'y ~ x'",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06A"
@@ -1731,7 +1731,7 @@
     "href": "semanas/Aula06A.html#vamos-ver-como-se-distribui-o-petal.width",
     "title": "Explorando Dados",
     "section": "Vamos ver como se distribui o Petal.Width",
-    "text": "Vamos ver como se distribui o Petal.Width\n\niris %&gt;% \n  group_by(Species) %&gt;% ggplot(aes(x=Petal.Width, \n                                   fill=Species)) + \n                                   geom_histogram()\n\n#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.",
+    "text": "Vamos ver como se distribui o Petal.Width\n\niris %&gt;% \n  group_by(Species) %&gt;% \n  ggplot(aes(x=Petal.Width, fill=Species)) +\n  geom_histogram(color=\"Black\") +\n  theme_minimal()\n\n#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06A"
@@ -1742,7 +1742,7 @@
     "href": "semanas/Aula06A.html#vamos-ver-como-se-distribui-o-petal.length",
     "title": "Explorando Dados",
     "section": "Vamos ver como se distribui o Petal.Length",
-    "text": "Vamos ver como se distribui o Petal.Length\n\niris %&gt;% \n  group_by(Species) %&gt;% \n  ggplot(aes(x=Petal.Length, fill=Species)) + \n  geom_histogram()\n\n#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.",
+    "text": "Vamos ver como se distribui o Petal.Length\n\niris %&gt;% \n  group_by(Species) %&gt;% \n  ggplot(aes(x=Petal.Length, fill=Species)) + \n  geom_histogram(color=\"Black\") +\n  theme_minimal()\n\n#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06A"
@@ -1786,7 +1786,7 @@
     "href": "semanas/Aula05.html#fazendo-o-suavizador-mais-nervoso",
     "title": "Suavização",
     "section": "Fazendo o suavizador mais nervoso",
-    "text": "Fazendo o suavizador mais nervoso\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(span = 0.2)",
+    "text": "Fazendo o suavizador mais nervoso\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(span = 0.2) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1797,7 +1797,7 @@
     "href": "semanas/Aula05.html#fazendo-o-suavizador-menos-nervoso",
     "title": "Suavização",
     "section": "Fazendo o suavizador menos nervoso",
-    "text": "Fazendo o suavizador menos nervoso\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(span = 0.9)",
+    "text": "Fazendo o suavizador menos nervoso\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(span = 0.9)  +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1808,7 +1808,7 @@
     "href": "semanas/Aula05.html#removendo-intervalos-de-confiança",
     "title": "Suavização",
     "section": "Removendo intervalos de confiança",
-    "text": "Removendo intervalos de confiança\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(se = FALSE)",
+    "text": "Removendo intervalos de confiança\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(se = FALSE)  +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1819,7 +1819,7 @@
     "href": "semanas/Aula05.html#usando-ic-de-90",
     "title": "Suavização",
     "section": "Usando IC de 90%",
-    "text": "Usando IC de 90%\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(level = 0.90)",
+    "text": "Usando IC de 90%\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(level = 0.90) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1830,7 +1830,7 @@
     "href": "semanas/Aula05.html#usando-um-modelo-linear-ao-invés-do-loess",
     "title": "Suavização",
     "section": "Usando um modelo linear ao invés do loess",
-    "text": "Usando um modelo linear ao invés do loess\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")",
+    "text": "Usando um modelo linear ao invés do loess\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")  +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1841,7 +1841,7 @@
     "href": "semanas/Aula05.html#usando-basic-splines-para-melhorar-o-ajuste",
     "title": "Suavização",
     "section": "Usando basic splines para melhorar o ajuste",
-    "text": "Usando basic splines para melhorar o ajuste\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", formula = y ~ splines::bs(x, df = 3))",
+    "text": "Usando basic splines para melhorar o ajuste\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", formula = y ~ splines::bs(x, df = 3))  +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1852,7 +1852,7 @@
     "href": "semanas/Aula05.html#usando-o-gam-general-addtive-models-com-regressão-spline",
     "title": "Suavização",
     "section": "Usando o gam (general addtive models) com regressão spline",
-    "text": "Usando o gam (general addtive models) com regressão spline\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(method = \"gam\", formula = y ~ s(x))",
+    "text": "Usando o gam (general addtive models) com regressão spline\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(method = \"gam\", formula = y ~ s(x))  +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1863,7 +1863,7 @@
     "href": "semanas/Aula05.html#começando-a-construir-um-gráfico-do-tipo-facet-com-suavizações",
     "title": "Suavização",
     "section": "Começando a construir um gráfico do tipo facet com suavizações",
-    "text": "Começando a construir um gráfico do tipo facet com suavizações\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point()",
+    "text": "Começando a construir um gráfico do tipo facet com suavizações\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1874,7 +1874,7 @@
     "href": "semanas/Aula05.html#dividindo-por-continente",
     "title": "Suavização",
     "section": "Dividindo por continente",
-    "text": "Dividindo por continente\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  facet_wrap(~ continent)",
+    "text": "Dividindo por continente\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  facet_wrap(~ continent) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1885,7 +1885,7 @@
     "href": "semanas/Aula05.html#adicionando-suavizadores",
     "title": "Suavização",
     "section": "Adicionando suavizadores",
-    "text": "Adicionando suavizadores\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  facet_wrap(~ continent) +\n  geom_smooth()",
+    "text": "Adicionando suavizadores\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth() +\n  facet_wrap(~ continent) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1896,7 +1896,7 @@
     "href": "semanas/Aula05.html#colorindo-por-continente",
     "title": "Suavização",
     "section": "Colorindo por continente",
-    "text": "Colorindo por continente\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  facet_wrap(~ continent) +\n  geom_smooth()",
+    "text": "Colorindo por continente\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  geom_smooth() +\n  facet_wrap(~ continent) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1907,7 +1907,7 @@
     "href": "semanas/Aula05.html#colorindo-somente-a-curva",
     "title": "Suavização",
     "section": "Colorindo somente a curva",
-    "text": "Colorindo somente a curva\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  facet_wrap(~ continent) +\n  geom_smooth(aes(color = continent))",
+    "text": "Colorindo somente a curva\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  geom_smooth(aes(color = continent)) +\n  facet_wrap(~ continent) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 05"
@@ -1951,7 +1951,7 @@
     "href": "semanas/Aula03.html#vendo-a-distribuição",
     "title": "Visualizando as distribuições",
     "section": "Vendo a distribuição",
-    "text": "Vendo a distribuição\n\nggplot(gap_07, aes(x = gdpPercap)) +\n  geom_histogram()\n\n#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.",
+    "text": "Vendo a distribuição\n\nggplot(gap_07, aes(x = gdpPercap)) +\n  geom_histogram() +\n  theme_minimal()\n\n#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 03"
@@ -1962,7 +1962,7 @@
     "href": "semanas/Aula03.html#criando-um-histograma-usando-a-regra-de-sturges",
     "title": "Visualizando as distribuições",
     "section": "Criando um histograma usando a regra de Sturges",
-    "text": "Criando um histograma usando a regra de Sturges\nA regra de Sturges indica 8 faixas enquanto que o padrão do ggplot2 é 30.\n\nggplot(gap_07, aes(x = gdpPercap)) +\n  geom_histogram(bins = round(1+3.322*log10(nrow(gap_07)),0))",
+    "text": "Criando um histograma usando a regra de Sturges\nA regra de Sturges indica 8 faixas enquanto que o padrão do ggplot2 é 30.\n\nggplot(gap_07, aes(x = gdpPercap)) +\n  geom_histogram(bins = round(1+3.322*log10(nrow(gap_07)),0), \n                 color=\"black\") +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 03"
@@ -1973,7 +1973,7 @@
     "href": "semanas/Aula03.html#criando-um-gráfico-de-densidade",
     "title": "Visualizando as distribuições",
     "section": "Criando um gráfico de densidade",
-    "text": "Criando um gráfico de densidade\n\nggplot(gap_07, aes(x = gdpPercap)) +\n  geom_density()",
+    "text": "Criando um gráfico de densidade\n\nggplot(gap_07, aes(x = gdpPercap)) +\n  geom_density() +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 03"
@@ -1984,7 +1984,7 @@
     "href": "semanas/Aula03.html#criando-um-box-plot",
     "title": "Visualizando as distribuições",
     "section": "Criando um box-plot",
-    "text": "Criando um box-plot\n\nggplot(gap_07, aes(x = continent, y = lifeExp)) +\n  geom_boxplot()",
+    "text": "Criando um box-plot\n\nggplot(gap_07, aes(x = continent, y = lifeExp)) +\n  geom_boxplot() +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 03"
@@ -1995,7 +1995,7 @@
     "href": "semanas/Aula03.html#criando-um-box-plot-com-visão-dos-dados",
     "title": "Visualizando as distribuições",
     "section": "Criando um box-plot com visão dos dados",
-    "text": "Criando um box-plot com visão dos dados\n\nggplot(gap_07, aes(x = continent, y = lifeExp)) +\n  geom_boxplot() +\n  geom_jitter(width = 0.5, alpha = 0.2)",
+    "text": "Criando um box-plot com visão dos dados\n\nggplot(gap_07, aes(x = continent, y = lifeExp)) +\n  geom_boxplot() +\n  geom_jitter(width = 0.5, alpha = 0.2) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 03"
@@ -2006,7 +2006,7 @@
     "href": "semanas/Aula03.html#matriz-de-correlações",
     "title": "Visualizando as distribuições",
     "section": "Matriz de Correlações",
-    "text": "Matriz de Correlações\n\nlibrary(corrplot)\n\n#&gt; corrplot 0.92 loaded\n\ngap_07_s &lt;- gap_07 %&gt;% select(lifeExp, pop, gdpPercap)\nmat_corr &lt;- cor(gap_07_s)\ncorrplot(mat_corr, method = \"number\", col = \"black\", cl.pos = \"n\")\n\n\n\n\n\n\ncorrplot(mat_corr, method = \"number\")\n\n\n\n\n\n\ncorrplot(mat_corr)",
+    "text": "Matriz de Correlações\n\nlibrary(corrplot)\n\n#&gt; corrplot 0.95 loaded\n\ngap_07_s &lt;- gap_07 %&gt;% select(lifeExp, pop, gdpPercap)\nmat_corr &lt;- cor(gap_07_s)\ncorrplot(mat_corr, method = \"number\", col = \"black\", cl.pos = \"n\")\n\n\n\n\n\n\ncorrplot(mat_corr, method = \"number\")\n\n\n\n\n\n\ncorrplot(mat_corr)",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 03"
@@ -2028,7 +2028,7 @@
     "href": "semanas/Aula03.html#descrevendo-a-distribuição",
     "title": "Visualizando as distribuições",
     "section": "Descrevendo a distribuição",
-    "text": "Descrevendo a distribuição\n\nlibrary(datawizard)\n\n#&gt; \n#&gt; Anexando pacote: 'datawizard'\n\n\n#&gt; O seguinte objeto é mascarado por 'package:psych':\n#&gt; \n#&gt;     rescale\n\ndescribe_distribution(gap_07_s)\n\n#&gt; Variable  |     Mean |       SD |      IQR |                Range | Skewness | Kurtosis |   n | n_Missing\n#&gt; ---------------------------------------------------------------------------------------------------------\n#&gt; lifeExp   |    67.01 |    12.07 |    19.59 |       [39.61, 82.60] |    -0.69 |    -0.83 | 142 |         0\n#&gt; pop       | 4.40e+07 | 1.48e+08 | 2.78e+07 | [2.00e+05, 1.32e+09] |     7.40 |    58.33 | 142 |         0\n#&gt; gdpPercap | 11680.07 | 12859.94 | 16579.19 |   [277.55, 49357.19] |     1.22 |     0.35 | 142 |         0",
+    "text": "Descrevendo a distribuição\n\nlibrary(datawizard)\n\n#&gt; \n#&gt; Anexando pacote: 'datawizard'\n\n\n#&gt; O seguinte objeto é mascarado por 'package:psych':\n#&gt; \n#&gt;     rescale\n\ndescribe_distribution(gap_07_s)\n\n#&gt; Variable  |     Mean |       SD |      IQR |                Range | Skewness\n#&gt; ----------------------------------------------------------------------------\n#&gt; lifeExp   |    67.01 |    12.07 |    19.59 |       [39.61, 82.60] |    -0.69\n#&gt; pop       | 4.40e+07 | 1.48e+08 | 2.78e+07 | [2.00e+05, 1.32e+09] |     7.40\n#&gt; gdpPercap | 11680.07 | 12859.94 | 16579.19 |   [277.55, 49357.19] |     1.22\n#&gt; \n#&gt; Variable  | Kurtosis |   n | n_Missing\n#&gt; --------------------------------------\n#&gt; lifeExp   |    -0.83 | 142 |         0\n#&gt; pop       |    58.33 | 142 |         0\n#&gt; gdpPercap |     0.35 | 142 |         0",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 03"
@@ -2501,7 +2501,7 @@
     "href": "semanas/Aula04.html#cores-por-continente",
     "title": "Melhorando a visualização",
     "section": "Cores por continente",
-    "text": "Cores por continente\n\ngap_07 &lt;- filter(gapminder, year == 2007)\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp,\n                   color = continent)) +\n  geom_point()",
+    "text": "Cores por continente\n\ngap_07 &lt;- filter(gapminder, year == 2007)\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp,\n                   color = continent)) +\n  geom_point() +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2512,7 +2512,7 @@
     "href": "semanas/Aula04.html#usando-formas-e-cores-diferentes",
     "title": "Melhorando a visualização",
     "section": "Usando formas e cores diferentes",
-    "text": "Usando formas e cores diferentes\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp,\n                   shape = continent, color = continent)) +\n  geom_point()",
+    "text": "Usando formas e cores diferentes\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp,\n                   shape = continent, color = continent)) +\n  geom_point() +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2523,7 +2523,7 @@
     "href": "semanas/Aula04.html#cores-e-tamanho",
     "title": "Melhorando a visualização",
     "section": "Cores e tamanho",
-    "text": "Cores e tamanho\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp,\n                   size = pop, color = continent)) +\n  geom_point()",
+    "text": "Cores e tamanho\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp,\n                   size = pop, color = continent)) +\n  geom_point() +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2545,7 +2545,7 @@
     "href": "semanas/Aula04.html#grafico-de-linha-com-cores",
     "title": "Melhorando a visualização",
     "section": "Grafico de linha com cores",
-    "text": "Grafico de linha com cores\n\nggplot(gap_pop, aes(x = year, y = pop, color = continent)) +\n  geom_line() + geom_point()",
+    "text": "Grafico de linha com cores\n\nggplot(gap_pop, aes(x = year, y = pop, color = continent)) +\n  geom_line() + \n  geom_point() +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2556,7 +2556,7 @@
     "href": "semanas/Aula04.html#criando-grids-entre-os-anos-de-2002-e-2007",
     "title": "Melhorando a visualização",
     "section": "Criando grids entre os anos de 2002 e 2007",
-    "text": "Criando grids entre os anos de 2002 e 2007\n\ngap_0207 &lt;- gapminder %&gt;% filter(between(year, 2002, 2007))\nggplot(gap_0207, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  facet_grid(continent ~ year)",
+    "text": "Criando grids entre os anos de 2002 e 2007\n\ngap_0207 &lt;- gapminder %&gt;% filter(between(year, 2002, 2007))\nggplot(gap_0207, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  facet_grid(continent ~ year) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2567,7 +2567,7 @@
     "href": "semanas/Aula04.html#outro-tipo-de-apresentações-de-grid",
     "title": "Melhorando a visualização",
     "section": "Outro tipo de apresentações de grid",
-    "text": "Outro tipo de apresentações de grid\n\ngap_life &lt;- gapminder %&gt;% \n  group_by(continent, year) %&gt;% \n  summarize(lifeExp = mean(lifeExp))\n\n#&gt; `summarise()` has grouped output by 'continent'. You can override using the\n#&gt; `.groups` argument.\n\nggplot(gap_life, aes(x = year, y = lifeExp)) +\n  geom_line() +\n  facet_grid(continent ~ .)",
+    "text": "Outro tipo de apresentações de grid\n\ngap_life &lt;- gapminder %&gt;% \n  group_by(continent, year) %&gt;% \n  summarize(lifeExp = mean(lifeExp))\n\n#&gt; `summarise()` has grouped output by 'continent'. You can override using the\n#&gt; `.groups` argument.\n\nggplot(gap_life, aes(x = year, y = lifeExp)) +\n  geom_line() +\n  facet_grid(continent ~ .) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2578,7 +2578,7 @@
     "href": "semanas/Aula04.html#grid-em-outra-direção",
     "title": "Melhorando a visualização",
     "section": "Grid em outra direção",
-    "text": "Grid em outra direção\n\nggplot(gap_life, aes(x = year, y = lifeExp)) +\n  geom_line() +\n  facet_grid(. ~ continent)",
+    "text": "Grid em outra direção\n\nggplot(gap_life, aes(x = year, y = lifeExp)) +\n  geom_line() +\n  facet_grid(. ~ continent) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2589,7 +2589,7 @@
     "href": "semanas/Aula04.html#usando-o-wrap",
     "title": "Melhorando a visualização",
     "section": "Usando o wrap",
-    "text": "Usando o wrap\n\nggplot(gap_life, aes(x = year, y = lifeExp)) +\n  geom_line() +\n  facet_wrap( ~ continent)",
+    "text": "Usando o wrap\n\nggplot(gap_life, aes(x = year, y = lifeExp)) +\n  geom_line() +\n  facet_wrap( ~ continent) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2600,7 +2600,7 @@
     "href": "semanas/Aula04.html#filtrando-dados-e-fazendo-grafico-de-dispersão-padrão",
     "title": "Melhorando a visualização",
     "section": "Filtrando dados e fazendo grafico de dispersão padrão",
-    "text": "Filtrando dados e fazendo grafico de dispersão padrão\n\ngap_07 &lt;- filter(gapminder, year == 2007)\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point()",
+    "text": "Filtrando dados e fazendo grafico de dispersão padrão\n\ngapminder |&gt; \n  filter(year == 2007) |&gt;   \n  ggplot(aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2611,7 +2611,7 @@
     "href": "semanas/Aula04.html#transformando-o-eixo-x-para-escala-logarítimica",
     "title": "Melhorando a visualização",
     "section": "Transformando o eixo x para escala logarítimica",
-    "text": "Transformando o eixo x para escala logarítimica\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_continuous(trans = \"log10\")",
+    "text": "Transformando o eixo x para escala logarítimica\n\ngapminder |&gt; \n  filter(year == 2007) |&gt;\n  ggplot(aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_continuous(trans = \"log10\") +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2622,7 +2622,7 @@
     "href": "semanas/Aula04.html#outra-forma-de-transformação-do-eixo-x",
     "title": "Melhorando a visualização",
     "section": "Outra forma de transformação do eixo x",
-    "text": "Outra forma de transformação do eixo x\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_log10()",
+    "text": "Outra forma de transformação do eixo x\n\ngapminder |&gt; \n  filter(year == 2007) |&gt;\n  ggplot(aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_log10() +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2633,7 +2633,7 @@
     "href": "semanas/Aula04.html#definindo-limites-para-o-eixo-y",
     "title": "Melhorando a visualização",
     "section": "Definindo limites para o eixo y",
-    "text": "Definindo limites para o eixo y\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_y_continuous(limits = c(0, 95))",
+    "text": "Definindo limites para o eixo y\n\ngapminder |&gt; \n  filter(year == 2007) |&gt;\n  ggplot(aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_y_continuous(limits = c(0, 95)) +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2644,7 +2644,7 @@
     "href": "semanas/Aula04.html#grafico-com-cores-normais",
     "title": "Melhorando a visualização",
     "section": "Grafico com cores normais",
-    "text": "Grafico com cores normais\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10()",
+    "text": "Grafico com cores normais\n\ngap_07 &lt;- gapminder |&gt; filter(year == 2007)\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10() +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2655,7 +2655,7 @@
     "href": "semanas/Aula04.html#grafico-usando-outra-paleta-de-cores",
     "title": "Melhorando a visualização",
     "section": "Grafico usando outra paleta de cores",
-    "text": "Grafico usando outra paleta de cores\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_color_brewer(palette = \"Dark2\")",
+    "text": "Grafico usando outra paleta de cores\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_color_brewer(palette = \"Dark2\")  +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2666,7 +2666,7 @@
     "href": "semanas/Aula04.html#usando-codigos-manuais-para-as-cores",
     "title": "Melhorando a visualização",
     "section": "Usando codigos manuais para as cores",
-    "text": "Usando codigos manuais para as cores\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_color_manual(values = c(\"#FF0000\", \"#00A08A\", \"#F2AD00\",\n                                \"#F98400\", \"#5BBCD6\"))",
+    "text": "Usando codigos manuais para as cores\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_color_manual(values = c(\"#FF0000\", \"#00A08A\", \"#F2AD00\",\n                                \"#F98400\", \"#5BBCD6\"))  +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2677,7 +2677,7 @@
     "href": "semanas/Aula04.html#definindo-as-cores-e-tamanho-dos-pontos",
     "title": "Melhorando a visualização",
     "section": "Definindo as cores e tamanho dos pontos",
-    "text": "Definindo as cores e tamanho dos pontos\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(color = \"darkblue\", size = 3) +\n  scale_x_log10()",
+    "text": "Definindo as cores e tamanho dos pontos\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(color = \"darkblue\", size = 3) +\n  scale_x_log10()  +\n  theme_minimal()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2688,7 +2688,7 @@
     "href": "semanas/Aula04.html#customizando-títulos-rótulos-de-eixo-e-legendas",
     "title": "Melhorando a visualização",
     "section": "Customizando títulos, rótulos de eixo e legendas",
-    "text": "Customizando títulos, rótulos de eixo e legendas\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_light() +\n  theme(legend.position = \"bottom\")",
+    "text": "Customizando títulos, rótulos de eixo e legendas\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_minimal() +\n  theme(legend.position = \"bottom\")",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2699,18 +2699,7 @@
     "href": "semanas/Aula04.html#sem-legenda",
     "title": "Melhorando a visualização",
     "section": "Sem legenda",
-    "text": "Sem legenda\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_light() +\n  theme(legend.position = \"none\")",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Explorando 04"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula04.html#legenda-dentro-do-gráfico",
-    "href": "semanas/Aula04.html#legenda-dentro-do-gráfico",
-    "title": "Melhorando a visualização",
-    "section": "Legenda dentro do gráfico",
-    "text": "Legenda dentro do gráfico\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_light() +\n  theme(legend.position = c(0.1, 0.85))\n\n#&gt; Warning: A numeric `legend.position` argument in `theme()` was deprecated in ggplot2\n#&gt; 3.5.0.\n#&gt; ℹ Please use the `legend.position.inside` argument of `theme()` instead.",
+    "text": "Sem legenda\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_minimal() +\n  theme(legend.position = \"none\")",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2721,7 +2710,7 @@
     "href": "semanas/Aula04.html#salvando-o-gráfico",
     "title": "Melhorando a visualização",
     "section": "Salvando o gráfico",
-    "text": "Salvando o gráfico\n\ngraf1 &lt;- ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_light() +\n  theme(legend.position = c(0.1, 0.85))\n\ngraf1",
+    "text": "Salvando o gráfico\n\ngraf1 &lt;- ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_light() \n\ngraf1",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2732,7 +2721,7 @@
     "href": "semanas/Aula04.html#aumentando-o-tamanho-do-texto-e-mudando-para-portugues",
     "title": "Melhorando a visualização",
     "section": "Aumentando o tamanho do texto e mudando para portugues",
-    "text": "Aumentando o tamanho do texto e mudando para portugues\n\ngraf2 &lt;- ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_light() +\n  theme(legend.position = c(0.1, 0.80),\n        legend.key = element_blank(),\n        axis.text = element_text(size = 12),\n        axis.title = element_text(size = 14)) +\n  labs(x = \"PIB Per capita (US$)\", \n       y = \"Expectativa de Vida (anos)\", \n       title = \"Expectativa de Vida vs PIB em 2007\",\n       color = \"Continente\")\n\ngraf2",
+    "text": "Aumentando o tamanho do texto e mudando para portugues\n\ngraf2 &lt;- ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_light() +\n  theme(legend.key = element_blank(),\n        axis.text = element_text(size = 12),\n        axis.title = element_text(size = 14)) +\n  labs(x = \"PIB Per capita (US$)\", \n       y = \"Expectativa de Vida (anos)\", \n       title = \"Expectativa de Vida vs PIB em 2007\",\n       color = \"Continente\")\n\ngraf2",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 04"
@@ -2765,7 +2754,7 @@
     "href": "semanas/Aula06.html#filtrando-dados-e-fazendo-grafico-de-dispersão-padrão",
     "title": "Eixos - Escalas - Cores",
     "section": "Filtrando dados e fazendo grafico de dispersão padrão",
-    "text": "Filtrando dados e fazendo grafico de dispersão padrão\n\ngap_07 &lt;- filter(gapminder, year == 2007)\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point()",
+    "text": "Filtrando dados e fazendo grafico de dispersão padrão\n\ngap_07 &lt;- filter(gapminder, year == 2007)\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  theme_light()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06"
@@ -2776,7 +2765,7 @@
     "href": "semanas/Aula06.html#transformando-o-eixo-x-para-escala-logarítimica",
     "title": "Eixos - Escalas - Cores",
     "section": "Transformando o eixo x para escala logarítimica",
-    "text": "Transformando o eixo x para escala logarítimica\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_continuous(trans = \"log10\")",
+    "text": "Transformando o eixo x para escala logarítimica\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_continuous(trans = \"log10\") +\n  theme_light()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06"
@@ -2787,7 +2776,7 @@
     "href": "semanas/Aula06.html#outra-forma-de-transformação-do-eixo-x",
     "title": "Eixos - Escalas - Cores",
     "section": "Outra forma de transformação do eixo x",
-    "text": "Outra forma de transformação do eixo x\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_log10()",
+    "text": "Outra forma de transformação do eixo x\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_log10() +\n  theme_light()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06"
@@ -2798,7 +2787,7 @@
     "href": "semanas/Aula06.html#definindo-limites-para-o-eixo-y",
     "title": "Eixos - Escalas - Cores",
     "section": "Definindo limites para o eixo y",
-    "text": "Definindo limites para o eixo y\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_y_continuous(limits = c(0, 95))",
+    "text": "Definindo limites para o eixo y\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_y_continuous(limits = c(0, 95)) +\n  theme_light()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06"
@@ -2809,7 +2798,7 @@
     "href": "semanas/Aula06.html#grafico-com-cores-normais",
     "title": "Eixos - Escalas - Cores",
     "section": "Grafico com cores normais",
-    "text": "Grafico com cores normais\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10()",
+    "text": "Grafico com cores normais\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10() +\n  theme_light()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06"
@@ -2820,7 +2809,7 @@
     "href": "semanas/Aula06.html#grafico-usando-uma-paleta-de-cores-diferente",
     "title": "Eixos - Escalas - Cores",
     "section": "Grafico usando uma paleta de cores diferente",
-    "text": "Grafico usando uma paleta de cores diferente\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_color_brewer(palette = \"Dark2\")",
+    "text": "Grafico usando uma paleta de cores diferente\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_color_brewer(palette = \"Dark2\") +\n  theme_light()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06"
@@ -2831,7 +2820,7 @@
     "href": "semanas/Aula06.html#usando-codigos-manuais-para-as-cores",
     "title": "Eixos - Escalas - Cores",
     "section": "Usando codigos manuais para as cores",
-    "text": "Usando codigos manuais para as cores\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_color_manual(values = c(\"#FF0000\", \"#00A08A\", \"#F2AD00\",\n                                \"#F98400\", \"#5BBCD6\"))",
+    "text": "Usando codigos manuais para as cores\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_color_manual(values = c(\"#FF0000\", \"#00A08A\", \"#F2AD00\",\n                                \"#F98400\", \"#5BBCD6\")) +\n  theme_light()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06"
@@ -2842,7 +2831,7 @@
     "href": "semanas/Aula06.html#definindo-as-cores-e-tamanho-dos-pontos",
     "title": "Eixos - Escalas - Cores",
     "section": "Definindo as cores e tamanho dos pontos",
-    "text": "Definindo as cores e tamanho dos pontos\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(color = \"darkblue\", size = 3) +\n  scale_x_log10()",
+    "text": "Definindo as cores e tamanho dos pontos\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(color = \"darkblue\", size = 3) +\n  scale_x_log10() +\n  theme_light()",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06"
@@ -2865,28 +2854,6 @@
     "title": "Eixos - Escalas - Cores",
     "section": "Sem legenda",
     "text": "Sem legenda\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_light() +\n  theme(legend.position = \"none\")",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Explorando 06"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula06.html#legenda-dentro-do-gráfico",
-    "href": "semanas/Aula06.html#legenda-dentro-do-gráfico",
-    "title": "Eixos - Escalas - Cores",
-    "section": "Legenda dentro do gráfico",
-    "text": "Legenda dentro do gráfico\n\nggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_light() +\n  theme(legend.position = c(0.1, 0.85))\n\n#&gt; Warning: A numeric `legend.position` argument in `theme()` was deprecated in ggplot2\n#&gt; 3.5.0.\n#&gt; ℹ Please use the `legend.position.inside` argument of `theme()` instead.",
-    "crumbs": [
-      "Conteúdo Semanal",
-      "Explorando 06"
-    ]
-  },
-  {
-    "objectID": "semanas/Aula06.html#aumentando-o-tamanho-do-texto-e-mudando-para-portugues",
-    "href": "semanas/Aula06.html#aumentando-o-tamanho-do-texto-e-mudando-para-portugues",
-    "title": "Eixos - Escalas - Cores",
-    "section": "Aumentando o tamanho do texto e mudando para portugues",
-    "text": "Aumentando o tamanho do texto e mudando para portugues\n\ngraf2 &lt;- ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 2) +\n  scale_x_log10() +\n  theme_light() +\n  theme(legend.position = c(0.1, 0.85),\n        legend.key = element_blank(),\n        axis.text = element_text(size = 12),\n        axis.title = element_text(size = 14)) +\n  labs(x = \"PIB Per capita (US$)\", \n       y = \"Expectativa de Vida (anos)\", \n       title = \"Expectativa de Vida vs PIB em 2007\",\n       color = \"Continente\")\n\ngraf2",
     "crumbs": [
       "Conteúdo Semanal",
       "Explorando 06"

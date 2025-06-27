@@ -30,7 +30,8 @@ library("gapminder")
 gap_07 <- filter(gapminder, year == 2007)
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp,
                    color = continent)) +
-  geom_point()
+  geom_point() +
+  theme_minimal()
 ```
 
 ## Usando formas e cores diferentes
@@ -38,7 +39,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp,
 ```{r forma-cores}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp,
                    shape = continent, color = continent)) +
-  geom_point()
+  geom_point() +
+  theme_minimal()
 ```
 
 ## Cores e tamanho
@@ -46,7 +48,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp,
 ```{r cores-tamanho}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp,
                    size = pop, color = continent)) +
-  geom_point()
+  geom_point() +
+  theme_minimal()
 
 ```
 
@@ -63,7 +66,9 @@ head(gap_pop)
 
 ```{r cores-linhas}
 ggplot(gap_pop, aes(x = year, y = pop, color = continent)) +
-  geom_line() + geom_point()
+  geom_line() + 
+  geom_point() +
+  theme_minimal()
 
 ```
 
@@ -73,7 +78,8 @@ ggplot(gap_pop, aes(x = year, y = pop, color = continent)) +
 gap_0207 <- gapminder %>% filter(between(year, 2002, 2007))
 ggplot(gap_0207, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  facet_grid(continent ~ year)
+  facet_grid(continent ~ year) +
+  theme_minimal()
 ```
 
 ## Outro tipo de apresentações de grid
@@ -85,7 +91,8 @@ gap_life <- gapminder %>%
 
 ggplot(gap_life, aes(x = year, y = lifeExp)) +
   geom_line() +
-  facet_grid(continent ~ .)
+  facet_grid(continent ~ .) +
+  theme_minimal()
 ```
 
 ## Grid em outra direção
@@ -93,7 +100,8 @@ ggplot(gap_life, aes(x = year, y = lifeExp)) +
 ```{r multiplas-colunas, fig.width=9}
 ggplot(gap_life, aes(x = year, y = lifeExp)) +
   geom_line() +
-  facet_grid(. ~ continent)
+  facet_grid(. ~ continent) +
+  theme_minimal()
 
 ```
 
@@ -102,49 +110,63 @@ ggplot(gap_life, aes(x = year, y = lifeExp)) +
 ```{r wrapped}
 ggplot(gap_life, aes(x = year, y = lifeExp)) +
   geom_line() +
-  facet_wrap( ~ continent)
+  facet_wrap( ~ continent) +
+  theme_minimal()
 
 ```
 
 ## Filtrando dados e fazendo grafico de dispersão padrão
 
 ```{r graf-dispersao-pad}
-gap_07 <- filter(gapminder, year == 2007)
-ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
-  geom_point()
+gapminder |> 
+  filter(year == 2007) |>   
+  ggplot(aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() +
+  theme_minimal()
 ```
 
 ## Transformando o eixo x para escala logarítimica
 
 ```{r escala-log}
-ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
+gapminder |> 
+  filter(year == 2007) |>
+  ggplot(aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  scale_x_continuous(trans = "log10")
+  scale_x_continuous(trans = "log10") +
+  theme_minimal()
 ```
 
 ## Outra forma de transformação do eixo x
 
 ```{r outra-escala}
-ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
+gapminder |> 
+  filter(year == 2007) |>
+  ggplot(aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  scale_x_log10()
+  scale_x_log10() +
+  theme_minimal()
 ```
 
 ## Definindo limites para o eixo y
 
 ```{r limites-eixoy}
-ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
+gapminder |> 
+  filter(year == 2007) |>
+  ggplot(aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
   scale_x_log10() +
-  scale_y_continuous(limits = c(0, 95))
+  scale_y_continuous(limits = c(0, 95)) +
+  theme_minimal()
 ```
 
 ## Grafico com cores normais
 
 ```{r cores-normais}
+gap_07 <- gapminder |> filter(year == 2007)
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point() +
-  scale_x_log10()
+  scale_x_log10() +
+  theme_minimal()
 ```
 
 ## Grafico usando outra paleta de cores
@@ -153,7 +175,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point() +
   scale_x_log10() +
-  scale_color_brewer(palette = "Dark2")
+  scale_color_brewer(palette = "Dark2")  +
+  theme_minimal()
 ```
 
 ## Usando codigos manuais para as cores
@@ -163,7 +186,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point() +
   scale_x_log10() +
   scale_color_manual(values = c("#FF0000", "#00A08A", "#F2AD00",
-                                "#F98400", "#5BBCD6"))
+                                "#F98400", "#5BBCD6"))  +
+  theme_minimal()
 
 ```
 
@@ -172,7 +196,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 ```{r cores_tamanho}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point(color = "darkblue", size = 3) +
-  scale_x_log10()
+  scale_x_log10()  +
+  theme_minimal()
 ```
 
 ## Customizando títulos, rótulos de eixo e legendas
@@ -181,7 +206,7 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point(size = 2) +
   scale_x_log10() +
-  theme_light() +
+  theme_minimal() +
   theme(legend.position = "bottom")
 ```
 
@@ -191,18 +216,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point(size = 2) +
   scale_x_log10() +
-  theme_light() +
+  theme_minimal() +
   theme(legend.position = "none")
-```
-
-## Legenda dentro do gráfico
-
-```{r legenda_dentro}
-ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
-  geom_point(size = 2) +
-  scale_x_log10() +
-  theme_light() +
-  theme(legend.position = c(0.1, 0.85))
 ```
 
 ## Salvando o gráfico
@@ -211,8 +226,7 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 graf1 <- ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point(size = 2) +
   scale_x_log10() +
-  theme_light() +
-  theme(legend.position = c(0.1, 0.85))
+  theme_light() 
 
 graf1
 ```
@@ -224,8 +238,7 @@ graf2 <- ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point(size = 2) +
   scale_x_log10() +
   theme_light() +
-  theme(legend.position = c(0.1, 0.80),
-        legend.key = element_blank(),
+  theme(legend.key = element_blank(),
         axis.text = element_text(size = 12),
         axis.title = element_text(size = 14)) +
   labs(x = "PIB Per capita (US$)", 

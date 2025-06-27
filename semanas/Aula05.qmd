@@ -40,7 +40,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r nervoso, message=FALSE}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  geom_smooth(span = 0.2)
+  geom_smooth(span = 0.2) +
+  theme_minimal()
 ```
 
 ## Fazendo o suavizador menos nervoso
@@ -48,7 +49,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r mais-suave, message=FALSE}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  geom_smooth(span = 0.9)
+  geom_smooth(span = 0.9)  +
+  theme_minimal()
 ```
 
 ## Removendo intervalos de confiança
@@ -56,7 +58,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r sem-IC, message=FALSE}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  geom_smooth(se = FALSE)
+  geom_smooth(se = FALSE)  +
+  theme_minimal()
 ```
 
 ## Usando IC de 90%
@@ -64,7 +67,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r IC90, message=FALSE}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  geom_smooth(level = 0.90)
+  geom_smooth(level = 0.90) +
+  theme_minimal()
 ```
 
 ## Usando um modelo linear ao invés do loess
@@ -72,7 +76,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r linear, message=FALSE}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm")  +
+  theme_minimal()
 ```
 
 ## Usando basic splines para melhorar o ajuste
@@ -80,7 +85,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r splines, message=FALSE}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  geom_smooth(method = "lm", formula = y ~ splines::bs(x, df = 3))
+  geom_smooth(method = "lm", formula = y ~ splines::bs(x, df = 3))  +
+  theme_minimal()
 ```
 
 ## Usando o gam (general addtive models) com regressão spline
@@ -88,14 +94,16 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r gam, message=FALSE}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  geom_smooth(method = "gam", formula = y ~ s(x))
+  geom_smooth(method = "gam", formula = y ~ s(x))  +
+  theme_minimal()
 ```
 
 ## Começando a construir um gráfico do tipo facet com suavizações
 
 ```{r primeiro-graf-dispersão}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
-  geom_point()
+  geom_point() +
+  theme_minimal()
 
 ```
 
@@ -104,7 +112,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r facet-continente}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  facet_wrap(~ continent)
+  facet_wrap(~ continent) +
+  theme_minimal()
 ```
 
 ## Adicionando suavizadores
@@ -112,8 +121,9 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r facet-suavizadores, message=FALSE, warning=FALSE}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
+  geom_smooth() +
   facet_wrap(~ continent) +
-  geom_smooth()
+  theme_minimal()
 ```
 
 ## Colorindo por continente
@@ -121,8 +131,9 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r facet-suav-cores, message=FALSE, warning=FALSE, fig.width=9}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point() +
+  geom_smooth() +
   facet_wrap(~ continent) +
-  geom_smooth()
+  theme_minimal() 
 ```
 
 ## Colorindo somente a curva
@@ -130,6 +141,7 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 ```{r facet-suav-cores2, message=FALSE, warning=FALSE, fig.width=9}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
+  geom_smooth(aes(color = continent)) +
   facet_wrap(~ continent) +
-  geom_smooth(aes(color = continent))
+  theme_minimal()
 ```

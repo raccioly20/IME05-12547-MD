@@ -28,7 +28,8 @@ library(gapminder)
 ```{r graf-dispersao-pad, echo=TRUE}
 gap_07 <- filter(gapminder, year == 2007)
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
-  geom_point()
+  geom_point() +
+  theme_light()
 ```
 
 ## Transformando o eixo x para escala logarítimica
@@ -36,7 +37,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r escala-log}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  scale_x_continuous(trans = "log10")
+  scale_x_continuous(trans = "log10") +
+  theme_light()
 ```
 
 ## Outra forma de transformação do eixo x
@@ -44,7 +46,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r outra-escala}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  scale_x_log10()
+  scale_x_log10() +
+  theme_light()
 ```
 
 ## Definindo limites para o eixo y
@@ -53,7 +56,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
   scale_x_log10() +
-  scale_y_continuous(limits = c(0, 95))
+  scale_y_continuous(limits = c(0, 95)) +
+  theme_light()
 ```
 
 ## Grafico com cores normais
@@ -61,7 +65,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
 ```{r cores-normais, fig.width=9}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point() +
-  scale_x_log10()
+  scale_x_log10() +
+  theme_light()
 ```
 
 ## Grafico usando uma paleta de cores diferente
@@ -70,7 +75,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point() +
   scale_x_log10() +
-  scale_color_brewer(palette = "Dark2")
+  scale_color_brewer(palette = "Dark2") +
+  theme_light()
 ```
 
 ## Usando codigos manuais para as cores
@@ -80,7 +86,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point() +
   scale_x_log10() +
   scale_color_manual(values = c("#FF0000", "#00A08A", "#F2AD00",
-                                "#F98400", "#5BBCD6"))
+                                "#F98400", "#5BBCD6")) +
+  theme_light()
 
 ```
 
@@ -89,7 +96,8 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 ```{r cores-tamanho}
 ggplot(gap_07, aes(x = gdpPercap, y = lifeExp)) +
   geom_point(color = "darkblue", size = 3) +
-  scale_x_log10()
+  scale_x_log10() +
+  theme_light()
 ```
 
 ## Customizando títulos, rótulos de eixo e legendas
@@ -110,33 +118,4 @@ ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   scale_x_log10() +
   theme_light() +
   theme(legend.position = "none")
-```
-
-## Legenda dentro do gráfico
-
-```{r legenda-dentro}
-ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
-  geom_point(size = 2) +
-  scale_x_log10() +
-  theme_light() +
-  theme(legend.position = c(0.1, 0.85))
-```
-
-## Aumentando o tamanho do texto e mudando para portugues
-
-```{r mudando-texto, fig.width=9}
-graf2 <- ggplot(gap_07, aes(x = gdpPercap, y = lifeExp, color = continent)) +
-  geom_point(size = 2) +
-  scale_x_log10() +
-  theme_light() +
-  theme(legend.position = c(0.1, 0.85),
-        legend.key = element_blank(),
-        axis.text = element_text(size = 12),
-        axis.title = element_text(size = 14)) +
-  labs(x = "PIB Per capita (US$)", 
-       y = "Expectativa de Vida (anos)", 
-       title = "Expectativa de Vida vs PIB em 2007",
-       color = "Continente")
-
-graf2
 ```

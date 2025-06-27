@@ -38,7 +38,8 @@ gap_07 <- filter(gapminder, year == 2007)
 
 ```{r histograma}
 ggplot(gap_07, aes(x = gdpPercap)) +
-  geom_histogram()
+  geom_histogram() +
+  theme_minimal()
 ```
 
 ## Criando um histograma usando a regra de Sturges
@@ -47,21 +48,25 @@ A regra de Sturges indica `r round(1+3.322*log10(nrow(gap_07)),0)` faixas enquan
 
 ```{r Sturges}
 ggplot(gap_07, aes(x = gdpPercap)) +
-  geom_histogram(bins = round(1+3.322*log10(nrow(gap_07)),0))
+  geom_histogram(bins = round(1+3.322*log10(nrow(gap_07)),0), 
+                 color="black") +
+  theme_minimal()
 ```
 
 ## Criando um gráfico de densidade
 
 ```{r densidade}
 ggplot(gap_07, aes(x = gdpPercap)) +
-  geom_density()
+  geom_density() +
+  theme_minimal()
 ```
 
 ## Criando um box-plot
 
 ```{r box-plot}
 ggplot(gap_07, aes(x = continent, y = lifeExp)) +
-  geom_boxplot()
+  geom_boxplot() +
+  theme_minimal()
 
 ```
 
@@ -70,7 +75,8 @@ ggplot(gap_07, aes(x = continent, y = lifeExp)) +
 ```{r jitter}
 ggplot(gap_07, aes(x = continent, y = lifeExp)) +
   geom_boxplot() +
-  geom_jitter(width = 0.5, alpha = 0.2)
+  geom_jitter(width = 0.5, alpha = 0.2) +
+  theme_minimal()
 ```
 
 ## Matriz de Correlações

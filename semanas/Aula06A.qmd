@@ -42,43 +42,58 @@ iris %>%
 
 ```{r 3}
 iris %>% 
-  group_by(Species) %>% ggplot(aes(x=Sepal.Width, y=Sepal.Length, 
-                                   color=Species)) + geom_point()
+  group_by(Species) %>% 
+  ggplot(aes(x=Sepal.Width, y=Sepal.Length, color=Species)) + 
+  geom_point() +
+  theme_minimal()
 ```
 
-## Vamos ver se temos alguma relação entre as variáveis 2
+## Vamos ver se temos alguma relação entre as variáveis
 
 ```{r 3a}
 iris %>% 
   group_by(Species) %>% 
   ggplot(aes(x=Sepal.Width, y=Sepal.Length, color=Species)) +
-  geom_point() + geom_smooth(method = "lm", se=FALSE)
+  geom_point() + 
+  geom_smooth(method = "lm", se=FALSE) +
+  labs(title = "Relação entre Sepal Width e Sepal Length",
+       x = "Largura (cm)",
+       y = "Comprimento (cm)") +
+  theme_minimal()
 ```
 
-## Vamos ver se temos alguma relação entre as variáveis 3
+## Vamos ver se temos alguma relação entre as variáveis
 
 ```{r 4}
 iris %>% 
-  group_by(Species) %>% ggplot(aes(x=Petal.Width, y=Petal.Length, 
-                                   color=Species)) + geom_point()
+  group_by(Species) %>% 
+  ggplot(aes(x=Petal.Width, y=Petal.Length, color=Species)) + 
+  geom_point() +
+  theme_minimal()
 ```
 
-## Vamos ver se temos alguma relação entre as variáveis 4
+## Vamos ver se temos alguma relação entre as variáveis
 
 ```{r 4a}
 iris %>% 
   group_by(Species) %>% 
   ggplot(aes(x=Petal.Width, y=Petal.Length, color=Species)) +
-  geom_point() + geom_smooth(method = "lm")
+  geom_point() + 
+  geom_smooth(method = "lm") +
+  labs(title = "Relação entre Petal Width e Petal Length",
+       x = "Largura (cm)",
+       y = "Comprimento (cm)") +
+  theme_minimal()
 ```
 
 ## Vamos ver como se distribui o Petal.Width
 
 ```{r 5}
 iris %>% 
-  group_by(Species) %>% ggplot(aes(x=Petal.Width, 
-                                   fill=Species)) + 
-                                   geom_histogram()
+  group_by(Species) %>% 
+  ggplot(aes(x=Petal.Width, fill=Species)) +
+  geom_histogram(color="Black") +
+  theme_minimal()
 ```
 
 ## Vamos ver como se distribui o Petal.Length
@@ -87,5 +102,6 @@ iris %>%
 iris %>% 
   group_by(Species) %>% 
   ggplot(aes(x=Petal.Length, fill=Species)) + 
-  geom_histogram()
+  geom_histogram(color="Black") +
+  theme_minimal()
 ```
