@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-08-20">
+<meta name="dcterms.date" content="2025-09-03">
 <title>Problemas na Regressão Multipla – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -552,7 +552,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#dados-de-press%C3%A3o-sanguinea" id="toc-dados-de-pressão-sanguinea" class="nav-link" data-scroll-target="#dados-de-press%C3%A3o-sanguinea">Dados de pressão sanguinea</a></li>
   <li><a href="#renomeando" id="toc-renomeando" class="nav-link" data-scroll-target="#renomeando">Renomeando</a></li>
   <li><a href="#sumario" id="toc-sumario" class="nav-link" data-scroll-target="#sumario">Sumario</a></li>
+  <li><a href="#criando-conjunto-de-treino-e-teste" id="toc-criando-conjunto-de-treino-e-teste" class="nav-link" data-scroll-target="#criando-conjunto-de-treino-e-teste">Criando conjunto de treino e teste</a></li>
+  <li><a href="#a.-avalia%C3%A7%C3%A3o" id="toc-a.-avaliação" class="nav-link" data-scroll-target="#a.-avalia%C3%A7%C3%A3o">1a. Avaliação</a></li>
+  <li><a href="#a.-avalia%C3%A7%C3%A3o-1" id="toc-a.-avaliação-1" class="nav-link" data-scroll-target="#a.-avalia%C3%A7%C3%A3o-1">2a. Avaliação</a></li>
+  <li><a href="#a.-avalia%C3%A7%C3%A3o-2" id="toc-a.-avaliação-2" class="nav-link" data-scroll-target="#a.-avalia%C3%A7%C3%A3o-2">3a. Avaliação</a></li>
+  <li><a href="#comparando-previs%C3%A3o-vs-real" id="toc-comparando-previsão-vs-real" class="nav-link" data-scroll-target="#comparando-previs%C3%A3o-vs-real">Comparando Previsão vs Real</a></li>
   <li><a href="#teste-dos-res%C3%ADduos" id="toc-teste-dos-resíduos" class="nav-link" data-scroll-target="#teste-dos-res%C3%ADduos">Teste dos resíduos</a></li>
+  <li><a href="#avalia%C3%A7%C3%A3o-com-conjunto-de-teste" id="toc-avaliação-com-conjunto-de-teste" class="nav-link" data-scroll-target="#avalia%C3%A7%C3%A3o-com-conjunto-de-teste">Avaliação com conjunto de teste</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -574,7 +580,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 20, 2024</p>
+      <p class="date">September 3, 2025</p>
     </div>
   </div>
   
@@ -590,11 +596,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 #&gt; ✔ dplyr     1.1.4     ✔ readr     2.1.5
 #&gt; ✔ forcats   1.0.0     ✔ stringr   1.5.1
-#&gt; ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-#&gt; ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-#&gt; ✔ purrr     1.0.2     
+#&gt; ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
+#&gt; ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+#&gt; ✔ purrr     1.1.0     
 #&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#&gt; ✖ purrr::%||%()   masks base::%||%()
 #&gt; ✖ dplyr::filter() masks stats::filter()
 #&gt; ✖ dplyr::lag()    masks stats::lag()
 #&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
@@ -635,36 +640,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section><section id="renomeando" class="level2"><h2 class="anchored" data-anchor-id="renomeando">Renomeando</h2>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pressao_sangue</span> <span class="op">&lt;-</span> <span class="va">pressao_sangue</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>PS <span class="op">=</span> <span class="va">BP</span>, Idade <span class="op">=</span> <span class="va">Age</span>,</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">pressao_sangue</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Rows: 20
+#&gt; Columns: 8
+#&gt; $ Pt     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, …
+#&gt; $ BP     &lt;dbl&gt; 105, 115, 116, 117, 112, 121, 121, 110, 110, 114, 114, 115, 114…
+#&gt; $ Age    &lt;dbl&gt; 47, 49, 49, 50, 51, 48, 49, 47, 49, 48, 47, 49, 50, 45, 52, 46,…
+#&gt; $ Weight &lt;dbl&gt; 85.4, 94.2, 95.3, 94.7, 89.4, 99.5, 99.8, 90.9, 89.2, 92.7, 94.…
+#&gt; $ BSA    &lt;dbl&gt; 1.75, 2.10, 1.98, 2.01, 1.89, 2.25, 2.25, 1.90, 1.83, 2.07, 2.0…
+#&gt; $ Dur    &lt;dbl&gt; 5.1, 3.8, 8.2, 5.8, 7.0, 9.3, 2.5, 6.2, 7.1, 5.6, 5.3, 5.6, 10.…
+#&gt; $ Pulse  &lt;dbl&gt; 63, 70, 72, 73, 72, 71, 69, 66, 69, 64, 74, 71, 68, 67, 76, 69,…
+#&gt; $ Stress &lt;dbl&gt; 33, 14, 10, 99, 95, 10, 42, 8, 62, 35, 90, 21, 47, 80, 98, 95, …</code></pre>
+</div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pressao_sangue</span> <span class="op">&lt;-</span> <span class="va">pressao_sangue</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>PS <span class="op">=</span> <span class="va">BP</span>, Idade <span class="op">=</span> <span class="va">Age</span>,</span>
 <span>                                            Peso <span class="op">=</span> <span class="va">Weight</span>, Acorp <span class="op">=</span> <span class="va">BSA</span>,</span>
-<span>                                            Pulso <span class="op">=</span> <span class="va">Pulse</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>                                            Pulso <span class="op">=</span> <span class="va">Pulse</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">Pt</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="sumario" class="level2"><h2 class="anchored" data-anchor-id="sumario">Sumario</h2>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pressao_sangue</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pressao_sangue</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt;        Pt              PS            Idade            Peso       
-#&gt;  Min.   : 1.00   Min.   :105.0   Min.   :45.00   Min.   : 85.40  
-#&gt;  1st Qu.: 5.75   1st Qu.:110.0   1st Qu.:47.00   1st Qu.: 90.22  
-#&gt;  Median :10.50   Median :114.0   Median :48.50   Median : 94.15  
-#&gt;  Mean   :10.50   Mean   :114.0   Mean   :48.60   Mean   : 93.09  
-#&gt;  3rd Qu.:15.25   3rd Qu.:116.2   3rd Qu.:49.25   3rd Qu.: 94.85  
-#&gt;  Max.   :20.00   Max.   :125.0   Max.   :56.00   Max.   :101.30  
-#&gt;      Acorp            Dur            Pulso           Stress     
-#&gt;  Min.   :1.750   Min.   : 2.50   Min.   :62.00   Min.   : 8.00  
-#&gt;  1st Qu.:1.897   1st Qu.: 5.25   1st Qu.:67.75   1st Qu.:17.00  
-#&gt;  Median :1.980   Median : 6.00   Median :70.00   Median :44.50  
-#&gt;  Mean   :1.998   Mean   : 6.43   Mean   :69.60   Mean   :53.35  
-#&gt;  3rd Qu.:2.075   3rd Qu.: 7.60   3rd Qu.:72.00   3rd Qu.:95.00  
-#&gt;  Max.   :2.250   Max.   :10.20   Max.   :76.00   Max.   :99.00</code></pre>
+<pre><code>#&gt;        PS            Idade            Peso            Acorp      
+#&gt;  Min.   :105.0   Min.   :45.00   Min.   : 85.40   Min.   :1.750  
+#&gt;  1st Qu.:110.0   1st Qu.:47.00   1st Qu.: 90.22   1st Qu.:1.897  
+#&gt;  Median :114.0   Median :48.50   Median : 94.15   Median :1.980  
+#&gt;  Mean   :114.0   Mean   :48.60   Mean   : 93.09   Mean   :1.998  
+#&gt;  3rd Qu.:116.2   3rd Qu.:49.25   3rd Qu.: 94.85   3rd Qu.:2.075  
+#&gt;  Max.   :125.0   Max.   :56.00   Max.   :101.30   Max.   :2.250  
+#&gt;       Dur            Pulso           Stress     
+#&gt;  Min.   : 2.50   Min.   :62.00   Min.   : 8.00  
+#&gt;  1st Qu.: 5.25   1st Qu.:67.75   1st Qu.:17.00  
+#&gt;  Median : 6.00   Median :70.00   Median :44.50  
+#&gt;  Mean   : 6.43   Mean   :69.60   Mean   :53.35  
+#&gt;  3rd Qu.: 7.60   3rd Qu.:72.00   3rd Qu.:95.00  
+#&gt;  Max.   :10.20   Max.   :76.00   Max.   :99.00</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/taiyun/corrplot">corrplot</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/taiyun/corrplot">corrplot</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>#&gt; corrplot 0.92 loaded</code></pre>
+<pre><code>#&gt; corrplot 0.95 loaded</code></pre>
 </div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mat_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">pressao_sangue</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mat_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">pressao_sangue</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html">corrplot</a></span><span class="op">(</span><span class="va">mat_corr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -672,7 +690,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">pressao_sangue</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">pressao_sangue</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;               PS     Idade       Peso      Acorp       Dur     Pulso     Stress
 #&gt; PS     1.0000000 0.6590930 0.95006765 0.86587887 0.2928336 0.7214132 0.16390139
@@ -686,8 +704,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Aqui vemos que a presssão sanguinea tem uma correlação forte com o peso e também com a área corporal. O peso e a area corporal tem uma correlação forte. Esta correlação alta pode indicar a existencia de multicolinearidade.</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/pairs.panels.html">pairs.panels</a></span><span class="op">(</span><span class="va">pressao_sangue</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/pairs.panels.html">pairs.panels</a></span><span class="op">(</span><span class="va">pressao_sangue</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="Aula07.2B_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
@@ -695,121 +713,194 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section><section id="criando-conjunto-de-treino-e-teste" class="level2"><h2 class="anchored" data-anchor-id="criando-conjunto-de-treino-e-teste">Criando conjunto de treino e teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dados</span> <span class="op">&lt;-</span> <span class="va">pressao_sangue</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">PS</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">dados</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">pressao_sangue</span><span class="op">$</span><span class="va">PS</span></span>
+<span><span class="va">indice_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.20</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">pressao_sangue</span><span class="op">[</span><span class="op">-</span><span class="va">indice_teste</span>, <span class="op">]</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">pressao_sangue</span><span class="op">[</span><span class="va">indice_teste</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Rows: 14
+#&gt; Columns: 7
+#&gt; $ PS     &lt;dbl&gt; 105, 116, 117, 121, 110, 110, 114, 114, 115, 114, 125, 114, 110…
+#&gt; $ Idade  &lt;dbl&gt; 47, 49, 50, 49, 47, 49, 48, 47, 49, 50, 52, 46, 48, 56
+#&gt; $ Peso   &lt;dbl&gt; 85.4, 95.3, 94.7, 99.8, 90.9, 89.2, 92.7, 94.4, 94.1, 91.6, 101…
+#&gt; $ Acorp  &lt;dbl&gt; 1.75, 1.98, 2.01, 2.25, 1.90, 1.83, 2.07, 2.07, 1.98, 2.05, 2.1…
+#&gt; $ Dur    &lt;dbl&gt; 5.1, 8.2, 5.8, 2.5, 6.2, 7.1, 5.6, 5.3, 5.6, 10.2, 10.0, 7.4, 9…
+#&gt; $ Pulso  &lt;dbl&gt; 63, 72, 73, 69, 66, 69, 64, 74, 71, 68, 76, 69, 71, 75
+#&gt; $ Stress &lt;dbl&gt; 33, 10, 99, 42, 8, 62, 35, 90, 21, 47, 98, 95, 99, 99</code></pre>
+</div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Rows: 6
+#&gt; Columns: 7
+#&gt; $ PS     &lt;dbl&gt; 115, 112, 121, 106, 106, 113
+#&gt; $ Idade  &lt;dbl&gt; 49, 51, 48, 45, 46, 46
+#&gt; $ Peso   &lt;dbl&gt; 94.2, 89.4, 99.5, 87.1, 87.0, 94.5
+#&gt; $ Acorp  &lt;dbl&gt; 2.10, 1.89, 2.25, 1.92, 1.87, 1.90
+#&gt; $ Dur    &lt;dbl&gt; 3.8, 7.0, 9.3, 5.6, 3.6, 4.3
+#&gt; $ Pulso  &lt;dbl&gt; 70, 72, 71, 67, 62, 70
+#&gt; $ Stress &lt;dbl&gt; 14, 95, 10, 80, 18, 12</code></pre>
+</div>
+</div>
+</section><section id="a.-avaliação" class="level2"><h2 class="anchored" data-anchor-id="a.-avaliação">1a. Avaliação</h2>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">PS</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">conj_treino</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt; Call:
-#&gt; lm(formula = PS ~ ., data = dados)
+#&gt; lm(formula = PS ~ ., data = conj_treino)
 #&gt; 
 #&gt; Residuals:
 #&gt;      Min       1Q   Median       3Q      Max 
-#&gt; -0.93213 -0.11314  0.03064  0.21834  0.48454 
+#&gt; -0.78334 -0.06849  0.09515  0.19505  0.47278 
 #&gt; 
 #&gt; Coefficients:
 #&gt;               Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; (Intercept) -12.870476   2.556650  -5.034 0.000229 ***
-#&gt; Idade         0.703259   0.049606  14.177 2.76e-09 ***
-#&gt; Peso          0.969920   0.063108  15.369 1.02e-09 ***
-#&gt; Acorp         3.776491   1.580151   2.390 0.032694 *  
-#&gt; Dur           0.068383   0.048441   1.412 0.181534    
-#&gt; Pulso        -0.084485   0.051609  -1.637 0.125594    
-#&gt; Stress        0.005572   0.003412   1.633 0.126491    
+#&gt; (Intercept) -14.704848   4.004145  -3.672  0.00794 ** 
+#&gt; Idade         0.756631   0.067774  11.164 1.03e-05 ***
+#&gt; Peso          1.014897   0.104982   9.667 2.67e-05 ***
+#&gt; Acorp         2.426007   2.723376   0.891  0.40261    
+#&gt; Dur           0.036057   0.067581   0.534  0.61018    
+#&gt; Pulso        -0.115978   0.070242  -1.651  0.14270    
+#&gt; Stress        0.006775   0.004722   1.435  0.19450    
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
-#&gt; Residual standard error: 0.4072 on 13 degrees of freedom
-#&gt; Multiple R-squared:  0.9962, Adjusted R-squared:  0.9944 
-#&gt; F-statistic: 560.6 on 6 and 13 DF,  p-value: 6.395e-15</code></pre>
+#&gt; Residual standard error: 0.4551 on 7 degrees of freedom
+#&gt; Multiple R-squared:  0.9961, Adjusted R-squared:  0.9927 
+#&gt; F-statistic: 295.3 on 6 and 7 DF,  p-value: 4.705e-08</code></pre>
 </div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Carregando pacotes exigidos: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; 
+#&gt; Anexando pacote: 'car'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; O seguinte objeto é mascarado por 'package:psych':
+#&gt; 
+#&gt;     logit</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; O seguinte objeto é mascarado por 'package:dplyr':
+#&gt; 
+#&gt;     recode</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; O seguinte objeto é mascarado por 'package:purrr':
+#&gt; 
+#&gt;     some</code></pre>
+</div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt;    Idade     Peso    Acorp      Dur    Pulso   Stress 
-#&gt; 1.762807 8.417035 5.328751 1.237309 4.413575 1.834845</code></pre>
+<pre><code>#&gt;     Idade      Peso     Acorp       Dur     Pulso    Stress 
+#&gt;  1.839128 11.506832  8.452385  1.255999  4.764421  1.798917</code></pre>
 </div>
 </div>
+</section><section id="a.-avaliação-1" class="level2"><h2 class="anchored" data-anchor-id="a.-avaliação-1">2a. Avaliação</h2>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">mod1</span>,<span class="va">.</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span><span class="va">Acorp</span><span class="op">)</span> </span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">mod1</span>,<span class="va">.</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span><span class="va">Acorp</span><span class="op">)</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt; Call:
-#&gt; lm(formula = PS ~ Idade + Peso + Dur + Pulso + Stress, data = dados)
+#&gt; lm(formula = PS ~ Idade + Peso + Dur + Pulso + Stress, data = conj_treino)
 #&gt; 
 #&gt; Residuals:
 #&gt;      Min       1Q   Median       3Q      Max 
-#&gt; -1.02600 -0.18526 -0.00077  0.21934  0.72533 
+#&gt; -0.78828 -0.09161  0.03481  0.28998  0.42216 
 #&gt; 
 #&gt; Coefficients:
 #&gt;               Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; (Intercept) -15.116781   2.748758  -5.499 7.83e-05 ***
-#&gt; Idade         0.731940   0.055646  13.154 2.85e-09 ***
-#&gt; Peso          1.098958   0.037773  29.093 6.37e-14 ***
-#&gt; Dur           0.064105   0.055965   1.145   0.2712    
-#&gt; Pulso        -0.137444   0.053885  -2.551   0.0231 *  
-#&gt; Stress        0.007429   0.003841   1.934   0.0736 .  
+#&gt; (Intercept) -16.636422   3.322506  -5.007  0.00104 ** 
+#&gt; Idade         0.779649   0.061841  12.607 1.47e-06 ***
+#&gt; Peso          1.099617   0.043878  25.061 6.88e-09 ***
+#&gt; Dur           0.028417   0.066164   0.429  0.67890    
+#&gt; Pulso        -0.148601   0.059162  -2.512  0.03627 *  
+#&gt; Stress        0.007890   0.004494   1.756  0.11724    
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
-#&gt; Residual standard error: 0.4708 on 14 degrees of freedom
-#&gt; Multiple R-squared:  0.9945, Adjusted R-squared:  0.9925 
-#&gt; F-statistic: 502.5 on 5 and 14 DF,  p-value: 2.835e-15</code></pre>
+#&gt; Residual standard error: 0.4492 on 8 degrees of freedom
+#&gt; Multiple R-squared:  0.9956, Adjusted R-squared:  0.9929 
+#&gt; F-statistic: 363.5 on 5 and 8 DF,  p-value: 3.31e-09</code></pre>
 </div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;    Idade     Peso      Dur    Pulso   Stress 
-#&gt; 1.659637 2.256150 1.235620 3.599913 1.739641</code></pre>
+#&gt; 1.571811 2.063392 1.235775 3.469415 1.672564</code></pre>
 </div>
 </div>
+</section><section id="a.-avaliação-2" class="level2"><h2 class="anchored" data-anchor-id="a.-avaliação-2">3a. Avaliação</h2>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">PS</span> <span class="op">~</span> <span class="va">Idade</span> <span class="op">+</span> <span class="va">Peso</span> <span class="op">+</span> <span class="va">Pulso</span> <span class="op">+</span> <span class="va">Stress</span>, data <span class="op">=</span> <span class="va">dados</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">PS</span> <span class="op">~</span> <span class="va">Idade</span> <span class="op">+</span> <span class="va">Peso</span> <span class="op">+</span> <span class="va">Pulso</span> <span class="op">+</span> <span class="va">Stress</span>, data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt; Call:
-#&gt; lm(formula = PS ~ Idade + Peso + Pulso + Stress, data = dados)
+#&gt; lm(formula = PS ~ Idade + Peso + Pulso + Stress, data = conj_treino)
 #&gt; 
 #&gt; Residuals:
-#&gt;      Min       1Q   Median       3Q      Max 
-#&gt; -0.89479 -0.15857 -0.04157  0.25593  0.92857 
+#&gt;     Min      1Q  Median      3Q     Max 
+#&gt; -0.7491 -0.1267  0.0447  0.2459  0.4706 
 #&gt; 
 #&gt; Coefficients:
 #&gt;               Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; (Intercept) -15.683749   2.731808  -5.741 3.90e-05 ***
-#&gt; Idade         0.739878   0.055784  13.263 1.09e-09 ***
-#&gt; Peso          1.097262   0.038135  28.773 1.54e-14 ***
-#&gt; Pulso        -0.126973   0.053654  -2.367   0.0318 *  
-#&gt; Stress        0.007851   0.003863   2.032   0.0602 .  
+#&gt; (Intercept) -16.572609   3.165229  -5.236 0.000538 ***
+#&gt; Idade         0.783241   0.058431  13.405 2.98e-07 ***
+#&gt; Peso          1.094261   0.040118  27.276 5.80e-10 ***
+#&gt; Pulso        -0.142220   0.054610  -2.604 0.028537 *  
+#&gt; Stress        0.008011   0.004277   1.873 0.093850 .  
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
-#&gt; Residual standard error: 0.4757 on 15 degrees of freedom
-#&gt; Multiple R-squared:  0.9939, Adjusted R-squared:  0.9923 
-#&gt; F-statistic:   615 on 4 and 15 DF,  p-value: &lt; 2.2e-16</code></pre>
+#&gt; Residual standard error: 0.4284 on 9 degrees of freedom
+#&gt; Multiple R-squared:  0.9955, Adjusted R-squared:  0.9935 
+#&gt; F-statistic: 499.6 on 4 and 9 DF,  p-value: 1.482e-10</code></pre>
 </div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/residualPlots.html">residualPlots</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/residualPlots.html">residualPlots</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.2B_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.2B_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;            Test stat Pr(&gt;|Test stat|)
-#&gt; Idade         0.3403           0.7387
-#&gt; Peso          0.3825           0.7078
-#&gt; Pulso         0.0914           0.9285
-#&gt; Stress       -0.5581           0.5856
-#&gt; Tukey test    0.2340           0.8150</code></pre>
+#&gt; Idade        -0.3779           0.7153
+#&gt; Peso         -0.8326           0.4292
+#&gt; Pulso         0.5699           0.5844
+#&gt; Stress       -0.7313           0.4855
+#&gt; Tukey test   -0.9748           0.3296</code></pre>
+</div>
+</div>
+</section><section id="comparando-previsão-vs-real" class="level2"><h2 class="anchored" data-anchor-id="comparando-previsão-vs-real">Comparando Previsão vs Real</h2>
+<div class="cell">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_treino</span><span class="op">$</span><span class="va">Previsoes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod3</span>, data<span class="op">=</span><span class="va">conj_treino</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">conj_treino</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Previsoes</span>, y<span class="op">=</span><span class="va">PS</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Pressão sanguinea vs. Previsões do modelo linear"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula07.2B_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 </section><section id="teste-dos-resíduos" class="level2"><h2 class="anchored" data-anchor-id="teste-dos-resíduos">Teste dos resíduos</h2>
 <p>Teste de normalidade Teste de heterocedasticidade (Bresch-Pagan) Teste de autocorrelação (Durbin-Watson)</p>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lmtest</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lmtest</span><span class="op">)</span></span>
 <span><span class="va">mod3_sum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span>
 <span><span class="co"># Teste de normalidade</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod3_sum</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -818,26 +909,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #&gt;  Shapiro-Wilk normality test
 #&gt; 
 #&gt; data:  mod3_sum$residuals
-#&gt; W = 0.95962, p-value = 0.5364</code></pre>
+#&gt; W = 0.93949, p-value = 0.4118</code></pre>
 </div>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Teste de hetrocedasticidade</span></span>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Teste de hetrocedasticidade</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  studentized Breusch-Pagan test
 #&gt; 
 #&gt; data:  mod3
-#&gt; BP = 1.9471, df = 4, p-value = 0.7455</code></pre>
+#&gt; BP = 1.4231, df = 4, p-value = 0.8402</code></pre>
 </div>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Teste de autocorrelação</span></span>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Teste de autocorrelação</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Durbin-Watson test
 #&gt; 
 #&gt; data:  mod3
-#&gt; DW = 1.6389, p-value = 0.2115
+#&gt; DW = 1.7244, p-value = 0.3101
 #&gt; alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+</div>
+</div>
+</section><section id="avaliação-com-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="avaliação-com-conjunto-de-teste">Avaliação com conjunto de teste</h2>
+<div class="cell">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">PS</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod3</span>, <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] 0.5975429</code></pre>
 </div>
 </div>
 

@@ -15,6 +15,7 @@ knitr:
     comment: "#>"
 execute:
   freeze: auto
+  message: false
 ---
 
 ## Carregando bibliotecas
@@ -48,9 +49,10 @@ pressao_sangue <- read_delim("bloodpress.txt", col_names = TRUE)
 ## Renomeando
 
 ```{r}
+glimpse(pressao_sangue)
 pressao_sangue <- pressao_sangue %>% rename(PS = BP, Idade = Age,
                                             Peso = Weight, Acorp = BSA,
-                                            Pulso = Pulse)
+                                            Pulso = Pulse) %>% select(-Pt)
 ```
 
 ## Sumario
@@ -61,9 +63,9 @@ summary(pressao_sangue)
 
 ```{r}
 library(corrplot)
-mat_corr <- cor(cor(pressao_sangue[,-1]))
+mat_corr <- cor(cor(pressao_sangue))
 corrplot(mat_corr)
-cor(pressao_sangue[,-1])
+cor(pressao_sangue)
 ```
 
 Aqui vemos que a presssão sanguinea tem uma correlação forte com o peso e também com a área corporal. O peso e a area corporal tem uma correlação forte. Esta correlação alta pode indicar a existencia de multicolinearidade.
@@ -71,17 +73,37 @@ Aqui vemos que a presssão sanguinea tem uma correlação forte com o peso e tam
 ```{r}
 #| message: false
 library(psych)
-pairs.panels(pressao_sangue[,-1])
+pairs.panels(pressao_sangue)
+
 ```
+
+## Criando conjunto de treino e teste
 
 ```{r}
 #| message: false
-dados <- pressao_sangue[,-1]
-mod1 <- lm(PS ~ ., data=dados)
+library(caret)
+set.seed(25)
+y <- pressao_sangue$PS
+indice_teste <- createDataPartition(y, times = 1, p = 0.20, list = FALSE)
+
+conj_treino <- pressao_sangue[-indice_teste, ]
+conj_teste <- pressao_sangue[indice_teste, ]
+
+glimpse(conj_treino)
+glimpse(conj_teste)
+```
+
+## 1a. Avaliação
+
+```{r}
+mod1 <- lm(PS ~ ., data=conj_treino)
 summary(mod1)
 library(car)
 vif(mod1)
+
 ```
+
+## 2a. Avaliação
 
 ```{r}
 mod2 <- update(mod1,. ~ . -Acorp) 
@@ -89,10 +111,22 @@ summary(mod2)
 vif(mod2)
 ```
 
+## 3a. Avaliação
+
 ```{r}
-mod3 <- lm(PS ~ Idade + Peso + Pulso + Stress, data = dados)
+mod3 <- lm(PS ~ Idade + Peso + Pulso + Stress, data = conj_treino)
 summary(mod3)
 residualPlots(mod3)
+```
+
+## Comparando Previsão vs Real
+
+```{r}
+conj_treino$Previsoes <- predict(mod3, data=conj_treino)
+ggplot(conj_treino, aes(x=Previsoes, y=PS)) + 
+  geom_point() +
+  geom_abline(color = "darkblue") +
+  ggtitle("Pressão sanguinea vs. Previsões do modelo linear")
 ```
 
 ## Teste dos resíduos
@@ -109,4 +143,10 @@ shapiro.test(mod3_sum$residuals)
 bptest(mod3)
 # Teste de autocorrelação
 dwtest(mod3)
+```
+
+## Avaliação com conjunto de teste
+
+```{r}
+sqrt(mean((conj_teste$PS - predict(mod3, conj_teste)) ^ 2)) 
 ```
