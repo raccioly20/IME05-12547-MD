@@ -1401,7 +1401,7 @@
     "href": "semanas/Aula07.2.html",
     "title": "Regressão Linear Múltipla",
     "section": "",
-    "text": "library(tidyverse)\n\n#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n#&gt; ✔ dplyr     1.1.4     ✔ readr     2.1.5\n#&gt; ✔ forcats   1.0.0     ✔ stringr   1.5.1\n#&gt; ✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n#&gt; ✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n#&gt; ✔ purrr     1.0.2     \n#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n#&gt; ✖ purrr::%||%()   masks base::%||%()\n#&gt; ✖ dplyr::filter() masks stats::filter()\n#&gt; ✖ dplyr::lag()    masks stats::lag()\n#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
+    "text": "library(tidyverse)\n\n#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n#&gt; ✔ dplyr     1.1.4     ✔ readr     2.1.5\n#&gt; ✔ forcats   1.0.0     ✔ stringr   1.5.1\n#&gt; ✔ ggplot2   3.5.2     ✔ tibble    3.3.0\n#&gt; ✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n#&gt; ✔ purrr     1.1.0     \n#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n#&gt; ✖ dplyr::filter() masks stats::filter()\n#&gt; ✖ dplyr::lag()    masks stats::lag()\n#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Múltipla"
@@ -1412,7 +1412,7 @@
     "href": "semanas/Aula07.2.html#carregando-bibliotecas",
     "title": "Regressão Linear Múltipla",
     "section": "",
-    "text": "library(tidyverse)\n\n#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n#&gt; ✔ dplyr     1.1.4     ✔ readr     2.1.5\n#&gt; ✔ forcats   1.0.0     ✔ stringr   1.5.1\n#&gt; ✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n#&gt; ✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n#&gt; ✔ purrr     1.0.2     \n#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n#&gt; ✖ purrr::%||%()   masks base::%||%()\n#&gt; ✖ dplyr::filter() masks stats::filter()\n#&gt; ✖ dplyr::lag()    masks stats::lag()\n#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
+    "text": "library(tidyverse)\n\n#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n#&gt; ✔ dplyr     1.1.4     ✔ readr     2.1.5\n#&gt; ✔ forcats   1.0.0     ✔ stringr   1.5.1\n#&gt; ✔ ggplot2   3.5.2     ✔ tibble    3.3.0\n#&gt; ✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n#&gt; ✔ purrr     1.1.0     \n#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n#&gt; ✖ dplyr::filter() masks stats::filter()\n#&gt; ✖ dplyr::lag()    masks stats::lag()\n#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Múltipla"
@@ -1489,7 +1489,7 @@
     "href": "semanas/Aula07.2.html#avaliando-as-correlações",
     "title": "Regressão Linear Múltipla",
     "section": "Avaliando as correlações",
-    "text": "Avaliando as correlações\n\nlibrary(corrplot)\n\n#&gt; corrplot 0.92 loaded\n\nmat_corr &lt;- cor(conj_treino)\ncorrplot(mat_corr)",
+    "text": "Avaliando as correlações\n\nlibrary(corrplot)\n\n#&gt; corrplot 0.95 loaded\n\nmat_corr &lt;- cor(conj_treino)\ncorrplot(mat_corr)\n\n\n\n\n\n\ncorrplot(mat_corr,method = \"number\")\n\n\n\n\n\n\ncor(conj_treino)\n\n#&gt;                 TV     Radio      Jornal    Vendas\n#&gt; TV      1.00000000 0.1193634 -0.01192443 0.7778348\n#&gt; Radio   0.11936345 1.0000000  0.41432470 0.6313682\n#&gt; Jornal -0.01192443 0.4143247  1.00000000 0.2466562\n#&gt; Vendas  0.77783481 0.6313682  0.24665616 1.0000000",
     "crumbs": [
       "Conteúdo Semanal",
       "Regressão Múltipla"

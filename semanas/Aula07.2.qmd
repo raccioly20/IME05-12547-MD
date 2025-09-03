@@ -103,6 +103,8 @@ mod3 <- lm( Vendas ~ Jornal, data = conj_treino)
 library(corrplot)
 mat_corr <- cor(conj_treino)
 corrplot(mat_corr)
+corrplot(mat_corr,method = "number")
+cor(conj_treino)
 ```
 
 ## 1a Regressão Multipla
