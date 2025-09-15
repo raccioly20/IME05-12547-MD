@@ -239,6 +239,25 @@ ggplot(conj_treino, aes(x=Previsoes, y=preco_m)) +
   ggtitle("Preço da Casa vs. Previsões do modelo linear")
 ```
 
+O modelo está tendendo dar previsões mais altas nas casas com menor preço e previsões mais baixas nas casas com maior preço.
+Tem duas previsões estão mais afastadas da reta Y = X. 
+Vamos identificar estes pontos.
+
+
+```{r}
+conj_treino$Previsoes <- predict(mod_bic, conj_treino)
+ggplot(conj_treino, aes(x=Previsoes, y=preco_m)) + 
+  geom_point() +
+  geom_abline(color = "darkblue") +
+  ggtitle("Preço da Casa vs. Previsões do modelo linear") +
+  geom_text(aes(label=ifelse(Previsoes > 670, rownames(conj_treino), '')), hjust=0, vjust=-0.5)
+```
+
+```{r}
+conj_treino[c(3, 704), ]
+```
+
+
 ## Comparando valor real vs previsão (conjunto de teste)
 
 ```{r}
