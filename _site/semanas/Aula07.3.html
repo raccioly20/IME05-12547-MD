@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2025-09-15">
+<meta name="dcterms.date" content="2025-09-18">
 <title>Seleção de Modelos – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -580,15 +580,15 @@ window.Quarto = {
   <li><a href="#matriz-de-correla%C3%A7%C3%A3o" id="toc-matriz-de-correlação" class="nav-link" data-scroll-target="#matriz-de-correla%C3%A7%C3%A3o">Matriz de correlação</a></li>
   <li><a href="#matriz-de-dispers%C3%A3o" id="toc-matriz-de-dispersão" class="nav-link" data-scroll-target="#matriz-de-dispers%C3%A3o">Matriz de dispersão</a></li>
   <li><a href="#m%C3%A9todos-de-sele%C3%A7%C3%A3o-de-modelo" id="toc-métodos-de-seleção-de-modelo" class="nav-link" data-scroll-target="#m%C3%A9todos-de-sele%C3%A7%C3%A3o-de-modelo">Métodos de seleção de modelo</a></li>
-  <li><a href="#nvmax13" id="toc-nvmax13" class="nav-link" data-scroll-target="#nvmax13">nvmax=13</a></li>
-  <li><a href="#avaliando-os-modelos" id="toc-avaliando-os-modelos" class="nav-link" data-scroll-target="#avaliando-os-modelos">Avaliando os modelos</a></li>
+  <li><a href="#parametros-adicionais" id="toc-parametros-adicionais" class="nav-link" data-scroll-target="#parametros-adicionais">Parametros adicionais</a></li>
+  <li><a href="#avaliando-os-modelos-com-o-cp" id="toc-avaliando-os-modelos-com-o-cp" class="nav-link" data-scroll-target="#avaliando-os-modelos-com-o-cp">Avaliando os modelos com o Cp</a></li>
   <li><a href="#como-extrair-detalhes-do-ajuste" id="toc-como-extrair-detalhes-do-ajuste" class="nav-link" data-scroll-target="#como-extrair-detalhes-do-ajuste">Como extrair detalhes do ajuste</a></li>
   <li><a href="#forward-stepwise-passo-a-passo-%C3%A0-frente" id="toc-forward-stepwise-passo-a-passo-à-frente" class="nav-link" data-scroll-target="#forward-stepwise-passo-a-passo-%C3%A0-frente">Forward Stepwise (passo a passo à frente)</a></li>
   <li><a href="#como-extrair-detalhes-do-ajuste-1" id="toc-como-extrair-detalhes-do-ajuste-1" class="nav-link" data-scroll-target="#como-extrair-detalhes-do-ajuste-1">Como extrair detalhes do ajuste</a></li>
   <li><a href="#backward-stepwise-passo-a-passo-atr%C3%A1s" id="toc-backward-stepwise-passo-a-passo-atrás" class="nav-link" data-scroll-target="#backward-stepwise-passo-a-passo-atr%C3%A1s">Backward Stepwise (passo a passo atrás)</a></li>
   <li><a href="#como-extrair-detalhes-do-ajuste-2" id="toc-como-extrair-detalhes-do-ajuste-2" class="nav-link" data-scroll-target="#como-extrair-detalhes-do-ajuste-2">Como extrair detalhes do ajuste</a></li>
-  <li><a href="#testando-outra-estat%C3%ADstica-de-sele%C3%A7%C3%A3o-de-modelos---bic" id="toc-testando-outra-estatística-de-seleção-de-modelos---bic" class="nav-link" data-scroll-target="#testando-outra-estat%C3%ADstica-de-sele%C3%A7%C3%A3o-de-modelos---bic">Testando outra estatística de seleção de modelos - BIC</a></li>
-  <li><a href="#usando-o-cp-novamente" id="toc-usando-o-cp-novamente" class="nav-link" data-scroll-target="#usando-o-cp-novamente">Usando o Cp novamente</a></li>
+  <li><a href="#usando-o-bic-para-sele%C3%A7%C3%A3o-de-vari%C3%A1veis" id="toc-usando-o-bic-para-seleção-de-variáveis" class="nav-link" data-scroll-target="#usando-o-bic-para-sele%C3%A7%C3%A3o-de-vari%C3%A1veis">Usando o BIC para seleção de variáveis</a></li>
+  <li><a href="#revendo-o-resultado-com-o-cp" id="toc-revendo-o-resultado-com-o-cp" class="nav-link" data-scroll-target="#revendo-o-resultado-com-o-cp">Revendo o resultado com o Cp</a></li>
   <li><a href="#comparando-os-dois-modelos-com-o-lm" id="toc-comparando-os-dois-modelos-com-o-lm" class="nav-link" data-scroll-target="#comparando-os-dois-modelos-com-o-lm">Comparando os dois modelos com o lm()</a></li>
   <li><a href="#avaliando-colinearidade" id="toc-avaliando-colinearidade" class="nav-link" data-scroll-target="#avaliando-colinearidade">Avaliando Colinearidade</a></li>
   <li><a href="#testando-os-dois-modelos-com-o-conjunto-de-teste" id="toc-testando-os-dois-modelos-com-o-conjunto-de-teste" class="nav-link" data-scroll-target="#testando-os-dois-modelos-com-o-conjunto-de-teste">Testando os dois modelos com o conjunto de teste</a></li>
@@ -616,7 +616,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 15, 2025</p>
+      <p class="date">September 18, 2025</p>
     </div>
   </div>
   
@@ -723,7 +723,7 @@ window.Quarto = {
 </tr>
 </tbody></table></td>
 <td style="text-align: left; vertical-align: middle;">45 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCQ8TGjlZpP03AAAAjklEQVRo3u3X0QnAIAwAUVdwhXaDuv9upehPIMQYSyl6N8AjqKCmRJGy0VHL/RzYWZ4usM+xto3vYFUpYGBgYGBgYAthjjefHyv9AXfGxMNsFhMKGNivMe3ohzFNWQkzFmscMxQwMDAwMLCGWd+BYcwaEAwMDAxsC0y9V6KYOiCYB5P7MInJAeXndbJEkW4NiXT8SkuKYgAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCRILJitpqIgKAAAAjklEQVRo3u3X0QnAIAwAUVdwhXaDuv9upehPIMQYSyl6N8AjqKCmRJGy0VHL/RzYWZ4usM+xto3vYFUpYGBgYGBgYAthjjefHyv9AXfGxMNsFhMKGNivMe3ohzFNWQkzFmscMxQwMDAwMLCGWd+BYcwaEAwMDAxsC0y9V6KYOiCYB5P7MInJAeXndbJEkW4NiXT8SkuKYgAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1492 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -810,7 +810,7 @@ window.Quarto = {
 <td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFgAAADEBAMAAADpH/s/AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCQ8TGjlZpP03AAAAh0lEQVRo3u3WQQqAIBRFUbfgEqwd2P735iACkdJnWH3p3vEZCf+hc3MWvBIYDDaBJfs8Xo4UvG57EQwGj8JdN+il3tuNasVrVItg8N9x11kZmYIRuxFO8cXTgcHg+2flpWzh9v+oeLoIBoMbuOusms4gDmAw+FMsWaYADAZnWLLsBhgMzvBsJb53mqQs9Q3tAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFgAAADEBAMAAADpH/s/AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCRILJitpqIgKAAAAh0lEQVRo3u3WQQqAIBRFUbfgEqwd2P735iACkdJnWH3p3vEZCf+hc3MWvBIYDDaBJfs8Xo4UvG57EQwGj8JdN+il3tuNasVrVItg8N9x11kZmYIRuxFO8cXTgcHg+2flpWzh9v+oeLoIBoMbuOusms4gDmAw+FMsWaYADAZnWLLsBhgMzvBsJb53mqQs9Q3tAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1492 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -832,7 +832,7 @@ window.Quarto = {
 </tr>
 </tbody></table></td>
 <td style="text-align: left; vertical-align: middle;">14 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCQ8TGjlZpP03AAAAfUlEQVRo3u3ZuwmAMBRA0aygGxg3MPvvZmEsFP+JoHBukyqHwIM0LwQ9qdku5rrmUsdYn6ZgMBgMBoPBYDAYDAaDwWAwGAwGg8F+irV5d1IHy8gr2LzlqYLlc4Ddx04GcQ9Lxy+EFWPzuKpgq1sfwOLyAzvDdlbFK6ysoCeNyop1Uszb958AAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCRILJitpqIgKAAAAfUlEQVRo3u3ZuwmAMBRA0aygGxg3MPvvZmEsFP+JoHBukyqHwIM0LwQ9qdku5rrmUsdYn6ZgMBgMBoPBYDAYDAaDwWAwGAwGg8F+irV5d1IHy8gr2LzlqYLlc4Ddx04GcQ9Lxy+EFWPzuKpgq1sfwOLyAzvDdlbFK6ysoCeNyop1Uszb958AAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1492 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -854,7 +854,7 @@ window.Quarto = {
 </tr>
 </tbody></table></td>
 <td style="text-align: left; vertical-align: middle;">290 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCQ8TGjlZpP03AAAA0klEQVRo3u3ZbQqEIBAGYK/Q3iC9wc7977ZJSoPM+jEjFfi+EP3yYTIzVOcQTTY5/si+daeOBSJaCIt9Nw077l9gD2HxTZqxz4lQuozYBQFTYh3fZz9G7eqArYs1xtoY1qgO2NpYZayNY5XqbsDiP9NPw1IrYMCAAQM2gP3ZB9BhJK+2gQEDBgzYTEzawlVjQagO2OuwvG6agxUtgAF7GCvnNBNWVrcmxmYMOxbkFndhfAfMjAW2lHoflh+VYfm0ahyjVF3C/HVipcSiwDB7HKLJD8qPYoDJpXLCAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCRILJitpqIgKAAAA0klEQVRo3u3ZbQqEIBAGYK/Q3iC9wc7977ZJSoPM+jEjFfi+EP3yYTIzVOcQTTY5/si+daeOBSJaCIt9Nw077l9gD2HxTZqxz4lQuozYBQFTYh3fZz9G7eqArYs1xtoY1qgO2NpYZayNY5XqbsDiP9NPw1IrYMCAAQM2gP3ZB9BhJK+2gQEDBgzYTEzawlVjQagO2OuwvG6agxUtgAF7GCvnNBNWVrcmxmYMOxbkFndhfAfMjAW2lHoflh+VYfm0ahyjVF3C/HVipcSiwDB7HKLJD8qPYoDJpXLCAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1492 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -876,7 +876,7 @@ window.Quarto = {
 </tr>
 </tbody></table></td>
 <td style="text-align: left; vertical-align: middle;">1310 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCQ8TGjlZpP03AAAAWElEQVRo3u3ZsRHAIAwEQbVACYYO7P57c2CRM4Aj9hJlO58rQjPV7CorJdaeLxgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBjsS6x/YLVje+09scHBidUuhmV4bg0yfOwR1OgAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCRILJitpqIgKAAAAWElEQVRo3u3ZsRHAIAwEQbVACYYO7P57c2CRM4Aj9hJlO58rQjPV7CorJdaeLxgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBjsS6x/YLVje+09scHBidUuhmV4bg0yfOwR1OgAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1492 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -898,7 +898,7 @@ window.Quarto = {
 </tr>
 </tbody></table></td>
 <td style="text-align: left; vertical-align: middle;">121 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCQ8TGjlZpP03AAAAdElEQVRo3u3ZwQmAMAxA0a6gG1g3sPvvZgsteBCF1JO8DyG3R+5JSZFybVtm69heSoHBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYD/B1vZO/Ayr+wiDd1ibWawdlAcWuu6C7QMKg0/YAEfbLHaZ8gp3LH9SUqQTTH8jDkckmsUAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCRILJitpqIgKAAAAdElEQVRo3u3ZwQmAMAxA0a6gG1g3sPvvZgsteBCF1JO8DyG3R+5JSZFybVtm69heSoHBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYD/B1vZO/Ayr+wiDd1ibWawdlAcWuu6C7QMKg0/YAEfbLHaZ8gp3LH9SUqQTTH8jDkckmsUAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1492 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -934,7 +934,7 @@ window.Quarto = {
 <td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAI4AAAA3BAMAAAAoFm+GAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCQ8TGjlZpP03AAAATElEQVRIx2NgGAWEgBIcKAqSBaDmKBvDwKg5o+aMmjNqzqg5g8kcapXz5Gke/OYoUQow4os8YDRqzqg5o+aMmjNqDk3MoVY5PwpwAwDx1JrpSotwlQAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAI4AAAA3BAMAAAAoFm+GAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCRILJiz3zB2pAAAATElEQVRIx2NgGAWEgBIcKAqSBaDmKBvDwKg5o+aMmjNqzqg5g8kcapXz5Gke/OYoUQow4os8YDRqzqg5o+aMmjNqDk3MoVY5PwpwAwDx1JrpSotwlQAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1492 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -956,13 +956,13 @@ window.Quarto = {
 </tr>
 </tbody></table></td>
 <td style="text-align: left; vertical-align: middle;">545 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCQ8TGjlZpP03AAAAw0lEQVRo3u3YUQ6EIAxFUbbg7EDYge5/byON1RGtCVgTM96X+NEPTmpAUEMgLenKfOKUvquLiY1TrmLakGC13ZVYmhsSLFV2dzuW7y56YfkafjGZWg9M2xw8MC3AwHwwWeduWDke7L+xeL5L1mHpvEWwl2P2WmvA7O7AnoFt3u+OMT27lqK3sMPxW2wsi+di+233ArZ/UMHAwMDAFmz90+OB5cIF0yPSBdMCDAwMDOy9mHxheGFSgIGBgYHZWHRJIC35AtvhV01MPFc4AAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCRILJiz3zB2pAAAAw0lEQVRo3u3YUQ6EIAxFUbbg7EDYge5/byON1RGtCVgTM96X+NEPTmpAUEMgLenKfOKUvquLiY1TrmLakGC13ZVYmhsSLFV2dzuW7y56YfkafjGZWg9M2xw8MC3AwHwwWeduWDke7L+xeL5L1mHpvEWwl2P2WmvA7O7AnoFt3u+OMT27lqK3sMPxW2wsi+di+233ArZ/UMHAwMDAFmz90+OB5cIF0yPSBdMCDAwMDOy9mHxheGFSgIGBgYHZWHRJIC35AtvhV01MPFc4AAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1492 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 </tbody>
 </table>
-<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.1.4 (<a href="https://www.r-project.org/">R</a> version 4.5.1)<br>2025-09-15</p>
+<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.1.4 (<a href="https://www.r-project.org/">R</a> version 4.5.1)<br>2025-09-18</p>
 </div>
 </div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">vendas_casa</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1594,13 +1594,13 @@ window.Quarto = {
 </div>
 </div>
 </section><section id="matriz-de-correlação" class="level2"><h2 class="anchored" data-anchor-id="matriz-de-correlação">Matriz de correlação</h2>
-<div class="cell" data-figure.width="8">
+<div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/taiyun/corrplot">corrplot</a></span><span class="op">)</span></span>
 <span><span class="va">mat_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html">corrplot</a></span><span class="op">(</span><span class="va">mat_corr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html">corrplot</a></span><span class="op">(</span><span class="va">mat_corr</span>, method <span class="op">=</span> <span class="st">"number"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/corrplot1-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -1616,7 +1616,7 @@ window.Quarto = {
 <span>             <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/splom2-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -1650,14 +1650,16 @@ window.Quarto = {
 #&gt; 7  ( 1 ) "*"   "*"     "*"       "*"      "*"    "*"      "*"</code></pre>
 </div>
 </div>
-</section><section id="nvmax13" class="level2"><h2 class="anchored" data-anchor-id="nvmax13">nvmax=13</h2>
+</section><section id="parametros-adicionais" class="level2"><h2 class="anchored" data-anchor-id="parametros-adicionais">Parametros adicionais</h2>
+<p>Na função <code>regsubsets</code> use adicionalmente os parametros nvmax, que define o número máximo de variáveis explicativas analisadas, e method, que define qual método de seleção de variáveis deverá ser usado.</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaps/man/regsubsets.html">regsubsets</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">conj_treino</span>, nvmax<span class="op">=</span><span class="fl">13</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaps/man/regsubsets.html">regsubsets</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">conj_treino</span>, nvmax<span class="op">=</span><span class="fl">13</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"exhaustive"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">sumario.reg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ajusreg.comp</span><span class="op">)</span></span>
 <span><span class="va">sumario.reg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Subset selection object
-#&gt; Call: regsubsets.formula(preco_m ~ ., data = conj_treino, nvmax = 13)
+#&gt; Call: regsubsets.formula(preco_m ~ ., data = conj_treino, nvmax = 13, 
+#&gt;     method = c("exhaustive"))
 #&gt; 7 Variables  (and intercept)
 #&gt;           Forced in Forced out
 #&gt; idade         FALSE      FALSE
@@ -1683,25 +1685,21 @@ window.Quarto = {
 <pre><code>#&gt; [1] "which"  "rsq"    "rss"    "adjr2"  "cp"     "bic"    "outmat" "obj"</code></pre>
 </div>
 </div>
-</section><section id="avaliando-os-modelos" class="level2"><h2 class="anchored" data-anchor-id="avaliando-os-modelos">Avaliando os modelos</h2>
+</section><section id="avaliando-os-modelos-com-o-cp" class="level2"><h2 class="anchored" data-anchor-id="avaliando-os-modelos-com-o-cp">Avaliando os modelos com o Cp</h2>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Os modelos vão ser escolhidos com base no menor Cp</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span>,xlab<span class="op">=</span><span class="st">"Número de Variáveis"</span>,ylab<span class="op">=</span><span class="st">"Cp"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 6</code></pre>
-</div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fl">6</span>,<span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span>,<span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/avaliando-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </section><section id="como-extrair-detalhes-do-ajuste" class="level2"><h2 class="anchored" data-anchor-id="como-extrair-detalhes-do-ajuste">Como extrair detalhes do ajuste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.comp</span>,<span class="fl">6</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.comp</span>,<span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;   (Intercept)         idade       quartos     banheiros      m2_princ 
 #&gt;  2.551855e+02 -9.302566e-01 -4.456961e+01  9.461555e+00  1.441541e-01 
@@ -1711,7 +1709,7 @@ window.Quarto = {
 </div>
 </section><section id="forward-stepwise-passo-a-passo-à-frente" class="level2"><h2 class="anchored" data-anchor-id="forward-stepwise-passo-a-passo-à-frente">Forward Stepwise (passo a passo à frente)</h2>
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.fwd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaps/man/regsubsets.html">regsubsets</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">.</span> , data<span class="op">=</span><span class="va">conj_treino</span>,nvmax<span class="op">=</span><span class="fl">13</span>, method<span class="op">=</span><span class="st">"forward"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.fwd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaps/man/regsubsets.html">regsubsets</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">.</span> , data<span class="op">=</span><span class="va">conj_treino</span>,nvmax<span class="op">=</span><span class="fl">13</span>, method<span class="op">=</span><span class="st">"forward"</span><span class="op">)</span></span>
 <span><span class="va">sumario.reg.fwd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ajusreg.fwd</span><span class="op">)</span></span>
 <span><span class="va">sumario.reg.fwd</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1738,22 +1736,18 @@ window.Quarto = {
 #&gt; 6  ( 1 ) "*"   "*"     "*"       "*"      "*"    " "      "*"    
 #&gt; 7  ( 1 ) "*"   "*"     "*"       "*"      "*"    "*"      "*"</code></pre>
 </div>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg.fwd</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 6</code></pre>
-</div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sumario.reg.fwd</span><span class="op">$</span><span class="va">cp</span>,xlab<span class="op">=</span><span class="st">"Número de Variáveis"</span>,ylab<span class="op">=</span><span class="st">"Cp"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fl">6</span>,<span class="va">sumario.reg.fwd</span><span class="op">$</span><span class="va">cp</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sumario.reg.fwd</span><span class="op">$</span><span class="va">cp</span>,xlab<span class="op">=</span><span class="st">"Número de Variáveis"</span>,ylab<span class="op">=</span><span class="st">"Cp"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg.fwd</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span>,<span class="va">sumario.reg.fwd</span><span class="op">$</span><span class="va">cp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg.fwd</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/FR-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </section><section id="como-extrair-detalhes-do-ajuste-1" class="level2"><h2 class="anchored" data-anchor-id="como-extrair-detalhes-do-ajuste-1">Como extrair detalhes do ajuste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.fwd</span>,<span class="fl">6</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.fwd</span>,<span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg.fwd</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;   (Intercept)         idade       quartos     banheiros      m2_princ 
 #&gt;  2.551855e+02 -9.302566e-01 -4.456961e+01  9.461555e+00  1.441541e-01 
@@ -1762,14 +1756,38 @@ window.Quarto = {
 </div>
 </div>
 </section><section id="backward-stepwise-passo-a-passo-atrás" class="level2"><h2 class="anchored" data-anchor-id="backward-stepwise-passo-a-passo-atrás">Backward Stepwise (passo a passo atrás)</h2>
-<div class="cell" data-figure.width="6.5">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.bwd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaps/man/regsubsets.html">regsubsets</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">.</span> , data<span class="op">=</span><span class="va">conj_treino</span>,nvmax<span class="op">=</span><span class="fl">13</span>, method<span class="op">=</span><span class="st">"backward"</span><span class="op">)</span></span>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.bwd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaps/man/regsubsets.html">regsubsets</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">.</span> , data<span class="op">=</span><span class="va">conj_treino</span>,nvmax<span class="op">=</span><span class="fl">13</span>, method<span class="op">=</span><span class="st">"backward"</span><span class="op">)</span></span>
 <span><span class="va">sumario.reg.bwd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ajusreg.bwd</span><span class="op">)</span></span>
-<span><span class="va">sumario.reg.bwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sumario.reg.bwd</span><span class="op">$</span><span class="va">cp</span>,xlab<span class="op">=</span><span class="st">"Número de Variáveis"</span>,ylab<span class="op">=</span><span class="st">"Cp"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg.bwd</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span>,<span class="va">sumario.reg.bwd</span><span class="op">$</span><span class="va">cp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg.bwd</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="como-extrair-detalhes-do-ajuste-2" class="level2"><h2 class="anchored" data-anchor-id="como-extrair-detalhes-do-ajuste-2">Como extrair detalhes do ajuste</h2>
+<div class="cell">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.bwd</span>,<span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg.bwd</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;   (Intercept)         idade       quartos     banheiros      m2_princ 
+#&gt;  2.551855e+02 -9.302566e-01 -4.456961e+01  9.461555e+00  1.441541e-01 
+#&gt;        m2_tot       andares 
+#&gt;  9.183278e-05  3.486187e+01</code></pre>
+</div>
+</div>
+</section><section id="usando-o-bic-para-seleção-de-variáveis" class="level2"><h2 class="anchored" data-anchor-id="usando-o-bic-para-seleção-de-variáveis">Usando o BIC para seleção de variáveis</h2>
+<p>Aqui voltamos a usar o método exaustivo (<strong>best subset selection</strong>) que é o mais completo</p>
+<div class="cell">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaps/man/regsubsets.html">regsubsets</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">conj_treino</span>, nvmax<span class="op">=</span><span class="fl">13</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"exhaustive"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">sumario.reg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ajusreg.comp</span><span class="op">)</span></span>
+<span><span class="va">sumario.reg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Subset selection object
 #&gt; Call: regsubsets.formula(preco_m ~ ., data = conj_treino, nvmax = 13, 
-#&gt;     method = "backward")
+#&gt;     method = c("exhaustive"))
 #&gt; 7 Variables  (and intercept)
 #&gt;           Forced in Forced out
 #&gt; idade         FALSE      FALSE
@@ -1780,7 +1798,7 @@ window.Quarto = {
 #&gt; m2_porao      FALSE      FALSE
 #&gt; andares       FALSE      FALSE
 #&gt; 1 subsets of each size up to 7
-#&gt; Selection Algorithm: backward
+#&gt; Selection Algorithm: exhaustive
 #&gt;          idade quartos banheiros m2_princ m2_tot m2_porao andares
 #&gt; 1  ( 1 ) " "   " "     " "       "*"      " "    " "      " "    
 #&gt; 2  ( 1 ) " "   "*"     " "       "*"      " "    " "      " "    
@@ -1790,70 +1808,36 @@ window.Quarto = {
 #&gt; 6  ( 1 ) "*"   "*"     "*"       "*"      "*"    " "      "*"    
 #&gt; 7  ( 1 ) "*"   "*"     "*"       "*"      "*"    "*"      "*"</code></pre>
 </div>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg.bwd</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 6</code></pre>
-</div>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sumario.reg.bwd</span><span class="op">$</span><span class="va">cp</span>,xlab<span class="op">=</span><span class="st">"Número de Variáveis"</span>,ylab<span class="op">=</span><span class="st">"Cp"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fl">6</span>,<span class="va">sumario.reg.bwd</span><span class="op">$</span><span class="va">cp</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/BR-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section id="como-extrair-detalhes-do-ajuste-2" class="level2"><h2 class="anchored" data-anchor-id="como-extrair-detalhes-do-ajuste-2">Como extrair detalhes do ajuste</h2>
-<div class="cell">
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.bwd</span>,<span class="fl">6</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt;   (Intercept)         idade       quartos     banheiros      m2_princ 
-#&gt;  2.551855e+02 -9.302566e-01 -4.456961e+01  9.461555e+00  1.441541e-01 
-#&gt;        m2_tot       andares 
-#&gt;  9.183278e-05  3.486187e+01</code></pre>
-</div>
-</div>
-</section><section id="testando-outra-estatística-de-seleção-de-modelos---bic" class="level2"><h2 class="anchored" data-anchor-id="testando-outra-estatística-de-seleção-de-modelos---bic">Testando outra estatística de seleção de modelos - BIC</h2>
-<div class="cell">
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ajusreg.fwd1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaps/man/regsubsets.html">regsubsets</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">.</span> , data<span class="op">=</span><span class="va">conj_treino</span>,nvmax<span class="op">=</span><span class="fl">13</span>, method<span class="op">=</span><span class="st">"forward"</span><span class="op">)</span></span>
-<span><span class="va">sumario.reg.fwd1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ajusreg.fwd1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">sumario.reg.fwd1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] "which"  "rsq"    "rss"    "adjr2"  "cp"     "bic"    "outmat" "obj"</code></pre>
 </div>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg.fwd1</span><span class="op">$</span><span class="va">bic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 4</code></pre>
-</div>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sumario.reg.fwd1</span><span class="op">$</span><span class="va">bic</span>,xlab<span class="op">=</span><span class="st">"Número de Variáveis"</span>,ylab<span class="op">=</span><span class="st">"BIC"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fl">4</span>,<span class="va">sumario.reg.fwd1</span><span class="op">$</span><span class="va">bic</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">bic</span>,xlab<span class="op">=</span><span class="st">"Número de Variáveis"</span>,ylab<span class="op">=</span><span class="st">"BIC"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">bic</span><span class="op">)</span>,<span class="va">sumario.reg</span><span class="op">$</span><span class="va">bic</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">bic</span><span class="op">)</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/BIC-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.fwd1</span>,<span class="fl">4</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.comp</span>,<span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">bic</span><span class="op">)</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; (Intercept)       idade     quartos    m2_princ     andares 
 #&gt; 269.5362098  -0.9457714 -43.3967857   0.1469077  35.2705008</code></pre>
 </div>
 </div>
-</section><section id="usando-o-cp-novamente" class="level2"><h2 class="anchored" data-anchor-id="usando-o-cp-novamente">Usando o Cp novamente</h2>
+<p>Veja que o BIC apresentou um modelo mais enxuto</p>
+</section><section id="revendo-o-resultado-com-o-cp" class="level2"><h2 class="anchored" data-anchor-id="revendo-o-resultado-com-o-cp">Revendo o resultado com o Cp</h2>
 <div class="cell">
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg.fwd1</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 6</code></pre>
-</div>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sumario.reg.fwd1</span><span class="op">$</span><span class="va">cp</span>,xlab<span class="op">=</span><span class="st">"Número de Variáveis"</span>,ylab<span class="op">=</span><span class="st">"Cp"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fl">6</span>,<span class="va">sumario.reg.fwd1</span><span class="op">$</span><span class="va">cp</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span>,xlab<span class="op">=</span><span class="st">"Número de Variáveis"</span>,ylab<span class="op">=</span><span class="st">"Cp"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span>,<span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span><span class="op">]</span>,pch<span class="op">=</span><span class="fl">20</span>,col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/cp_denovo-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.fwd1</span>,<span class="fl">6</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ajusreg.comp</span>,<span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">sumario.reg</span><span class="op">$</span><span class="va">cp</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;   (Intercept)         idade       quartos     banheiros      m2_princ 
 #&gt;  2.551855e+02 -9.302566e-01 -4.456961e+01  9.461555e+00  1.441541e-01 
@@ -1863,7 +1847,7 @@ window.Quarto = {
 </div>
 </section><section id="comparando-os-dois-modelos-com-o-lm" class="level2"><h2 class="anchored" data-anchor-id="comparando-os-dois-modelos-com-o-lm">Comparando os dois modelos com o lm()</h2>
 <div class="cell">
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Usando o lm para ajustar o modelo com as variáveis selecionadas pelo BIC</span></span>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Usando o lm para ajustar o modelo com as variáveis selecionadas pelo BIC</span></span>
 <span><span class="va">mod_bic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">idade</span> <span class="op">+</span> <span class="va">quartos</span> <span class="op">+</span> <span class="va">m2_princ</span> <span class="op">+</span> <span class="va">andares</span>, data<span class="op">=</span><span class="va">conj_treino</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_bic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1890,7 +1874,7 @@ window.Quarto = {
 #&gt; Multiple R-squared:  0.7515, Adjusted R-squared:  0.7507 
 #&gt; F-statistic: 897.4 on 4 and 1187 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_cp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">idade</span> <span class="op">+</span> <span class="va">quartos</span> <span class="op">+</span> <span class="va">banheiros</span> <span class="op">+</span> <span class="va">m2_princ</span> <span class="op">+</span> <span class="va">m2_tot</span> <span class="op">+</span> <span class="va">andares</span>, data<span class="op">=</span><span class="va">conj_treino</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_cp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">idade</span> <span class="op">+</span> <span class="va">quartos</span> <span class="op">+</span> <span class="va">banheiros</span> <span class="op">+</span> <span class="va">m2_princ</span> <span class="op">+</span> <span class="va">m2_tot</span> <span class="op">+</span> <span class="va">andares</span>, data<span class="op">=</span><span class="va">conj_treino</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_cp</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
@@ -1919,18 +1903,18 @@ window.Quarto = {
 #&gt; F-statistic: 604.6 on 6 and 1185 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>Em termos de ajuste praticamente não há diferença nos resultados, sendo que o modelo obtido usando o BIC é bem mais enxuto. A parcimoniosidade é sempre bem vinda, mas é necessário ver como ficam os resultados com o conjunto de testes.</p>
+<p><strong>Em termos de ajuste praticamente não há diferença nos resultados, sendo que o modelo obtido usando o BIC é bem mais enxuto. A parcimoniosidade é sempre bem vinda, mas é necessário ver como ficam os resultados com o conjunto de testes.</strong></p>
 </section><section id="avaliando-colinearidade" class="level2"><h2 class="anchored" data-anchor-id="avaliando-colinearidade">Avaliando Colinearidade</h2>
 <p>Uma investigação minuciosa da multicollinearidade envolverá a análise do valor do <span class="math inline">\(R^2\)</span> que resulta da regressão de cada uma das variáveis explicativas contra todas as outras. A relação entre as variáveis explicativas pode ser julgada examinando uma quantidade chamada fator de inflacionário da variância (FIV) ou Variance Inflation Factor (VIF). Seja <span class="math inline">\(Rj~^{2}\)</span> o quadrado do coeficiente de correlação múltipla que resulta quando a variável explicativa <span class="math inline">\(Xj~\)</span> é ajustada contra todas as outras variáveis explicativas. Então o vif para <span class="math inline">\(Xj~\)</span> é <span class="math inline">\(VIFj = 1 / (1-Rj~^{2})\)</span></p>
 <p><strong>A regra geral é que vifs superiores a 4 justificam novas investigações, enquanto VIFs superiores a 10 são sinais de multicollinearidade grave que requerem correção.</strong></p>
 <div class="cell">
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">mod_bic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;    idade  quartos m2_princ  andares 
 #&gt; 1.121531 2.034438 2.171839 1.025749</code></pre>
 </div>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">mod_cp</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">mod_cp</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;     idade   quartos banheiros  m2_princ    m2_tot   andares 
 #&gt;  1.122951  2.187800  1.496041  2.343757  1.114370  1.129692</code></pre>
@@ -1938,53 +1922,53 @@ window.Quarto = {
 </div>
 </section><section id="testando-os-dois-modelos-com-o-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="testando-os-dois-modelos-com-o-conjunto-de-teste">Testando os dois modelos com o conjunto de teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Modelo com base no Cp</span></span>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Modelo com base no Cp</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_cp</span><span class="op">)</span><span class="op">$</span><span class="va">sigma</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 40.44459</code></pre>
 </div>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_cp</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_cp</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 0.7525384</code></pre>
 </div>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Erro com conjunto de teste</span></span>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Erro com conjunto de teste</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">preco_m</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_cp</span>, <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 41.50369</code></pre>
 </div>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Modelo com base no BIC</span></span>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Modelo com base no BIC</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_bic</span><span class="op">)</span><span class="op">$</span><span class="va">sigma</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 40.59764</code></pre>
 </div>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_bic</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_bic</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 0.750662</code></pre>
 </div>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Erro com conjunto de teste</span></span>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Erro com conjunto de teste</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">preco_m</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_bic</span>, <span class="va">conj_teste</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 41.56818</code></pre>
 </div>
 </div>
-<p>Aqui vemos que as diferença de resultados entre os dois modelos é muito pequena, mas o modelo com base no BIC é mais parcimonioso, então vamos usá-lo para fazer a previsão.</p>
+<p><strong>Aqui vemos que as diferença de resultados entre os dois modelos é muito pequena, mas o modelo com base no BIC é mais parcimonioso, então vamos usá-lo para fazer a previsão.</strong></p>
 </section><section id="comparando-valor-real-vs-previsão-conjunto-de-treino" class="level2"><h2 class="anchored" data-anchor-id="comparando-valor-real-vs-previsão-conjunto-de-treino">Comparando valor real vs previsão (conjunto de treino)</h2>
 <div class="cell">
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_treino</span><span class="op">$</span><span class="va">Previsoes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_bic</span>, <span class="va">conj_treino</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_treino</span><span class="op">$</span><span class="va">Previsoes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_bic</span>, <span class="va">conj_treino</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">conj_treino</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Previsoes</span>, y<span class="op">=</span><span class="va">preco_m</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Preço da Casa vs. Previsões do modelo linear"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>O modelo está tendendo dar previsões mais altas nas casas com menor preço e previsões mais baixas nas casas com maior preço. Tem duas previsões estão mais afastadas da reta Y = X. Vamos identificar estes pontos.</p>
 <div class="cell">
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_treino</span><span class="op">$</span><span class="va">Previsoes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_bic</span>, <span class="va">conj_treino</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_treino</span><span class="op">$</span><span class="va">Previsoes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_bic</span>, <span class="va">conj_treino</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">conj_treino</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Previsoes</span>, y<span class="op">=</span><span class="va">preco_m</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1992,13 +1976,13 @@ window.Quarto = {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">Previsoes</span> <span class="op">&gt;</span> <span class="fl">670</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span>, <span class="st">''</span><span class="op">)</span><span class="op">)</span>, hjust<span class="op">=</span><span class="fl">0</span>, vjust<span class="op">=</span><span class="op">-</span><span class="fl">0.5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_treino</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">704</span><span class="op">)</span>, <span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_treino</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">704</span><span class="op">)</span>, <span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; # A tibble: 2 × 9
 #&gt;   idade quartos banheiros m2_princ m2_tot m2_porao andares preco_m Previsoes
@@ -2009,24 +1993,24 @@ window.Quarto = {
 </div>
 </section><section id="comparando-valor-real-vs-previsão-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="comparando-valor-real-vs-previsão-conjunto-de-teste">Comparando valor real vs previsão (conjunto de teste)</h2>
 <div class="cell">
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_teste</span><span class="op">$</span><span class="va">Previsoes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_bic</span>, <span class="va">conj_teste</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_teste</span><span class="op">$</span><span class="va">Previsoes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_bic</span>, <span class="va">conj_teste</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">conj_teste</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Previsoes</span>, y<span class="op">=</span><span class="va">preco_m</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Preço da Casa vs. Previsões do modelo linear"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </section><section id="avaliando-os-resíduos" class="level2"><h2 class="anchored" data-anchor-id="avaliando-os-resíduos">Avaliando os resíduos</h2>
 <div class="cell">
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/residualPlots.html">residualPlots</a></span><span class="op">(</span><span class="va">mod_bic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/residualPlots.html">residualPlots</a></span><span class="op">(</span><span class="va">mod_bic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -2038,10 +2022,10 @@ window.Quarto = {
 #&gt; andares       0.9874           0.3236
 #&gt; Tukey test    0.6214           0.5343</code></pre>
 </div>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/influencePlot.html">influencePlot</a></span><span class="op">(</span><span class="va">mod_bic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/influencePlot.html">influencePlot</a></span><span class="op">(</span><span class="va">mod_bic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.3_files/figure-html/unnamed-chunk-22-2.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>

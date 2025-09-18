@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-10-25">
+<meta name="dcterms.date" content="2025-09-18">
 <title>Regularização de Modelos – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -608,7 +608,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 25, 2024</p>
+      <p class="date">September 18, 2025</p>
     </div>
   </div>
   
@@ -655,7 +655,7 @@ window.Quarto = {
 #&gt;  Min.   :350000   Min.   : 0.00   Min.   :1.000   Min.   :0.750  
 #&gt;  1st Qu.:410000   1st Qu.:12.00   1st Qu.:3.000   1st Qu.:2.438  
 #&gt;  Median :470000   Median :19.00   Median :3.000   Median :2.500  
-#&gt;  Mean   :479085   Mean   :18.53   Mean   :3.338   Mean   :2.473  
+#&gt;  Mean   :479084   Mean   :18.53   Mean   :3.338   Mean   :2.473  
 #&gt;  3rd Qu.:541625   3rd Qu.:25.00   3rd Qu.:4.000   3rd Qu.:2.500  
 #&gt;  Max.   :650000   Max.   :49.00   Max.   :8.000   Max.   :5.000  
 #&gt;     m2_princ        m2_tot          m2_porao         andares     
@@ -1176,6 +1176,15 @@ window.Quarto = {
 #ajgaokapiz .gt_indent_5 {
   text-indent: 25px;
 }
+
+#ajgaokapiz .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ajgaokapiz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
 </style>
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead><tr class="gt_col_headings header">
@@ -1296,7 +1305,7 @@ window.Quarto = {
 </div>
 </section><section id="métodos-de-regularização" class="level2"><h2 class="anchored" data-anchor-id="métodos-de-regularização">Métodos de Regularização</h2>
 <p>O pacote glmnet não usa a linguagem de formula, em particular nós devemos passar <span class="math inline">\(x\)</span> como uma matriz e <span class="math inline">\(y\)</span> como um vetor, pois não se usa a sintaxe <span class="math inline">\(y \sim x\)</span>. Com isso será necessário ajustar x e y. A função model.matrix() é particularmente útil para criar x; não só produz uma matriz correspondente as variáveis explicativas, <strong>mas também transforma automaticamente quaisquer variáveis qualitativas em variáveis dummy. Esta última propriedade é importante porque o glmnet() só pode tomar insumos numéricos e quantitativos.</strong></p>
-<p><strong>O pacote glmnet também por default padroniza as variáveis, o que é importante para a regressão Ridge e também para o LASSO. Ele posteriormente retorna os coeficientes para a escala inicial.</strong></p>
+<p><strong>O pacote glmnet também por padrão padroniza as variáveis (standardize=TRUE), o que é importante para a regressão Ridge e também para o LASSO. Ele posteriormente retorna os coeficientes para a escala inicial.</strong></p>
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="va">preco_m</span> <span class="op">~</span> <span class="va">.</span> , data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="va">y_treino</span> <span class="op">&lt;-</span> <span class="va">conj_treino</span><span class="op">$</span><span class="va">preco_m</span></span>
@@ -1322,7 +1331,7 @@ window.Quarto = {
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span>, xvar<span class="op">=</span><span class="st">"lambda"</span>, label<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Representando os coeficientes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/r1-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -1363,7 +1372,7 @@ window.Quarto = {
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/plotmo/man/plot_glmnet.html">plot_glmnet</a></span><span class="op">(</span><span class="va">ajusreg.ridge</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/r3-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -1377,7 +1386,7 @@ window.Quarto = {
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ridge_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/r4-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -1393,7 +1402,7 @@ window.Quarto = {
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">ridge_cv</span>, s<span class="op">=</span><span class="va">m_lamb</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 8 x 1 sparse Matrix of class "dgCMatrix"
-#&gt;                        s1
+#&gt;                s=6.425292
 #&gt; (Intercept)  2.642227e+02
 #&gt; idade       -1.136747e+00
 #&gt; quartos     -2.993272e+01
@@ -1423,7 +1432,7 @@ window.Quarto = {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Preço da Casa vs. Previsões do modelo Ridge"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -1446,14 +1455,14 @@ window.Quarto = {
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ajusreg.lasso</span>, xvar<span class="op">=</span><span class="st">"lambda"</span>, label<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Representando os coeficientes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/LASSO-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/plotmo/man/plot_glmnet.html">plot_glmnet</a></span><span class="op">(</span><span class="va">ajusreg.lasso</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/LASSO-2.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -1464,7 +1473,7 @@ window.Quarto = {
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lasso_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/Lasso2-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
@@ -1480,7 +1489,7 @@ window.Quarto = {
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lasso_cv</span>, s<span class="op">=</span><span class="va">m_lamb1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 8 x 1 sparse Matrix of class "dgCMatrix"
-#&gt;                        s1
+#&gt;               s=0.1384287
 #&gt; (Intercept)  2.567612e+02
 #&gt; idade       -9.248281e-01
 #&gt; quartos     -4.393777e+01
@@ -1509,7 +1518,7 @@ window.Quarto = {
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Preço da Casa vs. Previsões do modelo Ridge"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figure class="figure"><p><img src="Aula07.4_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 </div>

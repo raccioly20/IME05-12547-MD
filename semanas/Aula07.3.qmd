@@ -29,7 +29,7 @@ library(leaps)
 
 Vendas de casas em Seattle entre 2015 e 2016
 
-```{r Dados }
+```{r}
 vendas_casa <- readRDS("home_sales.rds")
 head(vendas_casa)
 vendas_casa <- vendas_casa %>% rename(preco=selling_price,
@@ -62,7 +62,7 @@ vendas_casa %>% select(where(is.numeric)) %>%
 
 ## Conjunto de teste e treino
 
-```{r treino_teste}
+```{r}
 library(caret)
 set.seed(21)
 nrow(vendas_casa)
@@ -79,15 +79,15 @@ gt::gt(head(conj_treino, 10))
 
 ## Matriz de correlação
 
-```{r corrplot1, fig.height=4.5, figure.width=8, message=FALSE}
+```{r}
 library(corrplot)
 mat_corr <- cor(conj_treino)
-corrplot(mat_corr)
+corrplot(mat_corr, method = "number")
 ```
 
 ## Matriz de dispersão
 
-```{r splom2}
+```{r}
 library(psych)
 pairs.panels(conj_treino,
              method = "pearson", # metodo de correlação
@@ -99,92 +99,90 @@ pairs.panels(conj_treino,
 
 ## Métodos de seleção de modelo
 
-```{r melhor_modelo}
+```{r}
 ## Best Subset sem definir o número máx de subsets a ser avaliado
 ajusreg.comp <- regsubsets(preco_m ~ ., data=conj_treino)
 summary(ajusreg.comp)
 ```
 
-## nvmax=13
+## Parametros adicionais
 
-```{r modelo_completo}
-ajusreg.comp <- regsubsets(preco_m ~ ., data=conj_treino, nvmax=13)
+Na função `regsubsets` use adicionalmente os parametros nvmax, que define o número máximo de variáveis explicativas analisadas, e method, que define qual método de seleção de variáveis deverá ser usado.
+
+```{r}
+ajusreg.comp <- regsubsets(preco_m ~ ., data=conj_treino, nvmax=13, method=c("exhaustive"))
 sumario.reg <- summary(ajusreg.comp)
 sumario.reg
 names(sumario.reg)
 ```
 
-## Avaliando os modelos
+## Avaliando os modelos com o Cp
 
-```{r avaliando}
+```{r}
 ## Os modelos vão ser escolhidos com base no menor Cp
 plot(sumario.reg$cp,xlab="Número de Variáveis",ylab="Cp")
-which.min(sumario.reg$cp)
-points(6,sumario.reg$cp[6],pch=20,col="red")
+points(which.min(sumario.reg$cp),sumario.reg$cp[which.min(sumario.reg$cp)],pch=20,col="red")
 ```
 
 ## Como extrair detalhes do ajuste
 
-```{r detalhes}
-coef(ajusreg.comp,6)  
+```{r}
+coef(ajusreg.comp,which.min(sumario.reg$cp))  
 ```
 
 ## Forward Stepwise (passo a passo à frente)
 
-```{r FR}
+```{r}
 ajusreg.fwd <- regsubsets(preco_m ~ . , data=conj_treino,nvmax=13, method="forward")
 sumario.reg.fwd <- summary(ajusreg.fwd)
 sumario.reg.fwd 
-which.min(sumario.reg.fwd$cp)
 plot(sumario.reg.fwd$cp,xlab="Número de Variáveis",ylab="Cp")
-points(6,sumario.reg.fwd$cp[6],pch=20,col="red")
+points(which.min(sumario.reg.fwd$cp),sumario.reg.fwd$cp[which.min(sumario.reg.fwd$cp)],pch=20,col="red")
 ```
 
 ## Como extrair detalhes do ajuste
 
-```{r detalhes2}
-coef(ajusreg.fwd,6)  
+```{r}
+coef(ajusreg.fwd,which.min(sumario.reg.fwd$cp))  
 ```
 
 ## Backward Stepwise (passo a passo atrás)
 
-```{r BR, fig.height=4.5, figure.width=6.5}
+```{r}
 ajusreg.bwd <- regsubsets(preco_m ~ . , data=conj_treino,nvmax=13, method="backward")
 sumario.reg.bwd <- summary(ajusreg.bwd)
-sumario.reg.bwd
-which.min(sumario.reg.bwd$cp)
 plot(sumario.reg.bwd$cp,xlab="Número de Variáveis",ylab="Cp")
-points(6,sumario.reg.bwd$cp[6],pch=20,col="red")
+points(which.min(sumario.reg.bwd$cp),sumario.reg.bwd$cp[which.min(sumario.reg.bwd$cp)],pch=20,col="red")
 ```
 
 ## Como extrair detalhes do ajuste
 
-```{r detalhes3}
-coef(ajusreg.bwd,6)  
+```{r}
+coef(ajusreg.bwd,which.min(sumario.reg.bwd$cp))  
 ```
 
-## Testando outra estatística de seleção de modelos - BIC
+## Usando o BIC para seleção de variáveis
 
-```{r BIC}
-ajusreg.fwd1 <- regsubsets(preco_m ~ . , data=conj_treino,nvmax=13, method="forward")
-sumario.reg.fwd1 <- summary(ajusreg.fwd1)
-names(sumario.reg.fwd1)
+Aqui voltamos a usar o método exaustivo (**best subset selection**) que é o mais completo
 
-which.min(sumario.reg.fwd1$bic)
-plot(sumario.reg.fwd1$bic,xlab="Número de Variáveis",ylab="BIC")
-points(4,sumario.reg.fwd1$bic[4],pch=20,col="red")
-coef(ajusreg.fwd1,4)  
-
-
+```{r}
+ajusreg.comp <- regsubsets(preco_m ~ ., data=conj_treino, nvmax=13, method=c("exhaustive"))
+sumario.reg <- summary(ajusreg.comp)
+sumario.reg
+names(sumario.reg)
+plot(sumario.reg$bic,xlab="Número de Variáveis",ylab="BIC")
+points(which.min(sumario.reg$bic),sumario.reg$bic[which.min(sumario.reg$bic)],pch=20,col="red")
+coef(ajusreg.comp,which.min(sumario.reg$bic))  
 ```
 
-## Usando o Cp novamente
+Veja que o BIC apresentou um modelo mais enxuto
 
-```{r cp_denovo}
-which.min(sumario.reg.fwd1$cp)
-plot(sumario.reg.fwd1$cp,xlab="Número de Variáveis",ylab="Cp")
-points(6,sumario.reg.fwd1$cp[6],pch=20,col="red")
-coef(ajusreg.fwd1,6)
+## Revendo o resultado com o Cp
+
+```{r}
+plot(sumario.reg$cp,xlab="Número de Variáveis",ylab="Cp")
+points(which.min(sumario.reg$cp),sumario.reg$cp[which.min(sumario.reg$cp)],pch=20,col="red")
+coef(ajusreg.comp,which.min(sumario.reg$cp))
 ```
 
 ## Comparando os dois modelos com o lm()
@@ -197,7 +195,7 @@ mod_cp <- lm(preco_m ~ idade + quartos + banheiros + m2_princ + m2_tot + andares
 summary(mod_cp)
 ```
 
-Em termos de ajuste praticamente não há diferença nos resultados, sendo que o modelo obtido usando o BIC é bem mais enxuto. A parcimoniosidade é sempre bem vinda, mas é necessário ver como ficam os resultados com o conjunto de testes.
+**Em termos de ajuste praticamente não há diferença nos resultados, sendo que o modelo obtido usando o BIC é bem mais enxuto. A parcimoniosidade é sempre bem vinda, mas é necessário ver como ficam os resultados com o conjunto de testes.**
 
 ## Avaliando Colinearidade
 
@@ -205,7 +203,7 @@ Uma investigação minuciosa da multicollinearidade envolverá a análise do val
 
 **A regra geral é que vifs superiores a 4 justificam novas investigações, enquanto VIFs superiores a 10 são sinais de multicollinearidade grave que requerem correção.**
 
-```{r car, message=FALSE}
+```{r}
 library(car)
 vif(mod_bic)
 vif(mod_cp)
@@ -213,7 +211,7 @@ vif(mod_cp)
 
 ## Testando os dois modelos com o conjunto de teste
 
-```{r C_teste}
+```{r}
 # Modelo com base no Cp
 summary(mod_cp)$sigma
 summary(mod_cp)$adj.r.squared
@@ -227,7 +225,7 @@ summary(mod_bic)$adj.r.squared
 sqrt(mean((conj_teste$preco_m - predict(mod_bic, conj_teste)) ^ 2))
 ```
 
-Aqui vemos que as diferença de resultados entre os dois modelos é muito pequena, mas o modelo com base no BIC é mais parcimonioso, então vamos usá-lo para fazer a previsão.
+**Aqui vemos que as diferença de resultados entre os dois modelos é muito pequena, mas o modelo com base no BIC é mais parcimonioso, então vamos usá-lo para fazer a previsão.**
 
 ## Comparando valor real vs previsão (conjunto de treino)
 
@@ -239,10 +237,7 @@ ggplot(conj_treino, aes(x=Previsoes, y=preco_m)) +
   ggtitle("Preço da Casa vs. Previsões do modelo linear")
 ```
 
-O modelo está tendendo dar previsões mais altas nas casas com menor preço e previsões mais baixas nas casas com maior preço.
-Tem duas previsões estão mais afastadas da reta Y = X. 
-Vamos identificar estes pontos.
-
+O modelo está tendendo dar previsões mais altas nas casas com menor preço e previsões mais baixas nas casas com maior preço. Tem duas previsões estão mais afastadas da reta Y = X. Vamos identificar estes pontos.
 
 ```{r}
 conj_treino$Previsoes <- predict(mod_bic, conj_treino)
@@ -256,7 +251,6 @@ ggplot(conj_treino, aes(x=Previsoes, y=preco_m)) +
 ```{r}
 conj_treino[c(3, 704), ]
 ```
-
 
 ## Comparando valor real vs previsão (conjunto de teste)
 
