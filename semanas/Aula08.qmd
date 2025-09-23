@@ -116,13 +116,13 @@ Quando temos diversas variáveis explicativas em diferentes escalas, em geral, e
 
 ```{r conjuntos-treino-teste, message=FALSE}
 library(caret)
-set.seed(2024)
+set.seed(2025)
 y <- credito$inadimplente
-credito_split <- createDataPartition(y, times = 1, p = 0.80, list = FALSE)
+credito_split <- createDataPartition(y, times = 1, p = 0.10, list = FALSE)
 
-conj_treino <- credito[credito_split,]
+conj_treino <- credito[-credito_split,]
 conj_treino[,3:4] <- scale(conj_treino[,3:4]) # scale normaliza
-conj_teste <- credito[-credito_split,]
+conj_teste <- credito[credito_split,]
 conj_teste[,3:4] <- scale(conj_teste[, 3:4])
                            
 summary(conj_treino)
@@ -136,10 +136,10 @@ Vamos usar a regra da raiz quadrada do tamanho da amostra para definir o número
 ```{r 1modelo}
 
 library(caret)
-sqrt(nrow(conj_treino)) ## ~90
-set.seed(23)
-
-t_knn1 <- knn3(inadimplente ~ balanco + receita + estudante, data = conj_treino, k = 90)
+k <- round(sqrt(nrow(conj_treino)),0) # número de vizinhos
+k
+set.seed(2025)
+t_knn1 <- knn3(inadimplente ~ balanco + receita + estudante, data = conj_treino, k = k)
 t_knn1
 ```
 
@@ -188,21 +188,21 @@ as.numeric(roc_knn1$auc)
 
 ## Variando K
 
-**Anteriormente usamos k=90. Este parametro deve ser ajustado para melhoramos os modelo KNN. Para isto vamos usar a função train da biblioteca caret**
+Anteriormente usamos **k=95** . Este parametro, em geral, deve ser ajustado para melhoramos os modelo KNN. Para isto vamos usar a função train da biblioteca caret
 
-**Observe que a otimização de k é feita através de acurácia.**
+Observe que a otimização de k, no exemplo abaixo, é feita através de acurácia. O k também pode ser otimizado usando o valor do AUC (área embaixo da curva ROC).
 
 ```{r K1}
-set.seed(2024)
+set.seed(2025)
 
 # Usando validação cruzada para obter o valor de k através da função train da biblioteca caret e o controle do treino e fazendo um gride de valores para k.
 ctrl <- trainControl(method = "repeatedcv", 
-                     number = 10,
+                     number = 5,
                      repeats = 5)
 t_knn2 <- train(inadimplente ~ balanco + receita + estudante,
                 method = "knn", 
                 trControl= ctrl,
-                tuneGrid = data.frame(k = seq(5,100, by=5)),
+                tuneGrid = data.frame(k = seq(5,150, by=5)),
                 metric = "Accuracy",
                 data = conj_treino)
 ## Resultados do treino
@@ -214,7 +214,7 @@ prev_knn2 <- predict(t_knn2, conj_teste)
 confusionMatrix(prev_knn2, conj_teste$inadimplente,  positive="Sim")
 ```
 
-## Curva ROC dos 2 melhores modelos k=90 e k=15
+## Curva ROC dos 2 melhores modelos
 
 ```{r ROC2}
 #| warning: false
@@ -230,4 +230,4 @@ as.numeric(roc_knn1$auc)
 as.numeric(roc_knn2$auc)
 ```
 
-**Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos a sensibilidade e especificidade!**
+Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos ao valores de sensibilidade e especificidade! A depender da importância de cada um destes valores para o problema em questão, podemos escolher um k que nos dê um bom equilíbrio entre estes dois valores.

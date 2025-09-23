@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-08-20">
+<meta name="dcterms.date" content="2025-09-23">
 <title>KNN – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -562,7 +562,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#curva-roc" id="toc-curva-roc" class="nav-link" data-scroll-target="#curva-roc">Curva ROC</a></li>
   <li><a href="#area-embaixo-da-curva-roc" id="toc-area-embaixo-da-curva-roc" class="nav-link" data-scroll-target="#area-embaixo-da-curva-roc">Area embaixo da curva ROC</a></li>
   <li><a href="#variando-k" id="toc-variando-k" class="nav-link" data-scroll-target="#variando-k">Variando K</a></li>
-  <li><a href="#curva-roc-dos-2-melhores-modelos-k90-e-k15" id="toc-curva-roc-dos-2-melhores-modelos-k90-e-k15" class="nav-link" data-scroll-target="#curva-roc-dos-2-melhores-modelos-k90-e-k15">Curva ROC dos 2 melhores modelos k=90 e k=15</a></li>
+  <li><a href="#curva-roc-dos-2-melhores-modelos" id="toc-curva-roc-dos-2-melhores-modelos" class="nav-link" data-scroll-target="#curva-roc-dos-2-melhores-modelos">Curva ROC dos 2 melhores modelos</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -584,7 +584,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 20, 2024</p>
+      <p class="date">September 23, 2025</p>
     </div>
   </div>
   
@@ -741,54 +741,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="criando-conjuntos-de-treino-e-teste-e-normalizando-variáveis" class="level2"><h2 class="anchored" data-anchor-id="criando-conjuntos-de-treino-e-teste-e-normalizando-variáveis">Criando conjuntos de treino e teste e normalizando variáveis</h2>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">$</span><span class="va">inadimplente</span></span>
-<span><span class="va">credito_split</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.80</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">credito_split</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.10</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">[</span><span class="va">credito_split</span>,<span class="op">]</span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">[</span><span class="op">-</span><span class="va">credito_split</span>,<span class="op">]</span></span>
 <span><span class="va">conj_treino</span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="co"># scale normaliza</span></span>
-<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">[</span><span class="op">-</span><span class="va">credito_split</span>,<span class="op">]</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">[</span><span class="va">credito_split</span>,<span class="op">]</span></span>
 <span><span class="va">conj_teste</span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">[</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
 <span>                           </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt;  inadimplente   estudante         balanco            receita        
-#&gt;  Nao:7734     Min.   :0.0000   Min.   :-1.72131   Min.   :-2.45922  
-#&gt;  Sim: 267     1st Qu.:0.0000   1st Qu.:-0.73380   1st Qu.:-0.91305  
-#&gt;               Median :0.0000   Median :-0.02068   Median : 0.07759  
-#&gt;               Mean   :0.2945   Mean   : 0.00000   Mean   : 0.00000  
-#&gt;               3rd Qu.:1.0000   3rd Qu.: 0.68805   3rd Qu.: 0.77310  
-#&gt;               Max.   :1.0000   Max.   : 3.74460   Max.   : 2.93799</code></pre>
+<pre><code>#&gt;  inadimplente   estudante         balanco            receita       
+#&gt;  Nao:8700     Min.   :0.0000   Min.   :-1.73003   Min.   :-2.4534  
+#&gt;  Sim: 299     1st Qu.:0.0000   1st Qu.:-0.72954   1st Qu.:-0.9140  
+#&gt;               Median :0.0000   Median :-0.03104   Median : 0.0764  
+#&gt;               Mean   :0.2946   Mean   : 0.00000   Mean   : 0.0000  
+#&gt;               3rd Qu.:1.0000   3rd Qu.: 0.68437   3rd Qu.: 0.7707  
+#&gt;               Max.   :1.0000   Max.   : 3.76117   Max.   : 2.9933</code></pre>
 </div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;  inadimplente   estudante         balanco            receita        
-#&gt;  Nao:1933     Min.   :0.0000   Min.   :-1.75009   Min.   :-2.12222  
-#&gt;  Sim:  66     1st Qu.:0.0000   1st Qu.:-0.72205   1st Qu.:-0.91629  
-#&gt;               Median :0.0000   Median :-0.04085   Median : 0.09891  
-#&gt;               Mean   :0.2941   Mean   : 0.00000   Mean   : 0.00000  
-#&gt;               3rd Qu.:1.0000   3rd Qu.: 0.65118   3rd Qu.: 0.76539  
-#&gt;               Max.   :1.0000   Max.   : 3.50597   Max.   : 2.93133</code></pre>
+#&gt;  Nao:967      Min.   :0.0000   Min.   :-1.69940   Min.   :-2.12069  
+#&gt;  Sim: 34      1st Qu.:0.0000   1st Qu.:-0.76771   1st Qu.:-0.90454  
+#&gt;               Median :0.0000   Median : 0.02552   Median : 0.06997  
+#&gt;               Mean   :0.2927   Mean   : 0.00000   Mean   : 0.00000  
+#&gt;               3rd Qu.:1.0000   3rd Qu.: 0.67537   3rd Qu.: 0.73936  
+#&gt;               Max.   :1.0000   Max.   : 2.86197   Max.   : 2.86471</code></pre>
 </div>
 </div>
 </section><section id="a-modelo" class="level2"><h2 class="anchored" data-anchor-id="a-modelo">1a Modelo</h2>
 <p>Vamos usar a regra da raiz quadrada do tamanho da amostra para definir o número de vizinhos do KNN.</p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span><span class="op">)</span> <span class="co">## ~90</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span> <span class="co"># número de vizinhos</span></span>
+<span><span class="va">k</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 89.44831</code></pre>
+<pre><code>#&gt; [1] 95</code></pre>
 </div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">23</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">t_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/knn3.html">knn3</a></span><span class="op">(</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">balanco</span> <span class="op">+</span> <span class="va">receita</span> <span class="op">+</span> <span class="va">estudante</span>, data <span class="op">=</span> <span class="va">conj_treino</span>, k <span class="op">=</span> <span class="fl">90</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span>
+<span><span class="va">t_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/knn3.html">knn3</a></span><span class="op">(</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">balanco</span> <span class="op">+</span> <span class="va">receita</span> <span class="op">+</span> <span class="va">estudante</span>, data <span class="op">=</span> <span class="va">conj_treino</span>, k <span class="op">=</span> <span class="va">k</span><span class="op">)</span></span>
 <span><span class="va">t_knn1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; 90-nearest neighbor model
+<pre><code>#&gt; 95-nearest neighbor model
 #&gt; Training set outcome distribution:
 #&gt; 
 #&gt;  Nao  Sim 
-#&gt; 7734  267</code></pre>
+#&gt; 8700  299</code></pre>
 </div>
 </div>
 </section><section id="avaliando-o-modelo" class="level2"><h2 class="anchored" data-anchor-id="avaliando-o-modelo">Avaliando o modelo</h2>
@@ -804,27 +804,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>#&gt; Confusion Matrix and Statistics
 #&gt; 
 #&gt;           Reference
-#&gt; Prediction  Nao  Sim
-#&gt;        Nao 1932   50
-#&gt;        Sim    1   16
+#&gt; Prediction Nao Sim
+#&gt;        Nao 964  28
+#&gt;        Sim   3   6
 #&gt;                                           
-#&gt;                Accuracy : 0.9745          
-#&gt;                  95% CI : (0.9666, 0.9809)
-#&gt;     No Information Rate : 0.967           
-#&gt;     P-Value [Acc &gt; NIR] : 0.03105         
+#&gt;                Accuracy : 0.969           
+#&gt;                  95% CI : (0.9563, 0.9789)
+#&gt;     No Information Rate : 0.966           
+#&gt;     P-Value [Acc &gt; NIR] : 0.3395          
 #&gt;                                           
-#&gt;                   Kappa : 0.3771          
+#&gt;                   Kappa : 0.2687          
 #&gt;                                           
-#&gt;  Mcnemar's Test P-Value : 1.801e-11       
+#&gt;  Mcnemar's Test P-Value : 1.629e-05       
 #&gt;                                           
-#&gt;             Sensitivity : 0.242424        
-#&gt;             Specificity : 0.999483        
-#&gt;          Pos Pred Value : 0.941176        
-#&gt;          Neg Pred Value : 0.974773        
-#&gt;              Prevalence : 0.033017        
-#&gt;          Detection Rate : 0.008004        
-#&gt;    Detection Prevalence : 0.008504        
-#&gt;       Balanced Accuracy : 0.620953        
+#&gt;             Sensitivity : 0.176471        
+#&gt;             Specificity : 0.996898        
+#&gt;          Pos Pred Value : 0.666667        
+#&gt;          Neg Pred Value : 0.971774        
+#&gt;              Prevalence : 0.033966        
+#&gt;          Detection Rate : 0.005994        
+#&gt;    Detection Prevalence : 0.008991        
+#&gt;       Balanced Accuracy : 0.586684        
 #&gt;                                           
 #&gt;        'Positive' Class : Sim             
 #&gt; </code></pre>
@@ -840,12 +840,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">p_chapeu_knn1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;            Nao        Sim
-#&gt; [1,] 1.0000000 0.00000000
-#&gt; [2,] 0.9777778 0.02222222
+#&gt; [1,] 0.9894737 0.01052632
+#&gt; [2,] 1.0000000 0.00000000
 #&gt; [3,] 1.0000000 0.00000000
 #&gt; [4,] 1.0000000 0.00000000
-#&gt; [5,] 1.0000000 0.00000000
-#&gt; [6,] 0.9888889 0.01111111</code></pre>
+#&gt; [5,] 0.9894737 0.01052632
+#&gt; [6,] 1.0000000 0.00000000</code></pre>
 </div>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Aqui gera o curva e salvo numa variável</span></span>
 <span><span class="va">roc_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">p_chapeu_knn1</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, print.auc<span class="op">=</span><span class="cn">FALSE</span>, col<span class="op">=</span><span class="st">"black"</span>, legacy.axes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
@@ -864,23 +864,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Area abaixo da Curva (AUC)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">roc_knn1</span><span class="op">$</span><span class="va">auc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 0.9468286</code></pre>
+<pre><code>#&gt; [1] 0.9191405</code></pre>
 </div>
 </div>
 </section><section id="variando-k" class="level2"><h2 class="anchored" data-anchor-id="variando-k">Variando K</h2>
-<p><strong>Anteriormente usamos k=90. Este parametro deve ser ajustado para melhoramos os modelo KNN. Para isto vamos usar a função train da biblioteca caret</strong></p>
-<p><strong>Observe que a otimização de k é feita através de acurácia.</strong></p>
+<p>Anteriormente usamos <strong>k=95</strong> . Este parametro, em geral, deve ser ajustado para melhoramos os modelo KNN. Para isto vamos usar a função train da biblioteca caret</p>
+<p>Observe que a otimização de k, no exemplo abaixo, é feita através de acurácia. O k também pode ser otimizado usando o valor do AUC (área embaixo da curva ROC).</p>
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Usando validação cruzada para obter o valor de k através da função train da biblioteca caret e o controle do treino e fazendo um gride de valores para k.</span></span>
 <span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"repeatedcv"</span>, </span>
-<span>                     number <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>                     number <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>                     repeats <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">t_knn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">balanco</span> <span class="op">+</span> <span class="va">receita</span> <span class="op">+</span> <span class="va">estudante</span>,</span>
 <span>                method <span class="op">=</span> <span class="st">"knn"</span>, </span>
 <span>                trControl<span class="op">=</span> <span class="va">ctrl</span>,</span>
-<span>                tuneGrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">100</span>, by<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                tuneGrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">150</span>, by<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                metric <span class="op">=</span> <span class="st">"Accuracy"</span>,</span>
 <span>                data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span></span>
 <span><span class="co">## Resultados do treino</span></span>
@@ -888,39 +888,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; k-Nearest Neighbors 
 #&gt; 
-#&gt; 8001 samples
+#&gt; 8999 samples
 #&gt;    3 predictor
 #&gt;    2 classes: 'Nao', 'Sim' 
 #&gt; 
 #&gt; No pre-processing
-#&gt; Resampling: Cross-Validated (10 fold, repeated 5 times) 
-#&gt; Summary of sample sizes: 7200, 7202, 7200, 7202, 7201, 7200, ... 
+#&gt; Resampling: Cross-Validated (5 fold, repeated 5 times) 
+#&gt; Summary of sample sizes: 7199, 7199, 7199, 7199, 7200, 7199, ... 
 #&gt; Resampling results across tuning parameters:
 #&gt; 
-#&gt;   k    Accuracy   Kappa    
-#&gt;     5  0.9687539  0.3713723
-#&gt;    10  0.9710787  0.4074849
-#&gt;    15  0.9719035  0.3949430
-#&gt;    20  0.9714038  0.3650255
-#&gt;    25  0.9716285  0.3568810
-#&gt;    30  0.9716288  0.3532068
-#&gt;    35  0.9715038  0.3445969
-#&gt;    40  0.9715037  0.3418931
-#&gt;    45  0.9714537  0.3369602
-#&gt;    50  0.9715037  0.3314707
-#&gt;    55  0.9711037  0.3129172
-#&gt;    60  0.9707038  0.2893980
-#&gt;    65  0.9705289  0.2761428
-#&gt;    70  0.9704536  0.2663185
-#&gt;    75  0.9699037  0.2364880
-#&gt;    80  0.9696287  0.2176720
-#&gt;    85  0.9693037  0.1946375
-#&gt;    90  0.9688291  0.1614589
-#&gt;    95  0.9685543  0.1362015
-#&gt;   100  0.9680543  0.1070964
+#&gt;   k    Accuracy   Kappa     
+#&gt;     5  0.9704413  0.42266071
+#&gt;    10  0.9716414  0.41185688
+#&gt;    15  0.9723526  0.41049306
+#&gt;    20  0.9730415  0.41527673
+#&gt;    25  0.9729749  0.39961432
+#&gt;    30  0.9729305  0.39434063
+#&gt;    35  0.9725527  0.37664935
+#&gt;    40  0.9724415  0.36463583
+#&gt;    45  0.9723749  0.35587285
+#&gt;    50  0.9722193  0.34677085
+#&gt;    55  0.9722415  0.34231099
+#&gt;    60  0.9719303  0.32682892
+#&gt;    65  0.9717303  0.31692192
+#&gt;    70  0.9715748  0.30754847
+#&gt;    75  0.9709079  0.27742350
+#&gt;    80  0.9706412  0.25982263
+#&gt;    85  0.9703523  0.24349134
+#&gt;    90  0.9702412  0.23166492
+#&gt;    95  0.9697301  0.20218244
+#&gt;   100  0.9690410  0.16434426
+#&gt;   105  0.9686633  0.13872824
+#&gt;   110  0.9683299  0.11503994
+#&gt;   115  0.9678409  0.07816959
+#&gt;   120  0.9676187  0.05780951
+#&gt;   125  0.9673964  0.04083628
+#&gt;   130  0.9672408  0.02760184
+#&gt;   135  0.9671297  0.02148245
+#&gt;   140  0.9670853  0.01773521
+#&gt;   145  0.9669741  0.01144419
+#&gt;   150  0.9669741  0.01144419
 #&gt; 
 #&gt; Accuracy was used to select the optimal model using the largest value.
-#&gt; The final value used for the model was k = 15.</code></pre>
+#&gt; The final value used for the model was k = 20.</code></pre>
 </div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">t_knn2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -936,33 +946,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>#&gt; Confusion Matrix and Statistics
 #&gt; 
 #&gt;           Reference
-#&gt; Prediction  Nao  Sim
-#&gt;        Nao 1924   41
-#&gt;        Sim    9   25
+#&gt; Prediction Nao Sim
+#&gt;        Nao 961  23
+#&gt;        Sim   6  11
 #&gt;                                           
-#&gt;                Accuracy : 0.975           
-#&gt;                  95% CI : (0.9672, 0.9814)
-#&gt;     No Information Rate : 0.967           
-#&gt;     P-Value [Acc &gt; NIR] : 0.02267         
+#&gt;                Accuracy : 0.971           
+#&gt;                  95% CI : (0.9587, 0.9805)
+#&gt;     No Information Rate : 0.966           
+#&gt;     P-Value [Acc &gt; NIR] : 0.219168        
 #&gt;                                           
-#&gt;                   Kappa : 0.4885          
+#&gt;                   Kappa : 0.4182          
 #&gt;                                           
-#&gt;  Mcnemar's Test P-Value : 1.165e-05       
+#&gt;  Mcnemar's Test P-Value : 0.002967        
 #&gt;                                           
-#&gt;             Sensitivity : 0.37879         
-#&gt;             Specificity : 0.99534         
-#&gt;          Pos Pred Value : 0.73529         
-#&gt;          Neg Pred Value : 0.97913         
-#&gt;              Prevalence : 0.03302         
-#&gt;          Detection Rate : 0.01251         
-#&gt;    Detection Prevalence : 0.01701         
-#&gt;       Balanced Accuracy : 0.68707         
+#&gt;             Sensitivity : 0.32353         
+#&gt;             Specificity : 0.99380         
+#&gt;          Pos Pred Value : 0.64706         
+#&gt;          Neg Pred Value : 0.97663         
+#&gt;              Prevalence : 0.03397         
+#&gt;          Detection Rate : 0.01099         
+#&gt;    Detection Prevalence : 0.01698         
+#&gt;       Balanced Accuracy : 0.65866         
 #&gt;                                           
 #&gt;        'Positive' Class : Sim             
 #&gt; </code></pre>
 </div>
 </div>
-</section><section id="curva-roc-dos-2-melhores-modelos-k90-e-k15" class="level2"><h2 class="anchored" data-anchor-id="curva-roc-dos-2-melhores-modelos-k90-e-k15">Curva ROC dos 2 melhores modelos k=90 e k=15</h2>
+</section><section id="curva-roc-dos-2-melhores-modelos" class="level2"><h2 class="anchored" data-anchor-id="curva-roc-dos-2-melhores-modelos">Curva ROC dos 2 melhores modelos</h2>
 <div class="cell">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prev_knn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">t_knn1</span>, <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
 <span><span class="va">prev_knn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">t_knn2</span>, <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
@@ -979,14 +989,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Area embaixo das curvas</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">roc_knn1</span><span class="op">$</span><span class="va">auc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 0.9468286</code></pre>
+<pre><code>#&gt; [1] 0.9191405</code></pre>
 </div>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">roc_knn2</span><span class="op">$</span><span class="va">auc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 0.8927715</code></pre>
+<pre><code>#&gt; [1] 0.9041304</code></pre>
 </div>
 </div>
-<p><strong>Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos a sensibilidade e especificidade!</strong></p>
+<p>Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos ao valores de sensibilidade e especificidade! A depender da importância de cada um destes valores para o problema em questão, podemos escolher um k que nos dê um bom equilíbrio entre estes dois valores.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

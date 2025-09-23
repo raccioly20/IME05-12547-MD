@@ -23,8 +23,6 @@ knitr:
 
 # Primeiros Passos
 
-Baseado no livro Introduction to Data Science: Data Analysis and Prediction Algorithms with R, Rafael A. Irizarry. (<http://rafalab.dfci.harvard.edu/dsbook-part-2/>)
-
 ## Carregando Bibliotecas
 
 ```{r bibliotecas, message=FALSE, warning=FALSE}
@@ -85,6 +83,8 @@ summary(conj_treino)
 
 ## Chutar a resposta!!!!!
 
+Aqui vamos aletoriamente chutar a resposta.
+
 ```{r chute}
 y_chapeu <- sample(c("Masculino", "Feminino"), length(indice_teste), replace = TRUE) %>% 
   factor(levels = levels(conj_teste$sexo))
@@ -99,7 +99,33 @@ mean(y_chapeu == conj_teste$sexo)
 
 ## Melhorando
 
-```{r melhora-chute}
+Agora vamos tentar melhorar o chute inicial usando as alturas das pessoas.
+
+Primeiro vamos visualizar a distribuição das alturas entre homens e mulheres
+
+```{r}
+library(ggplot2)
+ggplot(alturas, aes(x = sexo, y = altura)) +
+  stat_summary(
+    geom = "errorbar",
+    fun.max = function(y) mean(y) + 2*sd(y),
+    fun.min = function(y) mean(y) - 2*sd(y),
+    width = .3
+  ) +
+  stat_summary(
+    geom = "point",
+    fun = mean,
+    size = 2
+  ) +
+  stat_summary(
+    geom = "text",
+    fun = mean,
+    aes(label = after_stat(round(y, 2))),
+    hjust = -0.3
+  )
+```
+
+```{r}
 alturas %>% group_by(sexo) %>% summarize(mean(altura), sd(altura))
 media_Homem <- mean(alturas[alturas$sexo=="Masculino",]$altura)
 desv_pad_Homem <- sd(alturas[alturas$sexo=="Masculino",]$altura)

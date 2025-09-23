@@ -10,15 +10,13 @@ execute:
 format:
  html:
     code-link: true
-    fig-height: 10
-    fig-width: 10
+    fig-height: 8
+    fig-width: 12
     fig-align: center
-    fig-dpi: 300
 knitr: 
   opts_chunk: 
     out.width: 90%
     fig.showtext: true
-    collapese: true
 ---
 
 ## Carregando Bibliotecas
@@ -59,12 +57,12 @@ summary(credito)
 
 ```{r conjuntos-treino-teste}
 library(caret)
-set.seed(2024)
+set.seed(2025)
 y <- credito$inadimplente
-credito_split <- createDataPartition(y, times = 1, p = 0.80, list = FALSE)
+credito_split <- createDataPartition(y, times = 1, p = 0.10, list = FALSE)
 
-conj_treino <- credito[credito_split,]
-conj_teste <- credito[-credito_split,]
+conj_treino <- credito[-credito_split,]
+conj_teste <- credito[credito_split,]
                            
 summary(conj_treino)
 summary(conj_teste)
@@ -159,18 +157,19 @@ predict(mod1, newdata = data.frame(balanco = c(1000,2000,3000)), type="response"
 
 ## Curva S
 
-```{r Curva_S}
+```{r}
+# Mostrar a curva S com o resultado da regressão logística
+# Salvar o gráfico em um arquivo .png
+png("regressao_logistica.png", width = 800, height = 600)
 inadimpl <- as.numeric(conj_treino$inadimplente) - 1
-plot(inadimpl ~ balanco, data = conj_treino, 
-     col = "darkorange", pch = "|", ylim = c(0, 1),
-     main = "Regressão Logistica - Classificacão")
+plot(inadimpl ~ balanco, data = conj_treino, col = "darkorange", pch = "|", ylim = c(0, 1), main = "Regressão Logistica - Classificacão")
 abline(h = 0, lty = 3)
 abline(h = 1, lty = 3)
 abline(h = 0.5, lty = 2)
-curve(predict(mod1, data.frame(balanco = x),
-        type = "response"), add = TRUE, lwd = 3, col = "dodgerblue")
+curve(predict(mod1, data.frame(balanco = x), type = "response"), add = TRUE, lwd = 3, col = "dodgerblue")
 abline(v = -coef(mod1)[1] / coef(mod1)[2], lwd = 2)
-
+dev.off()
+knitr::include_graphics("regressao_logistica.png")
 ```
 
 ## Valor de balanço com probabilidade de 50%
@@ -296,13 +295,11 @@ legend("bottomright", legend=c("Mod 1", "Mod2"),
 ```{r ROC3}
 #| warning: false
 # Ajustando KNN 
-set.seed(23)
 conj_treino[,3:4] <- scale(conj_treino[,3:4]) # scale normaliza
 conj_teste[,3:4] <- scale(conj_teste[, 3:4])
-ctrl <- trainControl(method = "cv")
-treina_knn <- train(inadimplente ~ balanco + estudante, method = "knn", trControl= ctrl, tuneGrid = data.frame(k = seq(5,140, by=5)), data = conj_treino)
+set.seed(2025)
+treina_knn <- knn3(inadimplente ~ balanco + receita + estudante, data = conj_treino, k = 20)
 # treina_knn
-plot(treina_knn)
 prev_knn <- predict(treina_knn, conj_teste,type = "prob")
 
 ## ROC
