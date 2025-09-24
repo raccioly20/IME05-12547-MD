@@ -126,6 +126,27 @@ ggplot(alturas, aes(x = sexo, y = altura)) +
 ```
 
 ```{r}
+ggplot(alturas, aes(x = sexo, y = altura)) +
+  geom_boxplot() +
+  stat_summary(
+    geom = "point",
+    fun = mean,
+    shape = 23,
+    color = "#00978A",
+    fill = "#88EBDD",
+    stroke = 1.2
+  ) +
+  stat_summary(
+    geom = "text",
+    fun = mean,
+    aes(label = after_stat(round(y, 2))),
+    vjust = -1.0
+  )
+  
+  
+```
+
+```{r}
 alturas %>% group_by(sexo) %>% summarize(mean(altura), sd(altura))
 media_Homem <- mean(alturas[alturas$sexo=="Masculino",]$altura)
 desv_pad_Homem <- sd(alturas[alturas$sexo=="Masculino",]$altura)
