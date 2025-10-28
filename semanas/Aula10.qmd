@@ -242,16 +242,26 @@ p_chapeu_log <- predict(mod2, newdata = conj_teste, type = "response")
 p_chapeu_lda <- predict(treina_lda, conj_teste)$posterior
 p_chapeu_qda <- predict(treina_qda, conj_teste)$posterior
 
-roc_log <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=FALSE,
-                 col="black", legacy.axes=TRUE)
-roc_lda <- roc(conj_teste$inadimplente ~ p_chapeu_lda[,2], plot = TRUE, print.auc=FALSE, col="green", legacy.axes=TRUE, add=TRUE)
-roc_qda <- roc(conj_teste$inadimplente ~ p_chapeu_qda[,2], plot = TRUE, print.auc=FALSE, col="blue", legacy.axes=TRUE, add=TRUE)
-roc_knn1 <- roc(conj_teste$inadimplente ~ prev_knn[,2], plot = TRUE, print.auc=FALSE, col="red", legacy.axes=TRUE, add=TRUE)
+roc_log <- roc(conj_teste$inadimplente ~ p_chapeu_log, print.auc=FALSE)
+roc_lda <- roc(conj_teste$inadimplente ~ p_chapeu_lda[,2],  print.auc=FALSE)
+roc_qda <- roc(conj_teste$inadimplente ~ p_chapeu_qda[,2], print.auc=FALSE)
+roc_knn1 <- roc(conj_teste$inadimplente ~ prev_knn[,2], print.auc=FALSE)
 
-legend("bottomright",legend=c("Reg Log","LDA","QDA", "KNN"), 
-       col=c("black", "green","blue", "red"),lwd=4)
+
+# Visualização com ggroc
+ggroc(list(KNN= roc_knn1, RegLog= roc_log, LDA=roc_lda, QDA=roc_qda)) +
+  ggplot2::labs(title = "ROC - KNN vs Reg Logística vs LDA vs QDA", x = "1 - Especificidade", y = "Sensibilidade") +
+  ggplot2::theme_minimal()
+
 as.numeric(roc_log$auc)
 as.numeric(roc_lda$auc)
 as.numeric(roc_qda$auc)
 as.numeric(roc_knn1$auc)
 ```
+
+## Reprodutibilidade
+
+```{r}
+sessionInfo()
+```
+

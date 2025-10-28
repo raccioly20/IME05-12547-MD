@@ -160,10 +160,13 @@ p_chapeu_knn1 <- predict(t_knn1, conj_teste, type = "prob")
 head(p_chapeu_knn1)
 
 # Aqui gera o curva e salvo numa variável
-roc_knn1 <- roc(conj_teste$inadimplente ~ p_chapeu_knn1[,2], plot = TRUE, print.auc=FALSE, col="black", legacy.axes=TRUE)
+roc_knn1 <- roc(conj_teste$inadimplente ~ p_chapeu_knn1[,2], plot = FALSE, print.auc=FALSE)
 
-legend("bottomright",legend=c("KNN1"), 
-       col=c("black"),lwd=4)
+# Visualização com ggroc
+ggroc(roc_knn1) +
+  ggplot2::labs(title = "ROC - KNN", x = "1 - Especificidade", y = "Sensibilidade") +
+  ggplot2::theme_minimal()
+
 
 ```
 
@@ -208,10 +211,13 @@ confusionMatrix(prev_knn2, conj_teste$inadimplente,  positive="Sim")
 #| warning: false
 prev_knn1 <- predict(t_knn1, conj_teste, type = "prob")
 prev_knn2 <- predict(t_knn2, conj_teste, type = "prob")
-roc_knn1 <- roc(conj_teste$inadimplente ~ prev_knn1[,2], plot = TRUE, print.auc=FALSE, col="black", legacy.axes=TRUE)
-roc_knn2 <- roc(conj_teste$inadimplente ~ prev_knn2[,2], plot = TRUE, print.auc=FALSE, col="green", legacy.axes=TRUE, add=TRUE)
-legend("bottomright",legend=c("KNN1", "KNN2"), 
-       col=c("black","green"),lwd=4)
+roc_knn1 <- roc(conj_teste$inadimplente ~ prev_knn1[,2], plot = FALSE, print.auc=FALSE)
+roc_knn2 <- roc(conj_teste$inadimplente ~ prev_knn2[,2], plot = FALSE, print.auc=FALSE)
+
+# Visualização com ggroc
+ggroc(list(knn1= roc_knn1, knn2= roc_knn2)) +
+  ggplot2::labs(title = "ROC - KNN", x = "1 - Especificidade", y = "Sensibilidade") +
+  ggplot2::theme_minimal()
 
 ## Area embaixo das curvas
 as.numeric(roc_knn1$auc)
@@ -219,3 +225,9 @@ as.numeric(roc_knn2$auc)
 ```
 
 Observe que os resultados de área abaixo da ROC não são suficientes para a escolha do k, pois precisamos estar atentos ao valores de sensibilidade e especificidade! A depender da importância de cada um destes valores para o problema em questão, podemos escolher um k que nos dê um bom equilíbrio entre estes dois valores.
+
+## Reprodutibilidade
+
+```{r}
+sessionInfo()
+```

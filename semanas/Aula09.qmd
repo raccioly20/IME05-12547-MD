@@ -8,8 +8,8 @@ format:
     fig-height: 8
     fig-width: 12
     fig-align: center
-knitr: 
-   opts_chunk: 
+knitr:
+  opts_chunk: 
     out.width: 90%
     comment: "#>"
 execute: 
@@ -55,7 +55,6 @@ str(credito)
 summary(credito)
 
 ```
-
 
 ## Matriz de dispersão
 
@@ -135,8 +134,6 @@ summary(conj_treino)
 summary(conj_teste)
 
 ```
-
-
 
 ## 1a Regressão logística: só balanço
 
@@ -252,7 +249,13 @@ confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim")
 #| warning: false
 p_chapeu_log <- predict(mod1, newdata = conj_teste, type = "response")
 head(p_chapeu_log)
-roc_log <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=FALSE, legacy.axes=TRUE)
+roc_log <- roc(conj_teste$inadimplente ~ p_chapeu_log, print.auc=FALSE)
+
+# Visualização com ggroc
+ggroc(roc_log) +
+  ggplot2::labs(title = "ROC - Regressão Logística", x = "1 - Especificidade", y = "Sensibilidade") +
+  ggplot2::theme_minimal()
+
 # Area debaixo da curva
 as.numeric(roc_log$auc)
 ```
@@ -263,7 +266,12 @@ as.numeric(roc_log$auc)
 #| warning: false
 p_chapeu_log <- predict(mod3, newdata = conj_teste, type = "response")
 head(p_chapeu_log)
-roc_log2 <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=FALSE, legacy.axes=TRUE)
+roc_log2 <- roc(conj_teste$inadimplente ~ p_chapeu_log, print.auc=FALSE)
+
+# Visualização com ggroc
+ggroc(roc_log2) +
+  ggplot2::labs(title = "ROC - Regressão Logística", x = "1 - Especificidade", y = "Sensibilidade") +
+  ggplot2::theme_minimal()
 
 ```
 
@@ -289,10 +297,15 @@ confusionMatrix(y_chapeu, conj_teste$inadimplente, positive="Sim")
 
 ```{r ROCs}
 #| warning: false
-plot(roc_log)
-plot(roc_log2, add=TRUE, col="blue")
-legend("bottomright", legend=c("Mod 1", "Mod2"),
-       col=c(par("fg"), "blue"), lwd=2)
+# Visualização com ggroc
+ggroc(list(reglog1= roc_log, reglog2= roc_log2)) +
+  ggplot2::labs(title = "ROC - Regressão Logística", x = "1 - Especificidade", y = "Sensibilidade") +
+  ggplot2::theme_minimal()
+
+# Area debaixo da curva
+as.numeric(roc_log$auc)
+# Area debaixo da curva
+as.numeric(roc_log2$auc)
 ```
 
 ## Curva ROC 3 com o KNN
@@ -308,11 +321,13 @@ treina_knn <- knn3(inadimplente ~ balanco + receita + estudante, data = conj_tre
 prev_knn <- predict(treina_knn, conj_teste,type = "prob")
 
 ## ROC
-roc_log2 <- roc(conj_teste$inadimplente ~ p_chapeu_log, plot = TRUE, print.auc=FALSE, col= "black", legacy.axes=TRUE) 
-roc_knn1 <- roc(conj_teste$inadimplente ~ prev_knn[,2], plot = TRUE, print.auc=FALSE, col="green", legacy.axes=TRUE, add=TRUE)
+roc_log2 <- roc(conj_teste$inadimplente ~ p_chapeu_log, print.auc=FALSE) 
+roc_knn1 <- roc(conj_teste$inadimplente ~ prev_knn[,2], print.auc=FALSE)
 
-legend("bottomright",legend=c("Reg. Log", "KNN"), 
-       col=c("black","green"),lwd=4)
+# Visualização com ggroc
+ggroc(list(KNN= roc_knn1, RegLog= roc_log2)) +
+  ggplot2::labs(title = "ROC - KNN vs Regressão Logística", x = "1 - Especificidade", y = "Sensibilidade") +
+  ggplot2::theme_minimal()
 
 # Area abaixo da curva
 # Regressão Logística
@@ -320,4 +335,10 @@ as.numeric(roc_log2$auc)
 ## KNN
 as.numeric(roc_knn1$auc)
 
+```
+
+## Reprodutibilidade
+
+```{r}
+sessionInfo()
 ```
