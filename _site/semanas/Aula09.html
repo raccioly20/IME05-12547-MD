@@ -575,7 +575,7 @@ window.Quarto = {
   <ul>
 <li><a href="#carregando-bibliotecas" id="toc-carregando-bibliotecas" class="nav-link active" data-scroll-target="#carregando-bibliotecas">Carregando Bibliotecas</a></li>
   <li><a href="#manipulando-os-dados" id="toc-manipulando-os-dados" class="nav-link" data-scroll-target="#manipulando-os-dados">Manipulando os dados</a></li>
-  <li><a href="#matriz-de-dispers%C3%A3o" id="toc-matriz-de-dispersão" class="nav-link" data-scroll-target="#matriz-de-dispers%C3%A3o">Matriz de dispersão</a></li>
+  <li><a href="#graficos-de-densidade" id="toc-graficos-de-densidade" class="nav-link" data-scroll-target="#graficos-de-densidade">Graficos de Densidade</a></li>
   <li><a href="#avaliando-o-comportamento-das-vari%C3%A1veis-em-fun%C3%A7%C3%A3o-do-status-inadimplente-estudante" id="toc-avaliando-o-comportamento-das-variáveis-em-função-do-status-inadimplente-estudante" class="nav-link" data-scroll-target="#avaliando-o-comportamento-das-vari%C3%A1veis-em-fun%C3%A7%C3%A3o-do-status-inadimplente-estudante">Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)</a></li>
   <li><a href="#balan%C3%A7o-vs-receita" id="toc-balanço-vs-receita" class="nav-link" data-scroll-target="#balan%C3%A7o-vs-receita">Balanço vs Receita</a></li>
   <li><a href="#avaliando-comportamento" id="toc-avaliando-comportamento" class="nav-link" data-scroll-target="#avaliando-comportamento">Avaliando comportamento</a></li>
@@ -710,7 +710,8 @@ window.Quarto = {
 #&gt;               Max.   :1.0000   Max.   :2654.3   Max.   :73554</code></pre>
 </div>
 </div>
-</section><section id="matriz-de-dispersão" class="level2"><h2 class="anchored" data-anchor-id="matriz-de-dispersão">Matriz de dispersão</h2>
+</section><section id="graficos-de-densidade" class="level2"><h2 class="anchored" data-anchor-id="graficos-de-densidade">Graficos de Densidade</h2>
+<p>Vamos agora explorar os dados originais para termos algum visão do comportamento das variáveis explicativas e a variável dependente.</p>
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/featurePlot.html">featurePlot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">credito</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"balanco"</span>, <span class="st">"receita"</span>, <span class="st">"estudante"</span><span class="op">)</span><span class="op">]</span>, </span>
 <span>            y <span class="op">=</span> <span class="va">credito</span><span class="op">$</span><span class="va">inadimplente</span>,</span>
