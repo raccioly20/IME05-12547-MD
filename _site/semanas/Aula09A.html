@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2024-08-20">
+<meta name="dcterms.date" content="2025-10-28">
 <title>Regressão Logística - SMOTE – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -576,7 +576,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 20, 2024</p>
+      <p class="date">October 28, 2025</p>
     </div>
   </div>
   
@@ -588,35 +588,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><section id="carregando-bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="carregando-bibliotecas">Carregando Bibliotecas</h2>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.statlearning.com">ISLR</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> default    student       balance           income     
- No :9667   No :7056   Min.   :   0.0   Min.   :  772  
- Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  
-                       Median : 823.6   Median :34553  
-                       Mean   : 835.4   Mean   :33517  
-                       3rd Qu.:1166.3   3rd Qu.:43808  
-                       Max.   :2654.3   Max.   :73554  </code></pre>
+<pre><code>#&gt;  default    student       balance           income     
+#&gt;  No :9667   No :7056   Min.   :   0.0   Min.   :  772  
+#&gt;  Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  
+#&gt;                        Median : 823.6   Median :34553  
+#&gt;                        Mean   : 835.4   Mean   :33517  
+#&gt;                        3rd Qu.:1166.3   3rd Qu.:43808  
+#&gt;                        Max.   :2654.3   Max.   :73554</code></pre>
 </div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   10000 obs. of  4 variables:
- $ default: Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
- $ student: Factor w/ 2 levels "No","Yes": 1 2 1 1 1 2 1 2 1 1 ...
- $ balance: num  730 817 1074 529 786 ...
- $ income : num  44362 12106 31767 35704 38463 ...</code></pre>
+<pre><code>#&gt; 'data.frame':    10000 obs. of  4 variables:
+#&gt;  $ default: Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ student: Factor w/ 2 levels "No","Yes": 1 2 1 1 1 2 1 2 1 1 ...
+#&gt;  $ balance: num  730 817 1074 529 786 ...
+#&gt;  $ income : num  44362 12106 31767 35704 38463 ...</code></pre>
 </div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  default student   balance    income
-1      No      No  729.5265 44361.625
-2      No     Yes  817.1804 12106.135
-3      No      No 1073.5492 31767.139
-4      No      No  529.2506 35704.494
-5      No      No  785.6559 38463.496
-6      No     Yes  919.5885  7491.559</code></pre>
+<pre><code>#&gt;   default student   balance    income
+#&gt; 1      No      No  729.5265 44361.625
+#&gt; 2      No     Yes  817.1804 12106.135
+#&gt; 3      No      No 1073.5492 31767.139
+#&gt; 4      No      No  529.2506 35704.494
+#&gt; 5      No      No  785.6559 38463.496
+#&gt; 6      No     Yes  919.5885  7491.559</code></pre>
 </div>
 </div>
 </section><section id="manipulando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="manipulando-os-dados">Manipulando os dados</h2>
@@ -624,13 +625,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">Default</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> default    student       balance           income     
- No :9667   No :7056   Min.   :   0.0   Min.   :  772  
- Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  
-                       Median : 823.6   Median :34553  
-                       Mean   : 835.4   Mean   :33517  
-                       3rd Qu.:1166.3   3rd Qu.:43808  
-                       Max.   :2654.3   Max.   :73554  </code></pre>
+<pre><code>#&gt;  default    student       balance           income     
+#&gt;  No :9667   No :7056   Min.   :   0.0   Min.   :  772  
+#&gt;  Yes: 333   Yes:2944   1st Qu.: 481.7   1st Qu.:21340  
+#&gt;                        Median : 823.6   Median :34553  
+#&gt;                        Mean   : 835.4   Mean   :33517  
+#&gt;                        3rd Qu.:1166.3   3rd Qu.:43808  
+#&gt;                        Max.   :2654.3   Max.   :73554</code></pre>
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># renomeando colunas</span></span>
 <span><span class="va">credito</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -647,52 +648,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tibble [10,000 × 4] (S3: tbl_df/tbl/data.frame)
- $ inadimplente: Factor w/ 2 levels "Nao","Sim": 1 1 1 1 1 1 1 1 1 1 ...
- $ estudante   : num [1:10000] 0 1 0 0 0 1 0 1 0 0 ...
- $ balanco     : num [1:10000] 730 817 1074 529 786 ...
- $ receita     : num [1:10000] 44362 12106 31767 35704 38463 ...</code></pre>
+<pre><code>#&gt; tibble [10,000 × 4] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ inadimplente: Factor w/ 2 levels "Nao","Sim": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ estudante   : num [1:10000] 0 1 0 0 0 1 0 1 0 0 ...
+#&gt;  $ balanco     : num [1:10000] 730 817 1074 529 786 ...
+#&gt;  $ receita     : num [1:10000] 44362 12106 31767 35704 38463 ...</code></pre>
 </div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">credito</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> inadimplente   estudante         balanco          receita     
- Nao:9667     Min.   :0.0000   Min.   :   0.0   Min.   :  772  
- Sim: 333     1st Qu.:0.0000   1st Qu.: 481.7   1st Qu.:21340  
-              Median :0.0000   Median : 823.6   Median :34553  
-              Mean   :0.2944   Mean   : 835.4   Mean   :33517  
-              3rd Qu.:1.0000   3rd Qu.:1166.3   3rd Qu.:43808  
-              Max.   :1.0000   Max.   :2654.3   Max.   :73554  </code></pre>
+<pre><code>#&gt;  inadimplente   estudante         balanco          receita     
+#&gt;  Nao:9667     Min.   :0.0000   Min.   :   0.0   Min.   :  772  
+#&gt;  Sim: 333     1st Qu.:0.0000   1st Qu.: 481.7   1st Qu.:21340  
+#&gt;               Median :0.0000   Median : 823.6   Median :34553  
+#&gt;               Mean   :0.2944   Mean   : 835.4   Mean   :33517  
+#&gt;               3rd Qu.:1.0000   3rd Qu.:1166.3   3rd Qu.:43808  
+#&gt;               Max.   :1.0000   Max.   :2654.3   Max.   :73554</code></pre>
 </div>
 </div>
 </section><section id="treino-e-teste" class="level2"><h2 class="anchored" data-anchor-id="treino-e-teste">Treino e Teste</h2>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">$</span><span class="va">inadimplente</span></span>
-<span><span class="va">indice_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.2</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">credito_split</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">y</span>, times <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">0.1</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="op">-</span><span class="va">indice_teste</span><span class="op">)</span></span>
-<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">credito</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">indice_teste</span><span class="op">)</span></span>
+<span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">[</span><span class="op">-</span><span class="va">credito_split</span>,<span class="op">]</span></span>
+<span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">credito</span><span class="op">[</span><span class="va">credito_split</span>,<span class="op">]</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> inadimplente   estudante         balanco          receita     
- Nao:7733     Min.   :0.0000   Min.   :   0.0   Min.   :  772  
- Sim: 266     1st Qu.:0.0000   1st Qu.: 481.3   1st Qu.:21339  
-              Median :0.0000   Median : 819.1   Median :34541  
-              Mean   :0.2953   Mean   : 832.7   Mean   :33541  
-              3rd Qu.:1.0000   3rd Qu.:1167.1   3rd Qu.:43840  
-              Max.   :1.0000   Max.   :2654.3   Max.   :73554  </code></pre>
+<pre><code>#&gt;  inadimplente   estudante         balanco          receita     
+#&gt;  Nao:8700     Min.   :0.0000   Min.   :   0.0   Min.   :  772  
+#&gt;  Sim: 299     1st Qu.:0.0000   1st Qu.: 483.6   1st Qu.:21343  
+#&gt;               Median :0.0000   Median : 821.3   Median :34576  
+#&gt;               Mean   :0.2946   Mean   : 836.3   Mean   :33556  
+#&gt;               3rd Qu.:1.0000   3rd Qu.:1167.1   3rd Qu.:43854  
+#&gt;               Max.   :1.0000   Max.   :2654.3   Max.   :73554</code></pre>
 </div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> inadimplente   estudante         balanco          receita     
- Nao:1934     Min.   :0.0000   Min.   :   0.0   Min.   : 4755  
- Sim:  67     1st Qu.:0.0000   1st Qu.: 483.5   1st Qu.:21371  
-              Median :0.0000   Median : 836.6   Median :34591  
-              Mean   :0.2909   Mean   : 846.2   Mean   :33423  
-              3rd Qu.:1.0000   3rd Qu.:1163.1   3rd Qu.:43646  
-              Max.   :1.0000   Max.   :2461.5   Max.   :71239  </code></pre>
+<pre><code>#&gt;  inadimplente   estudante         balanco          receita     
+#&gt;  Nao:967      Min.   :0.0000   Min.   :   0.0   Min.   : 5386  
+#&gt;  Sim: 34      1st Qu.:0.0000   1st Qu.: 453.6   1st Qu.:21319  
+#&gt;               Median :0.0000   Median : 839.9   Median :34086  
+#&gt;               Mean   :0.2927   Mean   : 827.4   Mean   :33170  
+#&gt;               3rd Qu.:1.0000   3rd Qu.:1156.3   3rd Qu.:42856  
+#&gt;               Max.   :1.0000   Max.   :2221.0   Max.   :70701</code></pre>
 </div>
 </div>
 </section><section id="smote" class="level2"><h2 class="anchored" data-anchor-id="smote">SMOTE</h2>
@@ -705,19 +705,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">conj_treinoS</span> <span class="op">&lt;-</span> <span class="va">conj_treinoS</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span> inadimplente <span class="op">=</span> <span class="va">class</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">conj_treinoS</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-     Nao      Sim 
-0.500615 0.499385 </code></pre>
+<pre><code>#&gt; 
+#&gt;       Nao       Sim 
+#&gt; 0.5008347 0.4991653</code></pre>
 </div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">conj_treinoS</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   estudante         balanco          receita      inadimplente
- Min.   :0.0000   Min.   :   0.0   Min.   :  772   Nao:7733    
- 1st Qu.:0.0000   1st Qu.: 795.5   1st Qu.:20166   Sim:7714    
- Median :0.0000   Median :1392.3   Median :33703               
- Mean   :0.3394   Mean   :1272.9   Mean   :32841               
- 3rd Qu.:1.0000   3rd Qu.:1769.2   3rd Qu.:43745               
- Max.   :1.0000   Max.   :2654.3   Max.   :73554               </code></pre>
+<pre><code>#&gt;    estudante         balanco          receita      inadimplente
+#&gt;  Min.   :0.0000   Min.   :   0.0   Min.   :  772   Nao:8700    
+#&gt;  1st Qu.:0.0000   1st Qu.: 798.1   1st Qu.:20071   Sim:8671    
+#&gt;  Median :0.0000   Median :1392.3   Median :33552               
+#&gt;  Mean   :0.3398   Mean   :1281.7   Mean   :32721               
+#&gt;  3rd Qu.:1.0000   3rd Qu.:1786.8   3rd Qu.:43584               
+#&gt;  Max.   :1.0000   Max.   :2654.3   Max.   :73554</code></pre>
 </div>
 </div>
 </section><section id="a-regressão-logística" class="level2"><h2 class="anchored" data-anchor-id="a-regressão-logística">1a Regressão logística</h2>
@@ -725,81 +725,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">balanco</span> <span class="op">+</span> <span class="va">receita</span> <span class="op">+</span> <span class="va">estudante</span>,data<span class="op">=</span><span class="va">conj_treinoS</span>,family<span class="op">=</span><span class="va">binomial</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = inadimplente ~ balanco + receita + estudante, family = binomial, 
-    data = conj_treinoS)
-
-Coefficients:
-              Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -9.778e+00  2.279e-01 -42.898  &lt; 2e-16 ***
-balanco      7.115e-03  1.199e-04  59.356  &lt; 2e-16 ***
-receita      9.409e-06  3.645e-06   2.582  0.00984 ** 
-estudante   -6.092e-01  1.071e-01  -5.688 1.28e-08 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 21414.1  on 15446  degrees of freedom
-Residual deviance:  7490.3  on 15443  degrees of freedom
-AIC: 7498.3
-
-Number of Fisher Scoring iterations: 7</code></pre>
+<pre><code>#&gt; 
+#&gt; Call:
+#&gt; glm(formula = inadimplente ~ balanco + receita + estudante, family = binomial, 
+#&gt;     data = conj_treinoS)
+#&gt; 
+#&gt; Coefficients:
+#&gt;               Estimate Std. Error z value Pr(&gt;|z|)    
+#&gt; (Intercept) -9.289e+00  2.112e-01 -43.990   &lt;2e-16 ***
+#&gt; balanco      7.111e-03  1.136e-04  62.586   &lt;2e-16 ***
+#&gt; receita     -3.103e-06  3.532e-06  -0.879     0.38    
+#&gt; estudante   -9.580e-01  1.017e-01  -9.418   &lt;2e-16 ***
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+#&gt; (Dispersion parameter for binomial family taken to be 1)
+#&gt; 
+#&gt;     Null deviance: 24081.3  on 17370  degrees of freedom
+#&gt; Residual deviance:  8348.3  on 17367  degrees of freedom
+#&gt; AIC: 8356.3
+#&gt; 
+#&gt; Number of Fisher Scoring iterations: 7</code></pre>
 </div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  (Intercept)       balanco       receita     estudante 
--9.778189e+00  7.114940e-03  9.409475e-06 -6.092070e-01 </code></pre>
+<pre><code>#&gt;   (Intercept)       balanco       receita     estudante 
+#&gt; -9.288540e+00  7.110668e-03 -3.103058e-06 -9.580370e-01</code></pre>
 </div>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                 Estimate   Std. Error    z value     Pr(&gt;|z|)
-(Intercept) -9.778189e+00 2.279388e-01 -42.898311 0.000000e+00
-balanco      7.114940e-03 1.198694e-04  59.355775 0.000000e+00
-receita      9.409475e-06 3.644856e-06   2.581576 9.835023e-03
-estudante   -6.092070e-01 1.070945e-01  -5.688499 1.281605e-08</code></pre>
+<pre><code>#&gt;                  Estimate   Std. Error     z value     Pr(&gt;|z|)
+#&gt; (Intercept) -9.288540e+00 2.111528e-01 -43.9896601 0.000000e+00
+#&gt; balanco      7.110668e-03 1.136140e-04  62.5862063 0.000000e+00
+#&gt; receita     -3.103058e-06 3.532109e-06  -0.8785285 3.796570e-01
+#&gt; estudante   -9.580370e-01 1.017207e-01  -9.4183074 4.584179e-21</code></pre>
 </div>
 </div>
 </section><section id="avaliando-o-modelo-novamente" class="level2"><h2 class="anchored" data-anchor-id="avaliando-o-modelo-novamente">Avaliando o modelo novamente</h2>
 <div class="cell">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-       Nao        Sim 
-0.96651674 0.03348326 </code></pre>
+<pre><code>#&gt; 
+#&gt;        Nao        Sim 
+#&gt; 0.96603397 0.03396603</code></pre>
 </div>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p_chapeu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod1</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
 <span><span class="va">y_chapeu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">p_chapeu</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">"Sim"</span>, <span class="st">"Nao"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">y_chapeu</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span>, positive<span class="op">=</span><span class="st">"Sim"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Confusion Matrix and Statistics
-
-          Reference
-Prediction  Nao  Sim
-       Nao 1696   11
-       Sim  238   56
-                                          
-               Accuracy : 0.8756          
-                 95% CI : (0.8603, 0.8897)
-    No Information Rate : 0.9665          
-    P-Value [Acc &gt; NIR] : 1               
-                                          
-                  Kappa : 0.2705          
-                                          
- Mcnemar's Test P-Value : &lt;2e-16          
-                                          
-            Sensitivity : 0.83582         
-            Specificity : 0.87694         
-         Pos Pred Value : 0.19048         
-         Neg Pred Value : 0.99356         
-             Prevalence : 0.03348         
-         Detection Rate : 0.02799         
-   Detection Prevalence : 0.14693         
-      Balanced Accuracy : 0.85638         
-                                          
-       'Positive' Class : Sim             
-                                          </code></pre>
+<pre><code>#&gt; Confusion Matrix and Statistics
+#&gt; 
+#&gt;           Reference
+#&gt; Prediction Nao Sim
+#&gt;        Nao 861   6
+#&gt;        Sim 106  28
+#&gt;                                          
+#&gt;                Accuracy : 0.8881         
+#&gt;                  95% CI : (0.8669, 0.907)
+#&gt;     No Information Rate : 0.966          
+#&gt;     P-Value [Acc &gt; NIR] : 1              
+#&gt;                                          
+#&gt;                   Kappa : 0.2951         
+#&gt;                                          
+#&gt;  Mcnemar's Test P-Value : &lt;2e-16         
+#&gt;                                          
+#&gt;             Sensitivity : 0.82353        
+#&gt;             Specificity : 0.89038        
+#&gt;          Pos Pred Value : 0.20896        
+#&gt;          Neg Pred Value : 0.99308        
+#&gt;              Prevalence : 0.03397        
+#&gt;          Detection Rate : 0.02797        
+#&gt;    Detection Prevalence : 0.13387        
+#&gt;       Balanced Accuracy : 0.85696        
+#&gt;                                          
+#&gt;        'Positive' Class : Sim            
+#&gt; </code></pre>
 </div>
 </div>
 </section><section id="curva-roc" class="level2"><h2 class="anchored" data-anchor-id="curva-roc">Curva ROC</h2>
@@ -808,8 +808,8 @@ Prediction  Nao  Sim
 <span><span class="va">p_chapeu_log</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod1</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">p_chapeu_log</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           1            2            3            4            5            6 
-1.710555e-01 3.991424e-04 9.094011e-05 9.398313e-02 3.185776e-03 8.710220e-04 </code></pre>
+<pre><code>#&gt;           1           2           3           4           5           6 
+#&gt; 0.088099402 0.002130191 0.019239847 0.070623827 0.133527974 0.005357011</code></pre>
 </div>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">roc_log</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">inadimplente</span> <span class="op">~</span> <span class="va">p_chapeu_log</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, print.auc<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>                 legacy.axes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -821,7 +821,7 @@ Prediction  Nao  Sim
 </div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">roc_log</span><span class="op">$</span><span class="va">auc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.941186</code></pre>
+<pre><code>#&gt; [1] 0.9325081</code></pre>
 </div>
 </div>
 

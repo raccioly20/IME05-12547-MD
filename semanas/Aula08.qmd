@@ -27,6 +27,9 @@ execute:
 
 ```{r bibliotecas, message=FALSE}
 library(tidyverse)
+library(caret)
+library(patchwork)
+library(pROC)
 library(ISLR)
 data(Default)
 summary(Default)
@@ -57,25 +60,25 @@ summary(credito)
 
 ```
 
-## Matriz de dispersão
+## Graficos de Densidade
 
 Vamos agora explorar os dados originais para termos algum visão do comportamento das variáveis explicativas e a variável dependente.
 
-```{r splom, message=FALSE}
-library(psych)
-pairs.panels(credito, 
-             method = "pearson", # metodo de correlação
-             hist.col = "#00AFBB",
-             density = TRUE,  # mostra graficos de densidade
-             ellipses = FALSE # mostra elipses de correlação
-             )
-
+```{r}
+featurePlot(x = credito[, c("balanco", "receita", "estudante")], 
+            y = credito$inadimplente,
+            plot = "density", 
+            scales = list(x = list(relation = "free"), 
+                          y = list(relation = "free")), 
+            adjust = 1.5, 
+            pch = "|", 
+            layout = c(2, 1), 
+            auto.key = list(columns = 2))
 ```
 
 ## Avaliando o comportamento das variáveis em função do status (inadimplente / estudante)
 
 ```{r box-plot}
-library(patchwork)
 p1 <- ggplot(credito, aes(x=inadimplente, y=balanco, color=inadimplente)) +
   geom_boxplot()
 p2 <- ggplot(credito, aes(x=inadimplente, y=receita, color=inadimplente)) +
@@ -86,16 +89,6 @@ p4 <- ggplot(credito, aes(x=as.factor(estudante), y=receita, color=as.factor(est
   geom_boxplot()
 (p1 + p2) / (p3 + p4)
 
-```
-
-## Explorando um pouco mais Balanço e Receita
-
-```{r histogramas}
-p5 <- ggplot(credito, aes(x=balanco)) +
-  geom_histogram(bins = round(1+3.322*log10(nrow(credito)),0))
-p6 <- ggplot(credito, aes(x=receita)) +
-    geom_histogram(bins = round(1+3.322*log10(nrow(credito)),0))
-p5 + p6
 ```
 
 ## Balanço vs Receita
@@ -115,7 +108,6 @@ Quando temos diversas variáveis explicativas em diferentes escalas, em geral, e
 ## Criando conjuntos de treino e teste e normalizando variáveis
 
 ```{r conjuntos-treino-teste, message=FALSE}
-library(caret)
 set.seed(2025)
 y <- credito$inadimplente
 credito_split <- createDataPartition(y, times = 1, p = 0.10, list = FALSE)
@@ -134,8 +126,6 @@ summary(conj_teste)
 Vamos usar a regra da raiz quadrada do tamanho da amostra para definir o número de vizinhos do KNN.
 
 ```{r 1modelo}
-
-library(caret)
 k <- round(sqrt(nrow(conj_treino)),0) # número de vizinhos
 k
 set.seed(2025)
@@ -164,8 +154,6 @@ Para a curva ROC é necessário que obtenhamos as probabilidades e não das clas
 
 ```{r ROC}
 #| warning: false
-
-library(pROC)
 
 # 
 p_chapeu_knn1 <- predict(t_knn1, conj_teste, type = "prob")

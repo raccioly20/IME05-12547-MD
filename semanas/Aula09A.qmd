@@ -2,11 +2,6 @@
 title: "Regressão Logística - SMOTE"
 author: "Ricardo Accioly"
 date: "`r Sys.Date()`"
-execute: 
-  echo: true
-  warning: false
-  message: false
-  freeze: auto
 format:
  html:
     code-link: true
@@ -15,10 +10,14 @@ format:
     fig-align: center
     fig-dpi: 300
 knitr: 
-  opts_chunk: 
+   opts_chunk: 
     out.width: 90%
-    fig.showtext: true
-    collapese: true
+    comment: "#>"
+execute: 
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
 ---
 
 ## Carregando Bibliotecas
@@ -26,6 +25,7 @@ knitr:
 ```{r}
 #| warning: false
 library(tidyverse)
+library(caret)
 library(ISLR)
 data(Default)
 summary(Default)
@@ -59,13 +59,12 @@ summary(credito)
 ## Treino e Teste
 
 ```{r}
-library(caret)
-set.seed(21)
+set.seed(2025)
 y <- credito$inadimplente
-indice_teste <- createDataPartition(y, times = 1, p = 0.2, list = FALSE)
+credito_split <- createDataPartition(y, times = 1, p = 0.1, list = FALSE)
 
-conj_treino <- credito %>% slice(-indice_teste)
-conj_teste <- credito %>% slice(indice_teste)
+conj_treino <- credito[-credito_split,]
+conj_teste <- credito[credito_split,]
 
 summary(conj_treino)
 summary(conj_teste)
