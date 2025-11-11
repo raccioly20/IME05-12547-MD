@@ -46,7 +46,7 @@ dados <- Boston
 ## Vamos criar os conjuntos de treino teste e desenvolver a arvore 
 ## com todas as variáveis.
 library(caret)
-set.seed(21)
+set.seed(2025)
 indice <- createDataPartition(dados$medv, times=1, p=0.75, list=FALSE)
 conj_treino <- dados[indice,]
 conj_teste <- dados[-indice,] 
@@ -70,7 +70,7 @@ dtest <- xgb.DMatrix(data = x_teste, label = y_teste)
 ## Treinamento com validação cruzada e grid de parâmetros
 
 ```{r}
-set.seed(21)
+set.seed(2025)
 # Grid de hiperparâmetros
 grid <- expand.grid(
   eta = c(0.01, 0.1),
@@ -131,7 +131,6 @@ final_model <- xgb.train(
 )
 ```
 
-
 ## Importancia das variáveis
 
 ```{r}
@@ -142,7 +141,6 @@ importance_matrix <- xgb.importance(model = final_model)
 xgb.plot.importance(importance_matrix)
 
 ```
-
 
 ## Previsões
 

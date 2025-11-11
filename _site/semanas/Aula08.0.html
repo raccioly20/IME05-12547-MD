@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2025-09-23">
+<meta name="dcterms.date" content="2025-11-11">
 <title>Classificação - Primeiros Passos – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -492,12 +492,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula11.2B.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arvore de Regressão (GBM)</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../semanas/Aula11.3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arvore de Regressão (XGBoost)</span></a>
   </div>
@@ -512,12 +506,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arvore de Classificação - Única</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arvore de Classificação - GBM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -592,7 +580,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 23, 2025</p>
+      <p class="date">November 11, 2025</p>
     </div>
   </div>
   
@@ -613,19 +601,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">heights</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     sex height
-1   Male     75
-2   Male     70
-3   Male     68
-4   Male     74
-5   Male     61
-6 Female     65</code></pre>
+<pre><code>#&gt;      sex height
+#&gt; 1   Male     75
+#&gt; 2   Male     70
+#&gt; 3   Male     68
+#&gt; 4   Male     74
+#&gt; 5   Male     61
+#&gt; 6 Female     65</code></pre>
 </div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">heights</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   1050 obs. of  2 variables:
- $ sex   : Factor w/ 2 levels "Female","Male": 2 2 2 2 2 1 1 1 1 2 ...
- $ height: num  75 70 68 74 61 65 66 62 66 67 ...</code></pre>
+<pre><code>#&gt; 'data.frame':    1050 obs. of  2 variables:
+#&gt;  $ sex   : Factor w/ 2 levels "Female","Male": 2 2 2 2 2 1 1 1 1 2 ...
+#&gt;  $ height: num  75 70 68 74 61 65 66 62 66 67 ...</code></pre>
 </div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">alturas</span> <span class="op">&lt;-</span> <span class="va">heights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># traduz dados para o português e transforma polegada para metro</span></span>
@@ -639,19 +627,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">sexo</span> , <span class="va">altura</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">alturas</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       sexo altura
-1 Masculino 1.9050
-2 Masculino 1.7780
-3 Masculino 1.7272
-4 Masculino 1.8796
-5 Masculino 1.5494
-6  Feminino 1.6510</code></pre>
+<pre><code>#&gt;        sexo altura
+#&gt; 1 Masculino 1.9050
+#&gt; 2 Masculino 1.7780
+#&gt; 3 Masculino 1.7272
+#&gt; 4 Masculino 1.8796
+#&gt; 5 Masculino 1.5494
+#&gt; 6  Feminino 1.6510</code></pre>
 </div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">alturas</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   1050 obs. of  2 variables:
- $ sexo  : chr  "Masculino" "Masculino" "Masculino" "Masculino" ...
- $ altura: num  1.9 1.78 1.73 1.88 1.55 ...</code></pre>
+<pre><code>#&gt; 'data.frame':    1050 obs. of  2 variables:
+#&gt;  $ sexo  : chr  "Masculino" "Masculino" "Masculino" "Masculino" ...
+#&gt;  $ altura: num  1.9 1.78 1.73 1.88 1.55 ...</code></pre>
 </div>
 </div>
 </section><section id="alterando" class="level2"><h2 class="anchored" data-anchor-id="alterando">Alterando</h2>
@@ -659,19 +647,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">alturas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>sexo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">alturas</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span>, altura <span class="op">=</span> <span class="va">alturas</span><span class="op">$</span><span class="va">altura</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">alturas</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   1050 obs. of  2 variables:
- $ sexo  : Factor w/ 2 levels "Feminino","Masculino": 2 2 2 2 2 1 1 1 1 2 ...
- $ altura: num  1.9 1.78 1.73 1.88 1.55 ...</code></pre>
+<pre><code>#&gt; 'data.frame':    1050 obs. of  2 variables:
+#&gt;  $ sexo  : Factor w/ 2 levels "Feminino","Masculino": 2 2 2 2 2 1 1 1 1 2 ...
+#&gt;  $ altura: num  1.9 1.78 1.73 1.88 1.55 ...</code></pre>
 </div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">alturas</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       sexo altura
-1 Masculino 1.9050
-2 Masculino 1.7780
-3 Masculino 1.7272
-4 Masculino 1.8796
-5 Masculino 1.5494
-6  Feminino 1.6510</code></pre>
+<pre><code>#&gt;        sexo altura
+#&gt; 1 Masculino 1.9050
+#&gt; 2 Masculino 1.7780
+#&gt; 3 Masculino 1.7272
+#&gt; 4 Masculino 1.8796
+#&gt; 5 Masculino 1.5494
+#&gt; 6  Feminino 1.6510</code></pre>
 </div>
 </div>
 </section><section id="definindo-x-e-y" class="level2"><h2 class="anchored" data-anchor-id="definindo-x-e-y">Definindo x e y</h2>
@@ -687,55 +675,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">alturas</span><span class="op">[</span><span class="op">-</span><span class="va">indice_teste</span>, <span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        sexo altura
-4  Masculino 1.8796
-7   Feminino 1.6764
-9   Feminino 1.6764
-14 Masculino 1.7272
-16 Masculino 1.6764
-25 Masculino 1.8288</code></pre>
+<pre><code>#&gt;         sexo altura
+#&gt; 4  Masculino 1.8796
+#&gt; 7   Feminino 1.6764
+#&gt; 9   Feminino 1.6764
+#&gt; 14 Masculino 1.7272
+#&gt; 16 Masculino 1.6764
+#&gt; 25 Masculino 1.8288</code></pre>
 </div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   211 obs. of  2 variables:
- $ sexo  : Factor w/ 2 levels "Feminino","Masculino": 2 1 1 2 2 2 2 2 2 2 ...
- $ altura: num  1.88 1.68 1.68 1.73 1.68 ...</code></pre>
+<pre><code>#&gt; 'data.frame':    211 obs. of  2 variables:
+#&gt;  $ sexo  : Factor w/ 2 levels "Feminino","Masculino": 2 1 1 2 2 2 2 2 2 2 ...
+#&gt;  $ altura: num  1.88 1.68 1.68 1.73 1.68 ...</code></pre>
 </div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        sexo         altura     
- Feminino : 48   Min.   :1.366  
- Masculino:163   1st Qu.:1.676  
-                 Median :1.727  
-                 Mean   :1.735  
-                 3rd Qu.:1.803  
-                 Max.   :2.032  </code></pre>
+<pre><code>#&gt;         sexo         altura     
+#&gt;  Feminino : 48   Min.   :1.366  
+#&gt;  Masculino:163   1st Qu.:1.676  
+#&gt;                  Median :1.727  
+#&gt;                  Mean   :1.735  
+#&gt;                  3rd Qu.:1.803  
+#&gt;                  Max.   :2.032</code></pre>
 </div>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       sexo altura
-1 Masculino 1.9050
-2 Masculino 1.7780
-3 Masculino 1.7272
-5 Masculino 1.5494
-6  Feminino 1.6510
-8  Feminino 1.5748</code></pre>
+<pre><code>#&gt;        sexo altura
+#&gt; 1 Masculino 1.9050
+#&gt; 2 Masculino 1.7780
+#&gt; 3 Masculino 1.7272
+#&gt; 5 Masculino 1.5494
+#&gt; 6  Feminino 1.6510
+#&gt; 8  Feminino 1.5748</code></pre>
 </div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   839 obs. of  2 variables:
- $ sexo  : Factor w/ 2 levels "Feminino","Masculino": 2 2 2 2 1 1 2 2 2 2 ...
- $ altura: num  1.9 1.78 1.73 1.55 1.65 ...</code></pre>
+<pre><code>#&gt; 'data.frame':    839 obs. of  2 variables:
+#&gt;  $ sexo  : Factor w/ 2 levels "Feminino","Masculino": 2 2 2 2 1 1 2 2 2 2 ...
+#&gt;  $ altura: num  1.9 1.78 1.73 1.55 1.65 ...</code></pre>
 </div>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        sexo         altura     
- Feminino :190   Min.   :1.270  
- Masculino:649   1st Qu.:1.676  
-                 Median :1.750  
-                 Mean   :1.736  
-                 3rd Qu.:1.803  
-                 Max.   :2.100  </code></pre>
+<pre><code>#&gt;         sexo         altura     
+#&gt;  Feminino :190   Min.   :1.270  
+#&gt;  Masculino:649   1st Qu.:1.676  
+#&gt;                  Median :1.750  
+#&gt;                  Mean   :1.736  
+#&gt;                  3rd Qu.:1.803  
+#&gt;                  Max.   :2.100</code></pre>
 </div>
 </div>
 </section><section id="chutar-a-resposta" class="level2"><h2 class="anchored" data-anchor-id="chutar-a-resposta">Chutar a resposta!!!!!</h2>
@@ -748,7 +736,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y_chapeu</span> <span class="op">==</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.549763</code></pre>
+<pre><code>#&gt; [1] 0.549763</code></pre>
 </div>
 </div>
 </section><section id="melhorando" class="level2"><h2 class="anchored" data-anchor-id="melhorando">Melhorando</h2>
@@ -808,30 +796,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">alturas</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sexo</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">altura</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">altura</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
-  sexo      `mean(altura)` `sd(altura)`
-  &lt;fct&gt;              &lt;dbl&gt;        &lt;dbl&gt;
-1 Feminino            1.65       0.0955
-2 Masculino           1.76       0.0917</code></pre>
+<pre><code>#&gt; # A tibble: 2 × 3
+#&gt;   sexo      `mean(altura)` `sd(altura)`
+#&gt;   &lt;fct&gt;              &lt;dbl&gt;        &lt;dbl&gt;
+#&gt; 1 Feminino            1.65       0.0955
+#&gt; 2 Masculino           1.76       0.0917</code></pre>
 </div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">media_Homem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">alturas</span><span class="op">[</span><span class="va">alturas</span><span class="op">$</span><span class="va">sexo</span><span class="op">==</span><span class="st">"Masculino"</span>,<span class="op">]</span><span class="op">$</span><span class="va">altura</span><span class="op">)</span></span>
 <span><span class="va">desv_pad_Homem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">alturas</span><span class="op">[</span><span class="va">alturas</span><span class="op">$</span><span class="va">sexo</span><span class="op">==</span><span class="st">"Masculino"</span>,<span class="op">]</span><span class="op">$</span><span class="va">altura</span><span class="op">)</span></span>
 <span><span class="va">media_Homem</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.760595</code></pre>
+<pre><code>#&gt; [1] 1.760595</code></pre>
 </div>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">desv_pad_Homem</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.09172</code></pre>
+<pre><code>#&gt; [1] 0.09172</code></pre>
 </div>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">media_Homem</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">desv_pad_Homem</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.577155</code></pre>
+<pre><code>#&gt; [1] 1.577155</code></pre>
 </div>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y_chapeu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="va">media_Homem</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">desv_pad_Homem</span> , <span class="st">"Masculino"</span>, <span class="st">"Feminino"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span> <span class="op">==</span> <span class="va">y_chapeu</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7933333</code></pre>
+<pre><code>#&gt; [1] 0.7933333</code></pre>
 </div>
 </div>
 </section><section id="qual-o-melhor-ponto-de-corte" class="level2"><h2 class="anchored" data-anchor-id="qual-o-melhor-ponto-de-corte">Qual o melhor ponto de corte?</h2>
@@ -844,12 +832,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">precisao</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8307509</code></pre>
+<pre><code>#&gt; [1] 0.8307509</code></pre>
 </div>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">melhor_ponto</span> <span class="op">&lt;-</span> <span class="va">pontodecorte</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span><span class="op">(</span><span class="va">precisao</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">melhor_ponto</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.65</code></pre>
+<pre><code>#&gt; [1] 1.65</code></pre>
 </div>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pontodecorte</span>, <span class="va">precisao</span><span class="op">)</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="va">melhor_ponto</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -864,7 +852,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">y_chapeu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">y_chapeu</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y_chapeu</span> <span class="op">==</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8530806</code></pre>
+<pre><code>#&gt; [1] 0.8530806</code></pre>
 </div>
 </div>
 </section><section id="melhorando-o-gráfico" class="level2"><h2 class="anchored" data-anchor-id="melhorando-o-gráfico">Melhorando o gráfico</h2>
@@ -884,51 +872,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span>previsto <span class="op">=</span> <span class="va">y_chapeu</span>, real <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           real
-previsto    Feminino Masculino
-  Feminino        26         9
-  Masculino       22       154</code></pre>
+<pre><code>#&gt;            real
+#&gt; previsto    Feminino Masculino
+#&gt;   Feminino        26         9
+#&gt;   Masculino       22       154</code></pre>
 </div>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conj_teste</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>y_chapeu <span class="op">=</span> <span class="va">y_chapeu</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sexo</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>precisao <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y_chapeu</span> <span class="op">==</span> <span class="va">sexo</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  sexo      precisao
-  &lt;fct&gt;        &lt;dbl&gt;
-1 Feminino     0.542
-2 Masculino    0.945</code></pre>
+<pre><code>#&gt; # A tibble: 2 × 2
+#&gt;   sexo      precisao
+#&gt;   &lt;fct&gt;        &lt;dbl&gt;
+#&gt; 1 Feminino     0.542
+#&gt; 2 Masculino    0.945</code></pre>
 </div>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">y_chapeu</span>, reference <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Confusion Matrix and Statistics
-
-           Reference
-Prediction  Feminino Masculino
-  Feminino        26         9
-  Masculino       22       154
-                                         
-               Accuracy : 0.8531         
-                 95% CI : (0.798, 0.8979)
-    No Information Rate : 0.7725         
-    P-Value [Acc &gt; NIR] : 0.002359       
-                                         
-                  Kappa : 0.5378         
-                                         
- Mcnemar's Test P-Value : 0.031141       
-                                         
-            Sensitivity : 0.5417         
-            Specificity : 0.9448         
-         Pos Pred Value : 0.7429         
-         Neg Pred Value : 0.8750         
-             Prevalence : 0.2275         
-         Detection Rate : 0.1232         
-   Detection Prevalence : 0.1659         
-      Balanced Accuracy : 0.7432         
-                                         
-       'Positive' Class : Feminino       
-                                         </code></pre>
+<pre><code>#&gt; Confusion Matrix and Statistics
+#&gt; 
+#&gt;            Reference
+#&gt; Prediction  Feminino Masculino
+#&gt;   Feminino        26         9
+#&gt;   Masculino       22       154
+#&gt;                                          
+#&gt;                Accuracy : 0.8531         
+#&gt;                  95% CI : (0.798, 0.8979)
+#&gt;     No Information Rate : 0.7725         
+#&gt;     P-Value [Acc &gt; NIR] : 0.002359       
+#&gt;                                          
+#&gt;                   Kappa : 0.5378         
+#&gt;                                          
+#&gt;  Mcnemar's Test P-Value : 0.031141       
+#&gt;                                          
+#&gt;             Sensitivity : 0.5417         
+#&gt;             Specificity : 0.9448         
+#&gt;          Pos Pred Value : 0.7429         
+#&gt;          Neg Pred Value : 0.8750         
+#&gt;              Prevalence : 0.2275         
+#&gt;          Detection Rate : 0.1232         
+#&gt;    Detection Prevalence : 0.1659         
+#&gt;       Balanced Accuracy : 0.7432         
+#&gt;                                          
+#&gt;        'Positive' Class : Feminino       
+#&gt; </code></pre>
 </div>
 </div>
 </section><section id="maximizando-a-estatística-f1" class="level2"><h2 class="anchored" data-anchor-id="maximizando-a-estatística-f1">Maximizando a estatística F1</h2>
@@ -941,12 +929,12 @@ Prediction  Feminino Masculino
 <span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">F_1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.616092</code></pre>
+<pre><code>#&gt; [1] 0.616092</code></pre>
 </div>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">melhor_ponto</span> <span class="op">&lt;-</span> <span class="va">pontodecorte</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span><span class="op">(</span><span class="va">F_1</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">melhor_ponto</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.68</code></pre>
+<pre><code>#&gt; [1] 1.68</code></pre>
 </div>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dados</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">pontodecorte</span>, <span class="va">F_1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">dados</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">pontodecorte</span>, y<span class="op">=</span><span class="va">F_1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -961,33 +949,33 @@ Prediction  Feminino Masculino
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">y_chapeu</span>, reference <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Confusion Matrix and Statistics
-
-           Reference
-Prediction  Feminino Masculino
-  Feminino        32        26
-  Masculino       16       137
-                                          
-               Accuracy : 0.8009          
-                 95% CI : (0.7406, 0.8526)
-    No Information Rate : 0.7725          
-    P-Value [Acc &gt; NIR] : 0.1839          
-                                          
-                  Kappa : 0.4724          
-                                          
- Mcnemar's Test P-Value : 0.1649          
-                                          
-            Sensitivity : 0.6667          
-            Specificity : 0.8405          
-         Pos Pred Value : 0.5517          
-         Neg Pred Value : 0.8954          
-             Prevalence : 0.2275          
-         Detection Rate : 0.1517          
-   Detection Prevalence : 0.2749          
-      Balanced Accuracy : 0.7536          
-                                          
-       'Positive' Class : Feminino        
-                                          </code></pre>
+<pre><code>#&gt; Confusion Matrix and Statistics
+#&gt; 
+#&gt;            Reference
+#&gt; Prediction  Feminino Masculino
+#&gt;   Feminino        32        26
+#&gt;   Masculino       16       137
+#&gt;                                           
+#&gt;                Accuracy : 0.8009          
+#&gt;                  95% CI : (0.7406, 0.8526)
+#&gt;     No Information Rate : 0.7725          
+#&gt;     P-Value [Acc &gt; NIR] : 0.1839          
+#&gt;                                           
+#&gt;                   Kappa : 0.4724          
+#&gt;                                           
+#&gt;  Mcnemar's Test P-Value : 0.1649          
+#&gt;                                           
+#&gt;             Sensitivity : 0.6667          
+#&gt;             Specificity : 0.8405          
+#&gt;          Pos Pred Value : 0.5517          
+#&gt;          Neg Pred Value : 0.8954          
+#&gt;              Prevalence : 0.2275          
+#&gt;          Detection Rate : 0.1517          
+#&gt;    Detection Prevalence : 0.2749          
+#&gt;       Balanced Accuracy : 0.7536          
+#&gt;                                           
+#&gt;        'Positive' Class : Feminino        
+#&gt; </code></pre>
 </div>
 </div>
 </section><section id="voltando-a-chutar" class="level2"><h2 class="anchored" data-anchor-id="voltando-a-chutar">Voltando a chutar</h2>
@@ -997,7 +985,7 @@ Prediction  Feminino Masculino
 <span>                   replace <span class="op">=</span> <span class="cn">TRUE</span>, prob<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span><span class="op">-</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y_chapeu</span> <span class="op">==</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6919431</code></pre>
+<pre><code>#&gt; [1] 0.6919431</code></pre>
 </div>
 </div>
 </section><section id="curva-roc" class="level2"><h2 class="anchored" data-anchor-id="curva-roc">Curva ROC</h2>
@@ -1100,16 +1088,16 @@ Prediction  Feminino Masculino
 <span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>media <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">altura</span><span class="op">)</span>, desvpad <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">altura</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">params</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
-  sexo      media desvpad
-  &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-1 Feminino   1.65  0.0947
-2 Masculino  1.76  0.0925</code></pre>
+<pre><code>#&gt; # A tibble: 2 × 3
+#&gt;   sexo      media desvpad
+#&gt;   &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 Feminino   1.65  0.0947
+#&gt; 2 Masculino  1.76  0.0925</code></pre>
 </div>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pi</span> <span class="op">&lt;-</span> <span class="va">conj_treino</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>pi<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">sexo</span><span class="op">==</span><span class="st">"Feminino"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">pi</span><span class="op">)</span></span>
 <span><span class="va">pi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2264601</code></pre>
+<pre><code>#&gt; [1] 0.2264601</code></pre>
 </div>
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">altura</span></span>
 <span></span>
@@ -1121,33 +1109,33 @@ Prediction  Feminino Masculino
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">y_chapeu_bayes</span><span class="op">)</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">sexo</span>,  positive<span class="op">=</span><span class="st">"Feminino"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Confusion Matrix and Statistics
-
-           Reference
-Prediction  Feminino Masculino
-  Feminino        20         7
-  Masculino       28       156
-                                          
-               Accuracy : 0.8341          
-                 95% CI : (0.7769, 0.8817)
-    No Information Rate : 0.7725          
-    P-Value [Acc &gt; NIR] : 0.0174801       
-                                          
-                  Kappa : 0.4419          
-                                          
- Mcnemar's Test P-Value : 0.0007232       
-                                          
-            Sensitivity : 0.41667         
-            Specificity : 0.95706         
-         Pos Pred Value : 0.74074         
-         Neg Pred Value : 0.84783         
-             Prevalence : 0.22749         
-         Detection Rate : 0.09479         
-   Detection Prevalence : 0.12796         
-      Balanced Accuracy : 0.68686         
-                                          
-       'Positive' Class : Feminino        
-                                          </code></pre>
+<pre><code>#&gt; Confusion Matrix and Statistics
+#&gt; 
+#&gt;            Reference
+#&gt; Prediction  Feminino Masculino
+#&gt;   Feminino        20         7
+#&gt;   Masculino       28       156
+#&gt;                                           
+#&gt;                Accuracy : 0.8341          
+#&gt;                  95% CI : (0.7769, 0.8817)
+#&gt;     No Information Rate : 0.7725          
+#&gt;     P-Value [Acc &gt; NIR] : 0.0174801       
+#&gt;                                           
+#&gt;                   Kappa : 0.4419          
+#&gt;                                           
+#&gt;  Mcnemar's Test P-Value : 0.0007232       
+#&gt;                                           
+#&gt;             Sensitivity : 0.41667         
+#&gt;             Specificity : 0.95706         
+#&gt;          Pos Pred Value : 0.74074         
+#&gt;          Neg Pred Value : 0.84783         
+#&gt;              Prevalence : 0.22749         
+#&gt;          Detection Rate : 0.09479         
+#&gt;    Detection Prevalence : 0.12796         
+#&gt;       Balanced Accuracy : 0.68686         
+#&gt;                                           
+#&gt;        'Positive' Class : Feminino        
+#&gt; </code></pre>
 </div>
 </div>
 

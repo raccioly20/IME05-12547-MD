@@ -23,15 +23,15 @@ execute:
 ## Lendo dados de arquivos csv
 
 ```{r csv}
-library(readr)
-url <- "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos-acervo-de-dados-tecnicos/tabela-pocos.csv"
-
+library(readxl)
+# url <- "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos-acervo-de-dados-tecnicos/tabela-pocos.csv"
+# Não funciona mais a ANP mudou o acesso.
 ```
 
-## O read_delim permite que seja definido o tipo de delimitador dos dados
+## Lendo arquivo excel
 
 ```{r}
-pocos <- read_delim(url, delim = ";", locale= locale(decimal_mark = ","), col_names = TRUE)
+pocos <- read_xlsx("Tabela_pocos_2025_Novembro_09.xlsx")
 head(pocos)
 ```
 
@@ -99,6 +99,3 @@ poco_filtrado %>%
 ```{r}
 write_csv(poco_filtrado, "pocos_filtrados.csv")
 ```
-
-
-

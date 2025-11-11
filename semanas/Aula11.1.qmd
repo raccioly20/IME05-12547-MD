@@ -17,8 +17,7 @@ format:
 knitr: 
   opts_chunk: 
     out.width: 90%
-    fig.showtext: true
-    collapese: true
+    comment: "#>"
 ---
 
 ## Bibliotecas
@@ -26,7 +25,10 @@ knitr:
 ```{r bibliotecas , message=FALSE}
 library(MASS)
 library(tidyverse)
+library(rpart)
+library(rpart.plot)
 library(psych)
+library(caret)
 ```
 
 ## Carregando os dados
@@ -93,14 +95,12 @@ Neste exemplo só definimos o menor conjunto de dados numa partição (minsplit)
 
 ```{r arvore}
 ##Usando rpart para desenvolver a arvore  
-library(rpart)
 arvreg <- rpart(medv ~ ., 
                 data=extrato,
                 method="anova", #para arvore de regressão
                 control=rpart.control(minsplit=30,cp=0.06))
-plot(arvreg)
-text(arvreg,pretty=0)
 arvreg
+rpart.plot(arvreg)
 ```
 
 ## Segmentos
@@ -124,8 +124,7 @@ Agora vamos trabalhar com o conjunto completo criando um conjunto de treino e te
 ```{r conjuntos-treino-teste}
 ## Vamos criar os conjuntos de treino teste e desenvolver a arvore 
 ## com todas as variáveis.
-library(caret)
-set.seed(21)
+set.seed(2025)
 indice <- createDataPartition(dados$medv, times=1, p=0.75, list=FALSE)
 conj_treino <- dados[indice,]
 conj_teste <- dados[-indice,]
@@ -133,78 +132,12 @@ head(conj_treino)
 head(conj_teste)
 ```
 
-## Arvore de Regressão Treino
-
-```{r arvore2}
-
-## A função rpart tem diversos parametros aqui foi configurado um deles
-# cp o parametro de complexidade
-# Um valor de cp muito pequeno ocasiona overfitting e um valor muito grande 
-# resulta numa arvore muito pequena (underfitting).
-# Nos dois casos se diminui o desempenho do modelo.
-arvreg1 <- rpart(medv ~ ., 
-                data=conj_treino,
-                method="anova", #para arvore de regressão
-                control=rpart.control(minsplit=30,cp=0.01))
-plot(arvreg1)
-text(arvreg1,pretty=0)
-arvreg1
-```
-
-## Erros a partir do conjunto de treino
-
--   **O erro relativo (Rel error) é obtido através de 1 - R2**
--   **O xerror é obtido através da validação cruzadada (10 fold)**
--   **O xtsd é o desvio padrão dos valores obtidos na validação cruzada.**
-
-```{r erros}
-## Mostra 2 gráficos:
-# 1) Variação do R2 aparente e relativo vs número de partições
-# 2) Erro Relativo vs número de partições
-rsq.rpart(arvreg1)
-## Mostra a variação do Erro relativo vs cp(parametro de complexidade)
-plotcp(arvreg1)
-
-```
-
-## Gráfico de importancia das variáveis
-
-A importancia das variáveis é calculada com base nos resultados das melhores partições
-
-```{r}
-# Gráfico de Importância de variável
-var_imp <- arvreg1$variable.importance
-nomes_var <- names(var_imp)
-var_impdf <- data.frame(Importancia=unname(var_imp), Variavel=nomes_var) %>%
-                        arrange(Importancia)
-var_impdf$Variavel <- factor(var_impdf$Variavel, levels=var_impdf$Variavel)
-ggplot(var_impdf, aes(x=Variavel, y=Importancia)) + 
-         geom_col() + 
-        coord_flip()
-```
-
-## Mostrando a árvore e gerando previsões
-
-```{r}
-# Mostrando a arvore
-par(xpd = NA)
-plot(arvreg1)
-text(arvreg1,pretty=0)
-
-# Fazendo Previsões
-previsao1 <- arvreg1 %>% predict(conj_teste)
-head(previsao1)
-
-# Calcula os erros de previsão
-RMSE(previsao1, conj_teste$medv)
-```
-
 ## Arvore de Regressão com caret
 
 Aqui vamos usar a biblioteca caret que tem umas facilidades para otimização do cp e apresentação dos resultados
 
 ```{r arvore3}
-set.seed(21)
+set.seed(2025)
 ## Otimizamos o valor de cp usando um 10-fold cv
 # O parametro tuneLength diz para o algoritmo escolher diferentes valores para cp
 # O parametro tuneGrid permite decidir que valores cp deve assumir enquanto que o
@@ -223,14 +156,26 @@ arvreg2$bestTune
 
 ```{r arvore4}
 ## Apresenta o modelo final de arvore ajustado
-par(xpd = NA)
-plot(arvreg2$finalModel)
-text(arvreg2$finalModel,  digits = 3)
-
-
 ## usando o rpart.plot
-library(rpart.plot)
 rpart.plot(arvreg2$finalModel)
+```
+
+## Gráfico de importancia das variáveis
+
+A importancia das variáveis é calculada com base nos resultados das melhores partições
+
+```{r}
+# Gráfico de Importância de variável
+var_imp <- varImp(arvreg2) 
+var_imp$importance %>%
+  rownames_to_column(var = "Variável") %>%
+  ggplot(aes(x = reorder(Variável, Overall), y = Overall)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(title = "Importância das Variáveis na Árvore de Regressão",
+       x = "Variável",
+       y = "Importância (Overall)") +
+  theme_minimal()
 ```
 
 ## Previsões
@@ -256,7 +201,7 @@ predict.regsubsets <- function(object,newdata,id,...){
   coefi <- coef(object,id=id)
   mat[,names(coefi)]%*%coefi
 }
-set.seed(21)
+set.seed(2025)
 envelopes <- sample(rep(1:5,length=nrow(conj_treino)))
 table(envelopes)
 erro_cv <- matrix(NA,5,13)
@@ -290,7 +235,6 @@ RMSE(previsao3, conj_teste$medv)
 ```{r}
 ## Vamos criar os conjuntos de treino teste e desenvolver a arvore 
 ## com todas as variáveis.
-library(caret)
 set.seed(23)
 indice <- createDataPartition(dados$medv, times=1, p=0.75, list=FALSE)
 conj_treino <- dados[indice,]
@@ -299,9 +243,13 @@ arvreg1s <- rpart(medv ~ .,
                 data=conj_treino,
                 method="anova", #para arvore de regressão
                 control=rpart.control(minsplit=30,cp=0.01))
-plot(arvreg1s)
-text(arvreg1s,pretty=0)
 arvreg1s
+
+## Colocar as duas arvores lado a lado
+par(mfrow=c(1,2))
+rpart.plot(arvreg1s)
+rpart.plot(arvreg2$finalModel)
+
 ```
 
-Esta é a principal fragilidade da árvore (única), qualquer mudança na amostra pode trazer uma configuração diferente.
+Esta é a principal fragilidade da árvore (única), qualquer mudança na amostra pode trazer uma configuração diferente. \## Fim

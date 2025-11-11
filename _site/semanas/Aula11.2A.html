@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2025-06-03">
+<meta name="dcterms.date" content="2025-11-11">
 <title>Arvores de Regressão - Random Forest – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -62,7 +62,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../semanas/Aula11.2B.html" rel="next">
+<link href="../semanas/Aula11.3.html" rel="next">
 <link href="../semanas/Aula11.1.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -492,12 +492,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula11.2B.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arvore de Regressão (GBM)</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../semanas/Aula11.3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arvore de Regressão (XGBoost)</span></a>
   </div>
@@ -512,12 +506,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arvore de Classificação - Única</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arvore de Classificação - GBM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -582,7 +570,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 3, 2025</p>
+      <p class="date">November 11, 2025</p>
     </div>
   </div>
   
@@ -617,43 +605,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Vamos criar os conjuntos de treino teste e desenvolver a arvore </span></span>
 <span><span class="co">## com todas as variáveis.</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span>
 <span><span class="va">indice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">dados</span><span class="op">$</span><span class="va">medv</span>, times<span class="op">=</span><span class="fl">1</span>, p<span class="op">=</span><span class="fl">0.75</span>, list<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">dados</span><span class="op">[</span><span class="va">indice</span>,<span class="op">]</span></span>
 <span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">dados</span><span class="op">[</span><span class="op">-</span><span class="va">indice</span>,<span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     crim   zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat
-1 0.00632 18.0  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90  4.98
-3 0.02729  0.0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83  4.03
-4 0.03237  0.0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63  2.94
-5 0.06905  0.0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90  5.33
-6 0.02985  0.0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12  5.21
-7 0.08829 12.5  7.87    0 0.524 6.012 66.6 5.5605   5 311    15.2 395.60 12.43
-  medv
-1 24.0
-3 34.7
-4 33.4
-5 36.2
-6 28.7
-7 22.9</code></pre>
+<pre><code>      crim   zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat
+2  0.02731  0.0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90  9.14
+6  0.02985  0.0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12  5.21
+7  0.08829 12.5  7.87    0 0.524 6.012 66.6 5.5605   5 311    15.2 395.60 12.43
+8  0.14455 12.5  7.87    0 0.524 6.172 96.1 5.9505   5 311    15.2 396.90 19.15
+10 0.17004 12.5  7.87    0 0.524 6.004 85.9 6.5921   5 311    15.2 386.71 17.10
+11 0.22489 12.5  7.87    0 0.524 6.377 94.3 6.3467   5 311    15.2 392.52 20.45
+   medv
+2  21.6
+6  28.7
+7  22.9
+8  27.1
+10 18.9
+11 15.0</code></pre>
 </div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      crim   zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat
-2  0.02731  0.0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90  9.14
-10 0.17004 12.5  7.87    0 0.524 6.004 85.9 6.5921   5 311    15.2 386.71 17.10
-12 0.11747 12.5  7.87    0 0.524 6.009 82.9 6.2267   5 311    15.2 396.90 13.27
-16 0.62739  0.0  8.14    0 0.538 5.834 56.5 4.4986   4 307    21.0 395.62  8.47
-19 0.80271  0.0  8.14    0 0.538 5.456 36.6 3.7965   4 307    21.0 288.99 11.69
-23 1.23247  0.0  8.14    0 0.538 6.142 91.7 3.9769   4 307    21.0 396.90 18.72
-   medv
-2  21.6
-10 18.9
-12 18.9
-16 19.9
-19 20.2
-23 15.2</code></pre>
+<pre><code>      crim   zn indus chas   nox    rm   age    dis rad tax ptratio  black
+1  0.00632 18.0  2.31    0 0.538 6.575  65.2 4.0900   1 296    15.3 396.90
+3  0.02729  0.0  7.07    0 0.469 7.185  61.1 4.9671   2 242    17.8 392.83
+4  0.03237  0.0  2.18    0 0.458 6.998  45.8 6.0622   3 222    18.7 394.63
+5  0.06905  0.0  2.18    0 0.458 7.147  54.2 6.0622   3 222    18.7 396.90
+9  0.21124 12.5  7.87    0 0.524 5.631 100.0 6.0821   5 311    15.2 386.63
+19 0.80271  0.0  8.14    0 0.538 5.456  36.6 3.7965   4 307    21.0 288.99
+   lstat medv
+1   4.98 24.0
+3   4.03 34.7
+4   2.94 33.4
+5   5.33 36.2
+9  29.93 16.5
+19 11.69 20.2</code></pre>
 </div>
 </div>
 </section><section id="criando-um-grid-de-parametros" class="level2"><h2 class="anchored" data-anchor-id="criando-um-grid-de-parametros">Criando um grid de parametros</h2>
@@ -701,7 +689,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>            min.node.size <span class="op">=</span> <span class="va">min.node.size</span>,</span>
 <span>            splitrule <span class="op">=</span> <span class="va">splitrule</span>,</span>
 <span>            num.trees <span class="op">=</span> <span class="va">num.trees</span>,</span>
-<span>            seed <span class="op">=</span> <span class="fl">123</span></span>
+<span>            seed <span class="op">=</span> <span class="fl">2025</span></span>
 <span>          <span class="op">)</span></span>
 <span>          <span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">modelo</span>, data <span class="op">=</span> <span class="va">teste</span><span class="op">)</span><span class="op">$</span><span class="va">predictions</span></span>
 <span>          <span class="va">metric</span> <span class="op">&lt;-</span> <span class="fu">yardstick</span><span class="fu">::</span><span class="fu"><a href="https://yardstick.tidymodels.org/reference/rmse.html">rmse_vec</a></span><span class="op">(</span>truth <span class="op">=</span> <span class="va">teste</span><span class="op">$</span><span class="va">medv</span>, estimate <span class="op">=</span> <span class="va">pred</span><span class="op">)</span></span>
@@ -714,12 +702,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">avaliacoes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">media_rmse</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  mtry min.node.size  splitrule num.trees media_rmse
-1    6             1   variance       100   3.138929
-2    6             5   variance       100   3.180183
-3    4             1   variance       100   3.182037
-4    6             1 extratrees       100   3.223310
-5    4             5   variance       100   3.223342
-6    6             5 extratrees       100   3.292367</code></pre>
+1    6             1   variance       100   3.140727
+2    6             5   variance       100   3.174609
+3    4             1   variance       100   3.177201
+4    6             1 extratrees       100   3.192652
+5    4             5   variance       100   3.235676
+6    4             1 extratrees       100   3.249829</code></pre>
 </div>
 </div>
 </section><section id="melhor-combinação-de-parâmetros" class="level2"><h2 class="anchored" data-anchor-id="melhor-combinação-de-parâmetros">Melhor combinação de parâmetros</h2>
@@ -728,7 +716,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">melhor_param</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  mtry min.node.size splitrule num.trees media_rmse
-1    6             1  variance       100   3.138929</code></pre>
+1    6             1  variance       100   3.140727</code></pre>
 </div>
 </div>
 </section><section id="ajuste-do-modelo-final" class="level2"><h2 class="anchored" data-anchor-id="ajuste-do-modelo-final">Ajuste do modelo final</h2>
@@ -759,8 +747,8 @@ Mtry:                             6
 Target node size:                 1 
 Variable importance mode:         permutation 
 Splitrule:                        1 
-OOB prediction error (MSE):       12.75977 
-R squared (OOB):                  0.8445772 </code></pre>
+OOB prediction error (MSE):       10.99587 
+R squared (OOB):                  0.8584414 </code></pre>
 </div>
 </div>
 </section><section id="avaliação-no-conjunto-de-teste" class="level2"><h2 class="anchored" data-anchor-id="avaliação-no-conjunto-de-teste">Avaliação no conjunto de teste</h2>
@@ -771,7 +759,7 @@ R squared (OOB):                  0.8445772 </code></pre>
 <span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">postResample</a></span><span class="op">(</span><span class="va">pred</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     RMSE  Rsquared       MAE 
-4.0052763 0.8341371 2.2677500 </code></pre>
+3.2494760 0.9077779 2.3676144 </code></pre>
 </div>
 </div>
 </section><section id="importância-das-variáveis" class="level2"><h2 class="anchored" data-anchor-id="importância-das-variáveis">Importância das variáveis</h2>
@@ -810,19 +798,17 @@ R squared (OOB):                  0.8445772 </code></pre>
 <span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">postResample</a></span><span class="op">(</span><span class="va">pred_lm</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     RMSE  Rsquared       MAE 
-5.9426142 0.6315418 3.9610503 </code></pre>
+5.5535662 0.7120235 3.8617314 </code></pre>
 </div>
 </div>
 </section><section id="grafico-de-comparação" class="level2"><h2 class="anchored" data-anchor-id="grafico-de-comparação">Grafico de comparação</h2>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Gráfico de comparação</span></span>
-<span><span class="va">graf_comparacao</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span>, y <span class="op">=</span> <span class="va">pred</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span>, y <span class="op">=</span> <span class="va">pred_lm</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Comparação de Previsões: Random Forest vs Regressão Linear"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Valores Reais (medv)"</span>, y <span class="op">=</span> <span class="st">"Previsões"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">graf_comparacao</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Comparação de Previsões: Random Forest (azul) vs Regressão Linear (vermelho)"</span>, x <span class="op">=</span> <span class="st">"Valores Reais (medv)"</span>, y <span class="op">=</span> <span class="st">"Previsões"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="Aula11.2A_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
@@ -864,10 +850,10 @@ R squared (OOB):                  0.8445772 </code></pre>
 <span><span class="co"># Dados Analisados</span></span>
 <span><span class="va">conj_teste</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"medv"</span>, <span class="st">"rm"</span>, <span class="st">"ptratio"</span>, <span class="st">"nox"</span>, <span class="st">"dis"</span>, <span class="st">"lstat"</span>, <span class="st">"tax"</span><span class="op">)</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   medv    rm ptratio   nox    dis lstat tax
-2  21.6 6.421    17.8 0.469 4.9671  9.14 242
-10 18.9 6.004    15.2 0.524 6.5921 17.10 311
-12 18.9 6.009    15.2 0.524 6.2267 13.27 311</code></pre>
+<pre><code>  medv    rm ptratio   nox    dis lstat tax
+1 24.0 6.575    15.3 0.538 4.0900  4.98 296
+3 34.7 7.185    17.8 0.469 4.9671  4.03 242
+4 33.4 6.998    18.7 0.458 6.0622  2.94 222</code></pre>
 </div>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Visualizar explicações</span></span>
 <span><span class="fu"><a href="https://lime.data-imaginist.com/reference/plot_features.html">plot_features</a></span><span class="op">(</span><span class="va">explicacoes</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1297,8 +1283,8 @@ R squared (OOB):                  0.8445772 </code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../semanas/Aula11.2B.html" class="pagination-link" aria-label="Arvore de Regressão (GBM)">
-        <span class="nav-page-text">Arvore de Regressão (GBM)</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../semanas/Aula11.3.html" class="pagination-link" aria-label="Arvore de Regressão (XGBoost)">
+        <span class="nav-page-text">Arvore de Regressão (XGBoost)</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

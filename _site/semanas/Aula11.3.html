@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Ricardo Accioly">
-<meta name="dcterms.date" content="2025-06-03">
+<meta name="dcterms.date" content="2025-11-11">
 <title>Arvores de Regressão - XGBoost – IME05-12547</title>
 <style>
 code{white-space: pre-wrap;}
@@ -63,7 +63,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../semanas/Aula11.4.html" rel="next">
-<link href="../semanas/Aula11.2B.html" rel="prev">
+<link href="../semanas/Aula11.2A.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -492,12 +492,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula11.2B.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arvore de Regressão (GBM)</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../semanas/Aula11.3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Arvore de Regressão (XGBoost)</span></a>
   </div>
@@ -512,12 +506,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../semanas/Aula12.1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arvore de Classificação - Única</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../semanas/Aula12.2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arvore de Classificação - GBM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -579,7 +567,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 3, 2025</p>
+      <p class="date">November 11, 2025</p>
     </div>
   </div>
   
@@ -612,45 +600,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Vamos criar os conjuntos de treino teste e desenvolver a arvore </span></span>
 <span><span class="co">## com todas as variáveis.</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span>
 <span><span class="va">indice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">dados</span><span class="op">$</span><span class="va">medv</span>, times<span class="op">=</span><span class="fl">1</span>, p<span class="op">=</span><span class="fl">0.75</span>, list<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">conj_treino</span> <span class="op">&lt;-</span> <span class="va">dados</span><span class="op">[</span><span class="va">indice</span>,<span class="op">]</span></span>
 <span><span class="va">conj_teste</span> <span class="op">&lt;-</span> <span class="va">dados</span><span class="op">[</span><span class="op">-</span><span class="va">indice</span>,<span class="op">]</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   381 obs. of  14 variables:
- $ crim   : num  0.00632 0.02729 0.03237 0.06905 0.02985 ...
- $ zn     : num  18 0 0 0 0 12.5 12.5 12.5 12.5 12.5 ...
- $ indus  : num  2.31 7.07 2.18 2.18 2.18 7.87 7.87 7.87 7.87 7.87 ...
+ $ crim   : num  0.0273 0.0299 0.0883 0.1446 0.17 ...
+ $ zn     : num  0 0 12.5 12.5 12.5 12.5 12.5 12.5 0 0 ...
+ $ indus  : num  7.07 2.18 7.87 7.87 7.87 7.87 7.87 7.87 8.14 8.14 ...
  $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...
- $ nox    : num  0.538 0.469 0.458 0.458 0.458 0.524 0.524 0.524 0.524 0.524 ...
- $ rm     : num  6.58 7.18 7 7.15 6.43 ...
- $ age    : num  65.2 61.1 45.8 54.2 58.7 66.6 96.1 100 94.3 39 ...
- $ dis    : num  4.09 4.97 6.06 6.06 6.06 ...
- $ rad    : int  1 2 3 3 3 5 5 5 5 5 ...
- $ tax    : num  296 242 222 222 222 311 311 311 311 311 ...
- $ ptratio: num  15.3 17.8 18.7 18.7 18.7 15.2 15.2 15.2 15.2 15.2 ...
- $ black  : num  397 393 395 397 394 ...
- $ lstat  : num  4.98 4.03 2.94 5.33 5.21 ...
- $ medv   : num  24 34.7 33.4 36.2 28.7 22.9 27.1 16.5 15 21.7 ...</code></pre>
+ $ nox    : num  0.469 0.458 0.524 0.524 0.524 0.524 0.524 0.524 0.538 0.538 ...
+ $ rm     : num  6.42 6.43 6.01 6.17 6 ...
+ $ age    : num  78.9 58.7 66.6 96.1 85.9 94.3 82.9 39 61.8 84.5 ...
+ $ dis    : num  4.97 6.06 5.56 5.95 6.59 ...
+ $ rad    : int  2 3 5 5 5 5 5 5 4 4 ...
+ $ tax    : num  242 222 311 311 311 311 311 311 307 307 ...
+ $ ptratio: num  17.8 18.7 15.2 15.2 15.2 15.2 15.2 15.2 21 21 ...
+ $ black  : num  397 394 396 397 387 ...
+ $ lstat  : num  9.14 5.21 12.43 19.15 17.1 ...
+ $ medv   : num  21.6 28.7 22.9 27.1 18.9 15 18.9 21.7 20.4 18.2 ...</code></pre>
 </div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   125 obs. of  14 variables:
- $ crim   : num  0.0273 0.17 0.1175 0.6274 0.8027 ...
- $ zn     : num  0 12.5 12.5 0 0 0 0 0 0 75 ...
- $ indus  : num  7.07 7.87 7.87 8.14 8.14 8.14 8.14 5.96 5.96 2.95 ...
+ $ crim   : num  0.00632 0.02729 0.03237 0.06905 0.21124 ...
+ $ zn     : num  18 0 0 0 12.5 0 0 0 0 75 ...
+ $ indus  : num  2.31 7.07 2.18 2.18 7.87 8.14 8.14 8.14 8.14 2.95 ...
  $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...
- $ nox    : num  0.469 0.524 0.524 0.538 0.538 0.538 0.538 0.499 0.499 0.428 ...
- $ rm     : num  6.42 6 6.01 5.83 5.46 ...
- $ age    : num  78.9 85.9 82.9 56.5 36.6 91.7 82 61.4 30.2 21.8 ...
- $ dis    : num  4.97 6.59 6.23 4.5 3.8 ...
- $ rad    : int  2 5 5 4 4 4 4 5 5 3 ...
- $ tax    : num  242 311 311 307 307 307 307 279 279 252 ...
- $ ptratio: num  17.8 15.2 15.2 21 21 21 21 19.2 19.2 18.3 ...
- $ black  : num  397 387 397 396 289 ...
- $ lstat  : num  9.14 17.1 13.27 8.47 11.69 ...
- $ medv   : num  21.6 18.9 18.9 19.9 20.2 15.2 13.2 20 24.7 30.8 ...</code></pre>
+ $ nox    : num  0.538 0.469 0.458 0.458 0.524 0.538 0.538 0.538 0.538 0.428 ...
+ $ rm     : num  6.58 7.18 7 7.15 5.63 ...
+ $ age    : num  65.2 61.1 45.8 54.2 100 36.6 94.1 85.7 88.8 21.8 ...
+ $ dis    : num  4.09 4.97 6.06 6.06 6.08 ...
+ $ rad    : int  1 2 3 3 5 4 4 4 4 3 ...
+ $ tax    : num  296 242 222 222 311 307 307 307 307 252 ...
+ $ ptratio: num  15.3 17.8 18.7 18.7 15.2 21 21 21 21 18.3 ...
+ $ black  : num  397 393 395 397 387 ...
+ $ lstat  : num  4.98 4.03 2.94 5.33 29.93 ...
+ $ medv   : num  24 34.7 33.4 36.2 16.5 20.2 15.6 13.9 14.8 30.8 ...</code></pre>
 </div>
 </div>
 </section><section id="preparando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="preparando-os-dados">Preparando os dados</h2>
@@ -666,7 +654,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section><section id="treinamento-com-validação-cruzada-e-grid-de-parâmetros" class="level2"><h2 class="anchored" data-anchor-id="treinamento-com-validação-cruzada-e-grid-de-parâmetros">Treinamento com validação cruzada e grid de parâmetros</h2>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span>
 <span><span class="co"># Grid de hiperparâmetros</span></span>
 <span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
 <span>  eta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.1</span><span class="op">)</span>,</span>
@@ -762,12 +750,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rmse_final</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Metrics/man/rmse.html">rmse</a></span><span class="op">(</span><span class="va">y_teste</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">prev</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"RMSE no conjunto de teste:"</span>, <span class="va">rmse_final</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>RMSE no conjunto de teste: 3.80707</code></pre>
+<pre><code>RMSE no conjunto de teste: 3.34077</code></pre>
 </div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">caret</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">postResample</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">prev</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     RMSE  Rsquared       MAE 
-3.8070699 0.8497835 2.3451366 </code></pre>
+3.3407695 0.8947614 2.1166538 </code></pre>
 </div>
 </div>
 </section><section id="comparação-com-outro-modelo-regressão-linear" class="level2"><h2 class="anchored" data-anchor-id="comparação-com-outro-modelo-regressão-linear">Comparação com outro modelo (Regressão Linear)</h2>
@@ -784,7 +772,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/postResample.html">postResample</a></span><span class="op">(</span><span class="va">pred_lm</span>, <span class="va">conj_teste</span><span class="op">$</span><span class="va">medv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     RMSE  Rsquared       MAE 
-5.9426142 0.6315418 3.9610503 </code></pre>
+5.5535662 0.7120235 3.8617314 </code></pre>
 </div>
 </div>
 
@@ -1201,8 +1189,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="../semanas/Aula11.2B.html" class="pagination-link" aria-label="Arvore de Regressão (GBM)">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Arvore de Regressão (GBM)</span>
+      <a href="../semanas/Aula11.2A.html" class="pagination-link" aria-label="Arvore de Regressão (Randon Forest)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Arvore de Regressão (Randon Forest)</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

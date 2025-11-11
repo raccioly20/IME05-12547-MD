@@ -48,7 +48,7 @@ dados <- Boston
 ## Vamos criar os conjuntos de treino teste e desenvolver a arvore 
 ## com todas as variáveis.
 library(caret)
-set.seed(21)
+set.seed(2025)
 indice <- createDataPartition(dados$medv, times=1, p=0.75, list=FALSE)
 conj_treino <- dados[indice,]
 conj_teste <- dados[-indice,]
@@ -94,7 +94,7 @@ avaliacoes <- grid_params %>%
             min.node.size = min.node.size,
             splitrule = splitrule,
             num.trees = num.trees,
-            seed = 123
+            seed = 2025
           )
           pred <- predict(modelo, data = teste)$predictions
           metric <- yardstick::rmse_vec(truth = teste$medv, estimate = pred)
@@ -182,14 +182,11 @@ postResample(pred_lm, conj_teste$medv)
 
 ```{r}
 # Gráfico de comparação
-graf_comparacao <- ggplot() +
+ggplot() +
   geom_point(aes(x = conj_teste$medv, y = pred), color = "blue", alpha = 0.5) +
   geom_point(aes(x = conj_teste$medv, y = pred_lm), color = "red", alpha = 0.5) +
-  labs(title = "Comparação de Previsões: Random Forest vs Regressão Linear",
-       x = "Valores Reais (medv)", y = "Previsões") +
+  labs(title = "Comparação de Previsões: Random Forest (azul) vs Regressão Linear (vermelho)", x = "Valores Reais (medv)", y = "Previsões") +
   theme_minimal()
-graf_comparacao
-
 ```
 
 ## Analisando com o LIME
