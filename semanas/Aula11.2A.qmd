@@ -217,12 +217,12 @@ explainer <- lime(conj_treino, modelo_caret, bin_continuous = FALSE)
 explicacoes <- explain(
   conj_teste[1:3, ],
   explainer = explainer,
-  n_features = 5,
+  n_features = 6,
   n_labels = 1
 )
 
 # Dados Analisados
-conj_teste[1:3, c("medv", "rm", "ptratio", "nox", "dis", "lstat", "tax")]
+conj_teste[1:3, c("medv", "lstat","rm", "nox","crim", "dis", "age", "indus", "ptratio", "tax")]
 # Visualizar explicações
 plot_features(explicacoes)
 ```
