@@ -122,14 +122,18 @@ calc_erro_class <- function(real, previsto) {
 
 ```{r}
 set.seed(2025)
-# Normalizando os dados
-credito <- credito %>% mutate(balanco = scale(balanco), receita = scale(receita))
 
 y <- credito$inadimplente
 indice_teste <- createDataPartition(y, times = 1, p = 0.1, list = FALSE)
 
 conj_treino <- credito[-indice_teste,]
 conj_teste <- credito[indice_teste,]
+
+# Normalizando os dados
+conj_treino <- conj_treino %>% mutate(balanco = scale(balanco), receita = scale(receita))
+conj_teste <- conj_teste %>% mutate(balanco = scale(balanco), receita = scale(receita))
+
+
 
 summary(conj_treino)
 summary(conj_teste)
