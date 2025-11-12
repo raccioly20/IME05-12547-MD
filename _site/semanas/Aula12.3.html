@@ -657,14 +657,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co"># Codificação dummy para variáveis categóricas</span></span>
 <span><span class="va">dummies</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/dummyVars.html">dummyVars</a></span><span class="op">(</span><span class="va">vendaAlta</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span></span>
 <span><span class="va">X_treino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">dummies</span>, newdata <span class="op">=</span> <span class="va">conj_treino</span><span class="op">)</span></span>
-<span><span class="va">X_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">dummies</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">X_treino</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  preco_comp renda propaganda populacao preco local_prat.Bad local_prat.Good
+1        138    73         11       276   120              1               0
+3        113    35         10       269    80              0               0
+4        117   100          4       466    97              0               0
+5        141    64          3       340   128              1               0
+7        115   105          0        45   108              0               0
+8        136    81         15       425   120              0               1
+  local_prat.Medium idade educacao urbano.No urbano.Yes eua.No eua.Yes
+1                 0    42       17         0          1      0       1
+3                 1    59       12         0          1      0       1
+4                 1    55       14         0          1      0       1
+5                 0    38       13         0          1      1       0
+7                 1    71       15         0          1      1       0
+8                 0    67       10         0          1      0       1</code></pre>
+</div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">X_teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">dummies</span>, newdata <span class="op">=</span> <span class="va">conj_teste</span><span class="op">)</span></span>
+<span></span>
 <span></span>
 <span><span class="co"># Criar matrizes DMatrix</span></span>
 <span><span class="va">dtreino</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.DMatrix.html">xgb.DMatrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X_treino</span>, label <span class="op">=</span> <span class="va">conj_treino</span><span class="op">$</span><span class="va">vendaAlta</span><span class="op">)</span></span>
 <span><span class="va">dteste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.DMatrix.html">xgb.DMatrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">X_teste</span>, label <span class="op">=</span> <span class="va">conj_teste</span><span class="op">$</span><span class="va">vendaAlta</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Parâmetros do modelo</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Parâmetros do modelo</span></span>
 <span><span class="va">param</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"binary:logistic"</span>,</span>
 <span>  eval_metric <span class="op">=</span> <span class="st">"error"</span>,</span>
@@ -682,7 +700,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Previsões</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Previsões</span></span>
 <span><span class="va">pred_prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">dteste</span><span class="op">)</span></span>
 <span><span class="va">pred_class</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">pred_prob</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
@@ -720,7 +738,7 @@ Prediction  0  1
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">roc_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">vendaAlta</span>, <span class="va">pred_prob</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">roc_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">conj_teste</span><span class="op">$</span><span class="va">vendaAlta</span>, <span class="va">pred_prob</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">roc_obj</span>, main <span class="op">=</span> <span class="st">"Curva ROC - XGBoost"</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -728,13 +746,13 @@ Prediction  0  1
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="va">roc_obj</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="va">roc_obj</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Area under the curve: 0.8767</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">importance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.importance.html">xgb.importance</a></span><span class="op">(</span>model <span class="op">=</span> <span class="va">model</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">importance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.importance.html">xgb.importance</a></span><span class="op">(</span>model <span class="op">=</span> <span class="va">model</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/xgboost/man/xgb.plot.importance.html">xgb.plot.importance</a></span><span class="op">(</span>importance_matrix <span class="op">=</span> <span class="va">importance</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>

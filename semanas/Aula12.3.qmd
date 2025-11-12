@@ -90,7 +90,9 @@ conj_teste <- cad_crianca[-indice, ]
 # Codificação dummy para variáveis categóricas
 dummies <- dummyVars(vendaAlta ~ ., data = conj_treino)
 X_treino <- predict(dummies, newdata = conj_treino)
+head(X_treino)
 X_teste <- predict(dummies, newdata = conj_teste)
+
 
 # Criar matrizes DMatrix
 dtreino <- xgb.DMatrix(data = X_treino, label = conj_treino$vendaAlta)
