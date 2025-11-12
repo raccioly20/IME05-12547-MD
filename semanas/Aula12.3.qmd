@@ -124,7 +124,7 @@ pred_prob <- predict(model, dteste)
 pred_class <- ifelse(pred_prob > 0.5, 1, 0)
 
 # Matriz de confusão
-conf_matrix <- confusionMatrix(factor(pred_class), factor(conj_teste$vendaAlta))
+conf_matrix <- confusionMatrix(factor(pred_class), factor(conj_teste$vendaAlta), positive = "1")
 conf_matrix
 
 ```
