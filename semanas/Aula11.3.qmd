@@ -75,7 +75,7 @@ set.seed(2025)
 grid <- expand.grid(
   eta = c(0.01, 0.1),
   max_depth = c(3, 6),
-  nrounds = c(100, 200)
+  nrounds = c(100, 200, 300)
 )
 
 # Avaliar cada combinação com CV
@@ -108,17 +108,22 @@ for (i in 1:nrow(grid)) {
 
 # Melhor modelo
 rmses <- sapply(resultados_cv, function(x) x$rmse)
+
 melhor_indice <- which.min(rmses)
 melhor_param <- resultados_cv[[melhor_indice]]$params
 melhor_nrounds <- resultados_cv[[melhor_indice]]$best_nrounds
+melhor_rmse <- resultados_cv[[melhor_indice]]$rmse
 
 melhor_param
+melhor_nrounds
+melhor_rmse
 ```
 
 ## Modelo Final
 
 ```{r}
 # Treino final com os melhores parâmetros
+set.seed(2025)
 final_model <- xgb.train(
   params = list(
     objective = "reg:squarederror",

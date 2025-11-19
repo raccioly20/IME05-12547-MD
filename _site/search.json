@@ -3903,7 +3903,7 @@
     "href": "semanas/Aula11.3.html#treinamento-com-validação-cruzada-e-grid-de-parâmetros",
     "title": "Arvores de Regressão - XGBoost",
     "section": "Treinamento com validação cruzada e grid de parâmetros",
-    "text": "Treinamento com validação cruzada e grid de parâmetros\n\nset.seed(2025)\n# Grid de hiperparâmetros\ngrid &lt;- expand.grid(\n  eta = c(0.01, 0.1),\n  max_depth = c(3, 6),\n  nrounds = c(100, 200)\n)\n\n# Avaliar cada combinação com CV\nresultados_cv &lt;- list()\n\nfor (i in 1:nrow(grid)) {\n  params &lt;- list(\n    objective = \"reg:squarederror\",\n    eta = grid$eta[i],\n    max_depth = grid$max_depth[i],\n    verbosity = 0\n  )\n  \n  cv &lt;- xgb.cv(\n    params = params,\n    data = dtrain,\n    nrounds = grid$nrounds[i],\n    nfold = 5,\n    metrics = \"rmse\",\n    early_stopping_rounds = 10,\n    verbose = 0\n  )\n  \n  resultados_cv[[i]] &lt;- list(\n    rmse = min(cv$evaluation_log$test_rmse_mean),\n    best_nrounds = cv$best_iteration,\n    params = grid[i, ]\n  )\n}\n\n# Melhor modelo\nrmses &lt;- sapply(resultados_cv, function(x) x$rmse)\nmelhor_indice &lt;- which.min(rmses)\nmelhor_param &lt;- resultados_cv[[melhor_indice]]$params\nmelhor_nrounds &lt;- resultados_cv[[melhor_indice]]$best_nrounds\n\nmelhor_param\n\n  eta max_depth nrounds\n6 0.1         3     200",
+    "text": "Treinamento com validação cruzada e grid de parâmetros\n\nset.seed(2025)\n# Grid de hiperparâmetros\ngrid &lt;- expand.grid(\n  eta = c(0.01, 0.1),\n  max_depth = c(3, 6),\n  nrounds = c(100, 200, 300)\n)\n\n# Avaliar cada combinação com CV\nresultados_cv &lt;- list()\n\nfor (i in 1:nrow(grid)) {\n  params &lt;- list(\n    objective = \"reg:squarederror\",\n    eta = grid$eta[i],\n    max_depth = grid$max_depth[i],\n    verbosity = 0\n  )\n  \n  cv &lt;- xgb.cv(\n    params = params,\n    data = dtrain,\n    nrounds = grid$nrounds[i],\n    nfold = 5,\n    metrics = \"rmse\",\n    early_stopping_rounds = 10,\n    verbose = 0\n  )\n  \n  resultados_cv[[i]] &lt;- list(\n    rmse = min(cv$evaluation_log$test_rmse_mean),\n    best_nrounds = cv$best_iteration,\n    params = grid[i, ]\n  )\n}\n\n# Melhor modelo\nrmses &lt;- sapply(resultados_cv, function(x) x$rmse)\n\nmelhor_indice &lt;- which.min(rmses)\nmelhor_param &lt;- resultados_cv[[melhor_indice]]$params\nmelhor_nrounds &lt;- resultados_cv[[melhor_indice]]$best_nrounds\nmelhor_rmse &lt;- resultados_cv[[melhor_indice]]$rmse\n\nmelhor_param\n\n  eta max_depth nrounds\n6 0.1         3     200\n\nmelhor_nrounds\n\n[1] 122\n\nmelhor_rmse\n\n[1] 3.198383",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (XGBoost)"
@@ -3914,7 +3914,7 @@
     "href": "semanas/Aula11.3.html#modelo-final",
     "title": "Arvores de Regressão - XGBoost",
     "section": "Modelo Final",
-    "text": "Modelo Final\n\n# Treino final com os melhores parâmetros\nfinal_model &lt;- xgb.train(\n  params = list(\n    objective = \"reg:squarederror\",\n    eta = melhor_param$eta,\n    max_depth = melhor_param$max_depth\n  ),\n  data = dtrain,\n  nrounds = melhor_nrounds,\n  verbose = 0\n)",
+    "text": "Modelo Final\n\n# Treino final com os melhores parâmetros\nset.seed(2025)\nfinal_model &lt;- xgb.train(\n  params = list(\n    objective = \"reg:squarederror\",\n    eta = melhor_param$eta,\n    max_depth = melhor_param$max_depth\n  ),\n  data = dtrain,\n  nrounds = melhor_nrounds,\n  verbose = 0\n)",
     "crumbs": [
       "Conteúdo Semanal",
       "Arvore de Regressão (XGBoost)"
